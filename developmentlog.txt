@@ -1,0 +1,146 @@
+2014-02-09
+==========
+
+Previous Week’s Objectives
+---------------------
+
+This Week’s Objectives
+-------------------
+
+2014-02-02
+==========
+
+
+Previous Week’s Objectives
+---------------------
+
+* [Completed] Reaching out to individuals interested in our game 3.5 d (7.0 h)
+   > Explained expectation for game, type of style we desired
+   > Artist that are interested to work with us
+	- Daniel Root - Character Concept Art / Character Modeler 
+	- Kevin Barrientos - Character Modeler
+	- Kelly Mai - Environmental / Character Concept Artist
+	- Lily Russell - Character Concept Art
+	- Melody Palisoc - Prop and Character Model
+	- Emily Chiang - Rigger / Animator
+	- Brian Crawford - Rigger
+	- Jeremy Moyer - Game Design
+   > Ivan Espinosa and Mark Martene
+
+* [Ongoing] Go over Unity Tutorials by the end of the week 2.0 h ( 5.0 h)
+   > Understand how to work with the Interface
+   > Go over scripting language for Unity and understand the functionality
+   > Ivan Espinosa and Mark Martene
+
+* [Completed] Setting up repo and SSH 1.0 h (3.0 h)
+   > Setting up a common repo for us all to work from. Currently, we have chosen to work under “usrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git”
+   > SSH established for all of us.
+   > Read the first 3 chapters of the GitPro book
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+* [Complete/Can be improved]Add Unity source code 1.0 h (0.5 h)
+   > Push a Unity Project into git
+   > Add .gitignore file to the rep for space efficiency
+   > Christopher Randin
+
+* [Completed] Finalized theme, game objectives, structure and discuss creative gameplay 5.0 h (8.0h)
+   > Discussion as to what we desired from a fantasy world. Not wanting to focusing on the same fantasy style (i.e. Orcs v Human) Synopsis of the world is that it is dying and different groups of people are fighting over resources to survive this per-apocalyptic world.
+   > Acquired a desired game mode, i.e. versus, with multiple ways of winning.
+	- Acquire an X amount of “resources”
+	- Kill opponent’s leader
+	- Capture and hold X number of resource points for a Y amount of turns
+   > Discussed the current groups priorities for this game
+	- Submission as a final project
+* Submission for this years, 2014, GameSig competition 
+   > Discussed likes and dislike from other games. Presenting ideas we would like to incorporate into our game to give it uniqueness and bringing in fun mechanics from other games and/or modify with our own twist.
+   > Artist presented concept art for the units we desired of the 6 units(Braver, Scout, Vanguard, Arcane, Titan, Sniper). Went over discussion on what their roles were as individuals.
+   > Discussed what we wanted in the game for demo purposes:
+	- 2 races
+	- Unique mechanics to go with each race, choose leaders
+	- Simple story/theme
+	- Game mode: Versus
+	- 1 Map(maybe 2 depending on time)
+	- Dynamic environment with each unit(grapel to trees, break trees/wall)
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+* [Ongoing] Setting up the start-up requirements and small features 2.0h (2.0h)
+   > Waiting for more info as to how the game was going to play out
+   > Though about possible improvement over square tile, idealize over tile projection(automatically constructs visual aspect of tile depending on the construction of the environment) vs. tile placement(easier, but a lot of manual work to reposition if map changes)
+   > Construct basis class for hierarchical structure of unit derivation.
+   > Christopher Randin and Ivan Espinosa
+
+This Week’s Objectives
+-------------------
+
+* Communicate with Artists in person 2.0 h
+   > Encourage them for motivation to work on the game
+   > Discuss art that will need to get done for the next
+   > Ask the main following questions:
+	- When is their availability
+	- What is the best way to contact them
+	- How much time can they put into the game
+   > Ivan Espinosa and Mark Martene
+
+* Come Up with Additional Race 2.0 h
+   > Find the opposing race of our human race
+   > Have concept artists start to work on additional race
+   > Chris Randin, Ivan Espinosa and Mark Martene
+
+* Devise a method for creating tile for the map 6.0 h
+   > Finalize idea of manual place(static and easy) vs projection(dynamic and not-so-easy)
+   > Implement idea, look up resource for improvement and data structure design
+   > Christopher Randin and Ivan Espinosa
+
+* Document what intractable objects will be in the environment 3.0 h
+   > Write-up report as to how to make the world dynamic
+   > No programming expected, till units are finalize in concept and code
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+* Construct class hierarchy 2.0 h
+   > Create base class to inherit from, also provide virtual future to unify objects 
+   > Create basic class for each unit, think of individual traits for each unit
+   > Mark Martene
+
+* Construct an easy to use camera pane system 4.0 h
+   > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
+   > Allow, mouse to focus on “valid” units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Ivan Espinosa and Mark Martene
+
+
+2014-01-26
+==========
+
+This Week’s Objectives
+---------------------
+
+* Show up to class 3.0 h
+   > Listen to Shafae’s lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+This Week’s Objectives
+-------------------
+
+* Setting up repo and SSH 1.0 h
+   > SSH established for all of us.
+   > Read the first 3 chapters of the GitPro book
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+
+* Add Unity source code 1.0 h
+   > Push a Unity Project into git
+   > Add .gitignore file to the rep for space efficiency
+* Need to know what files to ignore
+   > Christopher Randin
+
+* Go over Unity Tutorials by the end of the week 2.0 h
+   > Understand how to work with the Interface
+   > Go over scripting language for Unity and understand the functionality
+   > Ivan Espinosa and Mark Martene
+
+* Setting up the start-up requirements and small features 2.0 h
+   > Create a basis for which to project tiles on or construct tiles by hand
+   > Get a feel for how to organize the map and see if this is the behavior we desire.
+   > Construct basis class for hierarchical structure of unit derivation.
+   > Christopher Randin
+
+
