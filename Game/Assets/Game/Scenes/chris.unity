@@ -136,6 +136,133 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1001 &617302574
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_RootGameObject: {fileID: 875805907}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
+--- !u!1 &834513335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 834513336}
+  - 119: {fileID: 834513337}
+  m_Layer: 0
+  m_Name: Distance Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &834513336
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  m_GameObject: {fileID: 834513335}
+  m_LocalRotation: {x: .707106888, y: 0, z: 0, w: .707106769}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 875805908}
+--- !u!119 &834513337
+Projector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11900000, guid: d09f3c4ab9873c840af6992f73bca7ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  m_GameObject: {fileID: 834513335}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: .100000001
+  m_FarClipPlane: 50
+  m_FieldOfView: 30
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 10.869565
+  m_Material: {fileID: 2100000, guid: 1590f24c092052540b1fb305d083d6eb, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 1792
+--- !u!1 &875805907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 875805908}
+  - 114: {fileID: 875805909}
+  m_Layer: 0
+  m_Name: DistanceProjectors
+  m_TagString: Projectors
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &875805908
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400002, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  m_GameObject: {fileID: 875805907}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 834513336}
+  - {fileID: 1910592526}
+  m_Father: {fileID: 0}
+--- !u!114 &875805909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: d09f3c4ab9873c840af6992f73bca7ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  m_GameObject: {fileID: 875805907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d4cc29635722c40b3a491a21eac5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1024321078
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +277,7 @@ GameObject:
   - 143: {fileID: 1024321081}
   - 111: {fileID: 1024321080}
   - 114: {fileID: 1024321079}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Unit
   m_Icon: {fileID: 0}
@@ -171,12 +298,14 @@ MonoBehaviour:
   idle_animation: {fileID: 0}
   run_animation: {fileID: 0}
   jump_animation: {fileID: 0}
-  travel_distance: 0
-  can_jump: 0
+  speed: 10
+  max_travel_distance: 10
+  can_jump: 1
   air_jumps: 0
-  jump_height: 0
-  fall_speed: 5
+  jump_height: 6
+  fall_speed: 40
   rotation_speed: 0
+  travel_distance: 0
 --- !u!111 &1024321080
 Animation:
   m_ObjectHideFlags: 0
@@ -217,7 +346,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9ad12fc8c60ec7e499199929332899f6, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -253,9 +382,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1024321078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.768815994, y: 2.09957194, z: -.376644373}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_LocalPosition: {x: 4.908535, y: 1.51068139, z: 0}
+  m_LocalScale: {x: .75, y: 1.20000005, z: .75}
+  m_Children:
+  - {fileID: 1429189282}
   m_Father: {fileID: 0}
 --- !u!1 &1429189277
 GameObject:
@@ -332,11 +462,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1429189277}
-  m_LocalRotation: {x: .263281554, y: -.370472878, z: .11035265, w: .883886278}
-  m_LocalPosition: {x: 4.49565411, y: 3.33121014, z: -5.13630486}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: .355080396, y: .000278749387, z: -.000101160404, w: .934835732}
+  m_LocalPosition: {x: -.183108568, y: 3.5727191, z: -5.53142929}
+  m_LocalScale: {x: 1.33333325, y: .983040273, z: 1.18362629}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1024321085}
 --- !u!1 &1606365728
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +534,52 @@ Transform:
   m_GameObject: {fileID: 1606365728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.8385582, y: 2.8385582, z: 2.8385582}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &1910592524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100004, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1910592526}
+  - 119: {fileID: 1910592525}
+  m_Layer: 0
+  m_Name: Distance Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!119 &1910592525
+Projector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11900002, guid: d09f3c4ab9873c840af6992f73bca7ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  m_GameObject: {fileID: 1910592524}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: .100000001
+  m_FarClipPlane: 50
+  m_FieldOfView: 30
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 10.869565
+  m_Material: {fileID: 2100000, guid: 1590f24c092052540b1fb305d083d6eb, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 1792
+--- !u!4 &1910592526
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400004, guid: d09f3c4ab9873c840af6992f73bca7ca, type: 2}
+  m_PrefabInternal: {fileID: 617302574}
+  m_GameObject: {fileID: 1910592524}
+  m_LocalRotation: {x: .707106888, y: 0, z: 0, w: .707106769}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 875805908}

@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Tile
-  m_Shader: {fileID: 4, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: DistanceProjection
+  m_Shader: {fileID: 4800000, guid: ab70c098a52a04be88096d20e1540cb8, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,27 +17,26 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: a02cfcabd7ad2274eb500cfc5271f041, type: 3}
+          m_Texture: {fileID: 2800000, guid: 06027cbfd5229b647becc3f064678fed, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _BumpMap
+          name: _ShadowTex
         second:
-          m_Texture: {fileID: 2800000, guid: 8403d3349d112ba4d000be1be39e7c39, type: 3}
+          m_Texture: {fileID: 2800000, guid: 15db58e405cc6d049b5e728734f76027, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats:
       data:
         first:
-          name: _Shininess
-        second: .078125
+          name: _FalloffTex
+        second:
+          m_Texture: {fileID: 2800000, guid: cc90a732ad112a541100162a44295342, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats: {}
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .176470593, g: .650980413, b: .827450991, a: 1}
-      data:
-        first:
-          name: _SpecColor
-        second: {r: .5, g: .5, b: .5, a: 1}
+        second: {r: .576470613, g: .925490201, b: .984313726, a: 1}

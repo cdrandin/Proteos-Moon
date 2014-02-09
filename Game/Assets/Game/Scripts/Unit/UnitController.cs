@@ -14,8 +14,11 @@ public class UnitController : MonoBehaviour
 	public AnimationClip run_animation;
 	public AnimationClip jump_animation;
 
+	// How fast unit can move
+	public float speed;
+
 	// How far the unit should be able to travel
-	public float travel_distance;
+	public float max_travel_distance;
 
 	// Unit allowed to jump
 	public bool can_jump;
@@ -50,6 +53,9 @@ public class UnitController : MonoBehaviour
 
 	// Check to see if the unit should be allow to move, disabled when unit has done its actions
 	private bool _is_controllable;
+
+	// Keep track how far the unit has traveled
+	public float travel_distance;
 
 	private CharacterController _cc;
 	/*
@@ -93,9 +99,9 @@ public class UnitController : MonoBehaviour
 	void Start() 
 	{
 		// Forward is the +Z axis
-		_move_direction  = transform.TransformDirection(Vector3.forward);
+		_move_direction  = Vector3.zero; //transform.TransformDirection(Vector3.forward);
 		_is_jumping      = false;
-		_is_controllable = false;
+		_is_controllable = true;
 		_vertical_speed  = 0.0f;
 
 		//character_state_ = CharacterState.Idle;
@@ -104,7 +110,7 @@ public class UnitController : MonoBehaviour
 	// Update is called once per frame
 	void Update() 
 	{
-		if (!_is_controllable)
+		if (!_is_controllable || travel_distance >= max_travel_distance)
 		{
 			// kill all inputs if not controllable.
 			Input.ResetInputAxes();
@@ -112,20 +118,50 @@ public class UnitController : MonoBehaviour
 
 		// Move
 		Move();
+
 		// Gravity
 		ApplyGravity();
 
 		// Jump
+		Jump();
 
 		// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
-		Vector3 movement = _move_direction + new Vector3(0, _vertical_speed, 0);
+		Vector3 movement = _move_direction * speed + new Vector3(0, _vertical_speed, 0);
 		movement *= Time.deltaTime;
+
+		// Keep track of distance traveled when moving
+		if(IsMoving())
+		{
+			float z = Mathf.Abs(movement.z);
+			float x = Mathf.Abs(movement.x);
+
+			// Not yet does it count diagonal distance
+			if(z > x)
+				travel_distance += z;
+			else if(z < x)
+				travel_distance += x;
+			else
+				travel_distance += movement.magnitude;
+		}
 
 		_cc.Move(movement);
 	}
 
 	void Move()
 	{
+		if(!_is_controllable)
+			return;
+
+		float v = Input.GetAxis("Vertical");
+		float h = Input.GetAxis("Horizontal");
+
+		Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
+
+		if(IsGrounded())
+		{
+			target_direction.Normalize();
+			_move_direction = target_direction;
+		}
 	}
 
 	void ApplyGravity()
@@ -136,8 +172,52 @@ public class UnitController : MonoBehaviour
 			_vertical_speed -= fall_speed * Time.deltaTime;
 	}
 
+	void Jump()
+	{
+		if(IsGrounded())
+		{
+			if(can_jump && Input.GetKeyDown(KeyCode.Space))
+			{
+				_vertical_speed = CalculateJumpVerticalSpeed(jump_height);
+			}
+		}
+	}
+
 	bool IsGrounded()
 	{
 		return _cc.isGrounded;
+	}
+
+	float CalculateJumpVerticalSpeed(float height)
+	{
+		return Mathf.Sqrt(2 * height * fall_speed);
+	}
+
+	bool IsMoving()
+	{
+		return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f  || Mathf.Abs(Input.GetAxis("Vertical")) > 0.05f || Input.GetKeyDown(KeyCode.Space);
+	}
+
+	public bool GetIsControllable()
+	{
+		return _is_controllable;
+	}
+
+	public void SetIsControllable(bool v)
+	{
+		_is_controllable = v;
+	}
+
+	public float GetMaxDistance()
+	{
+		return max_travel_distance;
+	}
+
+	void Reset ()
+	{
+		// Testing numbers that had a "nice" feel
+		speed = 10.0f;
+		jump_height = 6.0f;
+		fall_speed = 40.0f;
 	}
 }
