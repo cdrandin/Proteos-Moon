@@ -27,7 +27,10 @@ Previous Week’s Objectives
    > Scaling of projection ortho size took some trail and error to scale 
    >	correctly with the distance of 1 unit. Came to be ..
    >	new_ortho_size = unit_distance/(10.0/12.0)
-   > This is any easy to use system, simply call 
+   > This is any easy to use system, simply call "SetProjectorFocus", 
+   >	from the "DistanceProjection" script passing a "focus" 
+   >	GameObject, which sets focus internally and project accoringly.
+   > Will display error if incorret object is passed.
    > Christopher Randin
 
 * []Communicate with Artists in person 2.0 h (0.0 h)
