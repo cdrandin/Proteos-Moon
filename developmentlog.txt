@@ -1,11 +1,80 @@
+######################################################################
 2014-02-09
 ==========
 
 Previous Week’s Objectives
 ---------------------
 
+* [Completed/Can be imporved] Creating a unit controller 6.0h (4.0 h)
+   > Unit control working prety good. Might need to change the way 
+   >	it moves, feels rather rigid. Can smooth it for later.
+   > Unit has a limited distance as to how far one can travel.
+   > Jumping works correctly, just not so fluid Also, air-jumping is
+   >	possible for "special" units.
+   > Issue: Keep track of distance is clunky, diagonal movement allows
+   >	more distance travel, which shouldn't be.
+   > This works independently from the camera, it is assumed the camera
+   >	will follow the unit a certain way.
+   > Also, includes idle, run, jump animations to be used when assigned
+   >	If none are assigned, then it skips it
+   > Christopher Randin
+
+* [Completed] Project a circle around a "focus" unit to show how far
+ 	they can move if they walked completely linear. 2.0h (2.0 h)
+   > Created a couple of textures to use for the projection 
+   > This will display onto the ground correctly. This is set to ignore:
+   >	"Units", "Leaders" and "Terrain" specific layer maskings.
+   > Scaling of projection ortho size took some trail and error to scale 
+   >	correctly with the distance of 1 unit. Came to be ..
+   >	new_ortho_size = unit_distance/(10.0/12.0)
+   > This is any easy to use system, simply call 
+   > Christopher Randin
+
+* []Communicate with Artists in person 2.0 h (0.0 h)
+   > Encourage them for motivation to work on the game
+   > Discuss art that will need to get done for the next
+   > Ask the main following questions:
+	- When is their availability
+	- What is the best way to contact them
+	- How much time can they put into the game
+   > Ivan Espinosa and Mark Martene
+
+* []Come Up with Additional Race 2.0 h (0.0 h)
+   > Find the opposing race of our human race
+   > Have concept artists start to work on additional race
+   > Chris Randin, Ivan Espinosa and Mark Martene
+
+* []Document what intractable objects will be in the environment 3.0 h (0.0 h)
+   > Write-up report as to how to make the world dynamic
+   > No programming expected, till units are finalize in concept and code
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+* []Construct class hierarchy 2.0 h (0.0 h)
+   > Create base class to inherit from, also provide virtual future to unify objects 
+   > Create basic class for each unit, think of individual traits for each unit
+   > Mark Martene
+
+* []Construct an easy to use camera pane system 4.0 h (0.0 h)
+   > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
+   > Allow, mouse to focus on “valid” units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Ivan Espinosa and Mark Martene
+
+* [Trashed] Devise a method for creating tile for the map 6.0 h (5.0h)
+   > $ Did not meet the desire for our gamplay and tiles caused too 
+   >	much restrictions with the desired "feel" for our units.
+   > Finalize idea of manual place(static and easy) vs 
+   >	projection(dynamic and not-so-easy)
+   > Implement idea, look up resource for improvement and data 
+   >	structure design
+   > Created appropriate tile placement and find a good ratio for the 
+   >	tiles to be placed in world space.
+   > Ignore objects with tag "Obstruction" to avoid placing a valid 
+   >	tile on the map.
+   > Christopher Randin and Ivan Espinosa
+
 This Week’s Objectives
 -------------------
+
 
 2014-02-02
 ==========
@@ -27,7 +96,7 @@ Previous Week’s Objectives
 	- Jeremy Moyer - Game Design
    > Ivan Espinosa and Mark Martene
 
-* [Ongoing] Go over Unity Tutorials by the end of the week 2.0 h ( 5.0 h)
+* [Ongoing] Go over Unity Tutorials by the end of the week 2.0 h (5.0 h)
    > Understand how to work with the Interface
    > Go over scripting language for Unity and understand the functionality
    > Ivan Espinosa and Mark Martene
