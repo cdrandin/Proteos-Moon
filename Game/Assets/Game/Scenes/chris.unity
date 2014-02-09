@@ -301,9 +301,9 @@ MonoBehaviour:
   speed: 10
   max_travel_distance: 10
   can_jump: 1
-  air_jumps: 0
+  air_jumps: 1
   jump_height: 6
-  fall_speed: 40
+  fall_speed: 60
   rotation_speed: 0
   travel_distance: 0
 --- !u!111 &1024321080

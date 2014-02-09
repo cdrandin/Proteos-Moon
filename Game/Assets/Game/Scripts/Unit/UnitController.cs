@@ -51,6 +51,9 @@ public class UnitController : MonoBehaviour
 	// Know when unit is jumping
 	private bool _is_jumping;
 
+	// Keep track how many times allow to jump in air
+	private int _air_jump_count;
+
 	// Check to see if the unit should be allow to move, disabled when unit has done its actions
 	private bool _is_controllable;
 
@@ -103,6 +106,7 @@ public class UnitController : MonoBehaviour
 		_is_jumping      = false;
 		_is_controllable = true;
 		_vertical_speed  = 0.0f;
+		_air_jump_count  = 0;
 
 		//character_state_ = CharacterState.Idle;
 	}
@@ -112,6 +116,9 @@ public class UnitController : MonoBehaviour
 	{
 		if (!_is_controllable || travel_distance >= max_travel_distance)
 		{
+			//
+			// MAY CAUSE PROBLEMS IN THE FUTURE !!!
+			//
 			// kill all inputs if not controllable.
 			Input.ResetInputAxes();
 		}
@@ -159,6 +166,7 @@ public class UnitController : MonoBehaviour
 
 		if(IsGrounded())
 		{
+			_is_jumping = false;
 			target_direction.Normalize();
 			_move_direction = target_direction;
 		}
@@ -174,11 +182,24 @@ public class UnitController : MonoBehaviour
 
 	void Jump()
 	{
-		if(IsGrounded())
+		//bool jumping = can_jump && Input.GetAxis("Jump") > 0.9f;
+		bool jumping = can_jump && Input.GetKeyDown(KeyCode.Space);
+		
+		if(jumping)
 		{
-			if(can_jump && Input.GetKeyDown(KeyCode.Space))
+			// Allow jump off ground
+			if(IsGrounded())
 			{
 				_vertical_speed = CalculateJumpVerticalSpeed(jump_height);
+				_is_jumping = true;
+				_air_jump_count = 0;
+			}
+
+			// Mid-air jump
+			else if(air_jumps > 0 &&_air_jump_count < air_jumps) 
+			{
+				++_air_jump_count;
+				_vertical_speed += CalculateJumpVerticalSpeed(jump_height);
 			}
 		}
 	}
@@ -195,7 +216,7 @@ public class UnitController : MonoBehaviour
 
 	bool IsMoving()
 	{
-		return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f  || Mathf.Abs(Input.GetAxis("Vertical")) > 0.05f || Input.GetKeyDown(KeyCode.Space);
+		return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f  || Mathf.Abs(Input.GetAxis("Vertical")) > 0.05f;
 	}
 
 	public bool GetIsControllable()
