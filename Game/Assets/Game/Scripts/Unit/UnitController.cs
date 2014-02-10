@@ -58,9 +58,10 @@ public class UnitController : MonoBehaviour
 	private bool _is_controllable;
 
 	// Keep track how far the unit has traveled
-	public float travel_distance;
+	public float _travel_distance;
 
 	private CharacterController _cc;
+
 	/*
 	// State of the unit
 	private enum CharacterState : byte
@@ -114,7 +115,7 @@ public class UnitController : MonoBehaviour
 	// Update is called once per frame
 	void Update() 
 	{
-		if (!_is_controllable || travel_distance >= max_travel_distance)
+		if (!_is_controllable /*|| _travel_distance >= max_travel_distance*/)
 		{
 			//
 			// MAY CAUSE PROBLEMS IN THE FUTURE !!!
@@ -144,11 +145,11 @@ public class UnitController : MonoBehaviour
 
 			// Not yet does it count diagonal distance
 			if(z > x)
-				travel_distance += z;
+				_travel_distance += z;
 			else if(z < x)
-				travel_distance += x;
+				_travel_distance += x;
 			else
-				travel_distance += movement.magnitude;
+				_travel_distance += movement.magnitude;
 		}
 
 		_cc.Move(movement);
