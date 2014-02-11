@@ -305,7 +305,7 @@ MonoBehaviour:
   jump_height: 6
   fall_speed: 60
   rotation_speed: 0
-  travel_distance: 0
+  _travel_distance: 0
 --- !u!111 &1024321080
 Animation:
   m_ObjectHideFlags: 0

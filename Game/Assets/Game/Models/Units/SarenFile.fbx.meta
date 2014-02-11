@@ -1,0 +1,109 @@
+fileFormatVersion: 2
+guid: 402838b6627924640a657e07f9e3d5cd
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Left_Eye
+    100002: LeftEar
+    100004: Right_Eye
+    100006: RightEar
+    100008: //RootNode
+    100010: SarenScout
+    100012: SheathBelt
+    100014: SheathBelt1
+    100016: StraightBlade
+    100018: StraightBlade1
+    100020: Weapon
+    100022: Weapon3
+    400000: Left_Eye
+    400002: LeftEar
+    400004: Right_Eye
+    400006: RightEar
+    400008: //RootNode
+    400010: SarenScout
+    400012: SheathBelt
+    400014: SheathBelt1
+    400016: StraightBlade
+    400018: StraightBlade1
+    400020: Weapon
+    400022: Weapon3
+    2300000: Left_Eye
+    2300002: LeftEar
+    2300004: Right_Eye
+    2300006: RightEar
+    2300008: SarenScout
+    2300010: SheathBelt
+    2300012: SheathBelt1
+    2300014: StraightBlade
+    2300016: StraightBlade1
+    3300000: Left_Eye
+    3300002: LeftEar
+    3300004: Right_Eye
+    3300006: RightEar
+    3300008: SarenScout
+    3300010: SheathBelt
+    3300012: SheathBelt1
+    3300014: StraightBlade
+    3300016: StraightBlade1
+    4300000: SarenScout
+    4300002: StraightBlade
+    4300004: SheathBelt
+    4300006: Left_Eye
+    4300008: Right_Eye
+    4300010: LeftEar
+    4300012: RightEar
+    4300014: StraightBlade1
+    4300016: SheathBelt1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .100000001
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
