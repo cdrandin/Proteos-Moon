@@ -6,10 +6,11 @@ public class NetworkManagerScript : MonoBehaviour {
 	float buttonY;
 	float buttonW;
 	float buttonH;*/
-	public GameObject playerPrefab;
-	public Transform spawnObject;
-	public string gameName = "Bangarang Games";
+	public GameObject player_prefab;
+	public Transform spawn_object;
+	public string game_name = "Bangarang Games";
 	private bool refreshing;
+	private int portnumber = 443;
 	private HostData[] hostData;
 	// Use this for initialization
 	void Start () {
@@ -20,17 +21,17 @@ public class NetworkManagerScript : MonoBehaviour {
 	}
 
 	void StartServer () {
-		Network.InitializeServer(3, 25000, !Network.HavePublicAddress());
-		MasterServer.RegisterHost (gameName, "Proteus Moon", "This is a test game");
+		Network.InitializeServer(3, portnumber, !Network.HavePublicAddress());
+		MasterServer.RegisterHost (game_name, "Proteus Moon", "This is a test game");
 	}
 
 	void RefreshHostList() {
-		MasterServer.RequestHostList (gameName);
+		MasterServer.RequestHostList (game_name);
 		refreshing = true;
 	}
 
 	void SpawnPlayer (){
-		Network.Instantiate (playerPrefab, spawnObject.position, Quaternion.identity, 0);	
+		Network.Instantiate (player_prefab, spawn_object.position, Quaternion.identity, 0);	
 	}
 
 	void OnServerInitialized () {
