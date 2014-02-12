@@ -113,17 +113,20 @@ This WeekÕs Objectives
    >	at a given time.
    > Control and keep track of what the unit is allowed to do(e.g movement, attack, etc)
    > !! Phases to keep track of: PlayerÕs turn, toggle between units, unit must complete all
-   >	allow ACTIONS(described later) before unit becomes exhausted (being you cannot do anymore actions), all units exhausted turn is done, as well as keeping track of game conditions
+   >	allow ACTIONS(described later) before unit becomes exhausted 
+   >	(being you cannot do anymore actions), all units exhausted turn is done, 
+   >	as well as keeping track of game conditions
    > ACTIONS: 
    >	- Movement (toggle UnitController)
    >	- Attack (toggle combat system, which introduces damage to a source)
-   >	- Spells (toggle combat system or environment interaction system, which does damage or spells affect the environment in someway
+   >	- Spells (toggle combat system or environment interaction system,
+   >	   which does damage or spells affect the environment in someway
    > 	- Wait (essentially a unit exhaust)
    > 	-  And other possible available actions
    > Christopher Randin
 
 * Construct a working UI interface 5.0 h
-   > Have static Òalways visibleÓ info on the screen
+   > Have static "always visible" info on the screen
    > Have the action interface pop up when a character is selected
    > Have the character simulate an attack when the attack button is clicked - values changed not animated
    > Have the character defend when the defend button is clicked
