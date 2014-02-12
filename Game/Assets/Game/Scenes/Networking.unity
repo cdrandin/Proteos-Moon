@@ -86,7 +86,6 @@ GameObject:
   - 124: {fileID: 217914775}
   - 92: {fileID: 217914774}
   - 81: {fileID: 217914773}
-  - 114: {fileID: 217914778}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -155,17 +154,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!114 &217914778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 217914772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8240c231db8ef4819ac202756cb84098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &281233332
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,9 +181,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d7fd96609bf4d70a8f6c77ba208252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 100000, guid: 8f09ff67255d447b7a27f6587046b3d7, type: 2}
-  spawnObject: {fileID: 1715088108}
-  gameName: Bangarang Games
+  player_prefab: {fileID: 100000, guid: 8f09ff67255d447b7a27f6587046b3d7, type: 2}
+  spawn_object: {fileID: 1715088108}
+  game_name: Bangarang Games
 --- !u!4 &281233334
 Transform:
   m_ObjectHideFlags: 0
