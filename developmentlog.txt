@@ -1,3 +1,56 @@
+2014-02-16
+==========
+
+Previous Week's Objectives
+---------------------
+
+* [Completed] Communicate and organize the artists 2.0 h (3.0 h)
+  > Might need to use MoCap for rigging and animation to complete project within our time-line
+  > We now have textured "Scout" model
+  > We now have an art production schedule for the next 3 weeks.
+  > Ivan Espinosa and Mark Martene
+
+* [Ongoing] Continue constructing an easy to use camera pane system 4.0 h
+   > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
+   > Allow, mouse to focus on ‘valid’ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Ivan Espinosa and Mark Martene
+
+* Document what interactable objects will be in the environment 3.0 h
+   > Write-up report as to how to make the world dynamic
+   > No programming expected, till units are finalized in concept and code
+   > Christopher Randin, Ivan Espinosa and Mark Martene
+
+* Initializing Fog of War for the game 6.0 h+
+   > Figure out a system where a fog model covers up the vision of the location and units
+   > Needs to update for each individual player
+   > Keeps track of what is visible to player
+   > Ivan Espinosa, Mark Martene
+
+* Construct a game manager system 8.0 h+
+   > The system should be capable in control which player is capable of moving their own units
+   >	at a given time.
+   > Control and keep track of what the unit is allowed to do(e.g movement, attack, etc)
+   > !! Phases to keep track of: Player’s turn, toggle between units, unit must complete all
+   >	allow ACTIONS(described later) before unit becomes exhausted (being you cannot do anymore actions), all units exhausted turn is done, as well as keeping track of game conditions
+   > ACTIONS: 
+   >	- Movement (toggle UnitController)
+   >	- Attack (toggle combat system, which introduces damage to a source)
+   >	- Spells (toggle combat system or environment interaction system, which does damage or spells affect the environment in someway
+   > 	- Wait (essentially a unit exhaust)
+   > 	-  And other possible available actions
+   > Christopher Randin
+
+* Construct a working UI interface 5.0 h
+   > Have static “always visible” info on the screen
+   > Have the action interface pop up when a character is selected
+   > Have the character simulate an attack when the attack button is clicked - values changed not animated
+   > Have the character defend when the defend button is clicked
+   > Have a temporary message “ability used” print to the console when the ability button is clicked
+   > Shadow out character  when “wait” or “hold” is clicked
+   > Have “Finish Turn” to have the game manager change player’s turn
+   > Have the UI communicate with the game manager system
+   > Mark Martene and Christopher Randin
+
 2014-02-09
 ==========
 
@@ -82,7 +135,7 @@ Previous Week's Objectives
    >	tile on the map.
    > Christopher Randin and Ivan Espinosa
 
-This Week’s Objectives
+This Week's Objectives
 ---------------------
 
 * Communicate and organize the artists 2.0 h
