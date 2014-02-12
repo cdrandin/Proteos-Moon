@@ -20,7 +20,7 @@ public class NetworkManagerScript : MonoBehaviour {
 	}
 
 	void StartServer () {
-		Network.InitializeServer(2, 25000, !Network.HavePublicAddress());
+		Network.InitializeServer(3, 25000, !Network.HavePublicAddress());
 		MasterServer.RegisterHost (gameName, "Proteus Moon", "This is a test game");
 	}
 
