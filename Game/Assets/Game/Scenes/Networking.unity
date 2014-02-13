@@ -86,6 +86,8 @@ GameObject:
   - 124: {fileID: 217914775}
   - 92: {fileID: 217914774}
   - 81: {fileID: 217914773}
+  - 114: {fileID: 217914779}
+  - 114: {fileID: 217914778}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -154,6 +156,36 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &217914778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 217914772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a4debc9ad1110f6d00074c88d76c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  damping: 6
+  smooth: 1
+--- !u!114 &217914779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 217914772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885b1972ad11a921d000d37b8d76c639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  distance: 10
+  height: 5
+  heightDamping: 2
+  rotationDamping: 3
 --- !u!1 &281233332
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,12 +210,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 281233332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34d7fd96609bf4d70a8f6c77ba208252, type: 3}
+  m_Script: {fileID: 11500000, guid: bcc87fd302c704a86a5ff7d64f80405a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_prefab: {fileID: 100000, guid: 8f09ff67255d447b7a27f6587046b3d7, type: 2}
+  room_name: Proteus Moon
+  new_room_name: Bangarang Games
   spawn_object: {fileID: 1715088108}
-  game_name: Bangarang Games
 --- !u!4 &281233334
 Transform:
   m_ObjectHideFlags: 0
@@ -349,7 +381,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1715088107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.36470652, y: 1.72428584, z: -7.96448231}
+  m_LocalPosition: {x: 3.36470652, y: 7.42398262, z: -7.96448231}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
