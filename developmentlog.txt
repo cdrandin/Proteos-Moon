@@ -13,7 +13,7 @@ Previous Week's Objectives
 * [Ongoing] Continue constructing an easy to use camera pane system 4.0 h
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
    > Allow, mouse to focus on ‘valid’ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
-   > Ivan Espinosa and Mark Martene
+   > Ivan Espinosa
 
 * Document what interactable objects will be in the environment 3.0 h
    > Write-up report as to how to make the world dynamic
@@ -50,6 +50,18 @@ Previous Week's Objectives
    > Have “Finish Turn” to have the game manager change player’s turn
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
+
+* [Ongoing] Construct a system for networking play [9.0 h]
+  > Implemented a networking system using Unity’s Master Server
+  	- Only worked locally
+	- Had problems with private IP addresses
+	- Scrapped this networking system
+  > Discovered Photon Cloud Networking for Unity
+  > Implemented the Photon Networking into the networking scene
+  > Tested the networking across separate computers
+	- Was able to join
+	- The opponents movement lags
+  > Mark Martene
 
 2014-02-09
 ==========
@@ -227,8 +239,8 @@ Previous Week’s Objectives
 * [Completed] Finalized theme, game objectives, structure and discuss creative gameplay 5.0 h (8.0h)
    > Discussion as to what we desired from a fantasy world. Not wanting to focusing on the same fantasy style (i.e. Orcs v Human) Synopsis of the world is that it is dying and different groups of people are fighting over resources to survive this per-apocalyptic world.
    > Acquired a desired game mode, i.e. versus, with multiple ways of winning.
-	- Acquire an X amount of ìresourcesî
-	- Kill opponentís leader
+	- Acquire an X amount of resources
+	- Kill opponent’s leader
 	- Capture and hold X number of resource points for a Y amount of turns
    > Discussed the current groups priorities for this game
 	- Submission as a final project
@@ -242,7 +254,7 @@ Previous Week’s Objectives
 	- Simple story/theme
 	- Game mode: Versus
 	- 1 Map(maybe 2 depending on time)
-	- Dynamic environment with each unit(grapel to trees, break trees/wall)
+	- Dynamic environment with each unit(grapple to trees, break trees/wall)
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
 * [Ongoing] Setting up the start-up requirements and small features 2.0h (2.0h)
@@ -299,7 +311,7 @@ This Week's Objectives
    > Listen to Shafae's lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
-This Weekís Objectives
+This Week’s Objectives
 -------------------
 
 * Setting up repo and SSH 1.0 h
