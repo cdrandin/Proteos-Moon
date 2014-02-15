@@ -33,6 +33,7 @@ public static class GameManager
 
 	private static int[] _resource_count;
 
+	private static int _round_num;
 	
 	// Constructor
 	public static void Init(int num_of_players, int who_goes_first)
@@ -58,6 +59,8 @@ public static class GameManager
 			_player_turn_order[i] = (PlayerTurn)i;
 		}
 
+		// Keep track of each player's leader or have outside script signal this script to keep track
+
 		ResetGameState();
 	}
 
@@ -67,6 +70,9 @@ public static class GameManager
 		return _player_turn_order[_current_player_turn]; 
 	}
 
+	/*
+	 * Win Conditions 
+	 */
 	// Get who ever is winning currently in terms of resources
 	public static PlayerTurn GetLeadInResources()
 	{
@@ -81,6 +87,10 @@ public static class GameManager
 		return _player_turn_order[most];
 	}
 
+	/*
+	 * End Wind Conditions
+	 */
+
 	// Add X amount of points to resource counter array, according to player
 	public static void AddResources(PlayerTurn player_turn, int amount)
 	{
@@ -90,9 +100,44 @@ public static class GameManager
 			_resource_count[(int)player_turn] = 0;
 	}
 
+	// Method for allowing other player to take turn
+	// This should enable all options for the next player in the queue
+	// Disable the player's actions when they are done with their turn
+	public static void NextPlayersTurn()
+	{
+		// Disable unit selection for current player
+		
+		// Enable Fog of War for other player's perspective
+		
+		// Change player's camera perspective 
+
+		
+		// Next player's turn
+		_current_player_turn = (_current_player_turn+1)%total_players;
+
+		// When all player's have had their turn increment round number counter
+		if((_current_player_turn+1)%total_players == 0)
+			++_round_num;
+	}
+
+	// Get current round
+	public static int GetCurrentRound()
+	{
+		return _round_num;
+	}
+
+	// Keep track of each player's leader, making sure who has lost the game if their leader has died
+	public static void InitPlayersLeader()
+	{
+
+	}
+
 	// Reset variables that are required to keep track of info during the game
 	public static void ResetGameState()
 	{
+		// Reset round number
+		_round_num = 0;
+
 		// Blank resource counts
 		ResetResourceCount();
 		
@@ -125,21 +170,4 @@ public static class GameManager
 			}
 		}
 	}
-
-	// Method for allowing other player to take turn
-	// This should enable all options for the next player in the queue
-	// Disable the player's actions when they are done with their turn
-	public static void NextPlayersTurn()
-	{
-		// Disable unit selection for current player
-
-		// Enable Fog of War for other player's perspective
-
-		// Change player's camera perspective 
-
-
-		// Next player's turn
-		_current_player_turn = (_current_player_turn+1)%total_players;
-	}
-
 }
