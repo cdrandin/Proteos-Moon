@@ -33,55 +33,87 @@ public static class GameManager
 
 	private static int[] _resource_count;
 
-
-
+	
 	// Constructor
 	public static void Init(int num_of_players, int who_goes_first)
 	{
 		// Valid player limit
-		if(who_goes_first == 0 || (who_goes_first > num_of_players) || num_of_players > 4)
+		if(who_goes_first==0||(who_goes_first>num_of_players)||num_of_players>4)
 		{
-			Debug.LogError("Problem in GameManager.cs");
-			return ;
+			Debug.LogError("Player limit reached!\nProblem in GameManager.cs");
+			return;
 		}
 
-		// One time calls of basic init.
-		_player_turn_order = new PlayerTurn[num_of_players];
 		total_players = num_of_players;
+
+		// One time calls of basic init.
+		_player_turn_order = new PlayerTurn[total_players];
+
+		// Allocate correct number of resource counters
+		_resource_count = new int[total_players];
 
 		// Associate a player 
 		for(int i=0;i<num_of_players;++i)
 		{
-			if((int)PlayerTurn.Player1 == i)
-				_player_turn_order[i] = PlayerTurn.Player1;
-			else if((int)PlayerTurn.Player2 == i)
-				_player_turn_order[i] = PlayerTurn.Player2;
-			else if((int)PlayerTurn.Player3 == i)
-				_player_turn_order[i] = PlayerTurn.Player3;
-			else if((int)PlayerTurn.Player4 == i)
-				_player_turn_order[i] = PlayerTurn.Player4;
+			_player_turn_order[i] = (PlayerTurn)i;
 		}
 
-		// Allocate correct number of resource counters
-		_resource_count = new int[num_of_players];
+		ResetGameState();
+	}
 
-		for(int i=0;i<num_of_players;++i)
-			_resource_count[i] = 0;
+	// Get which player's is taking there turn currently
+	public static PlayerTurn GetCurrentPlayerTurn()
+	{
+		return _player_turn_order[_current_player_turn]; 
+	}
 
+	// Get who ever is winning currently in terms of resources
+	public static PlayerTurn GetLeadInResources()
+	{
+		int most = 0;
+
+		for(int i=1;i<total_players;++i)
+		{
+			if(_resource_count[i] > _resource_count[most])
+				most = i;
+		}
+
+		return _player_turn_order[most];
+	}
+
+	// Add X amount of points to resource counter array, according to player
+	public static void AddResources(PlayerTurn player_turn, int amount)
+	{
+		_resource_count[(int)player_turn] += amount;
+
+		if(_resource_count[(int)player_turn]<0)
+			_resource_count[(int)player_turn] = 0;
+	}
+
+	// Reset variables that are required to keep track of info during the game
+	public static void ResetGameState()
+	{
+		// Blank resource counts
+		ResetResourceCount();
+		
 		// Player order	
 		GenerateTurnSequence();
-		_resource_count[0] = 100;
-		_resource_count[1] = 200;
-		Debug.Log(GetLeadInResources());
+	}
+
+	// Blank resource counts
+	private static void ResetResourceCount()
+	{
+		for(int i=0;i<_resource_count.Length;++i)
+			_resource_count[i] = 0;
 	}
 
 	// Currently, shuffles player's turn order
 	private static void GenerateTurnSequence()
 	{// Sloppy way of doing this
-
+		
 		List<int> tmp = new List<int>();
 		int i = 0;
-
+		
 		while(i<total_players)
 		{
 			int t = Random.Range(0,total_players);
@@ -94,58 +126,20 @@ public static class GameManager
 		}
 	}
 
-	// Get which player's is taking there turn currently
-	public static PlayerTurn GetCurrentPlayerTurn()
+	// Method for allowing other player to take turn
+	// This should enable all options for the next player in the queue
+	// Disable the player's actions when they are done with their turn
+	public static void NextPlayersTurn()
 	{
-		return _player_turn_order[_current_player_turn]; 
-	}
+		// Disable unit selection for current player
 
-	// Get who ever is winning currently in terms of resources
-	public static PlayerTurn GetLeadInResources()
-	{
-		int most = _resource_count[0];
-		Debug.Log(_resource_count.Length);
-		for(int i=1;i<total_players;++i)
-		{
-			if(_resource_count[i] > _resource_count[most])
-				most = i;
-		}
-		Debug.Log(most);
+		// Enable Fog of War for other player's perspective
 
-		return _player_turn_order[most];
+		// Change player's camera perspective 
+
+
+		// Next player's turn
+		_current_player_turn = (_current_player_turn+1)%total_players;
 	}
 
 }
-
-/*
-public class GameManager : MonoBehaviour 
-{
-	private enum PlayerTurn
-	{
-		Player1 = 1,
-		Player2,
-		Player3,
-		Player4
-	}
-	private PlayerTurn _player_turn;
-
-	// private MovementSystem _movement_system; let a unit move
-	// ACTIONS:
-	//    private CombatSystem _combat_system; fighting, abilities(combat and terrain use)
-	//    private RecruitSystem _recruit_system;
-	void Awake ()
-	{
-	}
-
-	// Use this for initialization
-	void Start ()
-	{
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
-}
-*/

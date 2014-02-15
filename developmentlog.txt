@@ -51,17 +51,29 @@ Previous Week's Objectives
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
 
+
+
 * [Ongoing] Construct a system for networking play [9.0 h]
-  > Implemented a networking system using UnityÕs Master Server
-  	- Only worked locally
+  
+   > Implemented a networking system using UnityÕs Master Server
+  	
+	- Only worked locally
+	
 	- Had problems with private IP addresses
+	
 	- Scrapped this networking system
-  > Discovered Photon Cloud Networking for Unity
-  > Implemented the Photon Networking into the networking scene
-  > Tested the networking across separate computers
+  
+   > Discovered Photon Cloud Networking for Unity
+ 
+   > Implemented the Photon Networking into the networking scene
+ 
+   > Tested the networking across separate computers
+	
 	- Was able to join
+	
 	- The opponents movement lags
-  > Mark Martene
+  
+   > Mark Martene
 
 2014-02-09
 ==========
