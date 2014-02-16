@@ -10,9 +10,10 @@ Previous Week's Objectives
   > We now have an art production schedule for the next 3 weeks.
   > Ivan Espinosa and Mark Martene
 
-* [Ongoing] Continue constructing an easy to use camera pane system 4.0 h
+* [Ongoing] Continue constructing an easy to use camera pane system 4.0 h (8.0 h)
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
    > Allow, mouse to focus on ÔvalidÕ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Camera now moves around the screen using the WASD keys, also will move when mouse is located near the edges of the screen
    > Ivan Espinosa
 
 * Document what interactable objects will be in the environment 3.0 h
