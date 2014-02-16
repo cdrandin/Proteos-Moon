@@ -30,11 +30,32 @@ public class WorldCamera : MonoBehaviour {
 	public static BoxLimit cameraLimits       = new BoxLimit();
 	public static BoxLimit mouseScrollLimits  = new BoxLimit();
 	public static WorldCamera Instance;
-	
-	private float cameraMoveSpeed = 60f;
-	private float shiftBonus      = 45f;
-	private float mouseBoundary   = 25f;
-	
+
+	public GameObject MainCamera;
+	private GameObject ScrollAngle;
+
+	private float cameraMoveSpeed = 60f; // This values adjust the camera speed
+	private float shiftBonus      = 45f; 
+	private float mouseBoundary   = 25f; //This value is the padding around the screen to apply mouse movement
+
+	private float mouseX;
+	private float mouseY;
+
+	private bool VerticalRotationEnabled = true;
+
+	//These values are in degrees
+	private float VerticalRoationMin = 0f;
+	private float VerticalRoationMax = 65f;
+
+	public Terrain WorldTerrain;
+	public float WorldTerrainPadding = 25f;
+
+	[HideInInspector] public float cameraHeight; //Only for scrolling or zooming
+	[HideInInspector] public float cameraY; //this will change relative to terrain
+	private float maxCameraHeight = 85f;
+	public LayerMask TerrainOnly;
+	private float minDistanceToObject = 40f;
+
 	#endregion
 	
 	
@@ -47,36 +68,179 @@ public class WorldCamera : MonoBehaviour {
 	void Start () {
 		
 		//Declare camera limits
-		cameraLimits.LeftLimit   = -240.0f;
-		cameraLimits.RightLimit  = 240.0f;
-		cameraLimits.TopLimit    = 204.0f;
-		cameraLimits.BottomLimit = -20.0f;
+		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
+		cameraLimits.RightLimit  = WorldTerrain.terrainData.size.x - WorldTerrainPadding;
+		cameraLimits.TopLimit    = WorldTerrain.terrainData.size.z - WorldTerrainPadding;
+		cameraLimits.BottomLimit = WorldTerrain.transform.position.z + WorldTerrainPadding;
 		
 		//Declare Mouse Scroll Limits
 		mouseScrollLimits.LeftLimit   = mouseBoundary;
 		mouseScrollLimits.RightLimit  = mouseBoundary;
 		mouseScrollLimits.TopLimit    = mouseBoundary;
 		mouseScrollLimits.BottomLimit = mouseBoundary;
-		
+
+		cameraHeight = transform.position.y;
+		ScrollAngle =  new GameObject();
 	}
 	
 	
 	
 	
-	void Update () {
-		
+	void LateUpdate () {
+
+		HandleMouseRotation ();
+
+		ApplyScroll ();
+
 		if(CheckIfUserCameraInput())
 		{
-			Vector3 cameraDesiredMove = GetDesiredTranslation();
-			if(!isDesiredPositionOverBoundaries(cameraDesiredMove))
+			Vector3 desiredTranslation = GetDesiredTranslation();
+			if(!isDesiredPositionOverBoundaries(desiredTranslation))
 			{
-				this.transform.Translate(cameraDesiredMove);
+				Vector3 desiredPosition = transform.position + desiredTranslation;
+
+				UpdateCameraY(desiredPosition);
+
+				this.transform.Translate(desiredTranslation);
 			}
 		}
+
+		ApplyCameraY();
 	}
-	
-	
-	
+
+	//calculate the minimum camera height
+	public float MinCameraHeight(){
+
+		RaycastHit hit;
+		float minCameraHeight = WorldTerrain.transform.position.y;
+
+		if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, TerrainOnly)){
+
+			minCameraHeight = hit.point.y + minDistanceToObject;
+		}
+		return minCameraHeight;
+
+	}
+
+	//Handles the mouse rotation vertically and horizontally.
+	public void HandleMouseRotation()
+	{
+		var easeFactor = 10f;
+		if (Input.GetMouseButton (1)) {
+			
+			//Horiztonal rotation
+			if(Input.mousePosition.x != mouseX){
+				var cameraRotationY = (Input.mousePosition.x - mouseX) * easeFactor * Time.deltaTime;
+				this.transform.Rotate(0, cameraRotationY, 0);
+			}
+			
+			//Vertical Rotation
+			if(VerticalRotationEnabled && Input.mousePosition.y != mouseY){
+				
+				GameObject MainCamera = this.gameObject.transform.FindChild("Main Camera").gameObject;
+				
+				var cameraRotationX =( mouseY - Input.mousePosition.y) * easeFactor * Time.deltaTime;
+				var desiredRotationX = MainCamera.transform.eulerAngles.x + cameraRotationX;
+				
+				if(desiredRotationX >= VerticalRoationMin && desiredRotationX <= VerticalRoationMax){
+					MainCamera.transform.Rotate (cameraRotationX, 0, 0);
+				}
+				
+			}
+		}
+		
+		mouseX = Input.mousePosition.x;
+		mouseY = Input.mousePosition.y;
+		
+	}
+
+	// Apply a scroll using the mouse wheel, or the trackpad
+	public void ApplyScroll(){
+
+		float deadZone = 0.01f;
+		float easeFactor = 150f;
+
+		if (Application.isWebPlayer)
+			easeFactor = 20f;
+
+		float ScrollWheelValue = Input.GetAxis ("Mouse ScrollWheel") * easeFactor;
+
+		//check deadZone
+		if ((ScrollWheelValue > -deadZone && ScrollWheelValue < deadZone) || ScrollWheelValue == 0f)
+			return;
+
+		float EulerAnglesX = MainCamera.transform.localEulerAngles.x;
+
+		//Configure the ScrollAngle GameObject
+		ScrollAngle.transform.position = transform.position;
+		ScrollAngle.transform.eulerAngles = new Vector3 (EulerAnglesX, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+		ScrollAngle.transform.Translate (Vector3.back * ScrollWheelValue);
+
+		Vector3 desiredScrollPosition = ScrollAngle.transform.position;
+
+		//check if in boundaries
+		if (desiredScrollPosition.x < cameraLimits.LeftLimit || desiredScrollPosition.x > cameraLimits.RightLimit) return;
+		if (desiredScrollPosition.z < cameraLimits.TopLimit || desiredScrollPosition.z > cameraLimits.BottomLimit) return;
+		if (desiredScrollPosition.y > maxCameraHeight || desiredScrollPosition.y < MinCameraHeight()) return;
+
+		//update the cameraHeight and the CameraY;
+		float heightDifference = desiredScrollPosition.y - this.transform.position.y;
+		cameraHeight += heightDifference;
+		UpdateCameraY (desiredScrollPosition);
+
+		//update the camera position
+		this.transform.position = desiredScrollPosition;
+
+		return;
+
+	}
+
+
+	//Calculate the new height for the camera baesed on the terrain height
+	public void  UpdateCameraY(Vector3 desiredPosition){
+
+		RaycastHit hit;
+		float deadZone = 0.1f;
+
+		if(Physics.Raycast(desiredPosition, Vector3.down, out hit, Mathf.Infinity)){
+
+			float newHeight = cameraHeight + hit.point.y;
+			float heightDifference = newHeight - cameraY;
+
+			if(heightDifference > -deadZone && heightDifference < deadZone) return;
+
+			if(newHeight > maxCameraHeight || newHeight < MinCameraHeight()) return;
+
+			cameraY = newHeight;
+
+		}
+		return;
+
+	}
+
+	//Apply the camera Y to a smooth damp, and update camera Y position
+	public void ApplyCameraY(){
+
+		if (cameraY == transform.position.y || cameraY == 0)
+			return;
+
+		//smooth damp
+		float smoothTime = 0.2f;
+		float yVelocity = 0.0f;
+
+		float newPoisitionY = Mathf.SmoothDamp (transform.position.y, cameraY, ref yVelocity, smoothTime);
+
+		if (newPoisitionY < maxCameraHeight) {
+
+			transform.position = new Vector3(transform.position.x, newPoisitionY, transform.position.z);
+
+		}
+
+
+	}
+
+
+
 	
 	//Check if the user is inputting commands for the camera to move
 	public bool CheckIfUserCameraInput()
@@ -111,8 +275,7 @@ public class WorldCamera : MonoBehaviour {
 	public Vector3 GetDesiredTranslation()
 	{
 		float moveSpeed = 0f;
-		float desiredX = 0f;
-		float desiredZ = 0f;
+		Vector3 desiredTranslation = new Vector3 ();
 		
 		if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			moveSpeed = (cameraMoveSpeed + shiftBonus) * Time.deltaTime;
@@ -120,43 +283,24 @@ public class WorldCamera : MonoBehaviour {
 			moveSpeed = cameraMoveSpeed * Time.deltaTime;
 		
 		
-		//move via keyboard
-		if(Input.GetKey(KeyCode.W))
-			desiredZ = moveSpeed;
+		//move via keyboard and via mouse
+		if(Input.GetKey(KeyCode.W) || Input.mousePosition.y > (Screen.height - mouseScrollLimits.TopLimit))
+			desiredTranslation += Vector3.forward * moveSpeed;
+		
+		if (Input.GetKey (KeyCode.S) || Input.mousePosition.y < mouseScrollLimits.BottomLimit)
+			desiredTranslation += Vector3.back * moveSpeed;
 		
 		
-		if(Input.GetKey(KeyCode.S))
-			desiredZ = moveSpeed * -1;
+		if (Input.GetKey (KeyCode.A) || Input.mousePosition.x < mouseScrollLimits.LeftLimit)
+			desiredTranslation += Vector3.left * moveSpeed;
 		
 		
-		if(Input.GetKey(KeyCode.A))
-			desiredX = moveSpeed * -1;
+		if (Input.GetKey (KeyCode.D) || Input.mousePosition.x > (Screen.width - mouseScrollLimits.RightLimit))
+			desiredTranslation += Vector3.right * moveSpeed;
+
+
 		
-		
-		if(Input.GetKey(KeyCode.D))
-			desiredX = moveSpeed;
-		
-		
-		
-		
-		//move via mouse
-		if(Input.mousePosition.x < mouseScrollLimits.LeftLimit){
-			desiredX = moveSpeed * -1;
-		}
-		
-		if(Input.mousePosition.x > (Screen.width - mouseScrollLimits.RightLimit)){
-			desiredX = moveSpeed;
-		}
-		
-		if(Input.mousePosition.y < mouseScrollLimits.BottomLimit){
-			desiredZ = moveSpeed * -1;
-		}
-		
-		if(Input.mousePosition.y > (Screen.height - mouseScrollLimits.TopLimit)){
-			desiredZ = moveSpeed;
-		}
-		
-		return new Vector3(desiredX, 0, desiredZ);
+		return desiredTranslation;
 	}
 	
 	
@@ -164,20 +308,23 @@ public class WorldCamera : MonoBehaviour {
 	
 	
 	//checks if the desired position crosses boundaries
-	public bool isDesiredPositionOverBoundaries(Vector3 desiredPosition)
+	public bool isDesiredPositionOverBoundaries(Vector3 desiredTranslation)
 	{
+
+		Vector3 desiredWorldPosition = this.transform.TransformPoint (desiredTranslation);
+
 		bool overBoundaries = false;
 		//check boundaries
-		if((this.transform.position.x + desiredPosition.x) < cameraLimits.LeftLimit)
+		if(desiredWorldPosition.x < cameraLimits.LeftLimit)
 			overBoundaries = true;
 		
-		if((this.transform.position.x + desiredPosition.x) > cameraLimits.RightLimit)
+		if(desiredWorldPosition.x > cameraLimits.RightLimit)
 			overBoundaries = true;
 		
-		if((this.transform.position.z + desiredPosition.z) > cameraLimits.TopLimit)
+		if(desiredWorldPosition.z > cameraLimits.TopLimit)
 			overBoundaries = true;
 		
-		if((this.transform.position.z + desiredPosition.z) < cameraLimits.BottomLimit)
+		if(desiredWorldPosition.z < cameraLimits.BottomLimit)
 			overBoundaries = true;
 		
 		return overBoundaries;

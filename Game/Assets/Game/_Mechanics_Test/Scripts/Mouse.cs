@@ -10,8 +10,7 @@ public class Mouse : MonoBehaviour {
 
 	public GameObject Target;
 
-	private Vector3 mouseDownPoint;
-	
+	private static Vector3 mouseDownPoint;
 
 	void Awake(){
 
@@ -37,7 +36,7 @@ public class Mouse : MonoBehaviour {
 				//0 left
 				//1 right
 				//2 middle
-				if(Input.GetMouseButtonDown(1)){
+				if(Input.GetMouseButtonDown(1) && !Input.GetKey(KeyCode.LeftControl)){
 
 					GameObject TargetObj = Instantiate(Target, hit.point, Quaternion.identity) as GameObject;
 					TargetObj.name = "Target Instantiated";
@@ -78,9 +77,6 @@ public class Mouse : MonoBehaviour {
 						Debug.Log ("Not a unit!");
 						DeselectGameobjectIfSelected();
 					}
-
-
-
 				}
 			}
 
@@ -94,8 +90,7 @@ public class Mouse : MonoBehaviour {
 		Debug.DrawRay (ray.origin, ray.direction * Mathf.Infinity, Color.magenta);
 
 	}
-
-
+	
 
 	#region Helper Functions
 
