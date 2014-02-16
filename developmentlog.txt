@@ -28,11 +28,17 @@ Previous Week's Objectives
 
 * [Unfinished] Construct a game manager system 8.0 h(8.0 h)
    > Status:
+ 
    > This will need to add more functionality as the project progresses
+
    > Current setup is keep track of the entire game. Current, purpose is to control
+
    >    the flow of the game. Does transitions from players. Transitions of unit actions.
+ 
    >    Keep track of possible winners, as well as time, round #, etc
+
    > This is expect to do a lot more as we add more functionality into the game
+
    > Christopher Randin
 
 * [] Construct a working UI interface 5.0 h( h)

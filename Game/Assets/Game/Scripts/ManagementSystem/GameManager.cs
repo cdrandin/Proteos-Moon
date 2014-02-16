@@ -4,14 +4,13 @@ using System.Collections.Generic;
 
 /* GameManager - keeps track of the game state and control
  * Controlling the game 
- * Check when next player's turn should be or when current player passes their turn
- *  - Keep track of rounds, turn order, timer, player's units resources, leader alive?, who won, etc
- *  - Check if unit is dead, if so move to pool
+ *  X Check when next player's turn should be or when current player passes their turn
+ *  X Keep track of rounds, turn order, timer, player's units resources, leader alive?, who won, etc
  *  - Control recruit position, next to leader
- * Should paucs game or unpause
- * Keep track of network between players, if we add *networking* capabilities
+ *  - Should pause game or unpause
+ *  -(MAYBE) Keep track of network between players, if we add *networking* capabilities
  * 
- * Keep track of buffs, debuff, passive that should be received from other units
+ *  -(MAYBE) Keep track of buffs, debuff, passive that should be received from other units
  * 
  * Record stats at the end of the game
  * 	# of kills, resource collected/spent, rounds, timer?, # of units recruited, ranking algorithm
@@ -43,8 +42,14 @@ public static class GameManager
 	// Who has won
 	private static Player _winner;
 
-	// Dynamic variables kept throughout the course of the match
+	// Recording scores
+	private static int[] _resources_obtained;
+	private static int[] _resource_spent;
+	private static int[] _units_obtained;
 	private static int _round_num;
+	private static float _timer;
+
+	private static float _base_time;
 
 	// Constructor
 	public static void Init(int num_of_players, int who_goes_first, int resource_win_count)
@@ -66,14 +71,21 @@ public static class GameManager
 
 		// Allocate correct number of resource counters
 		_resource_count = new int[total_players];
-	
+		_resource_spent = new int[total_players];
+		_resources_obtained = new int[total_players];
+
 		// Allocated correct number of leader counters
 		_leaders_alive = new bool[total_players];
+
+		// How many units ech player purchased
+		_units_obtained = new int[total_players];
 
 		// Pointer to the leader script, to keep track of hp
 		// _leader_script = new ^LeaderScript^[total_players];
 
 		ResetGameState();
+
+		StartTimer();
 	}
 
 	// Get which player's is taking there turn currently
@@ -121,7 +133,6 @@ public static class GameManager
 		{
 			if(leader)
 				++alive;
-
 		}
 		return alive;
 	}
@@ -168,9 +179,24 @@ public static class GameManager
 	public static void AddResources(Player player_turn, int amount)
 	{
 		_resource_count[(int)player_turn] += amount;
+		_resources_obtained[(int)player_turn] += amount;
 
 		if(_resource_count[(int)player_turn]<0)
 			_resource_count[(int)player_turn] = 0;
+	}
+
+	// Return bool if player can purchase unit, if so do purchase
+	public static bool RecruitUnit(Player player, int amount)
+	{
+		if(_resource_count[(int)player] >= amount)
+		{
+			_resource_count[(int)player] -= amount;
+			_resource_spent[(int)player] += amount;
+			++_units_obtained[(int)player]; 
+			return true;
+		}
+		else
+			return false;
 	}
 
 	// Method for allowing other player to take turn
@@ -206,6 +232,11 @@ public static class GameManager
 		// _leader_script = GameObject.FindGameObjectsWithType(typeof(^LeaderScript^));
 	}
 
+	public static void StartTimer()
+	{
+		_base_time = Time.time;
+	}
+
 	// Reset variables that are required to keep track of info during the game
 	public static void ResetGameState()
 	{
@@ -215,11 +246,8 @@ public static class GameManager
 			_player_turn_order[i] = (Player)i;
 		}
 
-		// Reset round number
-		_round_num = 0;
-
-		// Blank resource counts
-		ResetResourceCount();
+		// Reset values that are used for recording players numbers
+		ResetRecordings();
 
 		// Reset leaders to be alive
 		ResetLeaders();
@@ -231,10 +259,21 @@ public static class GameManager
 	}
 
 	// Blank resource counts
-	private static void ResetResourceCount()
+	private static void ResetRecordings()
 	{
+		// Reset round number
+		_round_num = 0;
+
+		// Reset timer
+		_timer = 0.0f;
+
 		for(int i=0;i<_resource_count.Length;++i)
+		{
 			_resource_count[i] = 0;
+			_resource_spent[i] = 0;
+			_resources_obtained[i] = 0;
+			_units_obtained[i] = 0;
+		}
 	}
 
 	// All leaders are alive
@@ -243,7 +282,7 @@ public static class GameManager
 		for(int i=0;i<_leaders_alive.Length;++i)
 			_leaders_alive[i] = true;
 	}
-
+	
 	// Currently, shuffles player's turn order
 	private static void GenerateTurnSequence()
 	{// Sloppy way of doing this
@@ -261,5 +300,34 @@ public static class GameManager
 				++i;
 			}
 		}
+	}
+
+	// Return recap of the current match
+	// Record stats at the end of the game
+	// # of kills, resource collected/spent, rounds, timer?, # of units recruited, ranking algorithm
+	public static string GetRecordedScores()
+	{
+		string[] player_score = new string[total_players];
+		for(int i=0;i<total_players;++i)
+		{
+			player_score[i] = string.Format(
+				"Player{0} Score:\n" +
+				"Total resources obtained:{1}\n" +
+				"Resources spent:{2}\n" +
+				"Leader alive:{3}\n" +
+				"Units obtained:{4}\n" +
+				"Enemy units killed:{5}\n\n", 
+				i+1, _resources_obtained[i], _resource_spent[i], _leaders_alive[i], -1, -1);
+		}
+
+		string scores = string.Format("Total rounds:{0}\n" +
+		                              "Time:{1}\n",
+		                              _round_num, Time.time - _base_time );
+		                              
+
+		foreach(string play in player_score)
+			scores += play;
+
+		return scores;
 	}
 }
