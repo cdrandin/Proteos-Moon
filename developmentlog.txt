@@ -10,37 +10,32 @@ Previous Week's Objectives
   > We now have an art production schedule for the next 3 weeks.
   > Ivan Espinosa and Mark Martene
 
-* [Ongoing] Continue constructing an easy to use camera pane system 4.0 h
+* [Ongoing] Continue constructing an easy to use camera pane system 4.0 h( h)
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
    > Allow, mouse to focus on ÔvalidÕ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa
 
-* Document what interactable objects will be in the environment 3.0 h
+* [] Document what interactable objects will be in the environment 3.0 h
    > Write-up report as to how to make the world dynamic
    > No programming expected, till units are finalized in concept and code
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
-* Initializing Fog of War for the game 6.0 h+
+* [] Initializing Fog of War for the game 6.0 h
    > Figure out a system where a fog model covers up the vision of the location and units
    > Needs to update for each individual player
    > Keeps track of what is visible to player
    > Ivan Espinosa, Mark Martene
 
-* Construct a game manager system 8.0 h+
-   > The system should be capable in control which player is capable of moving their own units
-   >	at a given time.
-   > Control and keep track of what the unit is allowed to do(e.g movement, attack, etc)
-   > !! Phases to keep track of: PlayerÕs turn, toggle between units, unit must complete all
-   >	allow ACTIONS(described later) before unit becomes exhausted (being you cannot do anymore actions), all units exhausted turn is done, as well as keeping track of game conditions
-   > ACTIONS: 
-   >	- Movement (toggle UnitController)
-   >	- Attack (toggle combat system, which introduces damage to a source)
-   >	- Spells (toggle combat system or environment interaction system, which does damage or spells affect the environment in someway
-   > 	- Wait (essentially a unit exhaust)
-   > 	-  And other possible available actions
+* [Unfinished] Construct a game manager system 8.0 h(8.0 h)
+   > Status:
+   > This will need to add more functionality as the project progresses
+   > Current setup is keep track of the entire game. Current, purpose is to control
+   >    the flow of the game. Does transitions from players. Transitions of unit actions.
+   >    Keep track of possible winners, as well as time, round #, etc
+   > This is expect to do a lot more as we add more functionality into the game
    > Christopher Randin
 
-* Construct a working UI interface 5.0 h
+* [] Construct a working UI interface 5.0 h( h)
    > Have static Òalways visibleÓ info on the screen
    > Have the action interface pop up when a character is selected
    > Have the character simulate an attack when the attack button is clicked - values changed not animated
@@ -53,7 +48,7 @@ Previous Week's Objectives
 
 
 
-* [Ongoing] Construct a system for networking play [9.0 h]
+* [Ongoing] Construct a system for networking play (9.0 h) 
   
    > Implemented a networking system using UnityÕs Master Server
   	
