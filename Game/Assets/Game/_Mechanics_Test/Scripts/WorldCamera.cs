@@ -158,13 +158,12 @@ public class WorldCamera : MonoBehaviour {
 	public void ApplyScroll(){
 
 		float deadZone = 0.01f;
-		float easeFactor = 150f;
+		float easeFactor = 50f;
 
 		if (Application.isWebPlayer)
 			easeFactor = 20f;
 
-		float ScrollWheelValue = Input.GetAxis ("Mouse ScrollWheel") * easeFactor;
-
+		float ScrollWheelValue = -1*Input.GetAxis ("Mouse ScrollWheel") * easeFactor;
 		//check deadZone
 		if ((ScrollWheelValue > -deadZone && ScrollWheelValue < deadZone) || ScrollWheelValue == 0f)
 			return;
@@ -180,9 +179,8 @@ public class WorldCamera : MonoBehaviour {
 
 		//check if in boundaries
 		if (desiredScrollPosition.x < cameraLimits.LeftLimit || desiredScrollPosition.x > cameraLimits.RightLimit) return;
-		if (desiredScrollPosition.z < cameraLimits.TopLimit || desiredScrollPosition.z > cameraLimits.BottomLimit) return;
-		if (desiredScrollPosition.y > maxCameraHeight || desiredScrollPosition.y < MinCameraHeight()) return;
-
+		if (desiredScrollPosition.z > cameraLimits.TopLimit || desiredScrollPosition.z < cameraLimits.BottomLimit) return;
+		if (desiredScrollPosition.y > maxCameraHeight || desiredScrollPosition.y < MinCameraHeight ()) return;
 		//update the cameraHeight and the CameraY;
 		float heightDifference = desiredScrollPosition.y - this.transform.position.y;
 		cameraHeight += heightDifference;

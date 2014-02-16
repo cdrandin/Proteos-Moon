@@ -31,7 +31,6 @@ public class Mouse : MonoBehaviour {
 		
 	
 			if(hit.collider.name == "Terrain"){
-				Debug.Log("Collide with Terrain");
 				//When we click the right mouse button, instantiate target
 				//0 left
 				//1 right
@@ -50,13 +49,11 @@ public class Mouse : MonoBehaviour {
 				//hitting other objects!
 				if(Input.GetMouseButtonUp(0) && DidUserClickLeftMouse(mouseDownPoint))
 				{
-					Debug.Log("Hit Colider Position" + hit.collider.transform.position);
 					//is the user hitting a unit?
 					if(hit.collider.transform.FindChild ("Selected")){
 
 
 						//found a unit we can select!
-						Debug.Log ("Found a unit!");
 						//are we selecting a different object?
 						if(CurrentlySelectedUnit != hit.collider.gameObject){
 
