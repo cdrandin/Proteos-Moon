@@ -7,7 +7,7 @@ public class Game : MonoBehaviour
 
 	void Awake() 
 	{
-		GameManager.Init(num_of_players, RandomPlayerFirst(num_of_players));
+		GameManager.Init(num_of_players, RandomPlayerFirst(num_of_players), 500);
 	}
 
 	// Use this for initialization
