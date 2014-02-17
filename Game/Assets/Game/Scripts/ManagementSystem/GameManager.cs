@@ -237,6 +237,11 @@ public static class GameManager
 		_base_time = Time.time;
 	}
 
+	public static float GetCurrentTime()
+	{
+		return Time.time - _base_time;
+	}
+
 	// Reset variables that are required to keep track of info during the game
 	public static void ResetGameState()
 	{
@@ -301,7 +306,7 @@ public static class GameManager
 			}
 		}
 	}
-
+	
 	// Return recap of the current match
 	// Record stats at the end of the game
 	// # of kills, resource collected/spent, rounds, timer?, # of units recruited, ranking algorithm
@@ -322,7 +327,7 @@ public static class GameManager
 
 		string scores = string.Format("Total rounds:{0}\n" +
 		                              "Time:{1}\n",
-		                              _round_num, Time.time - _base_time );
+		                              _round_num, GetCurrentTime() );
 		                              
 
 		foreach(string play in player_score)

@@ -10,77 +10,152 @@ Previous Week's Objectives
   > We now have an art production schedule for the next 3 weeks.
   > Ivan Espinosa and Mark Martene
 
-* [Ongoing] Continue constructing an easy to use camera pane system 4.0 h (9.0 h)
-   > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on ÔvalidÕ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
-   > Camera now moves around the screen using the WASD keys, also will move when mouse is located near the edges of the screen
-   > Camera rotates around the x and z axis using the right mouse key
-   > Camera now has zoom functionality with the mouse scroll key
-   > Camera auto adjust heights depends on the terrain elevation. Note* not objects 
-   > Problems or concerns when rotating with the camera, if the mouse is near the edge of the screen the camera will move.
+* [Complete] Continue constructing an easy to use camera pan system 4.0 h (4.0 h)
+  > Now the camera when moving cursor to edge of the screen thus moving the camera,
+  >   in their respectful direction.
+  > Allow, mouse to focus on valid units, thus lock the camera towards that unit and 
+  >   reach only to its valid movement spaces.
+  > Ivan Espinosa
+   
+* [Ongoing] Create More Functionality with the Camera 8.h (10.h)
+   > Camera now moves around the screen using the WASD keys, also will move when mouse 
+   >   is located near the edges of the screen
+   > Camera rotates around the x and z axis using the right mouse button
+   > Camera now has zoom functionality with the mouse scroll wheel
+   > Camera auto adjust heights depends on the terrain elevation. Note* not objects
+   > Problems or concerns when rotating with the camera. If the mouse is near the edge
+   >   of the screen while rotating with the right mouse button the screen will move.
    > Ivan Espinosa
 
-* [] Document what interactable objects will be in the environment 3.0 h
+* [Completed] Unit Selection 2.0 h ( 2.0 h)
+   > When user uses the left click on a unit, a projection is then created underneath the unit
+   > When user clicks elsewhere the unit is then deselected and projection is removed.
+   > Ivan Espinosa
+
+* [Completed] Document what interactable objects will be in the environment 3.0 h (1.0 h)
    > Write-up report as to how to make the world dynamic
    > No programming expected, till units are finalized in concept and code
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
-* [] Initializing Fog of War for the game 6.0 h
+* [Incomplete] Initializing Fog of War for the game 6.0 h (2.0 h)
+   > Held back from other production stuff
    > Figure out a system where a fog model covers up the vision of the location and units
+	- Decided to make the fog of war similar to the Tasheren Fog of war design.
    > Needs to update for each individual player
    > Keeps track of what is visible to player
    > Ivan Espinosa, Mark Martene
 
-* [Unfinished] Construct a game manager system 8.0 h(8.0 h)
+* [Unfinished] Construct a game manager system 8.0 h (10.0 h)
    > Status:
    > This will need to add more functionality as the project progresses
    > Current setup is keep track of the entire game. Current, purpose is to control
    >    the flow of the game. Does transitions from players. Transitions of unit actions.
    >    Keep track of possible winners, as well as time, round #, etc
+   > Also, tested to make sure it worked correctly.
    > This is expect to do a lot more as we add more functionality into the game
    > Christopher Randin
 
 * [Complete/Can be improved] Construct unit class hierarchy 1.5 h (2.0h)
    > Put in some stat variables for the units to inherit from.
-   > Unsure to keep this design, currently Object-Orientated Design, over the
+   > Unsure to keep this design, currently Object-Oriented Design, over the
    >   other, Component-Entity System
-   > This is basic inheritance stuff. Expected to use base class to encapsulate 
-   >   base related data usage, like combat, AoE affect, etc
+   > This is basic inheritance stuff. Expected to use base class to encapsulate
+   >   base related data usage, like combat, AoE effect, etc
    > Christopher Randin
 
-* [] Construct a working UI interface 5.0 h( h)
-   > Have static Òalways visibleÓ info on the screen
+* [Incomplete] Construct a working UI interface 5.0 h(2.0 h)
+   > Have static "always visible" info on the screen
    > Have the action interface pop up when a character is selected
-   > Have the character simulate an attack when the attack button is clicked - values changed not animated
+   > Have the character simulate an attack when the attack button is clicked 
+	- values changed not animated
    > Have the character defend when the defend button is clicked
-   > Have a temporary message Òability usedÓ print to the console when the ability button is clicked
-   > Shadow out character  when ÒwaitÓ or ÒholdÓ is clicked
-   > Have ÒFinish TurnÓ to have the game manager change playerÕs turn
+   > Have a temporary message "ability used" print to the console when the 
+   >   ability button is clicked
+   > Shadow out character  when 'wait' or 'hold' is clicked
+   > Have 'Finish Turn' to have the game manager change player's turn
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
 
-
-
-* [Ongoing] Construct a system for networking play (9.0 h) 
-  
-   > Implemented a networking system using UnityÕs Master Server
-  	
-	- Only worked locally
-	
-	- Had problems with private IP addresses
-	
-	- Scrapped this networking system
-  
+* [Ongoing] Construct a system for networking play (9.0 h)
+   > Implemented a networking system using Unity's Master Server
+        - Only worked locally
+        - Had problems with private IP addresses
+        - Scrapped this networking system
    > Discovered Photon Cloud Networking for Unity
- 
    > Implemented the Photon Networking into the networking scene
- 
    > Tested the networking across separate computers
-	
-	- Was able to join
-	
-	- The opponents movement lags
-  
+        - Was able to join
+        - The opponents movement lags
+   > Mark Martene
+
+This Week's Objectives
+---------------------
+* Meet up with artist to get work completed 5.0h
+   > Get new environment concept art, new character models, and then pass 
+   >   off models to rigger
+   > Make sure that the modelers created UV mapping for all the models, 
+   >   so that the artist can create textures.
+   > Ivan Espinosa and Mark Martene
+
+* Combine Functionalities for one complete project  6.0 h
+   > We each have individual scenes of the game where we worked on our projects
+   > Combine functionality together in terms of our scripts and usage. 
+   >   This is to help generate more task to complete
+   > Help isolate input control and UI interface functionality
+   > We need to standardize asset usage, for all of us to use
+          (no more creating unnecessary prefabs)
+   > Ivan Espinosa, Chris Randin, and Mark Martene
+
+* Fix Rotation issues with Camera Pan system  4.0 h
+   > Need to isolate rotation x and z axis to give to respective game objects
+   > Ivan Espinosa
+
+* Use GameManager to help with scene transitions 4.0 h
+   > GameManager to help with the flow of the game
+   > Control the functionalities we have created to let player's do specific actions
+   depending on the status of their turn.
+   > Christopher Randin
+
+* Implement the recruit system 4.0 h
+   > Be within range of "recruitee" object and be able to purchase units
+   > Check game restrictions like number of resources meets required pay
+   > Have units spawn within a valid vicinity 
+   > Christopher Randin
+
+* Create basic UI for game system 8.0 h
+   > Idea is that users will click buttons to initiate certain actions
+   > Will use delegate to decouple the GUI system
+   > Ivan Espinosa and Mark Martene
+
+* Continue adding to GameManager and update 4.0 h
+   > As we add more functionality, keep tabs with the manager and decide if it is something
+   >   it needs to keep track of. Like for when a combat system is necessary, the manager will
+   >   see if it is valid to do combat
+   > Keep up to date with other functionalities in the game. Optimize manager 
+   >   also improvement to add a better flow to the system.
+   > Christopher Randin
+
+* Improve distance travel recording, distance ring constantly updating and following the unit 2 h
+   > Improve the measurement recording 
+   > Update radius of ring to be dynamic, the unit's new distance movement
+   > Christopher Randin
+
+*Start designing Fog of War and implement it 10.0 h
+  > Design shaders to implement the fog
+	- Darker shader for farther fog
+	- Lighter shader for the edge of the revealed parts of the map
+  > Hide enemy units
+	- Reveal enemy units when within units range
+  > Reveal own character units 
+	- Reveal map when unit moves
+  > Have the fog of war system work correctly across the network
+	- Players can only see what their units have revealed
+  > Mark Martene
+
+* Create a multiplayer lobby system 3.0 h
+   > Create and join rooms
+   > Allow players to join locally and get paired with an opponent
+   > Allow chat between both parties and maybe a spectator view
    > Mark Martene
 
 2014-02-09
