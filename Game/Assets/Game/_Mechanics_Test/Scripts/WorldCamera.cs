@@ -35,7 +35,7 @@ public class WorldCamera : MonoBehaviour {
 	private GameObject ScrollAngle;
 
 	private float cameraMoveSpeed = 60f; // This values adjust the camera speed
-	private float shiftBonus      = 45f; 
+	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
 	private float mouseBoundary   = 25f; //This value is the padding around the screen to apply mouse movement
 
 	private float mouseX;
@@ -108,6 +108,9 @@ public class WorldCamera : MonoBehaviour {
 		ApplyCameraY();
 	}
 
+
+	
+	#region Helper functions
 	//calculate the minimum camera height
 	public float MinCameraHeight(){
 
@@ -136,9 +139,7 @@ public class WorldCamera : MonoBehaviour {
 			
 			//Vertical Rotation
 			if(VerticalRotationEnabled && Input.mousePosition.y != mouseY){
-				
-				GameObject MainCamera = this.gameObject.transform.FindChild("Main Camera").gameObject;
-				
+
 				var cameraRotationX =( mouseY - Input.mousePosition.y) * easeFactor * Time.deltaTime;
 				var desiredRotationX = MainCamera.transform.eulerAngles.x + cameraRotationX;
 				
@@ -195,7 +196,7 @@ public class WorldCamera : MonoBehaviour {
 
 
 	//Calculate the new height for the camera baesed on the terrain height
-	public void  UpdateCameraY(Vector3 desiredPosition){
+	public void UpdateCameraY(Vector3 desiredPosition){
 
 		RaycastHit hit;
 		float deadZone = 0.1f;
@@ -236,9 +237,6 @@ public class WorldCamera : MonoBehaviour {
 
 
 	}
-
-
-
 	
 	//Check if the user is inputting commands for the camera to move
 	public bool CheckIfUserCameraInput()
@@ -265,10 +263,7 @@ public class WorldCamera : MonoBehaviour {
 		
 		return canMove;
 	}
-	
-	
-	
-	
+
 	//Works out the cameras desired location depending on the players input
 	public Vector3 GetDesiredTranslation()
 	{
@@ -328,11 +323,7 @@ public class WorldCamera : MonoBehaviour {
 		return overBoundaries;
 	}
 	
-	
-	
-	
-	
-	#region Helper functions
+
 	
 	public static bool AreCameraKeyboardButtonsPressed()
 	{

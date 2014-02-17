@@ -8,8 +8,6 @@ public class Mouse : MonoBehaviour {
 
 	public static GameObject CurrentlySelectedUnit;
 
-	public GameObject Target;
-
 	private static Vector3 mouseDownPoint;
 
 	void Awake(){
@@ -35,13 +33,7 @@ public class Mouse : MonoBehaviour {
 				//0 left
 				//1 right
 				//2 middle
-				if(Input.GetMouseButtonDown(1) && !Input.GetKey(KeyCode.LeftControl)){
-
-					GameObject TargetObj = Instantiate(Target, hit.point, Quaternion.identity) as GameObject;
-					TargetObj.name = "Target Instantiated";
-				}
-
-				else if (Input.GetMouseButtonUp(0) && DidUserClickLeftMouse(mouseDownPoint) )
+				if (Input.GetMouseButtonUp(0) && DidUserClickLeftMouse(mouseDownPoint) )
 					DeselectGameobjectIfSelected();
 			} // end of the terrain
 
