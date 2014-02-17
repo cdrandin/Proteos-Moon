@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400002}
   m_Layer: 0
   m_Name: WorldCamera
   m_TagString: Untagged
@@ -42,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.98023224e-08, y: .948274255, z: -2.98023224e-08}
+  m_LocalPosition: {x: 101, y: 70, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -53,9 +54,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: .355080396, y: .000278749387, z: -.000101160404, w: .934835732}
-  m_LocalPosition: {x: 4.77120352, y: 5.80391026, z: -4.14857197}
-  m_LocalScale: {x: 1, y: 1.15727985, z: 1.31922758}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
 --- !u!20 &2000000
@@ -120,6 +121,20 @@ MonoBehaviour:
   TerrainOnly:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34fddde962cefe74a8821cfb6469cf49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraController: {fileID: 100000}
+  smooth: 30
+  rotation_smooth: 30
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
