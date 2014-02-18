@@ -291,7 +291,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 778010456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.1875563, y: 1.24096072, z: 15.7176304}
+  m_LocalPosition: {x: 14.1875563, y: 0, z: 15.7176304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2111840262}
@@ -492,6 +492,7 @@ GameObject:
   - 143: {fileID: 1024321081}
   - 111: {fileID: 1024321080}
   - 114: {fileID: 1024321079}
+  - 136: {fileID: 1024321083}
   m_Layer: 8
   m_Name: Unit
   m_TagString: Unit
@@ -574,6 +575,19 @@ Renderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
+--- !u!136 &1024321083
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1024321078}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .500000119
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 5.96046448e-08, y: 0, z: -8.94069743e-08}
 --- !u!33 &1024321084
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -677,6 +691,44 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 285036684}
+--- !u!1 &1609070744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1609070746}
+  - 114: {fileID: 1609070745}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1609070745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1609070744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43213fcbe894d9146bebf162c9f1fe3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1609070746
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1609070744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.276022, y: .213043213, z: 19.0181389}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1847304703
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +873,7 @@ Projector:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2111840261}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_NearClipPlane: 2
   m_FarClipPlane: 6.19999981
