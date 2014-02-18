@@ -140,7 +140,7 @@ This Week's Objectives
    > Update radius of ring to be dynamic, the unit's new distance movement
    > Christopher Randin
 
-*Start designing Fog of War and implement it 10.0 h
+* Start designing Fog of War and implement it 10.0 h
   > Design shaders to implement the fog
 	- Darker shader for farther fog
 	- Lighter shader for the edge of the revealed parts of the map
