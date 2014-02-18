@@ -6,7 +6,8 @@ TagManager:
   - Tile
   - Unit
   - Leader
-  - Projectors
+  - DistanceProjector
+  - SelectionProjector
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
