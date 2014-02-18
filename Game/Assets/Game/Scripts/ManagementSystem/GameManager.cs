@@ -63,6 +63,8 @@ public static class GameManager
 
 		total_players = num_of_players;
 
+		_winner = Player.NONE;
+
 		// What is the max number of resources required to win
 		_max_resource = resource_win_count;
 
@@ -92,6 +94,11 @@ public static class GameManager
 	public static Player GetCurrentPlayer()
 	{
 		return _player_turn_order[_current_player_turn]; 
+	}
+
+	public static int GetResourceFrom(Player player)
+	{
+		return _resource_count[(int)player];
 	}
 
 	/*
@@ -232,7 +239,7 @@ public static class GameManager
 		// _leader_script = GameObject.FindGameObjectsWithType(typeof(^LeaderScript^));
 	}
 
-	public static void StartTimer()
+	private static void StartTimer()
 	{
 		_base_time = Time.time;
 	}
