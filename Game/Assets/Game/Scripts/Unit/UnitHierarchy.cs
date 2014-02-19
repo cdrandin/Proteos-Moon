@@ -13,7 +13,7 @@ public class UnitHierarchy: MonoBehaviour
 
 
 
-		//Combat(player1, player2);
+		Combat(player1, player2);
 	}
 
 	void Update()

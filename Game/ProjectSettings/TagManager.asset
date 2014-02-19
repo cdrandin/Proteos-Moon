@@ -3,11 +3,13 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Tile
+  - Terrain
   - Unit
   - Leader
   - DistanceProjector
   - SelectionProjector
+  - 
+  - Projectors
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
