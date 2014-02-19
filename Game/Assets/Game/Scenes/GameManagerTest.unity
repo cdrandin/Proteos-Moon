@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 967546069}
-  - 114: {fileID: 967546068}
   - 114: {fileID: 967546070}
   m_Layer: 0
   m_Name: Game
@@ -141,20 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &967546068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 967546067}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1ebf12c125537408984f91a5d90e26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  num_of_players: 2
-  resource_limit: 500
-  testing: 1
 --- !u!4 &967546069
 Transform:
   m_ObjectHideFlags: 0
