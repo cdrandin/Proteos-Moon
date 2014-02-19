@@ -92,8 +92,8 @@ public class WorldCamera : MonoBehaviour {
 
 		ApplyScroll ();
 
-		if(CheckIfUserCameraInput())
-		{
+		if(CheckIfUserCameraInput()){
+		
 			Vector3 desiredTranslation = GetDesiredTranslation();
 			if(!isDesiredPositionOverBoundaries(desiredTranslation))
 			{
@@ -107,7 +107,6 @@ public class WorldCamera : MonoBehaviour {
 
 		ApplyCameraY();
 	}
-
 
 	
 	#region Helper functions
@@ -126,8 +125,7 @@ public class WorldCamera : MonoBehaviour {
 	}
 
 	//Handles the mouse rotation vertically and horizontally.
-	public void HandleMouseRotation()
-	{
+	public void HandleMouseRotation(){
 		var easeFactor = 10f;
 		if (Input.GetMouseButton (1)) {
 			
