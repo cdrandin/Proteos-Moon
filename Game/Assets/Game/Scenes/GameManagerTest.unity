@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 797373149}
   - 132: {fileID: 797373148}
+  - 114: {fileID: 797373150}
   m_Layer: 0
   m_Name: GameManagerStatus
   m_TagString: Untagged
@@ -124,6 +125,19 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &797373150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 797373147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10de9f718a04a04f95957e40c231b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouse_up: {fileID: 2800000, guid: 7542f86b91144674487cf910f5982c37, type: 3}
+  mouse_down: {fileID: 2800000, guid: 31ee480355c5fc54bb790fc858864713, type: 3}
 --- !u!1 &967546067
 GameObject:
   m_ObjectHideFlags: 0
