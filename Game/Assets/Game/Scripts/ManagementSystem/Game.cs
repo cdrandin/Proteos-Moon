@@ -20,6 +20,7 @@ public class Game : MonoBehaviour
 	void Awake() 
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
+		_game_manager_gui.text = "";
 	}
 
 	// Use this for initialization
@@ -30,7 +31,6 @@ public class Game : MonoBehaviour
 
 		_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 		_game_manager_gui.fontSize = 16;
-		_game_manager_gui.text = "";
 	}
 	
 	// Update is called once per frame
