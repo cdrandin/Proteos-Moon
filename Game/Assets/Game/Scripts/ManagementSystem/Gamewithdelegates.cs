@@ -11,18 +11,15 @@ public class Gamewithdelegates : MonoBehaviour
 	/* 
 	 * Variables used for testing GameManager
 	 */
-	private bool _manager_init;
-	private GUIText _resource;
-	private GUIText _recruit;
-
 	private delegate void GUIMethod();
 	private GUIMethod gui_method;
+
 	private bool recruit_gui_on;
+	private GUIText _game_manager_gui;
 
 	void Awake() 
 	{
-		_resource = GameObject.Find("Resource_GUIText").GetComponent<GUIText>();
-		_recruit  = GameObject.Find("Recruit_GUIText").GetComponent<GUIText>();
+		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
 	}
 
 	// Use this for initialization
@@ -30,7 +27,10 @@ public class Gamewithdelegates : MonoBehaviour
 	{
 		this.gui_method = GUI_init;
 		recruit_gui_on = true;
-		_manager_init = false;
+
+		_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
+		_game_manager_gui.fontSize = 16;
+		_game_manager_gui.text = "";
 	}
 	
 	// Update is called once per frame
@@ -47,26 +47,22 @@ public class Gamewithdelegates : MonoBehaviour
 	
 	void GUI_init()
 	{
-		if(MakeButton(0,0,"Start GameManager") /*&& !_manager_init*/)
+		if(MakeButton(0,0,"Start GameManager"))
 		{
 			this.gui_method += GUI_menu;
 
 			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit);
 
-			//_manager_init = true;
-
-			_resource.transform.position = new Vector3(0.05f, 0.05f, 0.0f);
-			_resource.fontSize = 16;
-			_resource.text = string.Format("Current player: {0} at {1} Resources", 
-			                               GameManager.GetCurrentPlayer(), GameManager.GetResourceFrom(GameManager.GetCurrentPlayer()).ToString());
+			_game_manager_gui.text = "Game Manager enabled";
 		}
 		
-		if(MakeButton(0, 50, "End GameManager"))
+		else if(MakeButton(0, 50, "End GameManager"))
 		{
 			this.gui_method -= GUI_menu;
 
 			GameManager.ResetGameState();
-			//_manager_init = false;
+
+			_game_manager_gui.text = "Game Manager disabled";
 		}
 	}
 
@@ -79,30 +75,38 @@ public class Gamewithdelegates : MonoBehaviour
 		if(MakeButton(half, 0, "Next player's turn"))
 		{
 			GameManager.NextPlayersTurn();
-			_resource.text = string.Format("Current player: {0} at {1} Resources", 
-			                               GameManager.GetCurrentPlayer(), GameManager.GetResourceFrom(GameManager.GetCurrentPlayer()).ToString());
+
+			_game_manager_gui.text = string.Format("Next player's turn\n" + 
+			                                  "Current player: {0}\n",
+			                                  GameManager.GetCurrentPlayer());
 		}
 		
-		else if(MakeButton(half, 50,"Round\t #"))
-			Debug.Log(string.Format("Current round: {0}", GameManager.GetCurrentRound()));
+		else if(MakeButton(half, 50,"Current round #"))
+			_game_manager_gui.text = string.Format("Current round: {0}",
+			                                       GameManager.GetCurrentRound());
 		
 		else if(MakeButton(half, 100, "Timer"))
-			Debug.Log(string.Format("Current time: {0}", GameManager.GetCurrentTime()));
+			_game_manager_gui.text = string.Format("Current time: {0}", GameManager.GetCurrentTime());
 		
 		else if(MakeButton(half, 150, string.Format("Add 50 resource pts\n to {0}", GameManager.GetCurrentPlayer())))
 		{
 			GameManager.AddResources(GameManager.GetCurrentPlayer(),50);
-			_resource.text = string.Format("Current player: {0} at {1} Resources", 
-			                               GameManager.GetCurrentPlayer(), GameManager.GetResourceFrom(GameManager.GetCurrentPlayer()).ToString());
+			_game_manager_gui.text = string.Format("Current player: {0} at {1} Resources", 
+			                               GameManager.GetCurrentPlayer(), (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString());
 		}
+
 		else if(MakeButton(half, 200, "Recruit Menu"))
 		{
-			print (recruit_gui_on);
-
 			if(recruit_gui_on)
+			{
 				this.gui_method += GUI_recruit;
+				_game_manager_gui.text = "Recruit Menu opened";
+			}
 			else
+			{	
 				this.gui_method -= GUI_recruit;
+				_game_manager_gui.text = "Recruit Menu closed";
+			}
 
 			recruit_gui_on = !recruit_gui_on;
 		}
@@ -118,60 +122,60 @@ public class Gamewithdelegates : MonoBehaviour
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 70))
 			{
-				_recruit.text = string.Format("{0} Arcane", recruit_text);
+				_game_manager_gui.text = string.Format("{0} Arcane", recruit_text);
 			}
 			else
-				_recruit.text = string.Format("{0} Arcane", recruit_fail);
+				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
 		}
 		
 		else if(MakeButton(half + half/3, 50, "Braver Cost: 50"))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 50))
 			{
-				_recruit.text = string.Format("{0} Braver", recruit_text);
+				_game_manager_gui.text = string.Format("{0} Braver", recruit_text);
 			}
 			else
-				_recruit.text = string.Format("{0} Braver", recruit_fail);
+				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
 		}
 		
 		else if(MakeButton(half + half/3, 100, "Scout Cost: 20"))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 20))
 			{
-				_recruit.text = string.Format("{0} Scout", recruit_text);
+				_game_manager_gui.text = string.Format("{0} Scout", recruit_text);
 			}
 			else
-				_recruit.text = string.Format("{0} Scout", recruit_fail);
+				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
 		}
 		
 		else if(MakeButton(half + half/3, 150, "Sniper Cost: 80"))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 80))
 			{
-				_recruit.text = string.Format("{0} Sniper", recruit_text);
+				_game_manager_gui.text = string.Format("{0} Sniper", recruit_text);
 			}
 			else
-				_recruit.text = string.Format("{0} Sniper", recruit_fail);
+				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
 		}
 		
 		else if(MakeButton(half + half/3, 200, "Titan Cost: 150"))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 150))
 			{
-				_recruit.text = string.Format("{0} Titan", recruit_text);
+				_game_manager_gui.text = string.Format("{0} Titan", recruit_text);
 			}
 			else
-				_recruit.text = string.Format("{0} Titan", recruit_fail);
+				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
 		}
 		
 		else if(MakeButton(half + half/3, 250, "Vangaurd Cost: 100"))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 100))
 			{
-				_recruit.text = string.Format("{0} Vanguard", recruit_text);
+				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_text);
 			}
 			else
-				_recruit.text = string.Format("{0} Vanguard", recruit_fail);
+				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_fail);
 		}
 	}
 
