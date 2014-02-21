@@ -28,10 +28,14 @@ public static class GameManager
 		NONE
 	}
 
+	private static bool _game_init;
+
 	// Keep track of player turn order and number of players
 	public static Player[] _player_turn_order;
 	private static int _current_player_turn;
 	public static int total_players;
+
+	private static UnitCost _unit_cost;
 
 	// Winning conditions
 	private static int[] _resource_count;
@@ -51,11 +55,23 @@ public static class GameManager
 
 	private static float _base_time;
 
-	// Constructor
-	public static void Init(int num_of_players, int who_goes_first, int resource_win_count)
+	private static void Awake ()
 	{
+		_game_init = false;
+	}
+
+	public static bool IsOn()
+	{
+		return _game_init;
+	}
+
+	// Constructor
+	public static void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
+	{
+		_game_init = true;
+
 		// Valid player limit
-		if(who_goes_first==0||(who_goes_first>num_of_players)||num_of_players>4)
+		if(who_goes_first == 0 || (who_goes_first > num_of_players) || num_of_players > 4)
 		{
 			Debug.LogError("Player limit reached!\nProblem in GameManager.cs");
 			return;
@@ -65,15 +81,18 @@ public static class GameManager
 
 		_winner = Player.NONE;
 
+		// Keep track of cost
+		_unit_cost = unit_cost;
+
 		// What is the max number of resources required to win
 		_max_resource = resource_win_count;
 
 		// One time calls of basic init.
-		_player_turn_order = new Player[total_players];
+		_player_turn_order  = new Player[total_players];
 
 		// Allocate correct number of resource counters
-		_resource_count = new int[total_players];
-		_resource_spent = new int[total_players];
+		_resource_count     = new int[total_players];
+		_resource_spent     = new int[total_players];
 		_resources_obtained = new int[total_players];
 
 		// Allocated correct number of leader counters
@@ -193,19 +212,47 @@ public static class GameManager
 	}
 
 	// Return bool if player can purchase unit, if so do purchase
-	public static bool RecruitUnit(Player player, int amount)
+	// Based on unit type passed
+	public static bool RecruitUnit(Player player, UnitType unit_type)
 	{
-		if(_resource_count[(int)player] >= amount)
+		int cost;
+
+		switch(unit_type)
 		{
-			_resource_count[(int)player] -= amount;
-			_resource_spent[(int)player] += amount;
+		case UnitType.Arcane:
+			cost = _unit_cost.Arcane;
+			break;
+		case UnitType.Braver:
+			cost = _unit_cost.Braver;
+			break;
+		case UnitType.Scout:
+			cost = _unit_cost.Scout;
+			break;
+		case UnitType.Sniper:
+			cost = _unit_cost.Sniper;
+			break;
+		case UnitType.Titan:
+			cost = _unit_cost.Titan;
+			break;
+		case UnitType.Vangaurd:
+			cost = _unit_cost.Vangaurd;
+			break;
+		default:
+			Debug.LogWarning(string.Format("Unit type: {0} does not have an associated cost to it!", unit_type));
+			cost = -1;
+			break;
+		}
+
+		if(_resource_count[(int)player] >= cost)
+		{
+			_resource_count[(int)player] -= cost;
+			_resource_spent[(int)player] += cost;
 			++_units_obtained[(int)player]; 
 			return true;
 		}
 		else
 			return false;
 	}
-
 	// Method for allowing other player to take turn
 	// This should enable all options for the next player in the queue
 	// Disable the player's actions when they are done with their turn

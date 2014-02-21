@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Game : MonoBehaviour
@@ -6,7 +6,7 @@ public class Game : MonoBehaviour
 	public int num_of_players;
 	public int resource_limit;
 	
-	private bool change;
+	public bool testing;
 
 	/* 
 	 * Variables used for testing GameManager
@@ -17,17 +17,29 @@ public class Game : MonoBehaviour
 	private bool recruit_gui_on;
 	private GUIText _game_manager_gui;
 
+	private UnitCost _unit_cost;
+
+	private float waitingTime;
+	private float timer;
+
 	void Awake() 
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
 		_game_manager_gui.text = "";
+
+		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
-		this.gui_method = GUI_init;
-		recruit_gui_on = true;
+		if(testing)
+		{
+			this.gui_method = GUI_init;
+			recruit_gui_on = true;
+			waitingTime = 5.0f;
+			timer = 0.0f;
+		}
 
 		_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 		_game_manager_gui.fontSize = 16;
@@ -36,7 +48,19 @@ public class Game : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		
+		if(Input.GetMouseButtonDown(0))
+			timer = 0;
+
+		if(GameManager.IsOn())
+		{
+			timer += Time.deltaTime;
+			if(timer > waitingTime){
+				//Action
+				_game_manager_gui.text = string.Format("Current player: {0} at {1} Resources", 
+				                                       GameManager.GetCurrentPlayer(), (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString());
+				timer = 0;
+			}
+		}
 	}
 
 	void OnGUI()
@@ -51,7 +75,7 @@ public class Game : MonoBehaviour
 		{
 			this.gui_method += GUI_menu;
 
-			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit);
+			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 
 			_game_manager_gui.text = "Game Manager enabled";
 		}
@@ -77,11 +101,11 @@ public class Game : MonoBehaviour
 			GameManager.NextPlayersTurn();
 
 			_game_manager_gui.text = string.Format("Next player's turn\n" + 
-			                                  "Current player: {0}\n",
-			                                  GameManager.GetCurrentPlayer());
+			                                       "Current player: {0}\n",
+			                                       GameManager.GetCurrentPlayer());
 		}
 		
-		else if(MakeButton(half, 50,"Current round #"))
+		else if(MakeButton(half, 50, "Current round #"))
 			_game_manager_gui.text = string.Format("Current round: {0}",
 			                                       GameManager.GetCurrentRound());
 		
@@ -118,9 +142,9 @@ public class Game : MonoBehaviour
 		string recruit_text = "Recently purchased";
 		string recruit_fail = "Could not purchase";
 
-		if(MakeButton(half + half/3, 0, "Arcane Cost: 70"))
+		if(MakeButton(half + half/3, 0, string.Format("Arcane Cost: {0}", _unit_cost.Arcane)))
 		{
-			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 70))
+			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Arcane))
 			{
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_text);
 			}
@@ -128,9 +152,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 50, "Braver Cost: 50"))
+		else if(MakeButton(half + half/3, 50, string.Format("Braver Cost: {0}", _unit_cost.Braver)))
 		{
-			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 50))
+			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Braver))
 			{
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_text);
 			}
@@ -138,9 +162,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 100, "Scout Cost: 20"))
+		else if(MakeButton(half + half/3, 100, string.Format("Scout Cost: {0}", _unit_cost.Scout)))
 		{
-			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 20))
+			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Scout))
 			{
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_text);
 			}
@@ -148,9 +172,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 150, "Sniper Cost: 80"))
+		else if(MakeButton(half + half/3, 150, string.Format("Sniper Cost: {0}", _unit_cost.Sniper)))
 		{
-			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 80))
+			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Sniper))
 			{
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_text);
 			}
@@ -158,9 +182,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 200, "Titan Cost: 150"))
+		else if(MakeButton(half + half/3, 200, string.Format("Titan Cost: {0}", _unit_cost.Titan)))
 		{
-			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 150))
+			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Titan))
 			{
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_text);
 			}
@@ -168,9 +192,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 250, "Vangaurd Cost: 100"))
+		else if(MakeButton(half + half/3, 250, string.Format("Vangaurd Cost: {0}", _unit_cost.Vangaurd)))
 		{
-			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), 100))
+			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Vangaurd))
 			{
 				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_text);
 			}
@@ -181,7 +205,7 @@ public class Game : MonoBehaviour
 
 	bool MakeButton(float left, float top, string name)
 	{
-		return GUI.Button(new Rect(left,top, 150,50), name);
+		return GUI.Button(new Rect(left,top+50, 150,50), name);
 	}
 
 	int RandomFirstPlayer(int number_of_players)
@@ -193,5 +217,6 @@ public class Game : MonoBehaviour
 	{
 		num_of_players = 2;
 		resource_limit = 500;
+		testing = false;
 	}
 }

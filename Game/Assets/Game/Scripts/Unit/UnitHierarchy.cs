@@ -36,7 +36,7 @@ public class UnitHierarchy: MonoBehaviour
 public enum UnitType
 {
 	Arcane = 0,
-	Bravers,
+	Braver,
 	Leader,
 	Scout, 
 	Sniper,
@@ -150,7 +150,7 @@ public class Arcane: Entity
 public class Braver: Entity
 {
 	public Braver(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Bravers)
+		base(hp, mp, damage, distance, attack_range, UnitType.Braver)
 	{
 	}
 }
