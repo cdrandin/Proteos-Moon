@@ -1,3 +1,22 @@
+2014-02-23
+==========
+* [Completed] Fix Rotation issues with Camera Pan system  4.0 h (8.0 h)
+   > Had to isolate Quaternion rotations when the Camera changed focus on the players units
+   > The CameraController would rotate around the y axis, while the camera lens would rotate around the x axis
+   > Ivan Espinosa
+
+ * [Completed] Meet up with artist to get work completed 5.0h (6.0 h)
+   > Figured out how MoCap works to create animation for the characters of our game
+     - Since we dont have any animators, we are using MoCap to create base animations of our characters
+	 - What MoCap does is that it will record our movements with two Microsoft Kinects
+	 - Then riggers will attach the base human skeleton from maya
+	 - We have schedule to meet Monday to get our animations done
+   > Met up on Thursday with all the artist to create a more refined pipeline
+     - Now each artist can look up a file on google drive to see what tasks are needed to complete
+	 - The tasks are color coded to identify whether in-progress, complete, high priority, etc.
+   > Chris Randin, Ivan Espinosa and Mark Martene  
+   
+   
 2014-02-16
 ==========
 
