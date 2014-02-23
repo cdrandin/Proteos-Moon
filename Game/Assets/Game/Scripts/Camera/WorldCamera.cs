@@ -36,7 +36,7 @@ public class WorldCamera : MonoBehaviour {
 
 	private float cameraMoveSpeed = 60f; // This values adjust the camera speed
 	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
-	private float mouseBoundary   = 25f; //This value is the padding around the screen to apply mouse movement
+	private float mouseBoundary   = 5f; //This value is the padding around the screen to apply mouse movement
 
 	private float mouseX;
 	private float mouseY;
