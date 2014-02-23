@@ -61,7 +61,9 @@ public class TargetTransition : MonoBehaviour {
 
 				//Find the new position
 				newPosition = unitArray [unitIndex].transform.position + distanceToUnit;
-				newRot = Quaternion.LookRotation (newPosition);
+				newRot = Quaternion.LookRotation (newPosition, new Vector3(0,1,0));
+				print ("Initial Euler Angles" + MainCamera.transform.rotation.eulerAngles);
+//				print ("Euler anlges: " + newRot.eulerAngles);
 
 				interpolate = true;
 			}
@@ -73,6 +75,7 @@ public class TargetTransition : MonoBehaviour {
 
 				if( IsWithinBuffer(buffer) || AreCameraMovementPress() || WorldCamera.IsMousePositionWithinBoundaries()){
 					interpolate = false;
+					print ("Current Euler Angles" + MainCamera.transform.rotation.eulerAngles);
 				}
 			}
 		}
@@ -141,9 +144,19 @@ public class TargetTransition : MonoBehaviour {
 	void InterpolateToNewPosition(){
 
 		CameraController.transform.position = Vector3.Lerp (CameraController.transform.position, newPosition, Time.deltaTime * smooth);
-		CameraController.transform.LookAt (unitArray [unitIndex].transform.position);
-		MainCamera.transform.LookAt (unitArray [unitIndex].transform.position);
-		MainCamera.transform.rotation = Quaternion.Lerp (MainCamera.transform.rotation, newRot, Time.deltaTime * rotation_smooth);
+		//print ("CameraController Euler Angles" + CameraController.transform.rotation.eulerAngles);
+		//print ("MainCamera Euler Angles" + MainCamera.transform.rotation.eulerAngles);
+		newRot =  Quaternion.FromToRotation( MainCamera.transform.forward , 
+		                                        unitArray [unitIndex].transform.position - newPosition );
+		
+		print ("New Rotation" + newRot.eulerAngles);
+		MainCamera.transform.Rotate(new Vector3(newRot.eulerAngles.x , 0 , 0));
+		CameraController.transform.Rotate(new Vector3(0, newRot.eulerAngles.y, 0));
+		//print ("Euler X angle: " + newRot.eulerAngles.x + ", Rotation X: " + newRot.x);
+		//print ("Euler Y angle: " + newRot.eulerAngles.y + ", Rotation Y: " + newRot.y);
+		//CameraController.transform.LookAt (unitArray [unitIndex].transform.position);
+		//MainCamera.transform.LookAt (unitArray [unitIndex].transform.position, new Vector3(0,1,0));
+	//	MainCamera.transform.rotation = Quaternion.Lerp (MainCamera.transform.rotation, newRot, Time.deltaTime * rotation_smooth);
 
 	}
 
