@@ -37,6 +37,45 @@ public class RecruitSystem : MonoBehaviour
 	
 	}
 
+	// Bring unit onto the field
+	// Horrible way of doing this, just for now
+	public void SpawnUnit(UnitType unit_type)
+	{
+		Vector3 position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
+		string name;
+
+		// For now have it spawn immediately
+		switch(unit_type)
+		{
+		case UnitType.Arcane:
+			name = "Arcane";
+			break;
+		case UnitType.Braver:
+			name = "Braver";
+			break;
+		case UnitType.Scout:
+			name = "Scout";
+			break;
+		case UnitType.Sniper:
+			name = "Sniper";
+			break;
+		case UnitType.Titan:
+			name = "Titan";
+			break;
+		case UnitType.Vangaurd:
+			name = "Vangaurd";
+			break;
+		default:
+			name = "BROKEN";
+			break;
+		}
+
+		GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+		obj.transform.position = position;
+		obj.transform.rotation = Quaternion.identity;
+		obj.name = name;
+	}
+
 	void Reset ()
 	{
 		unit_cost = new UnitCost(100, 80, 50, 120, 200, 300);

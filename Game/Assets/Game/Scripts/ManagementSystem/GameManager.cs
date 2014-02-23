@@ -40,8 +40,8 @@ public static class GameManager
 	// Winning conditions
 	private static int[] _resource_count;
 	private static int _max_resource;
-	private static bool[] _leaders_alive;
-	//private static ^LeaderScript^[] _leaders_scripts;
+	private static bool[] _leaders_alive; // Find better way
+	private static GameObject[] _leaders;
 
 	// Who has won
 	private static Player _winner;
@@ -52,7 +52,7 @@ public static class GameManager
 	private static int[] _units_obtained;
 	private static int _round_num;
 	private static float _timer;
-
+	
 	private static float _base_time;
 
 	private static void Awake ()
@@ -103,6 +103,8 @@ public static class GameManager
 
 		// Pointer to the leader script, to keep track of hp
 		// _leader_script = new ^LeaderScript^[total_players];
+
+		InitPlayersLeader();
 
 		ResetGameState();
 
@@ -279,11 +281,20 @@ public static class GameManager
 		return _round_num;
 	}
 
+	// Get leader gameobjects in the scene
+	public static GameObject GetPlayerLeader(Player player)
+	{
+		return _leaders[(int)player];
+	}
+
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
 	public static void InitPlayersLeader()
 	{
 		// Find each player's leader. All leaders alive.
-		// _leader_script = GameObject.FindGameObjectsWithType(typeof(^LeaderScript^));
+		//foreach(GameObject leader in GameObject.FindGameObjectsWithTag("Leader"))
+		//	_leaders = leader.GetComponent<UnitHierarchy>().;
+
+		_leaders = GameObject.FindGameObjectsWithTag("Leader");
 	}
 
 	private static void StartTimer()
@@ -328,10 +339,10 @@ public static class GameManager
 
 		for(int i=0;i<_resource_count.Length;++i)
 		{
-			_resource_count[i] = 0;
-			_resource_spent[i] = 0;
+			_resource_count[i]     = 0;
+			_resource_spent[i]     = 0;
 			_resources_obtained[i] = 0;
-			_units_obtained[i] = 0;
+			_units_obtained[i]     = 0;
 		}
 	}
 
@@ -376,7 +387,7 @@ public static class GameManager
 				"Leader alive:{3}\n" +
 				"Units obtained:{4}\n" +
 				"Enemy units killed:{5}\n\n", 
-				i+1, _resources_obtained[i], _resource_spent[i], _leaders_alive[i], -1, -1);
+				i+1, _resources_obtained[i], _resource_spent[i], _leaders_alive[i], _units_obtained[i], -1);
 		}
 
 		string scores = string.Format("Total rounds:{0}\n" +

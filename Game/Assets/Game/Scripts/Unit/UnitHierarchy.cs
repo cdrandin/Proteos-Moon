@@ -1,17 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * Still needs some work. Doesn't feel good enough. May just do Entity-Component System
+ */
 public class UnitHierarchy: MonoBehaviour
 {
 	public Arcane player1;
 	public Titan player2;
+
+	public Entity player3;
 
 	void Start()
 	{
 		player1 = new Arcane(100,200,50,60,300);
 		player2 = new Titan(300,50,200,10,100);
 
-
+		player3 = new Vangaurd(250, 100, 150, 100, 120);
 
 		Combat(player1, player2);
 	}
@@ -130,10 +135,15 @@ public class Entity
 		{
 			return _unit_type;
 		}
-		set
-		{
-			_unit_type = value;
-		}
+	}
+}
+
+[System.Serializable]
+public class Leader: Entity
+{
+	public Leader(int hp, int mp, int damage, float distance, float attack_range):
+		base(hp, mp, damage, distance, attack_range, UnitType.Leader)
+	{
 	}
 }
 

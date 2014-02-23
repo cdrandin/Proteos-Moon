@@ -957,7 +957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   num_of_players: 2
   resource_limit: 500
-  testing: 1
+  testing: 0
 --- !u!4 &907561688
 Transform:
   m_ObjectHideFlags: 0
