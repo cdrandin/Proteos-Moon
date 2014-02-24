@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
+using Random = UnityEngine.Random;
 
 public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	//private PhotonView pv;
-	private string room_name = "Room01";
+	private string room_name = "Room";
 	//private string room_status = "";
 	private int max_players = 20;
 	private string max_players_text = "2";
@@ -25,7 +26,32 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PhotonNetwork.ConnectUsingSettings("0.1");
+		//PhotonNetwork.ConnectUsingSettings("0.1");
+	}
+
+	public void Awake()
+	{
+		// this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
+		PhotonNetwork.automaticallySyncScene = true;
+		
+		// the following line checks if this client was just created (and not yet online). if so, we connect
+		if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
+		{
+			// Connect to the photon master-server. We use the settings saved in PhotonServerSettings (a .asset file in this project)
+			PhotonNetwork.ConnectUsingSettings("1.0");
+		}
+		
+		// generate a name for this player, if none is assigned yet
+		if (String.IsNullOrEmpty(PhotonNetwork.playerName))
+		{
+			PhotonNetwork.playerName = "Guest" + Random.Range(1, 9999);
+		}
+		if (String.IsNullOrEmpty(room_name))
+		{
+			room_name = "Room" + Random.Range(1, 9999);
+		}
+		// if you wanted more debug out, turn this on:
+		// PhotonNetwork.logLevel = NetworkLogLevel.Full;
 	}
 
 	void OnJoinedLobby(){
@@ -71,6 +97,14 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 			GUILayout.BeginArea(new Rect((native_width / 2f) - (lobby_width / 2f), (native_height / 2f) - (lobby_height / 2f), lobby_width, lobby_height - 25));
 			GUILayout.Box("Matchmaking Lobby");
 			// Layout design
+			GUILayout.Label("Player name:", GUILayout.Width(100));
+			PhotonNetwork.playerName = GUILayout.TextField(PhotonNetwork.playerName);
+			GUILayout.Space(2);
+			if (GUI.changed)
+			{
+				// Save name
+				PlayerPrefs.SetString("playername", PhotonNetwork.playerName);
+			}
 			GUILayout.Label("Room Name:");
 			room_name = GUILayout.TextField(room_name);
 			GUILayout.Label("Max amount of players 1 - 20:");
@@ -86,6 +120,11 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 				if (room_name != "" && max_players > 0) {
 					PhotonNetwork.CreateRoom(room_name, true, true, max_players);
 				}
+			}
+			GUILayout.Space(2);
+			if (GUILayout.Button("Join Random"))
+			{
+				PhotonNetwork.JoinRandomRoom();
 			}
 			GUILayout.Space(2);
 			scroll_position = GUILayout.BeginScrollView(scroll_position, false, true, GUILayout.Width(lobby_width), GUILayout.Height(lobby_height - 100));
