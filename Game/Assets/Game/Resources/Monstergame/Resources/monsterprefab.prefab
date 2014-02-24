@@ -2229,7 +2229,7 @@ MonoBehaviour:
   idleAnimation: {fileID: 7400002, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
   walkAnimation: {fileID: 7400004, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
   runAnimation: {fileID: 7400006, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
-  jumpPoseAnimation: {fileID: 7400008, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
+  jumpPoseAnimation: {fileID: 7400014, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
   walkMaxAnimationSpeed: 3
   trotMaxAnimationSpeed: 5
   runMaxAnimationSpeed: 8
@@ -2237,8 +2237,8 @@ MonoBehaviour:
   landAnimationSpeed: 1
   _characterState: 0
   walkSpeed: 10
-  trotSpeed: 13
-  runSpeed: 20
+  trotSpeed: 15
+  runSpeed: 40
   inAirControlAcceleration: 3
   jumpHeight: 2
   gravity: 20
