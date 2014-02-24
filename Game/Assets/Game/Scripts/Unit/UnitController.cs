@@ -8,11 +8,11 @@ public class UnitController : MonoBehaviour
 	/*
 	 * Public methods for Unit Controller
 	 */
-
+	//HACK to get rid of warnings
 	// Animations needed for each unit
-	public AnimationClip idle_animation;
+	/*public AnimationClip idle_animation;
 	public AnimationClip run_animation;
-	public AnimationClip jump_animation;
+	public AnimationClip jump_animation;*/
 
 	// How fast unit can move
 	public float speed;
@@ -40,7 +40,7 @@ public class UnitController : MonoBehaviour
 	 */
 
 	// Method for accessing the animation component
-	private Animation _animation;
+	//HACK private Animation _animation;
 
 	// Move direction allow is the X and Z axis. Y is only affected by incline or jumping
 	private Vector3 _move_direction;
@@ -49,7 +49,7 @@ public class UnitController : MonoBehaviour
 	private float _vertical_speed;
 
 	// Know when unit is jumping
-	private bool _is_jumping;
+	//HACK private bool _is_jumping;
 
 	// Keep track how many times allow to jump in air
 	private int _air_jump_count;
@@ -77,9 +77,9 @@ public class UnitController : MonoBehaviour
 	*/
 
 	void Awake()
-	{
-		_animation = GetComponent<Animation>();
-
+	{	
+		//HACK to get rid of warnings
+		/*_animation = GetComponent<Animation>();
 		if (!idle_animation)
 		{
 			_animation = null;
@@ -94,7 +94,7 @@ public class UnitController : MonoBehaviour
 		{
 			_animation = null;
 			Debug.Log("No jump animation found and the character has canJump enabled. Turning off animations.");
-		}
+		}*/
 
 		_cc = GetComponent<CharacterController>();
 	}
@@ -104,7 +104,7 @@ public class UnitController : MonoBehaviour
 	{
 		// Forward is the +Z axis
 		_move_direction  = Vector3.zero; //transform.TransformDirection(Vector3.forward);
-		_is_jumping      = false;
+		//HACK _is_jumping      = false;
 		_is_controllable = true;
 		_vertical_speed  = 0.0f;
 		_air_jump_count  = 0;
@@ -167,7 +167,7 @@ public class UnitController : MonoBehaviour
 
 		if(IsGrounded())
 		{
-			_is_jumping = false;
+			//HACK _is_jumping = false;
 			target_direction.Normalize();
 			_move_direction = target_direction;
 		}
@@ -192,7 +192,7 @@ public class UnitController : MonoBehaviour
 			if(IsGrounded())
 			{
 				_vertical_speed = CalculateJumpVerticalSpeed(jump_height);
-				_is_jumping = true;
+				//HACK _is_jumping = true;
 				_air_jump_count = 0;
 			}
 

@@ -51,7 +51,7 @@ public static class GameManager
 	private static int[] _resource_spent;
 	private static int[] _units_obtained;
 	private static int _round_num;
-	private static float _timer;
+	//HACK private static float _timer;
 	
 	private static float _base_time;
 
@@ -194,7 +194,7 @@ public static class GameManager
 		return false;
 	}
 
-	public static Player GetWiner()
+	public static Player GetWinner()
 	{
 		return _winner;
 	}
@@ -335,7 +335,7 @@ public static class GameManager
 		_round_num = 0;
 
 		// Reset timer
-		_timer = 0.0f;
+		//HACK _timer = 0.0f;
 
 		for(int i=0;i<_resource_count.Length;++i)
 		{
