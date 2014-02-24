@@ -421,6 +421,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 281233334}
   - 114: {fileID: 281233333}
+  - 20: {fileID: 281233336}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -436,11 +437,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 281233332}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcc87fd302c704a86a5ff7d64f80405a, type: 3}
+  m_Script: {fileID: 11500000, guid: c477790c38f6a4b058e8dfefd511f494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  room_name: Proteus Moon
-  new_room_name: Bangarang Games
+  player_prefab: NetworkPlayer
   spawn_object: {fileID: 1715088108}
 --- !u!4 &281233334
 Transform:
@@ -453,6 +453,35 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!20 &281233336
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 281233332}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: .300000012
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_HDR: 0
+  m_OcclusionCulling: 1
 --- !u!1 &561996392
 GameObject:
   m_ObjectHideFlags: 0
