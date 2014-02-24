@@ -69,7 +69,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 		if (PhotonNetwork.insideLobby == true) {
 			GUI.Box(new Rect((native_width / 2f) - (lobby_width / 2f), (native_height / 2f) - (lobby_height /2f), lobby_width, lobby_height), "");
 			GUILayout.BeginArea(new Rect((native_width / 2f) - (lobby_width / 2f), (native_height / 2f) - (lobby_height / 2f), lobby_width, lobby_height - 25));
-			GUILayout.Box("Lobby");
+			GUILayout.Box("Matchmaking Lobby");
 			// Layout design
 			GUILayout.Label("Room Name:");
 			room_name = GUILayout.TextField(room_name);
