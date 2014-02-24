@@ -18,6 +18,7 @@ public class UnitController : MonoBehaviour
 	public float speed;
 
 	// How far the unit should be able to travel
+	// Close to ~ in meters perse.
 	public float max_travel_distance;
 
 	// Unit allowed to jump
@@ -58,7 +59,7 @@ public class UnitController : MonoBehaviour
 	private bool _is_controllable;
 
 	// Keep track how far the unit has traveled
-	public float _travel_distance;
+	private float _travel_distance;
 
 	private CharacterController _cc;
 
@@ -108,7 +109,7 @@ public class UnitController : MonoBehaviour
 		_is_controllable = true;
 		_vertical_speed  = 0.0f;
 		_air_jump_count  = 0;
-
+		_travel_distance = 0.0f;
 		//character_state_ = CharacterState.Idle;
 	}
 	
@@ -137,20 +138,9 @@ public class UnitController : MonoBehaviour
 		Vector3 movement = _move_direction * speed + new Vector3(0, _vertical_speed, 0);
 		movement *= Time.deltaTime;
 
-		// Keep track of distance traveled when moving
+		// Just adding some numbers to get distance traveled
 		if(IsMoving())
-		{
-			float z = Mathf.Abs(movement.z);
-			float x = Mathf.Abs(movement.x);
-
-			// Not yet does it count diagonal distance
-			if(z > x)
-				_travel_distance += z;
-			else if(z < x)
-				_travel_distance += x;
-			else
-				_travel_distance += movement.magnitude;
-		}
+			_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
 
 		_cc.Move(movement);
 	}
@@ -160,8 +150,8 @@ public class UnitController : MonoBehaviour
 		if(!_is_controllable)
 			return;
 
-		float v = Input.GetAxis("Vertical");
-		float h = Input.GetAxis("Horizontal");
+		float v = Input.GetAxisRaw("Vertical");//Input.GetAxis("Vertical");
+		float h = Input.GetAxisRaw("Horizontal");//Input.GetAxis("Horizontal");
 
 		Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
 
@@ -238,8 +228,10 @@ public class UnitController : MonoBehaviour
 	void Reset ()
 	{
 		// Testing numbers that had a "nice" feel
-		speed = 10.0f;
-		jump_height = 6.0f;
-		fall_speed = 40.0f;
+		speed               = 10.0f;
+		max_travel_distance = 4.0f;
+		can_jump            = true;
+		jump_height         = 6.0f;
+		fall_speed          = 60.0f;
 	}
 }
