@@ -36,6 +36,8 @@ public class UnitController : MonoBehaviour
 	// How fast the unit can rotate
 	public float rotation_speed;
 
+	// If true, player will stop when distance traveled is met
+	public bool enforce_distance;
 	/*
 	 * Private methods for Unit Controller
 	 */
@@ -116,7 +118,7 @@ public class UnitController : MonoBehaviour
 	// Update is called once per frame
 	void Update() 
 	{
-		if (!_is_controllable /*|| _travel_distance >= max_travel_distance*/)
+		if (!_is_controllable || ( enforce_distance && (_travel_distance >= max_travel_distance)))
 		{
 			//
 			// MAY CAUSE PROBLEMS IN THE FUTURE !!!

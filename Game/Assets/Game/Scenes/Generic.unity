@@ -281,6 +281,7 @@ MonoBehaviour:
   jump_height: 6
   fall_speed: 60
   rotation_speed: 0
+  enforce_distance_traveled: 0
 --- !u!111 &602163491
 Animation:
   m_ObjectHideFlags: 0
@@ -499,6 +500,7 @@ MonoBehaviour:
   jump_height: 6
   fall_speed: 60
   rotation_speed: 0
+  enforce_distance_traveled: 0
 --- !u!111 &626148572
 Animation:
   m_ObjectHideFlags: 0
@@ -734,6 +736,7 @@ MonoBehaviour:
   jump_height: 6
   fall_speed: 60
   rotation_speed: 0
+  enforce_distance_traveled: 0
 --- !u!111 &853000710
 Animation:
   m_ObjectHideFlags: 0
@@ -1000,6 +1003,7 @@ MonoBehaviour:
   jump_height: 6
   fall_speed: 60
   rotation_speed: 0
+  enforce_distance_traveled: 0
 --- !u!111 &1024321080
 Animation:
   m_ObjectHideFlags: 0
@@ -1393,6 +1397,7 @@ MonoBehaviour:
   jump_height: 6
   fall_speed: 60
   rotation_speed: 0
+  enforce_distance_traveled: 0
 --- !u!111 &1580537755
 Animation:
   m_ObjectHideFlags: 0
