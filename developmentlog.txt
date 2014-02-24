@@ -1,27 +1,159 @@
-2014-02-23
+2014-02-23 // IvanÕs Birthday
 ==========
+Previous Week's Objectives
+---------------------
+
+
+* [Ongoing] Combine Functionalities for one complete project  6.0 h (4.0 h)
+   > We each have individual scenes of the game where we worked on our projects
+   > Combine functionality together in terms of our scripts and usage. This is to help generate    more task to complete
+   > Help isolate input control and UI interface functionality
+   > We need to standardize asset usage, for all of us to use
+          (no more creating unnecessary prefabs)
+   > Ivan Espinosa, Chris Randin, and Mark Martene
+
+
 * [Completed] Fix Rotation issues with Camera Pan system  4.0 h (8.0 h)
    > Had to isolate Quaternion rotations when the Camera changed focus on the players units
-   > The CameraController would rotate around the y axis, while the camera lens would rotate around the x axis
+   > The CameraController would rotate around the y axis, while the camera lens                                                                                                                                                                                                would rotate around the x axis
    > Ivan Espinosa
+
 
  * [Completed] Meet up with artist to get work completed 5.0h (6.0 h)
    > Figured out how MoCap works to create animation for the characters of our game
-     - Since we dont have any animators, we are using MoCap to create base animations of our characters
-	 - What MoCap does is that it will record our movements with two Microsoft Kinects
-	 - Then riggers will attach the base human skeleton from maya
-	 - We have schedule to meet Monday to get our animations done
+- Since we dont have any animators, we are using MoCap to create base animations of our characters
+          - What MoCap does is that it will record our movements with two Microsoft Kinects
+                 - Then riggers will attach the base human skeleton from maya
+                 - We have schedule to meet Monday to get our animations done
    > Met up on Thursday with all the artist to create a more refined pipeline
-     - Now each artist can look up a file on google drive to see what tasks are needed to complete
-	 - The tasks are color coded to identify whether in-progress, complete, high priority, etc.
-   > Chris Randin, Ivan Espinosa and Mark Martene  
-   
-   
+             - Now each artist can look up a file on google drive to see what tasks are                                                                                                                                                                                                needed to complete
+                 - The tasks are color coded to identify whether in-progress, complete,                                                                                                                                                                                                high priority, etc.
+   > Chris Randin, Ivan Espinosa and Mark Martene
+
+
+* [On-going for future implementations]Test scene for GameManager 3.0 h (3.0 h)
+   > This is an environment to test the GameManager
+   > Fixed issues when improved scripts else where
+   > Updated GUI view to delegates, while familiarizing myself with them
+   > Christopher Randin
+
+
+* [Incomplete] Improve distance travel recording, distance ring constantly updating and following the unit 2 h (0.0 h)
+   > Did not have the time to complete the task.
+   > Improve the measurement recording 
+   > Update radius of ring to be dynamic, the unitÕs new distance movement
+   > Christopher Randin
+
+
+*  [Completed/Can be improved] Use GameManager to help with scene transitions 4.0 h (4.0h)
+   > Added leader tracker, to have a pointer to the game object, in which to access components for later use.
+   > Testing GameManager, works pretty good so far. Co-exist with current Recruit System.
+   > Later implementation, distinguish between which playerÕs leader is whom
+   > As we add more functionality, keep tabs with the manager and decide if it is something
+   >   it needs to keep track of. Like for when a combat system is necessary, the manager will
+   >   see if it is valid to do combat
+   > Keep up to date with other functionalities in the game. Optimize manager also improvement to add a better flow to the system.
+   > Control the functionalities we have created to let playerÕs do specific actions
+   depending on the status of their turn.
+   > Christopher Randin
+
+
+* [Completed/Can be improved] Implement the recruit system 4.0 h (1.0 h)
+   > Instantiate a capsule for now on top of unit. Instantiate is an expensive call. Future implementation will have a pool system to manage unit assets.
+   > Assign unit cost on this system.
+   > Be within range of ÒrecruiteeÓ object and be able to purchase units
+   > Check game restrictions like number of resources meets required pay
+   > Have units spawn within a valid vicinity 
+   > Christopher Randin
+
+
+* [Ongoing] Start designing Fog of War and implement it 10.0 h (5.0 h)
+  > Was able to find implementations of fog of war
+        - The fog uses a camera to project the distance that is revealed
+        - Ran into trouble with having two cameras
+        - If the script is attached to the main camera, it projects the revealed fog from the cameraÕs position and not from the playerÕs position
+  > Will need to modify to configure for our game
+  > Mark Martene and Ivan Espinosa
+
+
+* [Partially Completed] Create a multiplayer lobby system 3.0 h (6.0 h)
+   > Create and join rooms
+        - The player can create a unique name for a room
+        - The player can edit the maximum number of players
+        - The player can view all existing rooms in a lobby
+        - The player can view how many players are currently in the lobby
+        - The player can view the maximum number of players in each room
+   > Allow players to join locally and get paired with an opponent
+        - Still need to have a ÒJoin Random RoomÓ Button
+        - Will create private rooms with passwords
+   > Allow chat between both parties and maybe a spectator view
+        - Still Need to implement the chat and spectator view
+   > Mark Martene
+
+
+This WeekÕs Objectives
+---------------------
+
+
+* Create Animations of our game characters 6.0 h
+  > Will meet up with artist and have our actions captured with two kinects
+  > Then once we have completed animations, we can send it the data to our rigors to add more detail
+  >  Ivan Espinosa, Christopher Randin, and Mark Martene
+
+
+* Unit hierarchy 8.0 h
+  > We did not like the current way our unit hierarchy is constructed.
+  > We need to change it that will allow more functionality with the combat system
+  > Until this is is completed, we can then construct the combat system
+  > Ivan Espinosa
+
+
+* Complete Fog of War 20.0 h 
+  > Allow the rendering of fog focus around players units 
+  > Have the map revealed where the playerÕs units have already been
+        - less dense fog but still visible
+  > Mark Martene and Ivan Espinosa
+
+
+* Game Manager transitions/ control unit mechanics created from this week 10.0 h
+   > Facilitate the game state transitions between players and units a like. Form rules to allow things to be done only at a certain time. 
+   > Flow of game, player turn. Allow unit selection for that player. Own playerÕs units can perform actions.
+   > When units have more depth into their available actions. Another system will take over and keep track of available actions that are allowed for a given unit.
+   > Christopher Randin
+
+
+* Combat System using unit hierarchy 8.0 h
+   > When unit hierarchy is complete. Integrate facilities for combat.
+   > An interface for such methods to communicate as a common object and fight. 
+   > This is independent of animation. Some parts of the the system may depend on the animation itself, but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
+   > Christopher Randin
+
+
+* Improve Networking Capabilities 20.0 h
+  > Matchmaking Lobby
+- Add ÒJoin Random RoomÓ Button
+- Add in private rooms with passwords
+- Add in a spectator option
+  > In Game
+        - Add in character models and attach networking scripts to them
+- Allow chat between players
+- Send and receive RPC signals of each playerÕs character positions
+- Send and receive RPC signals of actions
+  > In Unity
+- Merge networking code with existing code from other scenes
+  > Mark Martene
+  
+
+
+
+
 2014-02-16
 ==========
 
+
 Previous Week's Objectives
 ---------------------
+
 
 * [Completed] Communicate and organize the artists 2.0 h (3.0 h)
   > Might need to use MoCap for rigging and animation to complete project within our time-line
@@ -29,40 +161,41 @@ Previous Week's Objectives
   > We now have an art production schedule for the next 3 weeks.
   > Ivan Espinosa and Mark Martene
 
+
 * [Complete] Continue constructing an easy to use camera pan system 4.0 h (4.0 h)
-  > Now the camera when moving cursor to edge of the screen thus moving the camera,
-  >   in their respectful direction.
-  > Allow, mouse to focus on valid units, thus lock the camera towards that unit and 
-  >   reach only to its valid movement spaces.
+   > Now the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
+   > Allow, mouse to focus on valid units, thus lock the camera towards that unit and reach only to its valid movement spaces.
   > Ivan Espinosa
    
 * [Ongoing] Create More Functionality with the Camera 8.h (10.h)
-   > Camera now moves around the screen using the WASD keys, also will move when mouse 
-   >   is located near the edges of the screen
+   > Camera now moves around the screen using the WASD keys, also will move when mouse is located near the edges of the screen
    > Camera rotates around the x and z axis using the right mouse button
    > Camera now has zoom functionality with the mouse scroll wheel
    > Camera auto adjust heights depends on the terrain elevation. Note* not objects
-   > Problems or concerns when rotating with the camera. If the mouse is near the edge
-   >   of the screen while rotating with the right mouse button the screen will move.
+   > Problems or concerns when rotating with the camera. If the mouse is near the edge of the screen while rotating with the right mouse button the screen will move.
    > Ivan Espinosa
+
 
 * [Completed] Unit Selection 2.0 h ( 2.0 h)
    > When user uses the left click on a unit, a projection is then created underneath the unit
    > When user clicks elsewhere the unit is then deselected and projection is removed.
-   > Ivan Espinosa
+  > Ivan Espinosa
+
 
 * [Completed] Document what interactable objects will be in the environment 3.0 h (1.0 h)
    > Write-up report as to how to make the world dynamic
    > No programming expected, till units are finalized in concept and code
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
+
 * [Incomplete] Initializing Fog of War for the game 6.0 h (2.0 h)
    > Held back from other production stuff
    > Figure out a system where a fog model covers up the vision of the location and units
-	- Decided to make the fog of war similar to the Tasheren Fog of war design.
+- Decided to make the fog of war similar to the Tasheren Fog of war design.
    > Needs to update for each individual player
    > Keeps track of what is visible to player
    > Ivan Espinosa, Mark Martene
+
 
 * [Unfinished] Construct a game manager system 8.0 h (10.0 h)
    > Status:
@@ -74,6 +207,7 @@ Previous Week's Objectives
    > This is expect to do a lot more as we add more functionality into the game
    > Christopher Randin
 
+
 * [Complete/Can be improved] Construct unit class hierarchy 1.5 h (2.0h)
    > Put in some stat variables for the units to inherit from.
    > Unsure to keep this design, currently Object-Oriented Design, over the
@@ -82,18 +216,18 @@ Previous Week's Objectives
    >   base related data usage, like combat, AoE effect, etc
    > Christopher Randin
 
+
 * [Incomplete] Construct a working UI interface 5.0 h(2.0 h)
    > Have static "always visible" info on the screen
    > Have the action interface pop up when a character is selected
-   > Have the character simulate an attack when the attack button is clicked 
-	- values changed not animated
+   > Have the character simulate an attack when the attack button is clicked - values changed not animated
    > Have the character defend when the defend button is clicked
-   > Have a temporary message "ability used" print to the console when the 
-   >   ability button is clicked
+   > Have a temporary message "ability used" print to the console when the ability button is clicked
    > Shadow out character  when 'wait' or 'hold' is clicked
    > Have 'Finish Turn' to have the game manager change player's turn
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
+
 
 * [Ongoing] Construct a system for networking play (9.0 h)
    > Implemented a networking system using Unity's Master Server
@@ -107,69 +241,75 @@ Previous Week's Objectives
         - The opponents movement lags
    > Mark Martene
 
-This Week's Objectives
+
+This WeekÕs Objectives
 ---------------------
 * Meet up with artist to get work completed 5.0h
-   > Get new environment concept art, new character models, and then pass 
-   >   off models to rigger
-   > Make sure that the modelers created UV mapping for all the models, 
-   >   so that the artist can create textures.
+   > Get new environment concept art, new character models, and then pass off models to rigger
+   > Make sure that the modelers created UV mapping for all the models, so that the artist can create textures.
    > Ivan Espinosa and Mark Martene
+
 
 * Combine Functionalities for one complete project  6.0 h
    > We each have individual scenes of the game where we worked on our projects
-   > Combine functionality together in terms of our scripts and usage. 
-   >   This is to help generate more task to complete
+   > Combine functionality together in terms of our scripts and usage. This is to help generate    more task to complete
    > Help isolate input control and UI interface functionality
    > We need to standardize asset usage, for all of us to use
           (no more creating unnecessary prefabs)
    > Ivan Espinosa, Chris Randin, and Mark Martene
 
+
 * Fix Rotation issues with Camera Pan system  4.0 h
    > Need to isolate rotation x and z axis to give to respective game objects
    > Ivan Espinosa
 
+
 * Use GameManager to help with scene transitions 4.0 h
    > GameManager to help with the flow of the game
-   > Control the functionalities we have created to let player's do specific actions
+   > Control the functionalities we have created to let playerÕs do specific actions
    depending on the status of their turn.
    > Christopher Randin
 
+
 * Implement the recruit system 4.0 h
-   > Be within range of "recruitee" object and be able to purchase units
+   > Be within range of ÒrecruiteeÓ object and be able to purchase units
    > Check game restrictions like number of resources meets required pay
    > Have units spawn within a valid vicinity 
    > Christopher Randin
+
 
 * Create basic UI for game system 8.0 h
    > Idea is that users will click buttons to initiate certain actions
    > Will use delegate to decouple the GUI system
    > Ivan Espinosa and Mark Martene
 
+
 * Continue adding to GameManager and update 4.0 h
    > As we add more functionality, keep tabs with the manager and decide if it is something
    >   it needs to keep track of. Like for when a combat system is necessary, the manager will
    >   see if it is valid to do combat
-   > Keep up to date with other functionalities in the game. Optimize manager 
-   >   also improvement to add a better flow to the system.
+   > Keep up to date with other functionalities in the game. Optimize manager also improvement to add a better flow to the system.
    > Christopher Randin
+
 
 * Improve distance travel recording, distance ring constantly updating and following the unit 2 h
    > Improve the measurement recording 
-   > Update radius of ring to be dynamic, the unit's new distance movement
+   > Update radius of ring to be dynamic, the unitÕs new distance movement
    > Christopher Randin
+
 
 * Start designing Fog of War and implement it 10.0 h
   > Design shaders to implement the fog
-	- Darker shader for farther fog
-	- Lighter shader for the edge of the revealed parts of the map
+- Darker shader for farther fog
+- Lighter shader for the edge of the revealed parts of the map
   > Hide enemy units
-	- Reveal enemy units when within units range
+- Reveal enemy units when within units range
   > Reveal own character units 
-	- Reveal map when unit moves
+- Reveal map when unit moves
   > Have the fog of war system work correctly across the network
-	- Players can only see what their units have revealed
+- Players can only see what their units have revealed
   > Mark Martene
+
 
 * Create a multiplayer lobby system 3.0 h
    > Create and join rooms
@@ -177,63 +317,72 @@ This Week's Objectives
    > Allow chat between both parties and maybe a spectator view
    > Mark Martene
 
+
 2014-02-09
 ==========
+
 
 Previous Week's Objectives
 ---------------------
 
+
 * [Completed/Can be improved] Creating a unit controller 6.0h (4.0 h)
    > Unit control working pretty good. Might need to change the way 
-   >	it moves, feels rather rigid. Can smooth it for later.
+   >        it moves, feels rather rigid. Can smooth it for later.
    > Unit has a limited distance as to how far one can travel.
    > Jumping works correctly, just not so fluid. Also, air-jumping is
-   >	possible for "special" units.
+   >        possible for "special" units.
    > Issue: Keep track of distance is clunky, diagonal movement allows
-   >	more distance travel, which shouldn't be.
+   >        more distance travel, which shouldn't be.
    > This works independently from the camera, it is assumed the camera
-   >	will follow the unit a certain way.
+   >        will follow the unit a certain way.
    > Also, includes idle, run, jump animations to be used when assigned
-   >	If none are assigned, then it skips it
+   >        If none are assigned, then it skips it
    > Christopher Randin
 
+
 * [Completed] Project a circle around a "focus" unit to show how far
- 	they can move if they walked completely linear. 2.0h (2.0 h)
+         they can move if they walked completely linear. 2.0h (2.0 h)
    > Created a couple of textures to use for the projection 
    > This will display onto the ground correctly. This is set to ignore:
-   >	"Units", "Leaders" and "Terrain" specific layer maskings.
+   >        "Units", "Leaders" and "Terrain" specific layer maskings.
    > Scaling of projection ortho size took some trial and error to scale 
-   >	correctly with the distance of 1 unit. Came to be ..
-   >	new_ortho_size = unit_distance/(10.0/12.0)
+   >        correctly with the distance of 1 unit. Came to be ..
+   >        new_ortho_size = unit_distance/(10.0/12.0)
    > This is any easy to use system, simply call "SetProjectorFocus", 
-   >	from the "DistanceProjection" script passing a "focus" 
-   >	GameObject, which sets focus internally and project accordingly.
+   >        from the "DistanceProjection" script passing a "focus" 
+   >        GameObject, which sets focus internally and project accordingly.
    > Will display error if incorrect object is passed.
    > Christopher Randin
+
 
 * [Completed/Ongoing] Communicate with Artists in person 2.0 h (3.0 h)
    > Encourage them for motivation to work on the game
    > Discuss art that will need to get done for the next
    > Ask the main following questions:
-	- When is their availability
-	- What is the best way to contact them
-	- How much time can they put into the game
+        - When is their availability
+        - What is the best way to contact them
+        - How much time can they put into the game
    > Ivan Espinosa and Mark Martene
+
 
 * [Completed] Come Up with Additional Race 2.0 h (2.0 h)
    > Find the opposing race of our human race
    > Have concept artists start to work on additional race
    > Chris Randin, Ivan Espinosa and Mark Martene
 
+
 * [Not Completed] Document what interactable objects will be in the environment 3.0 h (1.0 h)
    > Write-up report as to how to make the world dynamic
    > No programming expected, till units are finalized in concept and code
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
+
 * [Partially Completed/Needs Improving] Construct class hierarchy 2.0 h (2.0 h)
    > Create base class to inherit from, also provide virtual future to unify objects 
    > Create basic class for each unit, think of individual traits for each unit
    > Mark Martene
+
 
 * [Completed] Comb through a simulated round of the game to come up with questions about the game design 2.5h (5.0h)
   > Discovered problem with tiles and attacking
@@ -243,26 +392,30 @@ Previous Week's Objectives
   > Discussed what specifically happens/can happen during a turn
   > Mark Martene
 
+
 * [Not Completed]Construct an easy to use camera pane system 4.0 h (1.0 h)
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
    > Allow, mouse to focus on ÔvalidÕ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
 
+
 * [Trashed] Devise a method for creating tile for the map 6.0 h (5.0h)
    > Did not meet the desire for our gameplay and tiles caused too 
-   >	much restrictions with the desired "feel" for our units.
+   >        much restrictions with the desired "feel" for our units.
    > Finalize idea of manual place(static and easy) vs 
-   >	projection(dynamic and not-so-easy)
+   >        projection(dynamic and not-so-easy)
    > Implement idea, look up resource for improvement and data 
-   >	structure design
+   >        structure design
    > Created appropriate tile placement and find a good ratio for the 
-   >	tiles to be placed in world space.
+   >        tiles to be placed in world space.
    > Ignore objects with tag "Obstruction" to avoid placing a valid 
-   >	tile on the map.
+   >        tile on the map.
    > Christopher Randin and Ivan Espinosa
 
-This Week's Objectives
+
+This WeekÕs Objectives
 ---------------------
+
 
 * Communicate and organize the artists 2.0 h
   > Start the modeling phase of the pipeline
@@ -271,15 +424,18 @@ This Week's Objectives
   > Possibly see the rest of the completed models
   > Ivan Espinosa and Mark Martene
 
+
 * Continue constructing an easy to use camera pane system 4.0 h
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
    > Allow, mouse to focus on ÔvalidÕ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
 
+
 * Document what interactable objects will be in the environment 3.0 h
    > Write-up report as to how to make the world dynamic
    > No programming expected, till units are finalized in concept and code
    > Christopher Randin, Ivan Espinosa and Mark Martene
+
 
 * Initializing Fog of War for the game 6.0 h+
    > Figure out a system where a fog model covers up the vision of the location and units
@@ -287,25 +443,24 @@ This Week's Objectives
    > Keeps track of what is visible to player
    > Ivan Espinosa, Mark Martene
 
+
 * Construct a game manager system 8.0 h+
    > The system should be capable in control which player is capable of moving their own units
-   >	at a given time.
+   >        at a given time.
    > Control and keep track of what the unit is allowed to do(e.g movement, attack, etc)
    > !! Phases to keep track of: PlayerÕs turn, toggle between units, unit must complete all
-   >	allow ACTIONS(described later) before unit becomes exhausted 
-   >	(being you cannot do anymore actions), all units exhausted turn is done, 
-   >	as well as keeping track of game conditions
+   >        allow ACTIONS(described later) before unit becomes exhausted (being you cannot do anymore actions), all units exhausted turn is done, as well as keeping track of game conditions
    > ACTIONS: 
-   >	- Movement (toggle UnitController)
-   >	- Attack (toggle combat system, which introduces damage to a source)
-   >	- Spells (toggle combat system or environment interaction system,
-   >	   which does damage or spells affect the environment in someway
-   > 	- Wait (essentially a unit exhaust)
-   > 	-  And other possible available actions
+   >        - Movement (toggle UnitController)
+   >        - Attack (toggle combat system, which introduces damage to a source)
+   >        - Spells (toggle combat system or environment interaction system, which does damage or spells affect the environment in someway
+   >         - Wait (essentially a unit exhaust)
+   >         -  And other possible available actions
    > Christopher Randin
 
+
 * Construct a working UI interface 5.0 h
-   > Have static "always visible" info on the screen
+   > Have static Òalways visibleÓ info on the screen
    > Have the action interface pop up when a character is selected
    > Have the character simulate an attack when the attack button is clicked - values changed not animated
    > Have the character defend when the defend button is clicked
@@ -315,61 +470,70 @@ This Week's Objectives
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
 
+
 2014-02-02
 ==========
+
 
 Previous WeekÕs Objectives
 ---------------------
 
+
 * [Completed] Reaching out to individuals interested in our game 3.5 d (7.0 h)
    > Explained expectation for game, type of style we desired
    > Artist that are interested to work with us
-	- Daniel Root - Character Concept Art / Character Modeler 
-	- Kevin Barrientos - Character Modeler
-	- Kelly Mai - Environmental / Character Concept Artist
-	- Lily Russell - Character Concept Art
-	- Melody Palisoc - Prop and Character Model
-	- Emily Chiang - Rigger / Animator
-	- Brian Crawford - Rigger
-	- Jeremy Moyer - Game Design
+        - Daniel Root - Character Concept Art / Character Modeler 
+        - Kevin Barrientos - Character Modeler
+        - Kelly Mai - Environmental / Character Concept Artist
+        - Lily Russell - Character Concept Art
+        - Melody Palisoc - Prop and Character Model
+        - Emily Chiang - Rigger / Animator
+        - Brian Crawford - Rigger
+        - Jeremy Moyer - Game Design
    > Ivan Espinosa and Mark Martene
+
 
 * [Ongoing] Go over Unity Tutorials by the end of the week 2.0 h (5.0 h)
    > Understand how to work with the Interface
    > Go over scripting language for Unity and understand the functionality
    > Ivan Espinosa and Mark Martene
 
+
 * [Completed] Setting up repo and SSH 1.0 h (3.0 h)
-   > Setting up a common repo for us all to work from. Currently, we have chosen to work under “usrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git”
+   > Setting up a common repo for us all to work from. Currently, we have chosen to work under Òusrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.gitÓ
    > SSH established for all of us.
    > Read the first 3 chapters of the GitPro book
    > Christopher Randin, Ivan Espinosa and Mark Martene
+
 
 * [Complete/Can be improved]Add Unity source code 1.0 h (0.5 h)
    > Push a Unity Project into git
    > Add .gitignore file to the rep for space efficiency
    > Christopher Randin
 
+
 * [Completed] Finalized theme, game objectives, structure and discuss creative gameplay 5.0 h (8.0h)
    > Discussion as to what we desired from a fantasy world. Not wanting to focusing on the same fantasy style (i.e. Orcs v Human) Synopsis of the world is that it is dying and different groups of people are fighting over resources to survive this per-apocalyptic world.
    > Acquired a desired game mode, i.e. versus, with multiple ways of winning.
-	- Acquire an X amount of resources
-	- Kill opponentÕs leader
-	- Capture and hold X number of resource points for a Y amount of turns
+        - Acquire an X amount of ÔresourcesÕ
+        - Kill opponentÕs leader
+        - Capture and hold X number of resource points for a Y amount of turns
    > Discussed the current groups priorities for this game
-	- Submission as a final project
+        - Submission as a final project
+
 
 * Submission for this years, 2014, GameSig competition 
    > Discussed likes and dislike from other games. Presenting ideas we would like to incorporate into our game to give it uniqueness and bringing in fun mechanics from other games and/or modify with our own twist.
    > Artist presented concept art for the units we desired of the 6 units(Braver, Scout, Vanguard, Arcane, Titan, Sniper). Went over discussion on what their roles were as individuals.
    > Discussed what we wanted in the game for demo purposes:
-	- 2 races
-	- Unique mechanics to go with each race, choose leaders
-	- Simple story/theme
-	- Game mode: Versus
-	- 1 Map(maybe 2 depending on time)
-	- Dynamic environment with each unit(grapple to trees, break trees/wall)
+        - 2 races
+        - Unique mechanics to go with each race, choose leaders
+        - Simple story/theme
+        - Game mode: Versus
+        - 1 Map(maybe 2 depending on time)
+        - Dynamic environment with each unit(grappel to trees, break trees/wall)
    > Christopher Randin, Ivan Espinosa and Mark Martene
+
 
 * [Ongoing] Setting up the start-up requirements and small features 2.0h (2.0h)
    > Waiting for more info as to how the game was going to play out
@@ -377,61 +541,76 @@ Previous WeekÕs Objectives
    > Construct basis class for hierarchical structure of unit derivation.
    > Christopher Randin and Ivan Espinosa
 
+
 This Week's Objectives
 -------------------
+
 
 * Communicate with Artists in person 2.0 h
    > Encourage them for motivation to work on the game
    > Discuss art that will need to get done for the next
    > Ask the main following questions:
-	- When is their availability
-	- What is the best way to contact them
-	- How much time can they put into the game
+        - When is their availability
+        - What is the best way to contact them
+        - How much time can they put into the game
    > Ivan Espinosa and Mark Martene
+
 
 * Come Up with Additional Race 2.0 h
    > Find the opposing race of our human race
    > Have concept artists start to work on additional race
    > Chris Randin, Ivan Espinosa and Mark Martene
 
+
 * Devise a method for creating tile for the map 6.0 h
    > Finalize idea of manual place(static and easy) vs projection(dynamic and not-so-easy)
    > Implement idea, look up resource for improvement and data structure design
    > Christopher Randin and Ivan Espinosa
+
 
 * Document what intractable objects will be in the environment 3.0 h
    > Write-up report as to how to make the world dynamic
    > No programming expected, till units are finalize in concept and code
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
+
 * Construct class hierarchy 2.0 h
    > Create base class to inherit from, also provide virtual future to unify objects 
    > Create basic class for each unit, think of individual traits for each unit
    > Mark Martene
 
+
 * Construct an easy to use camera pane system 4.0 h
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on 'valid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Allow, mouse to focus on valid units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
+
+
 
 
 2014-01-26
 ==========
 
+
 This Week's Objectives
 ---------------------
 
+
 * Show up to class 3.0 h
-   > Listen to Shafae's lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
+   > Listen to ShafaeÕs lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
    > Christopher Randin, Ivan Espinosa and Mark Martene
+
 
 This WeekÕs Objectives
 -------------------
+
 
 * Setting up repo and SSH 1.0 h
    > SSH established for all of us.
    > Read the first 3 chapters of the GitPro book
    > Christopher Randin, Ivan Espinosa and Mark Martene
+
+
 
 
 * Add Unity source code 1.0 h
@@ -440,16 +619,15 @@ This WeekÕs Objectives
 * Need to know what files to ignore
    > Christopher Randin
 
+
 * Go over Unity Tutorials by the end of the week 2.0 h
    > Understand how to work with the Interface
    > Go over scripting language for Unity and understand the functionality
    > Ivan Espinosa and Mark Martene
+
 
 * Setting up the start-up requirements and small features 2.0 h
    > Create a basis for which to project tiles on or construct tiles by hand
    > Get a feel for how to organize the map and see if this is the behavior we desire.
    > Construct basis class for hierarchical structure of unit derivation.
    > Christopher Randin
-
-
-
