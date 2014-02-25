@@ -18,11 +18,15 @@ public class DistanceProjection : MonoBehaviour
 
 	// Keep track of which unit is being focus
 	private GameObject _focus;
+	private UnitController _uc;
 
 	// The ratio of how many units in world space to convert to get 1 ortho size for the projection
-	// By testing, it is ((10.0f/12.0f) units/1 ortho_size)
 	// new ortho size is calculated when we got focus, then sizes projection according to that unit's distance
 	private float _new_ortho_size;
+
+	// Value. Based on ratio of, _travel_distance formula += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
+	// When _travel_distance is 1 "unit" the ortho_size should be ~12.25
+	private const float _ratio = 12.25f;
 
 	// Array of projectors
 	private Projector[] projectors;
@@ -37,29 +41,12 @@ public class DistanceProjection : MonoBehaviour
 	{
 		_focus    = null;
 		_distance = 0.0f;
-		//SetProjectionOff();
+		SetProjectionOff();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		/*
-		if(Input.GetKeyDown(KeyCode.T))
-		{
-			//SetProjectionOn(true);
-			SetProjectorFocus(GameObject.FindGameObjectWithTag("Unit") as GameObject);
-		}
-
-
-		if(_focus != null)
-		{ 
-			// There is a target
-			//_focus.GetComponent<UnitController>();
-
-			// Get target's capable travel distance
-			//_distance = _focus.GetDistance();
-		}
-		*/
 	}
 	 
 	// Focus to target, get distance, calculate new ortho size for projections
@@ -69,30 +56,40 @@ public class DistanceProjection : MonoBehaviour
 	{
 		if(_focus == null)
 		{
-			UnitController uc = target.GetComponent<UnitController>() as UnitController;
+			_uc = target.GetComponent<UnitController>() as UnitController;
 
-			if(uc == null)
+			if(_uc == null)
 			{
-				Debug.LogError(string.Format("Trying to project onto {0}, but it does not contain the UnitController script.", target.name));
+				Debug.LogWarning(string.Format("Trying to project onto {0}, but it does not contain the UnitController script.", target.name));
 				return;
 			}
 
 			_focus            = target;
-			_distance         = uc.GetMaxDistance();
-			_new_ortho_size   = _distance/(10.0f/12.0f); // ~ value
+			_distance         = _uc.GetMaxDistance();
+			_new_ortho_size   = _distance*_ratio;
 
 			// Resize
 			foreach(Projector p in projectors)
 				p.orthographicSize = _new_ortho_size;
+
+			UpdateProjection();
 		}
 	}
-
+	
 	// Align projectors over selected unit
 	public void UpdateProjection()
 	{
 		Vector3 new_position = _focus.transform.position;
 		new_position.y       = transform.position.y;
 		transform.position = new_position;
+
+		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _uc.GetTravelDistance()*_ratio,
+		                              0.0f,
+		                              _distance*_ratio);
+
+		foreach(Projector p in projectors)
+			p.orthographicSize = _new_ortho_size;
+
 	}
 
 	// Turn on projectors

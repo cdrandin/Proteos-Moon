@@ -75,7 +75,6 @@ public class UnitController : MonoBehaviour
 
 	private CharacterState character_state;
 	*/
-
 	void Awake()
 	{	
 		//HACK to get rid of warnings
@@ -226,6 +225,16 @@ public class UnitController : MonoBehaviour
 	public float GetMaxDistance()
 	{
 		return max_travel_distance;
+	}
+
+	public float GetTravelDistance()
+	{
+		return _travel_distance;
+	}
+
+	public void ResetDistanceTraveled()
+	{
+		_travel_distance = 0.0f;
 	}
 
 	void Reset ()
