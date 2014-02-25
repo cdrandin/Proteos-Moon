@@ -33,9 +33,6 @@ public class UnitController : MonoBehaviour
 	// aka. gravity, but can also be used to allow certain units to fall more slowly
 	public float fall_speed;
 
-	// How fast the unit can rotate
-	public float rotation_speed;
-
 	// If true, player will stop when distance traveled is met
 	public bool enforce_distance;
 	/*
@@ -61,7 +58,7 @@ public class UnitController : MonoBehaviour
 	private bool _is_controllable;
 
 	// Keep track how far the unit has traveled
-	private float _travel_distance;
+	public float _travel_distance;
 
 	private CharacterController _cc;
 
@@ -112,6 +109,7 @@ public class UnitController : MonoBehaviour
 		_vertical_speed  = 0.0f;
 		_air_jump_count  = 0;
 		_travel_distance = 0.0f;
+		_cc.detectCollisions = false;
 		//character_state_ = CharacterState.Idle;
 	}
 	
@@ -167,10 +165,13 @@ public class UnitController : MonoBehaviour
 
 	void ApplyGravity()
 	{
+		_vertical_speed -= fall_speed * Time.deltaTime;
+		/*
 		if (IsGrounded())
 			_vertical_speed = 0.0f;
 		else
 			_vertical_speed -= fall_speed * Time.deltaTime;
+			*/
 	}
 
 	void Jump()
