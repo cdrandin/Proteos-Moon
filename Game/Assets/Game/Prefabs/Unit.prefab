@@ -92,7 +92,8 @@ MonoBehaviour:
   air_jumps: 0
   jump_height: 6
   fall_speed: 60
-  rotation_speed: 0
+  enforce_distance: 0
+  _travel_distance: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,7 +130,7 @@ CharacterController:
   m_SlopeLimit: 45
   m_StepOffset: .300000012
   m_SkinWidth: .0799999982
-  m_MinMoveDistance: 0
+  m_MinMoveDistance: .100000001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
