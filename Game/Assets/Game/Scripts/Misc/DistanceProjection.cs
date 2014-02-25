@@ -47,6 +47,13 @@ public class DistanceProjection : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		/*
+		if(Input.GetKeyDown(KeyCode.T))
+			SetProjectionOn(GameObject.FindGameObjectWithTag("Unit") as GameObject);
+
+		if(_focus != null)
+			UpdateProjection();
+		*/
 	}
 	 
 	// Focus to target, get distance, calculate new ortho size for projections

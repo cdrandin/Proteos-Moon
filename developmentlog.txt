@@ -1,33 +1,58 @@
-2014-02-23 // IvanÕs Birthday
+2014-03-02
 ==========
+
+Previous Week's Objectives
+--------------------------
+
+* [Completed] Fixed issues with DistanceProjection 1.0 h (1.0 h)
+   > Issue was incorrect usage of script. Now more easy to use.
+   > Readjusted the ratio for display the projection with respect to the unit's 
+   >	alloted distance.
+   > Christopher Randin
+
+* [Completed] Made a "better" way to keep track of distance traveled 1.0 h (1.0 h)
+   > Calculating distance based on the direction vector taken multiplied against 
+   >	with the speed. Normalize, take the magnitude, then multiply that by deltatime
+   >	which is a mathod that calculate previous cpu cycle, indepedent of cpu speed.
+   > Christopher Randin
+ 
+2014-02-23 // Ivan's Birthday
+==========
+
 Previous Week's Objectives
 ---------------------
 
 
 * [Ongoing] Combine Functionalities for one complete project  6.0 h (4.0 h)
    > We each have individual scenes of the game where we worked on our projects
-   > Combine functionality together in terms of our scripts and usage. This is to help generate    more task to complete
+   > Combine functionality together in terms of our scripts and usage. 
+   >	This is to help generate    more task to complete
    > Help isolate input control and UI interface functionality
    > We need to standardize asset usage, for all of us to use
-          (no more creating unnecessary prefabs)
+   >	(no more creating unnecessary prefabs)
    > Ivan Espinosa, Chris Randin, and Mark Martene
 
 
 * [Completed] Fix Rotation issues with Camera Pan system  4.0 h (8.0 h)
-   > Had to isolate Quaternion rotations when the Camera changed focus on the players units
-   > The CameraController would rotate around the y axis, while the camera lens                                                                                                                                                                                                would rotate around the x axis
+   > Had to isolate Quaternion rotations when the Camera changed focus on the 
+   >	players units
+   > The CameraController would rotate around the y axis, while the camera 
+   >	lens would rotate around the x axis
    > Ivan Espinosa
 
 
  * [Completed] Meet up with artist to get work completed 5.0h (6.0 h)
    > Figured out how MoCap works to create animation for the characters of our game
-- Since we dont have any animators, we are using MoCap to create base animations of our characters
-          - What MoCap does is that it will record our movements with two Microsoft Kinects
-                 - Then riggers will attach the base human skeleton from maya
-                 - We have schedule to meet Monday to get our animations done
+	- Since we dont have any animators, we are using MoCap to create base 
+		animations of our characters
+        - What MoCap does is that it will record our movements with two Microsoft Kinects
+        - Then riggers will attach the base human skeleton from maya
+        - We have schedule to meet Monday to get our animations done
    > Met up on Thursday with all the artist to create a more refined pipeline
-             - Now each artist can look up a file on google drive to see what tasks are                                                                                                                                                                                                needed to complete
-                 - The tasks are color coded to identify whether in-progress, complete,                                                                                                                                                                                                high priority, etc.
+        - Now each artist can look up a file on google drive to see what tasks 
+		are needed to complete
+        - The tasks are color coded to identify whether in-progress, complete,	
+		high priority, etc.
    > Chris Randin, Ivan Espinosa and Mark Martene
 
 
@@ -38,7 +63,8 @@ Previous Week's Objectives
    > Christopher Randin
 
 
-* [Incomplete] Improve distance travel recording, distance ring constantly updating and following the unit 2 h (0.0 h)
+* [Incomplete] Improve distance travel recording, distance ring constantly 
+	updating and following the unit 2 h (0.0 h)
    > Did not have the time to complete the task.
    > Improve the measurement recording 
    > Update radius of ring to be dynamic, the unitÕs new distance movement
@@ -46,20 +72,23 @@ Previous Week's Objectives
 
 
 *  [Completed/Can be improved] Use GameManager to help with scene transitions 4.0 h (4.0h)
-   > Added leader tracker, to have a pointer to the game object, in which to access components for later use.
+   > Added leader tracker, to have a pointer to the game object, in which to 
+   >	access components for later use.
    > Testing GameManager, works pretty good so far. Co-exist with current Recruit System.
    > Later implementation, distinguish between which playerÕs leader is whom
    > As we add more functionality, keep tabs with the manager and decide if it is something
    >   it needs to keep track of. Like for when a combat system is necessary, the manager will
    >   see if it is valid to do combat
-   > Keep up to date with other functionalities in the game. Optimize manager also improvement to add a better flow to the system.
+   > Keep up to date with other functionalities in the game. Optimize manager also 
+   >	improvement to add a better flow to the system.
    > Control the functionalities we have created to let playerÕs do specific actions
    depending on the status of their turn.
    > Christopher Randin
 
 
 * [Completed/Can be improved] Implement the recruit system 4.0 h (1.0 h)
-   > Instantiate a capsule for now on top of unit. Instantiate is an expensive call. Future implementation will have a pool system to manage unit assets.
+   > Instantiate a capsule for now on top of unit. Instantiate is an expensive call. 
+   >	Future implementation will have a pool system to manage unit assets.
    > Assign unit cost on this system.
    > Be within range of ÒrecruiteeÓ object and be able to purchase units
    > Check game restrictions like number of resources meets required pay
@@ -71,7 +100,8 @@ Previous Week's Objectives
   > Was able to find implementations of fog of war
         - The fog uses a camera to project the distance that is revealed
         - Ran into trouble with having two cameras
-        - If the script is attached to the main camera, it projects the revealed fog from the cameraÕs position and not from the playerÕs position
+        - If the script is attached to the main camera, it projects the 
+		revealed fog from the cameraÕs position and not from the player's position
   > Will need to modify to configure for our game
   > Mark Martene and Ivan Espinosa
 
