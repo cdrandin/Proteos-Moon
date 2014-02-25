@@ -1708,11 +1708,11 @@ Transform:
   m_LocalPosition: {x: 231.976791, y: 90.8392639, z: 35.7535782}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1580537759}
-  - {fileID: 853000714}
-  - {fileID: 1024321085}
   - {fileID: 602163495}
   - {fileID: 626148576}
+  - {fileID: 1024321085}
+  - {fileID: 853000714}
+  - {fileID: 1580537759}
   m_Father: {fileID: 0}
 --- !u!1 &1910592524
 GameObject:
