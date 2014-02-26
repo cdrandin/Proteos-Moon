@@ -5,15 +5,15 @@ using System.Collections.Generic;
 /* GameManager - keeps track of the game state and control
  * Controlling the game 
  *  X Check when next player's turn should be or when current player passes their turn
- *  X Keep track of rounds, turn order, timer, player's units resources, leader alive?, who won, etc
- *  - Control recruit position, next to leader
+ *  X Keep track of rounds, turn order, timer, player's units resources, leaders, each player's units, who won, etc
+ *  X Control recruit position, next to leader
  *  - Should pause game or unpause
  *  -(MAYBE) Keep track of network between players, if we add *networking* capabilities
  * 
  *  -(MAYBE) Keep track of buffs, debuff, passive that should be received from other units
  * 
- * Record stats at the end of the game
- * 	# of kills, resource collected/spent, rounds, timer?, # of units recruited, ranking algorithm
+ *  X Record stats at the end of the game
+ *   	# of kills, resource collected/spent, rounds, timer?, # of units recruited, (?ranking algorithm?)
  */
 
 public static class GameManager 
@@ -28,6 +28,7 @@ public static class GameManager
 		NONE
 	}
 
+	// Determine whether the GameManager is active or not.
 	private static bool _game_init;
 
 	// Keep track of player turn order and number of players
@@ -69,12 +70,24 @@ public static class GameManager
 		_game_init = false;
 	}
 
+	/// <summary>
+	/// Determines if the GameManager is on.
+	/// </summary>
+	/// <returns><c>true</c> if is on; otherwise, <c>false</c>.</returns>
 	public static bool IsOn()
 	{
 		return _game_init;
 	}
 
 	// Constructor
+	/// <summary>
+	/// Similiar to that of a constructor. Initializes the GameManager with all needed functionality already provided in the back end.
+	/// Should only be called once!
+	/// </summary>
+	/// <param name="num_of_players">Num_of_players.</param>
+	/// <param name="who_goes_first">Who_goes_first.</param>
+	/// <param name="resource_win_count">Resource_win_count.</param>
+	/// <param name="unit_cost">Unit_cost.</param>
 	public static void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
 	{
 		_game_init = true;
@@ -135,11 +148,22 @@ public static class GameManager
 	}
 
 	// Get which player's is taking there turn currently
+	/// <summary>
+	/// Returns the current player's turn as an enum of type Player
+	/// Example. Player.Player1
+	/// </summary>
+	/// <returns>The current player.</returns>
 	public static Player GetCurrentPlayer()
 	{
 		return _player_turn_order[_current_player_turn]; 
 	}
 
+	// Get resource amount from a player
+	/// <summary>
+	/// Gets the resource from a player.
+	/// </summary>
+	/// <returns>The resource from.</returns>
+	/// <param name="player">Player.</param>
 	public static int GetResourceFrom(Player player)
 	{
 		return _resource_count[(int)player];
@@ -149,6 +173,10 @@ public static class GameManager
 	 * Win Conditions/helper functions
 	 */
 	// Get who ever is winning currently in terms of resources
+	/// <summary>
+	/// Gets the lead in terms of resources. Returns a Player type.
+	/// </summary>
+	/// <returns>The lead in resources.</returns>
 	public static Player GetLeadInResources()
 	{
 		int most = 0;
@@ -162,6 +190,7 @@ public static class GameManager
 		return _player_turn_order[most];
 	}
 
+	// Get a count for how many leaders are currently still alive
 	private static int GetSurvivingLeaderCount()
 	{
 		int alive = 0;
@@ -175,6 +204,10 @@ public static class GameManager
 	}
 
 	// Check winning conditions. See if any player won
+	/// <summary>
+	/// Determines if is there A winner.
+	/// </summary>
+	/// <returns><c>true</c> if is there A winner; otherwise, <c>false</c>.</returns>
 	public static bool IsThereAWinner()
 	{
 		Player lead = GetLeadInResources();
@@ -203,6 +236,10 @@ public static class GameManager
 		return false;
 	}
 
+	/// <summary>
+	/// Gets the winner of the match.
+	/// </summary>
+	/// <returns>The winner.</returns>
 	public static Player GetWinner()
 	{
 		return _winner;
@@ -213,6 +250,11 @@ public static class GameManager
 	 */
 
 	// Add X amount of points to resource counter array, according to player
+	/// <summary>
+	/// Adds the resources according to the amount, determined by a Player type passed.
+	/// </summary>
+	/// <param name="player_turn">Player_turn.</param>
+	/// <param name="amount">Amount.</param>
 	public static void AddResources(Player player_turn, int amount)
 	{
 		_resource_count[(int)player_turn] += amount;
@@ -223,6 +265,10 @@ public static class GameManager
 	}
 
 	// Add X amount of points to resource counter array, according to player
+	/// <summary>
+	/// Adds the resources to current player by a amount.
+	/// </summary>
+	/// <param name="amount">Amount.</param>
 	public static void AddResourcesToCurrentPlayer(int amount)
 	{
 		_resource_count[_current_player_turn] += amount;
@@ -234,6 +280,14 @@ public static class GameManager
 
 	// Return bool if player can purchase unit, if so do purchase
 	// Based on unit type passed
+	/// <summary>
+	/// Purchases a unit, if the amount of resource is met then purchase as well as return true
+	/// , else cannot purchase as well as return false. Then place unit into the scene into its 
+	/// proper Player container with appropriate name, tag, and components.
+	/// </summary>
+	/// <returns><c>true</c>, if unit was recruited, <c>false</c> otherwise.</returns>
+	/// <param name="player">Player.</param>
+	/// <param name="unit_type">Unit_type.</param>
 	public static bool RecruitUnit(Player player, UnitType unit_type)
 	{
 		int cost;
@@ -283,6 +337,9 @@ public static class GameManager
 	// Method for allowing other player to take turn
 	// This should enable all options for the next player in the queue
 	// Disable the player's actions when they are done with their turn
+	/// <summary>
+	/// Nexts the players turn. As well as other stuff...
+	/// </summary>
 	public static void NextPlayersTurn()
 	{
 		// Disable unit selection for current player
@@ -301,12 +358,21 @@ public static class GameManager
 	}
 
 	// Get current round
+	/// <summary>
+	/// Gets the current round.
+	/// </summary>
+	/// <returns>The current round.</returns>
 	public static int GetCurrentRound()
 	{
 		return _round_num;
 	}
 
 	// Get leader gameobjects in the scene
+	/// <summary>
+	/// Gets a desired player leader.
+	/// </summary>
+	/// <returns>The player leader.</returns>
+	/// <param name="player">Player.</param>
 	public static GameObject GetPlayerLeader(Player player)
 	{
 		return _leaders[(int)player];
@@ -412,12 +478,19 @@ public static class GameManager
 		_base_time = Time.time;
 	}
 
+	/// <summary>
+	/// Gets the current time.
+	/// </summary>
+	/// <returns>The current time.</returns>
 	public static float GetCurrentTime()
 	{
 		return Time.time - _base_time;
 	}
 
 	// Reset variables that are required to keep track of info during the game
+	/// <summary>
+	/// Resets the state of the game. Typically used for when the game is over or restart.
+	/// </summary>
 	public static void ResetGameState()
 	{
 		// Associate a player 
@@ -485,6 +558,10 @@ public static class GameManager
 	// Return recap of the current match
 	// Record stats at the end of the game
 	// # of kills, resource collected/spent, rounds, timer?, # of units recruited, ranking algorithm
+	/// <summary>
+	/// Get all recorded scores that were kept track during this game's progress. Return as a single string.
+	/// </summary>
+	/// <returns>The recorded scores.</returns>
 	public static string GetRecordedScores()
 	{
 		string[] player_score = new string[total_players];

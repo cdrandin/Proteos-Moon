@@ -50,9 +50,11 @@ public class Game : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		// Reset timer for display the resource text
 		if(Input.GetMouseButtonDown(0))
 			timer = 0;
 
+		//Only run when GameManager is active
 		if(GameManager.IsOn())
 		{
 			timer += Time.deltaTime;

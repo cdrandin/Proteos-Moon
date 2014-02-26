@@ -87,8 +87,8 @@ public class RecruitSystem : MonoBehaviour
 		obj.layer = LayerMask.NameToLayer(obj.tag);
 
 		return obj;
-		// Summon in a ring of units around Leader
-		/*
+
+		/*// Summon in a ring of units around Leader
 		foreach(Vector3 location in SpawnLocations(position))
 		{
 			GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
@@ -99,6 +99,8 @@ public class RecruitSystem : MonoBehaviour
 		*/
 	}
 
+	// Possible locations for a unit to be spawned. Later implement filter that checks if tht spot is filled, then it 
+	//   is not a possile spawn location.
 	Vector3[] SpawnLocations(Vector3 origin)
 	{
 		Vector3[] locations = new Vector3[steps];
