@@ -2237,8 +2237,8 @@ MonoBehaviour:
   landAnimationSpeed: 1
   _characterState: 0
   walkSpeed: 10
-  trotSpeed: 15
-  runSpeed: 40
+  trotSpeed: 20
+  runSpeed: 30
   inAirControlAcceleration: 3
   jumpHeight: 2
   gravity: 20
