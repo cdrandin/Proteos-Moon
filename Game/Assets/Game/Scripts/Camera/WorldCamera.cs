@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * TODO: - Set "focus" target when a unit or leader is select using camera or mouse
+ * 		 - Method for return the focus target
+ *       - If camera is not focused on the unit or mose clicks off the unit, focus = null
+ */
+
+
 /* 
 Class to control the camera within the game world.
 Camera will move up, down, left and right when the users mouse hits the side of the screen in 2D space.

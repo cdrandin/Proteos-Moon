@@ -110,7 +110,7 @@ public static class GameManager
 
 		_tt = GameObject.Find("WorldCamera").GetComponent<TargetTransition>();
 
-		_uc = GameObject.FindGameObjectWithTag("GameController").GetComponent<UnitController>();
+		_uc = GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>();
 
 		_winner = Player.NONE;
 

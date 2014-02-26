@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * TODO: - Make it a system of its own so this script isn't needed to be attached to each GameObject (STANDALONE script)
+ *       - Entity of its own to faciliate objects
+ */
+
 public class UnitSelected : MonoBehaviour {
 
 	private bool isSelected;
