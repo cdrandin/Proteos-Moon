@@ -56,7 +56,7 @@ public class RecruitSystem : MonoBehaviour
 	public GameObject SpawnUnit(UnitType unit_type)
 	{
 		Vector3 position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
-		string name = "";
+		string name = "ERROR";
 
 		// For now have it spawn immediately
 		if(unit_type == UnitType.Arcane)

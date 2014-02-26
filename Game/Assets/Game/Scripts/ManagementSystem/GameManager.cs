@@ -388,13 +388,13 @@ public static class GameManager
 			// Find player
 			obj = GameObject.FindGameObjectWithTag(string.Format("Player{0}", i));
 
-			// If player container does not exist make one
-			if(obj == null)
-				_player_container[i-1] = new GameObject(string.Format("Player{0}", i));
-
-			// Else point to it
-			else
+			// Player container exist, point to it
+			if(obj != null)
 				_player_container[i-1] = obj as GameObject;
+
+			// Player container doesn't exist, uh-oh!
+			else
+				Debug.LogError(string.Format("Container for player{0} is missing! Stuff will break. Add it you fool!", i));
 		}
 	}
 
