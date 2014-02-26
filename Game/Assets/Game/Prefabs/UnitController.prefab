@@ -8,14 +8,12 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 33: {fileID: 3300000}
-  - 23: {fileID: 2300000}
   - 143: {fileID: 14300000}
   - 111: {fileID: 11100000}
-  - 114: {fileID: 11400002}
-  m_Layer: 8
-  m_Name: Unit
-  m_TagString: Unit
+  - 114: {fileID: 11400000}
+  m_Layer: 0
+  m_Name: UnitController
+  m_TagString: UnitController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,38 +25,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -214.612671, y: -89.5983047, z: 82.6987457}
-  m_LocalScale: {x: .398651987, y: .90524137, z: .398651987}
+  m_LocalPosition: {x: 231.976791, y: 90.8392639, z: 35.7535782}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!23 &2300000
-Renderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 2100000, guid: 8a1b8aa0254f948b4a8ce6ee39d18676, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
---- !u!33 &3300000
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!111 &11100000
 Animation:
   m_ObjectHideFlags: 1
@@ -70,10 +40,10 @@ Animation:
   m_Animation: {fileID: 0}
   m_Animations: []
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &11400002
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -81,9 +51,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f492cf598ed6f944834111ea779f177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
+  speed: 10
+  max_travel_distance: 4
+  can_jump: 1
+  air_jumps: 0
+  jump_height: 6
+  fall_speed: 60
+  enforce_distance: 0
+  _travel_distance: 0
 --- !u!143 &14300000
 CharacterController:
   m_ObjectHideFlags: 1
@@ -92,11 +71,11 @@ CharacterController:
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
   m_Height: 2
-  m_Radius: .500000119
+  m_Radius: .5
   m_SlopeLimit: 45
   m_StepOffset: .300000012
   m_SkinWidth: .0799999982
-  m_MinMoveDistance: .100000001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:

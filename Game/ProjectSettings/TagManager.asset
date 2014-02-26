@@ -8,7 +8,7 @@ TagManager:
   - Leader
   - DistanceProjector
   - SelectionProjector
-  - 
+  - UnitController
   - Projectors
   - Player1
   - Player2
