@@ -65,7 +65,8 @@ public class UnitController : MonoBehaviour
 	// Keep track how far the unit has traveled
 	public float _travel_distance;
 
-	private CharacterController _cc;
+	// This is the unit of focus that is moving
+	private CharacterController _unit_focus_cc;
 
 	/*
 	// State of the unit
@@ -80,6 +81,7 @@ public class UnitController : MonoBehaviour
 
 	private CharacterState character_state;
 	*/
+
 	void Awake()
 	{	
 		//HACK to get rid of warnings
@@ -100,8 +102,6 @@ public class UnitController : MonoBehaviour
 			Debug.Log("No jump animation found and the character has canJump enabled. Turning off animations.");
 		}*/
 
-		_cc = GetComponent<CharacterController>();
-
 		hp = 100;
 	}
 
@@ -115,40 +115,46 @@ public class UnitController : MonoBehaviour
 		_vertical_speed  = 0.0f;
 		_air_jump_count  = 0;
 		_travel_distance = 0.0f;
-		_cc.detectCollisions = false;
+
 		//character_state_ = CharacterState.Idle;
+
+		ClearFocusUnit();
 	}
 	
 	// Update is called once per frame
 	void Update() 
 	{
-		if (!_is_controllable || ( enforce_distance && (_travel_distance >= max_travel_distance)))
+		// Controller is found, then use UnitController
+		if(_unit_focus_cc != null)
 		{
-			//
-			// MAY CAUSE PROBLEMS IN THE FUTURE !!!
-			//
-			// kill all inputs if not controllable.
-			Input.ResetInputAxes();
+			if (!_is_controllable || ( enforce_distance && (_travel_distance >= max_travel_distance)))
+			{
+				//
+				// MAY CAUSE PROBLEMS IN THE FUTURE !!!
+				//
+				// kill all inputs if not controllable.
+				Input.ResetInputAxes();
+			}
+
+			// Move
+			Move();
+
+			// Gravity
+			ApplyGravity();
+
+			// Jump
+			Jump();
+
+			// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
+			Vector3 movement = _move_direction * speed + new Vector3(0, _vertical_speed, 0);
+			movement *= Time.deltaTime;
+
+			// Just adding some numbers to get distance traveled
+			if(IsMoving())
+				_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
+
+			_unit_focus_cc.Move(movement);
 		}
-
-		// Move
-		Move();
-
-		// Gravity
-		ApplyGravity();
-
-		// Jump
-		Jump();
-
-		// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
-		Vector3 movement = _move_direction * speed + new Vector3(0, _vertical_speed, 0);
-		movement *= Time.deltaTime;
-
-		// Just adding some numbers to get distance traveled
-		if(IsMoving())
-			_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
-
-		_cc.Move(movement);
 	}
 
 	void Move()
@@ -206,7 +212,7 @@ public class UnitController : MonoBehaviour
 
 	bool IsGrounded()
 	{
-		return _cc.isGrounded;
+		return _unit_focus_cc.isGrounded;
 	}
 
 	float CalculateJumpVerticalSpeed(float height)
@@ -242,6 +248,29 @@ public class UnitController : MonoBehaviour
 	public void ResetDistanceTraveled()
 	{
 		_travel_distance = 0.0f;
+	}
+
+	public void SetFocusOnUnit(GameObject unit)
+	{
+		// Move valid unit
+		if(unit.tag == "Unit" || unit.tag == "Leader")
+		{
+			// Get controller
+			_unit_focus_cc = unit.GetComponent<CharacterController>();
+
+			// If it doesn't exist
+			if(_unit_focus_cc == null)
+				Debug.LogWarning(string.Format("{0} unit is missing a CharacterController!", unit.name));
+			else
+				_unit_focus_cc.detectCollisions = false;
+		}
+		else
+			Debug.LogWarning(string.Format("{0} object s trying to be moved by UnitController and SHOULDN'T", unit.name));
+	}
+
+	public void ClearFocusUnit()
+	{
+		_unit_focus_cc = null;
 	}
 
 	void Reset ()
