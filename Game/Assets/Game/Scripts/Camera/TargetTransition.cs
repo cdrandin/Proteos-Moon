@@ -61,7 +61,6 @@ public class TargetTransition : MonoBehaviour {
 
 				//Find the new position
 				newPosition = unitArray [unitIndex].transform.position + distanceToUnit;
-
 				interpolate = true;
 			}
 
@@ -75,6 +74,7 @@ public class TargetTransition : MonoBehaviour {
 				}
 			}
 		}
+
 	}
 
 

@@ -81,7 +81,7 @@ public class UnitController : MonoBehaviour
 
 	private CharacterState character_state;
 	*/
-
+	
 	void Awake()
 	{	
 		//HACK to get rid of warnings
