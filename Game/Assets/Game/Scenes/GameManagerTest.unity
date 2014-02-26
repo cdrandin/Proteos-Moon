@@ -218,6 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79127b232a64147479e167794dd388eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  summoning_radius: 2
+  steps: 10
   unit_cost:
     Arcane: 100
     Braver: 80

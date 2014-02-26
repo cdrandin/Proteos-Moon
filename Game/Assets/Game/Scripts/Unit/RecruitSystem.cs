@@ -24,11 +24,24 @@ public class UnitCost
 
 public class RecruitSystem : MonoBehaviour 
 {
-	public UnitCost unit_cost;
+	// Circle range in which units can be summoned
+	public float summoning_radius;
 
+	// Like pi/12, creates 12 possible spots throughout a circle
+	public int steps = 12;
+
+	public UnitCost unit_cost;
+	
+	private float _interval;
+	
 	// Use this for initialization
 	void Start ()
 	{
+		_interval = 360.0f/steps;
+		++steps; // Just works for now
+
+		if(summoning_radius <= 0)
+			Debug.LogWarning("Summoning radius is less than or equal to 0. May perform weird artifacts.");
 	}
 	
 	// Update is called once per frame
@@ -39,42 +52,67 @@ public class RecruitSystem : MonoBehaviour
 
 	// Bring unit onto the field
 	// Horrible way of doing this, just for now
-	public void SpawnUnit(UnitType unit_type)
+	// Does not use appropriate models, but logic is there
+	public GameObject SpawnUnit(UnitType unit_type)
 	{
 		Vector3 position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
-		string name;
+		string name = "";
 
 		// For now have it spawn immediately
-		switch(unit_type)
-		{
-		case UnitType.Arcane:
+		if(unit_type == UnitType.Arcane)
 			name = "Arcane";
-			break;
-		case UnitType.Braver:
+		
+		else if(unit_type == UnitType.Braver)
 			name = "Braver";
-			break;
-		case UnitType.Scout:
+		
+		else if(unit_type == UnitType.Scout)
 			name = "Scout";
-			break;
-		case UnitType.Sniper:
+		
+		else if(unit_type == UnitType.Sniper)
 			name = "Sniper";
-			break;
-		case UnitType.Titan:
+		
+		else if(unit_type == UnitType.Titan)
 			name = "Titan";
-			break;
-		case UnitType.Vangaurd:
+		else if(unit_type == UnitType.Vangaurd)
 			name = "Vangaurd";
-			break;
-		default:
-			name = "BROKEN";
+		else
 			Debug.LogError("Spawn unit went to default switch. ERROR");
-			return;
-		}
 
+		// Spawn behind leader
 		GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-		obj.transform.position = position;
+		obj.transform.position = position + 2*Vector3.back;
 		obj.transform.rotation = Quaternion.identity;
 		obj.name = name;
+		obj.tag  = "Unit";
+		obj.layer = LayerMask.NameToLayer(obj.tag);
+
+		return obj;
+		// Summon in a ring of units around Leader
+		/*
+		foreach(Vector3 location in SpawnLocations(position))
+		{
+			GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+			obj.transform.position = location;
+			obj.transform.rotation = Quaternion.identity;
+			obj.name = name;
+		}
+		*/
+	}
+
+	Vector3[] SpawnLocations(Vector3 origin)
+	{
+		Vector3[] locations = new Vector3[steps];
+
+		// Traverse through each step
+		for(int i=0;i<steps;++i)
+		{
+			// Equation of circle
+			// All that is carred for ix X-Z position
+			locations[i] = new Vector3(summoning_radius * Mathf.Cos(i*_interval) + origin.x, 
+			                             origin.y, 
+			                             summoning_radius * Mathf.Sin(i*_interval) + origin.z);
+		}
+		return locations;
 	}
 
 	void Reset ()

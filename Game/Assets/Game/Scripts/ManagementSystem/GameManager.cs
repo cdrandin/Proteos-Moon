@@ -44,10 +44,13 @@ public static class GameManager
 	private static int _max_resource;
 	private static bool[] _leaders_alive; // Find better way
 
+	// Keep track of each player's unit accordingly
 	private static GameObject[] _leaders;
 
 	// Maybe good for now, might keep classtype for other stuff as needed
 	private static List<GameObject>[] _player_units; // Keep track each unit with respect to each player's unit
+
+	private static GameObject[] _player_container;
 
 	// Who has won
 	private static Player _winner;
@@ -112,6 +115,9 @@ public static class GameManager
 		// Allocate correct number of leaders
 		_leaders = new GameObject[total_players];
 
+		// Allocate correct number of player containers for their units/leaders
+		_player_container = new GameObject[total_players];
+
 		// How many units ech player purchased
 		_units_obtained = new int[total_players];
 
@@ -119,6 +125,7 @@ public static class GameManager
 		// _leader_script = new ^LeaderScript^[total_players];
 
 		// Get player units on the screen, for now assuming leaders are there before the game starts
+		InitPlayerContainers();
 		InitPlayersLeader();
 		//InitPlayersUnits();
 
@@ -257,12 +264,17 @@ public static class GameManager
 			break;
 		}
 
+		// Can current player afford unit
 		if(_resource_count[(int)player] >= cost)
 		{
+			// Record keeping
 			_resource_count[(int)player] -= cost;
 			_resource_spent[(int)player] += cost;
 			++_units_obtained[(int)player]; 
-			_rs.SpawnUnit(unit_type);
+
+			// Signal spawner
+			AddUnitToManager(_rs.SpawnUnit(unit_type));
+
 			return true;
 		}
 		else
@@ -298,6 +310,26 @@ public static class GameManager
 	public static GameObject GetPlayerLeader(Player player)
 	{
 		return _leaders[(int)player];
+	}
+
+	// Point to player container or create one if needed, based on the number of players
+	private static void InitPlayerContainers()
+	{
+		GameObject obj;
+
+		for(int i=1;i<=total_players;++i)
+		{
+			// Find player
+			obj = GameObject.FindGameObjectWithTag(string.Format("Player{0}", i));
+
+			// If player container does not exist make one
+			if(obj == null)
+				_player_container[i-1] = new GameObject(string.Format("Player{0}", i));
+
+			// Else point to it
+			else
+				_player_container[i-1] = obj as GameObject;
+		}
 	}
 
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
@@ -365,6 +397,15 @@ public static class GameManager
 		}
 	}
 	*/
+
+	/// <summary>
+	/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
+	/// </summary>
+	/// <param name="unit">Unit.</param>
+	public static void AddUnitToManager(GameObject unit)
+	{
+		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
+	}
 
 	private static void StartTimer()
 	{
