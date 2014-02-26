@@ -35,13 +35,19 @@ public static class GameManager
 	private static int _current_player_turn;
 	public static int total_players;
 
+	// Pointer to script that contains unit specific cost
 	private static UnitCost _unit_cost;
+	private static RecruitSystem _rs;
 
 	// Winning conditions
 	private static int[] _resource_count;
 	private static int _max_resource;
 	private static bool[] _leaders_alive; // Find better way
+
 	private static GameObject[] _leaders;
+
+	// Maybe good for now, might keep classtype for other stuff as needed
+	private static List<GameObject>[] _player_units; // Keep track each unit with respect to each player's unit
 
 	// Who has won
 	private static Player _winner;
@@ -79,6 +85,11 @@ public static class GameManager
 
 		total_players = num_of_players;
 
+		// How many lists is needed, based on player total
+		_player_units = new List<GameObject>[total_players];
+
+		_rs = GameObject.FindGameObjectWithTag("GameController").GetComponent<RecruitSystem>();
+
 		_winner = Player.NONE;
 
 		// Keep track of cost
@@ -98,13 +109,18 @@ public static class GameManager
 		// Allocated correct number of leader counters
 		_leaders_alive = new bool[total_players];
 
+		// Allocate correct number of leaders
+		_leaders = new GameObject[total_players];
+
 		// How many units ech player purchased
 		_units_obtained = new int[total_players];
 
 		// Pointer to the leader script, to keep track of hp
 		// _leader_script = new ^LeaderScript^[total_players];
 
+		// Get player units on the screen, for now assuming leaders are there before the game starts
 		InitPlayersLeader();
+		//InitPlayersUnits();
 
 		ResetGameState();
 
@@ -137,20 +153,6 @@ public static class GameManager
 		}
 
 		return _player_turn_order[most];
-	}
-
-	// Updated leader status for all players
-	public static void UpdateStatusOfAllLeaders()
-	{
-		foreach(Player player in _player_turn_order)
-			UpdateStatusOfLeaderFrom(player);
-	}
-
-	// Pass player enum and find leader, get status
-	public static void UpdateStatusOfLeaderFrom(Player player)
-	{
-		// if(_leaders_scripts[(int}player.GetHP == 0)
-		//     _leaders_alive[(int)player] = false;
 	}
 
 	private static int GetSurvivingLeaderCount()
@@ -208,9 +210,19 @@ public static class GameManager
 	{
 		_resource_count[(int)player_turn] += amount;
 		_resources_obtained[(int)player_turn] += amount;
-
+		
 		if(_resource_count[(int)player_turn]<0)
 			_resource_count[(int)player_turn] = 0;
+	}
+
+	// Add X amount of points to resource counter array, according to player
+	public static void AddResourcesToCurrentPlayer(int amount)
+	{
+		_resource_count[_current_player_turn] += amount;
+		_resources_obtained[_current_player_turn] += amount;
+		
+		if(_resource_count[_current_player_turn]<0)
+			_resource_count[_current_player_turn] = 0;
 	}
 
 	// Return bool if player can purchase unit, if so do purchase
@@ -240,7 +252,7 @@ public static class GameManager
 			cost = _unit_cost.Vangaurd;
 			break;
 		default:
-			Debug.LogWarning(string.Format("Unit type: {0} does not have an associated cost to it!", unit_type));
+			Debug.LogError(string.Format("Unit type: {0} does not have an associated cost to it!", unit_type));
 			cost = -1;
 			break;
 		}
@@ -250,6 +262,7 @@ public static class GameManager
 			_resource_count[(int)player] -= cost;
 			_resource_spent[(int)player] += cost;
 			++_units_obtained[(int)player]; 
+			_rs.SpawnUnit(unit_type);
 			return true;
 		}
 		else
@@ -288,14 +301,70 @@ public static class GameManager
 	}
 
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
-	public static void InitPlayersLeader()
+	private static void InitPlayersLeader()
 	{
-		// Find each player's leader. All leaders alive.
-		//foreach(GameObject leader in GameObject.FindGameObjectsWithTag("Leader"))
-		//	_leaders = leader.GetComponent<UnitHierarchy>().;
+		// Get leaders
+		GameObject[] _all_leaders = GameObject.FindGameObjectsWithTag("Leader"); 
 
-		_leaders = GameObject.FindGameObjectsWithTag("Leader");
+		// Number of allocated leaders and number of leaders found should be the same, else a leader is missing
+		if(_leaders.Length != _all_leaders.Length)
+		{
+			Debug.LogError(string.Format("A leader is missing!! Should be a total of {0} leaders.", total_players));
+			ForceQuit();
+			return;
+		}
+
+		// Distinguish which leader belongs to which player
+		foreach(GameObject leader in _all_leaders)
+		{
+			if(leader.transform.parent == null)
+				Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", leader.name));
+
+			if(leader.transform.parent.tag == "Player1")
+				_leaders[0] = leader;
+
+			else if(leader.transform.parent.tag == "Player2")
+				_leaders[1] = leader;
+			
+			else if(leader.transform.parent.tag == "Player3")
+				_leaders[2] = leader;
+			
+			else if(leader.transform.parent.tag == "Player4")
+				_leaders[3] = leader;
+
+			else
+				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", leader.transform.tag));
+		}
 	}
+
+	// Keep track of units with their corresponding player
+	// Not really needed, but it is there
+	/*
+	private static void InitPlayersUnits()
+	{
+		// This point, all units are obtained
+		GameObject[] all_units = GameObject.FindGameObjectsWithTag("Unit");
+
+		// Sperate based on which player owns which unit
+		foreach(GameObject unit in all_units)
+		{
+			if(unit.transform.parent.tag == "Player1")
+				_player_units[0].Add(unit);
+
+			else if(unit.transform.parent.tag == "Player2")
+				_player_units[1].Add(unit);
+
+			else if(unit.transform.parent.tag == "Player3")
+				_player_units[2].Add(unit);
+
+			else if(unit.transform.parent.tag == "Player4")
+				_player_units[3].Add(unit);
+
+			else
+				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", unit.transform.tag));
+		}
+	}
+	*/
 
 	private static void StartTimer()
 	{
@@ -391,13 +460,23 @@ public static class GameManager
 		}
 
 		string scores = string.Format("Total rounds:{0}\n" +
-		                              "Time:{1}\n",
-		                              _round_num, GetCurrentTime() );
+		                              "Time:{1}\n\n",
+		                              _round_num, GetCurrentTime());
 		                              
-
+		// Stich recorded scores into string
 		foreach(string play in player_score)
 			scores += play;
 
 		return scores;
+	}
+
+	/// <summary>
+	/// Set _game_init = false. Preventing GameManager from working. To show that something is missing that is necessary for the GameManager to know
+	/// Also display warning to fix error
+	/// </summary>
+	private static void ForceQuit()
+	{
+		_game_init = false;
+		Debug.LogError("Quiting GameManager. Above message provides the error.");
 	}
 }

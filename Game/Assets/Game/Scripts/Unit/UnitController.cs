@@ -5,6 +5,11 @@ using System.Collections;
 [RequireComponent(typeof(Animation))]
 public class UnitController : MonoBehaviour
 {
+	// Have this script hold hp for now
+	public int hp;
+	// TODO
+	//
+
 	/*
 	 * Public methods for Unit Controller
 	 */
@@ -96,6 +101,8 @@ public class UnitController : MonoBehaviour
 		}*/
 
 		_cc = GetComponent<CharacterController>();
+
+		hp = 100;
 	}
 
 	// Use this for initialization

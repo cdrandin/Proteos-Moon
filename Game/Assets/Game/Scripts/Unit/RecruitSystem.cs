@@ -67,7 +67,8 @@ public class RecruitSystem : MonoBehaviour
 			break;
 		default:
 			name = "BROKEN";
-			break;
+			Debug.LogError("Spawn unit went to default switch. ERROR");
+			return;
 		}
 
 		GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);

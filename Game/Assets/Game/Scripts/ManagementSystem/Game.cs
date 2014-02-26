@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(RecruitSystem))]
 public class Game : MonoBehaviour
 {
 	public int num_of_players;
@@ -22,7 +23,6 @@ public class Game : MonoBehaviour
 	private float waitingTime;
 	private float timer;
 
-	private RecruitSystem _rs;
 
 	void Awake() 
 	{
@@ -30,8 +30,6 @@ public class Game : MonoBehaviour
 		_game_manager_gui.text = "";
 
 		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
-
-		_rs = GetComponent<RecruitSystem>();
 	}
 
 	// Use this for initialization
@@ -149,7 +147,6 @@ public class Game : MonoBehaviour
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Arcane))
 			{
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_text);
-				_rs.SpawnUnit(UnitType.Arcane);
 			}
 			else
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
@@ -160,7 +157,6 @@ public class Game : MonoBehaviour
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Braver))
 			{
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_text);
-				_rs.SpawnUnit(UnitType.Arcane);
 			}
 			else
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
@@ -171,7 +167,6 @@ public class Game : MonoBehaviour
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Scout))
 			{
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_text);
-				_rs.SpawnUnit(UnitType.Scout);
 			}
 			else
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
@@ -182,7 +177,6 @@ public class Game : MonoBehaviour
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Sniper))
 			{
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_text);
-				_rs.SpawnUnit(UnitType.Sniper);
 			}
 			else
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
@@ -193,7 +187,6 @@ public class Game : MonoBehaviour
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Titan))
 			{
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_text);
-				_rs.SpawnUnit(UnitType.Titan);
 			}
 			else
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
@@ -204,7 +197,6 @@ public class Game : MonoBehaviour
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Vangaurd))
 			{
 				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_text);
-				_rs.SpawnUnit(UnitType.Vangaurd);
 			}
 			else
 				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_fail);
