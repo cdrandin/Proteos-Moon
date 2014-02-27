@@ -500,6 +500,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &649931497
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.89654851
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+  m_RootGameObject: {fileID: 1192755115}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &686677078
 GameObject:
   m_ObjectHideFlags: 0
@@ -861,68 +901,6 @@ Prefab:
   m_RootGameObject: {fileID: 285036683}
   m_IsPrefabParent: 0
   m_IsExploded: 1
---- !u!1 &907561686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 907561688}
-  - 114: {fileID: 907561687}
-  - 114: {fileID: 907561689}
-  m_Layer: 0
-  m_Name: Game
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &907561687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 907561686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2d775221baec6c40a95e0db974161d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  num_of_players: 2
-  resource_limit: 500
-  testing: 0
---- !u!4 &907561688
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 907561686}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.98023224e-08, y: .948274255, z: -2.98023224e-08}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!114 &907561689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 907561686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79127b232a64147479e167794dd388eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  summoning_radius: 1
-  steps: 12
-  unit_cost:
-    Arcane: 100
-    Braver: 80
-    Scout: 50
-    Sniper: 120
-    Titan: 200
-    Vangaurd: 300
 --- !u!1 &1024321078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,6 +1106,70 @@ Prefab:
   m_RootGameObject: {fileID: 602163487}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1192755115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+  m_PrefabInternal: {fileID: 649931497}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1192755118}
+  - 114: {fileID: 1192755117}
+  - 114: {fileID: 1192755116}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1192755116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 860244dc4f6556c44865bd920f940054,
+    type: 2}
+  m_PrefabInternal: {fileID: 649931497}
+  m_GameObject: {fileID: 1192755115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79127b232a64147479e167794dd388eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summoning_radius: 1
+  steps: 12
+  unit_cost:
+    Arcane: 100
+    Braver: 80
+    Scout: 50
+    Sniper: 120
+    Titan: 200
+    Vangaurd: 300
+--- !u!114 &1192755117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 860244dc4f6556c44865bd920f940054,
+    type: 2}
+  m_PrefabInternal: {fileID: 649931497}
+  m_GameObject: {fileID: 1192755115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d775221baec6c40a95e0db974161d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  num_of_players: 2
+  resource_limit: 500
+  testing: 0
+--- !u!4 &1192755118
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 860244dc4f6556c44865bd920f940054, type: 2}
+  m_PrefabInternal: {fileID: 649931497}
+  m_GameObject: {fileID: 1192755115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.89654851, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1001 &1205946316
 Prefab:
   m_ObjectHideFlags: 0

@@ -36,10 +36,9 @@ public static class GameManager
 	private static int _current_player_turn;
 	public static int total_players;
 
-	// Pointer to script that contains unit specific cost
+	// Pointer to script that contains unit specific scripts
 	private static UnitCost _unit_cost;
 	private static RecruitSystem _rs;
-	private static TargetTransition _tt;
 	private static UnitController _uc;
 
 	// Winning conditions
@@ -107,10 +106,12 @@ public static class GameManager
 		_player_units = new List<GameObject>[total_players];
 
 		_rs = GameObject.FindGameObjectWithTag("GameController").GetComponent<RecruitSystem>();
-
-		_tt = GameObject.Find("WorldCamera").GetComponent<TargetTransition>();
+		if(_rs == null)
+			Debug.LogWarning("Recruit System missing reference");
 
 		_uc = GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>();
+		if(_uc)
+			Debug.LogWarning("Unit Controller missing reference");
 
 		_winner = Player.NONE;
 
@@ -149,7 +150,7 @@ public static class GameManager
 		//InitPlayersUnits();
 
 		ResetGameState();
-
+	
 		StartTimer();
 	}
 
@@ -390,7 +391,7 @@ public static class GameManager
 	/// <param name="unit">Unit.</param>
 	public static void SetUnitControllerActiveOn(GameObject unit)
 	{
-		_uc.SetFocusOnUnit(unit);
+		GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>().SetFocusOnUnit(unit);
 	}
 
 	// Point to player container or create one if needed, based on the number of players
