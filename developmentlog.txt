@@ -15,7 +15,13 @@ Previous Week's Objectives
    >	with the speed. Normalize, take the magnitude, then multiply that by deltatime
    >	which is a mathod that calculate previous cpu cycle, indepedent of cpu speed.
    > Christopher Randin
- 
+
+* [Completed] Faciliatated UnitController as a single entity system 2.0 h (3.0 h)
+   > Allows other systems to use it like the GameManager, and provide unit movement to units
+   > 	based on player action(i.e. Unit Move action)
+   > Also fixed other bugs and improve compatibility with GameManager
+   > Christopher Randin
+
 2014-02-23 // Ivan's Birthday
 ==========
 
