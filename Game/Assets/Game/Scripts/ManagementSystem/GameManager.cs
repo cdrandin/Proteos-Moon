@@ -391,7 +391,7 @@ public static class GameManager
 	/// <param name="unit">Unit.</param>
 	public static void SetUnitControllerActiveOn(GameObject unit)
 	{
-		GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>().SetFocusOnUnit(unit);
+		_uc.SetFocusOnUnit(unit);
 	}
 
 	// Point to player container or create one if needed, based on the number of players
