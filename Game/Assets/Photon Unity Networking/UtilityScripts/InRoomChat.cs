@@ -5,12 +5,12 @@ using System.Collections;
 [RequireComponent(typeof(PhotonView))]
 public class InRoomChat : Photon.MonoBehaviour 
 {
-    public Rect GuiRect = new Rect(0,0, 250, 300);
+    public Rect GuiRect = new Rect(0,0, 400, 300);
     public bool IsVisible = true;
     public bool AlignBottom = true;
     public List<string> messages = new List<string>();
     private string inputLine = "";
-	private Vector2 scrollPos = Vector2.zero;
+	private Vector2 scrollPos = new Vector2(Mathf.Infinity, Mathf.Infinity);
 
     public static readonly string ChatRPC = "Chat";
 
@@ -33,20 +33,25 @@ public class InRoomChat : Photon.MonoBehaviour
         {
             if (!string.IsNullOrEmpty(this.inputLine))
             {
-                this.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
+				this.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
                 this.inputLine = "";
                 GUI.FocusControl("");
                 return; // printing the now modified list would result in an error. to avoid this, we just skip this single frame
             }
             else
             {
-                GUI.FocusControl("ChatInput");
-            }
+				GUI.FocusControl("ChatInput");
+			}
         }
+
+		if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.Escape)) {
+			this.inputLine = "";
+			GUI.FocusControl("");
+		}
 
         GUI.SetNextControlName("");
         GUILayout.BeginArea(this.GuiRect);
-        scrollPos = GUILayout.BeginScrollView(scrollPos);
+        GUILayout.BeginScrollView(scrollPos);
         GUILayout.FlexibleSpace();
         for (int i = 0; i <= messages.Count - 1; i++)
         {
@@ -56,13 +61,16 @@ public class InRoomChat : Photon.MonoBehaviour
 
         GUILayout.BeginHorizontal();
         GUI.SetNextControlName("ChatInput");
-        inputLine = GUILayout.TextField(inputLine);
+        inputLine = GUILayout.TextArea(inputLine, 200);
         if (GUILayout.Button("Send", GUILayout.ExpandWidth(false)))
         {
             this.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
             this.inputLine = "";
             GUI.FocusControl("");
-        }
+        } else if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.Escape)) {
+			this.inputLine = "";
+			GUI.FocusControl("");
+		}
         GUILayout.EndHorizontal();
         GUILayout.EndArea();
     }
