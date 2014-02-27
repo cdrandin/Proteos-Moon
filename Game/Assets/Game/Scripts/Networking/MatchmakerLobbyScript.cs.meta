@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: c477790c38f6a4b058e8dfefd511f494
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spawn_object: {instanceID: 0}
+  - lobby_skin: {fileID: 11400000, guid: 736e18a6bde614dbfb38dbb1dfdd0e96, type: 2}
+  - lobby_skin_alternate: {fileID: 11400000, guid: 2ac2dc7931a654632b636aac364c69b6,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

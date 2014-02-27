@@ -97,7 +97,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 			GUILayout.BeginArea(new Rect((native_width / 2f) - (lobby_width / 2f), (native_height / 2f) - (lobby_height / 2f), lobby_width, lobby_height - 25));
 			GUILayout.Box("Matchmaking Lobby");
 			// Layout design
-			GUILayout.Label("Player name:", GUILayout.Width(100));
+			GUILayout.Label("Player name:");
 			PhotonNetwork.playerName = GUILayout.TextField(PhotonNetwork.playerName);
 			GUILayout.Space(2);
 			if (GUI.changed)
