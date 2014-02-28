@@ -8,6 +8,7 @@ public enum CharacterState
     Trotting = 2,
     Running = 3,
     Jumping = 4,
+	Attacking = 5,
 }
 
 public class ThirdPersonController : MonoBehaviour
@@ -17,6 +18,7 @@ public class ThirdPersonController : MonoBehaviour
     public AnimationClip walkAnimation;
     public AnimationClip runAnimation;
     public AnimationClip jumpPoseAnimation;
+	public AnimationClip attackAnimation;
 
     public float walkMaxAnimationSpeed = 0.75f;
     public float trotMaxAnimationSpeed = 1.0f;
@@ -73,7 +75,7 @@ public class ThirdPersonController : MonoBehaviour
     private bool jumpingReachedApex = false;
 
     // Are we moving backwards (This locks the camera to not do a 180 degree spin)
-    private bool movingBack = false;
+    private bool movingBack = true;
     // Is the user pressing any keys?
     private bool isMoving = false;
     // When did the user start walking (Used for going into trot after a while)
@@ -123,6 +125,11 @@ public class ThirdPersonController : MonoBehaviour
             _animation = null;
             Debug.Log("No jump animation found and the character has canJump enabled. Turning off animations.");
         }
+		if (!attackAnimation)
+		{
+			_animation = null;
+			Debug.Log("No attack animation found. Turning off animations.");
+		}
 
     }
 
@@ -211,7 +218,9 @@ public class ThirdPersonController : MonoBehaviour
             }
         
             moveSpeed = Mathf.Lerp(moveSpeed, targetSpeed, curSmooth);
-
+			if (Input.GetKey (KeyCode.F1)) {
+				_characterState = CharacterState.Attacking;
+			}
             // Reset walk time start when we slow down
             if (moveSpeed < walkSpeed * 0.3f)
                 walkTimeStart = Time.time;
@@ -339,11 +348,15 @@ public class ThirdPersonController : MonoBehaviour
             }
             else
             {
-                if (this.isControllable && velocity.sqrMagnitude < 0.001f)
-                {
-                    _characterState = CharacterState.Idle;
-                    _animation.CrossFade(idleAnimation.name);
-                }
+				if (this.isControllable && velocity.sqrMagnitude < 0.001f && _characterState != CharacterState.Attacking)
+				{
+					_characterState = CharacterState.Idle;
+					_animation.CrossFade(idleAnimation.name);
+				}
+				else if (this.isControllable && velocity.sqrMagnitude < 0.001f && _characterState == CharacterState.Attacking)
+				{
+					_animation.CrossFade(attackAnimation.name);
+				}
                 else
                 {
                     if (_characterState == CharacterState.Idle)

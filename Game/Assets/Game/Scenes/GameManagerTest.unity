@@ -254,6 +254,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1690605572}
+  - 114: {fileID: 1690605573}
   m_Layer: 0
   m_Name: Leader
   m_TagString: Leader
@@ -272,6 +273,26 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 633469998}
+--- !u!114 &1690605573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1690605571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subId: 1
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 0}
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  instantiationId: 0
 --- !u!1 &1775251209
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +328,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1942896261}
+  - 114: {fileID: 1942896262}
   m_Layer: 0
   m_Name: Leader
   m_TagString: Leader
@@ -325,6 +347,26 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1775251210}
+--- !u!114 &1942896262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1942896260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subId: 2
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 0}
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  instantiationId: 0
 --- !u!1001 &2042952960
 Prefab:
   m_ObjectHideFlags: 0

@@ -59,9 +59,8 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	void OnPhotonCreateRoomFailed() {
 		try {
-			if (room_name != "" && max_players > 0) {
-				PhotonNetwork.CreateRoom(room_name, true, true, max_players);
-			}
+			Debug.LogError("Create Room Failed");
+			PhotonNetwork.CreateRoom(room_name, true, true, max_players);
 		}
 		catch {
 			Debug.Log ("Unable to create room");
@@ -80,6 +79,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	void OnJoinedRoom(){
 		GameObject myplayer = PhotonNetwork.Instantiate(player_prefab, spawn_object.position, Quaternion.identity, 0);
 		//TODO
+		// Changed isControllable to false
 		myplayer.GetComponent<ThirdPersonController>().isControllable = true;
 		Camera.main.GetComponent<SmoothLookAt>().target = myplayer.transform;
 		Camera.main.GetComponent<SmoothFollow>().target = myplayer.transform;

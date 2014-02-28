@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: monsterprefab
-  m_TagString: Player
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2230,11 +2230,13 @@ MonoBehaviour:
   walkAnimation: {fileID: 7400004, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
   runAnimation: {fileID: 7400006, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
   jumpPoseAnimation: {fileID: 7400014, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
+  attackAnimation: {fileID: 7400010, guid: 492cc7eb84514c64da25775df488c9e6, type: 3}
   walkMaxAnimationSpeed: 3
   trotMaxAnimationSpeed: 5
   runMaxAnimationSpeed: 8
   jumpAnimationSpeed: 4
   landAnimationSpeed: 1
+  attackAnimationSpeed: 1
   _characterState: 0
   walkSpeed: 10
   trotSpeed: 20
