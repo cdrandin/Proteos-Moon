@@ -6,6 +6,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	//private PhotonView pv;
 	private string room_name = "";
+	private string player_name = "";
 	//private string room_status = "";
 	private int max_players = 20;
 	private string max_players_text = "2";
@@ -15,6 +16,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	private Vector2 scroll_position;
 	private float native_width = 1920;
 	private float native_height = 1080;
+	private char[] arr = new char[] { '\n', ' ' };
 
 	public string player_prefab = "NetworkPlayer";
 	public Transform spawn_object;
@@ -45,6 +47,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 		if (String.IsNullOrEmpty(PhotonNetwork.playerName))
 		{
 			PhotonNetwork.playerName = "Guest" + Random.Range(1, 9999);
+			player_name = PhotonNetwork.playerName;
 		}
 		if (String.IsNullOrEmpty(room_name))
 		{
@@ -54,6 +57,17 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 		// PhotonNetwork.logLevel = NetworkLogLevel.Full;
 	}
 
+	void OnPhotonCreateRoomFailed() {
+		try {
+			if (room_name != "" && max_players > 0) {
+				PhotonNetwork.CreateRoom(room_name, true, true, max_players);
+			}
+		}
+		catch (InvalidCastException e) {
+			Debug.Log ("Unable to create room");
+			Application.LoadLevel("Networking");
+		}
+	}
 	void OnJoinedLobby(){
 		//PhotonNetwork.JoinRandomRoom();
 		//Debug.Log ("Trying to join random room");
@@ -71,6 +85,12 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 		Camera.main.GetComponent<SmoothFollow>().target = myplayer.transform;
 		//myplayer.GetComponent<PersonController>().isControllable = true;
 		//pv = myplayer.GetComponent<PhotonView>();
+	}
+
+	void OnJoinedRandomRoomFailed(){
+		if (room_name != "" && max_players > 0) {
+			PhotonNetwork.CreateRoom(room_name, true, true, max_players);
+		}
 	}
 
 	void OnGUI() {
@@ -98,7 +118,10 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 			GUILayout.Box("Matchmaking Lobby");
 			// Layout design
 			GUILayout.Label("Player name:");
-			PhotonNetwork.playerName = GUILayout.TextField(PhotonNetwork.playerName);
+			player_name = GUILayout.TextField(player_name, 20);
+			player_name = player_name.TrimStart(arr);
+			player_name = player_name.TrimEnd(arr);
+			PhotonNetwork.playerName = player_name;
 			GUILayout.Space(2);
 			if (GUI.changed)
 			{
@@ -117,7 +140,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 				max_players = 1;
 			}
 			if (GUILayout.Button("Create Room ")) {
-				if (room_name != "" && max_players > 0) {
+				if (room_name != "" && max_players > 0 && player_name != "") {
 					PhotonNetwork.CreateRoom(room_name, true, true, max_players);
 				}
 			}
