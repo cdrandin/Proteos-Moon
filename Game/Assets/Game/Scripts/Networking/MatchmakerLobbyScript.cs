@@ -63,7 +63,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 				PhotonNetwork.CreateRoom(room_name, true, true, max_players);
 			}
 		}
-		catch (InvalidCastException e) {
+		catch {
 			Debug.Log ("Unable to create room");
 			Application.LoadLevel("Networking");
 		}
