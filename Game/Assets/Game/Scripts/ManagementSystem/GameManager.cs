@@ -110,7 +110,7 @@ public static class GameManager
 			Debug.LogWarning("Recruit System missing reference");
 
 		_uc = GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>();
-		if(_uc)
+		if(_uc == null)
 			Debug.LogWarning("Unit Controller missing reference");
 
 		_winner = Player.NONE;
@@ -176,6 +176,15 @@ public static class GameManager
 		return _resource_count[(int)player];
 	}
 
+	/// <summary>
+	/// Get the max number of resources needed to be aquired for this match
+	/// </summary>
+	/// <returns>The max resource limit.</returns>
+	public static int GetMaxResourceLimit()
+	{
+		return _max_resource;
+	}
+
 	/*
 	 * Win Conditions/helper functions
 	 */
@@ -226,7 +235,7 @@ public static class GameManager
 			return true;
 		}
 
-
+		// TODO Needs more work. Should be done better
 		// Win by having 1 leader survive/killing off other leaders
 		else if(GetSurvivingLeaderCount() == 1)
 		{
@@ -392,6 +401,11 @@ public static class GameManager
 	public static void SetUnitControllerActiveOn(GameObject unit)
 	{
 		_uc.SetFocusOnUnit(unit);
+	}
+
+	public static void SetUnitControllerActiveOff()
+	{
+		_uc.ClearFocusUnit();
 	}
 
 	// Point to player container or create one if needed, based on the number of players

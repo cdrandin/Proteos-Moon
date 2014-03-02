@@ -38,13 +38,16 @@ public class Game : MonoBehaviour
 		if(testing)
 		{
 			this.gui_method = GUI_init;
+			_game_manager_gui.enabled = true;
+			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
+			_game_manager_gui.fontSize = 16;
+
 			recruit_gui_on = true;
 			waitingTime = 5.0f;
 			timer = 0.0f;
 		}
-
-		_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
-		_game_manager_gui.fontSize = 16;
+		else
+			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 	}
 	
 	// Update is called once per frame
@@ -54,14 +57,20 @@ public class Game : MonoBehaviour
 		if(Input.GetMouseButtonDown(0))
 			timer = 0;
 
+		if(GameManager.IsOn())
+			if(GameManager.IsThereAWinner())
+				_game_manager_gui.text = string.Format("The winner is {0}!", GameManager.GetWinner());
+
 		//Only run when GameManager is active
 		if(GameManager.IsOn())
 		{
 			timer += Time.deltaTime;
 			if(timer > waitingTime){
 				//Action
-				_game_manager_gui.text = string.Format("Current player: {0} at {1} Resources", 
-				                                       GameManager.GetCurrentPlayer(), (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString());
+				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
+				                                       GameManager.GetCurrentPlayer(), 
+				                                       (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString(),
+				                                       GameManager.GetMaxResourceLimit().ToString());
 				timer = 0;
 			}
 		}
@@ -117,8 +126,10 @@ public class Game : MonoBehaviour
 		else if(MakeButton(half, 150, string.Format("Add 50 resource pts\n to {0}", GameManager.GetCurrentPlayer())))
 		{
 			GameManager.AddResources(GameManager.GetCurrentPlayer(),50);
-			_game_manager_gui.text = string.Format("Current player: {0} at {1} Resources", 
-			                               GameManager.GetCurrentPlayer(), (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString());
+			_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
+			                                       GameManager.GetCurrentPlayer(), 
+			                                       (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString(),
+			                                       GameManager.GetMaxResourceLimit().ToString());
 		}
 
 		else if(MakeButton(half, 200, "Recruit Menu"))

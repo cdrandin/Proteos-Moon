@@ -84,6 +84,9 @@ public class DistanceProjection : MonoBehaviour
 	}
 	
 	// Align projectors over selected unit
+	/// <summary>
+	/// Updates the projection. Keep calling this function if you want the projectin to follow the unit
+	/// </summary>
 	public void UpdateProjection()
 	{
 		Vector3 new_position = _focus.transform.position;
@@ -100,6 +103,10 @@ public class DistanceProjection : MonoBehaviour
 	}
 
 	// Turn on projectors
+	/// <summary>
+	/// Sets the projection on and focuses the desired GameObject
+	/// </summary>
+	/// <param name="target">Target.</param>
 	public void SetProjectionOn(GameObject target)
 	{
 		SetProjectorFocus(target);
@@ -108,6 +115,9 @@ public class DistanceProjection : MonoBehaviour
 			p.enabled = true;
 	}
 	// Loses focuses target
+	/// <summary>
+	/// Sets the projection off and removing the focused GameObject
+	/// </summary>
 	public void SetProjectionOff()
 	{
 		foreach(Projector p in projectors)
