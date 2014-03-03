@@ -4,6 +4,24 @@
 Previous Week's Objectives
 --------------------------
 
+* [Ongoing] Track animations for our game characters 6.0 h (8.0 h)
+  > We met up with our artists to create animations for our game characters
+  > It was our first meeting so it took a while for things to get done.
+    - We had to calbirate the software with the two kinects
+    - Then we had our actors create animations for each characters
+    - Due to the time we were only able to animate three characters
+  >  Ivan Espinosa, Christopher Randin, and Mark Martene
+
+* [Ongoing] Created Animations files off of the animations track 16.0 h (8.0 h)
+  > We used iPi Mocap Studio 2 to help track animations
+  > Due to large computations we had to use Ivan's computer to track the animations
+  > We had a prop gun for the sniper, and it created extra data for calibration
+    - This made it dificult to track the body of the sniper
+  > Our scout animation was fine, but the calibration was off which made the data that we collected off
+  > Our Braver animation was completed. All 13 animations
+  > We need to recreate most animations. But no longer worried about computation time
+  > Ivan Espinosa
+
 * [Completed] Fixed issues with DistanceProjection 1.0 h (1.0 h)
    > Issue was incorrect usage of script. Now more easy to use.
    > Readjusted the ratio for display the projection with respect to the unit's 
