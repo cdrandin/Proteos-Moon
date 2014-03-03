@@ -49,6 +49,28 @@ Previous Week's Objectives
    > Added more error check and warnings for GameManager.
    > Christopher Randin
 
+* [Not Finished] Game Manager transitions/ control unit mechanics created from this week 10.0 h (2.0 h)
+   > Was working on transitions when I needed more functionality out of the GameManager and did some imrpovement
+   >	on it as stated above. I should be able to do transitions for this weeks tasks.
+   > Previous:
+   > Facilitate the game state transitions between players and units a like. Form rules to allow things to be 
+   >	done only at a certain time.
+   > Flow of game, player turn. Allow unit selection for that player. Own playerÕs units can perform actions.
+   > When units have more depth into their available actions. Another system will take over and keep track of
+   >	available actions that are allowed for a given unit.
+   > Christopher Randin
+
+
+* [Incompleted] Combat System using unit hierarchy 8.0 h (0.0 h)
+   > Did not reach this point yet. Unit class system (aka unit hierarchy) is complete, but personally dislike.
+   > Could use improvement, but will see if Mark or Ivan have better ideas for implementation.
+   > Previous:
+   > When unit hierarchy is complete. Integrate facilities for combat.
+   > An interface for such methods to communicate as a common object and fight.
+   > This is independent of animation. Some parts of the the system may depend on the animation itself, 
+   >	but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
+   > Christopher Randin
+
 2014-02-23 // Ivan's Birthday
 ==========
 
