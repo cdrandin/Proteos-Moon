@@ -2,42 +2,9 @@
 using System.Collections;
 
 /*
- * Still needs some work. Doesn't feel good enough. May just do Entity-Component System
+ * Still needs some work. Doesn't feel good enough. May just do Entity-Coexhaustonent System
  */
-public class UnitHierarchy: MonoBehaviour
-{
-	public Arcane player1;
-	public Titan player2;
-
-	public Entity player3;
-
-	void Start()
-	{
-		player1 = new Arcane(100,200,50,60,300);
-		player2 = new Titan(300,50,200,10,100);
-
-		player3 = new Vangaurd(250, 100, 150, 100, 120);
-
-		Combat(player1, player2);
-	}
-
-	void Update()
-	{
-	}
-
-	void Combat(Entity combatant1, Entity combatant2)
-	{
-		Debug.Log(string.Format("Combat between {0}({1}hp) and {2}({3}hp)\n", 
-		                        combatant1.unit_type, combatant1.hp, combatant2.unit_type, combatant2.hp));
-
-		combatant1.hp = Mathf.Clamp(combatant1.hp - combatant2.damage, 0, 9999);
-		combatant2.hp = Mathf.Clamp(combatant2.hp - combatant1.damage, 0, 9999);
-
-		Debug.Log(string.Format("Combat aftermath:\n {0} at {1} hp!\t {2} at {3} hp!\n", 
-		                        combatant1.unit_type, combatant1.hp, combatant2.unit_type, combatant2.hp));
-	}
-}
-
+// Exhuast and distance should be on of the same
 public enum UnitType
 {
 	Arcane = 0,
@@ -53,20 +20,20 @@ public enum UnitType
 public class Entity
 {
 	public int _hp;
-	public int _mp;
+	public int _exhaust;
 	public int _damage;
-	public float _distance;
+	public float _distance_cost;
 	public float _attack_range;
 	public UnitType _unit_type;
 
-	public Entity(int hp, int mp, int damage, float distance, float attack_range, UnitType type)
+	public Entity(int hp, int exhaust, int damage, float distance, float attack_range, UnitType type)
 	{
-		_hp           = hp;
-		_mp           = mp;
-		_damage       = damage; 
-		_distance     = distance; 
-		_attack_range = attack_range;
-		_unit_type    = type;
+		_hp            = hp;
+		_exhaust       = exhaust;
+		_damage        = damage; 
+		_distance_cost = distance; 
+		_attack_range  = attack_range;
+		_unit_type     = type;
 	}
 
 	public int hp 
@@ -81,15 +48,15 @@ public class Entity
 		}
 	}
 	
-	public int mp 
+	public int exhaust 
 	{ 
 		get
 		{
-			return _mp;
+			return _exhaust;
 		}
 		set
 		{
-			_mp = value;
+			_exhaust = value;
 		}
 	}
 	
@@ -109,11 +76,11 @@ public class Entity
 	{ 
 		get
 		{
-			return _distance;
+			return _distance_cost;
 		}
 		set
 		{
-			_distance = value;
+			_distance_cost = value;
 		}
 	}
 	
@@ -135,14 +102,18 @@ public class Entity
 		{
 			return _unit_type;
 		}
+		set
+		{
+			_unit_type = value;
+		}
 	}
 }
-
+/*
 [System.Serializable]
 public class Leader: Entity
 {
-	public Leader(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Leader)
+	public Leader(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Leader)
 	{
 	}
 }
@@ -150,8 +121,8 @@ public class Leader: Entity
 [System.Serializable]
 public class Arcane: Entity
 {
-	public Arcane(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Arcane)
+	public Arcane(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Arcane)
 	{
 	}
 }
@@ -159,8 +130,8 @@ public class Arcane: Entity
 [System.Serializable]
 public class Braver: Entity
 {
-	public Braver(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Braver)
+	public Braver(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Braver)
 	{
 	}
 }
@@ -168,8 +139,8 @@ public class Braver: Entity
 [System.Serializable]
 public class Scout: Entity
 {
-	public Scout(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Scout)
+	public Scout(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Scout)
 	{
 	}
 }
@@ -177,8 +148,8 @@ public class Scout: Entity
 [System.Serializable]
 public class Sniper: Entity
 {
-	public Sniper(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Sniper)
+	public Sniper(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Sniper)
 	{
 	}
 }
@@ -186,8 +157,8 @@ public class Sniper: Entity
 [System.Serializable]
 public class Titan: Entity
 {
-	public Titan(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Titan)
+	public Titan(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Titan)
 	{
 	}
 }
@@ -195,8 +166,9 @@ public class Titan: Entity
 [System.Serializable]
 public class Vangaurd: Entity
 {
-	public Vangaurd(int hp, int mp, int damage, float distance, float attack_range):
-		base(hp, mp, damage, distance, attack_range, UnitType.Vangaurd)
+	public Vangaurd(int hp, int exhaust, int damage, float distance, float attack_range):
+		base(hp, exhaust, damage, distance, attack_range, UnitType.Vangaurd)
 	{
 	}
 }
+*/
