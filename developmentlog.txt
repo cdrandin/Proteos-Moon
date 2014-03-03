@@ -5,158 +5,158 @@ Previous Week's Objectives
 --------------------------
 
 * [Ongoing] Track animations for our game characters 6.0 h (8.0 h)
-  > We met up with our artists to create animations for our game characters
-  > It was our first meeting so it took a while for things to get done.
-    - We had to calibrate the software with the two kinects
-    - Then we had our actors create animations for each characters
-    - Due to the time we were only able to animate three characters
+  > We met up with our artists to create animations for our game characters.  
+  > It was our first meeting so it took a while for things to get done.  
+    - We had to calibrate the software with the two kinects  
+    - Then we had our actors create animations for each characters  
+    - Due to the time we were only able to animate three characters  
   >  Ivan Espinosa, Christopher Randin, and Mark Martene
 
 * [Ongoing] Created Animations files off of the animations track 16.0 h (8.0 h)
-  > We used iPi Mocap Studio 2 to help track animations
-  > Due to large computations we had to use Ivan's computer to track the animations
-  > We had a prop gun for the sniper, and it created extra data for calibration
-    - This made it difficult to track the body of the sniper
-  > Our scout animation was fine, but the calibration was off which made the data that we collected off
-  > Our Braver animation was completed. All 13 animations
-  > We need to recreate most animations. But no longer worried about computation time
+  > We used iPi Mocap Studio 2 to help track animations  
+  > Due to large computations we had to use Ivan's computer to track the animations  
+  > We had a prop gun for the sniper, and it created extra data for calibration  
+    - This made it difficult to track the body of the sniper  
+  > Our scout animation was fine, but the calibration was off which made the data that we collected off  
+  > Our Braver animation was completed. All 13 animations  
+  > We need to recreate most animations. But no longer worried about computation time  
   > Ivan Espinosa
 
 * [Incomplete] Complete Fog of War 20.0 h (2.0 h)
-  > Allow the rendering of fog focus around players units
-  > Have the map revealed where the player's units have already been
-        - less dense fog but still visible
-  > Had conflicts merging projects, pushed fog of war implementation to a later date
+  > Allow the rendering of fog focus around players units  
+  > Have the map revealed where the player's units have already been  
+        - less dense fog but still visible  
+  > Had conflicts merging projects, pushed fog of war implementation to a later date  
   > Mark Martene and Ivan Espinosa
 
 * [Completed] Fixed issues with DistanceProjection 1.0 h (1.0 h)
-   > Issue was incorrect usage of script. Now more easy to use.
+   > Issue was incorrect usage of script. Now more easy to use.  
    > Readjusted the ratio for display the projection with respect to the unit's
-   >    allotted distance.
+   >    allotted distance.  
    > Christopher Randin
 
 * [Completed] Made a "better" way to keep track of distance traveled 1.0 h (1.0 h)
    > Calculating distance based on the direction vector taken multiplied against
    >    with the speed. Normalize, take the magnitude, then multiply that by deltatime
-   >    which is a method that calculate previous cpu cycle, independent of cpu speed.
+   >    which is a method that calculate previous cpu cycle, independent of cpu speed.  
    > Christopher Randin
 
 * [Completed] Facilitated UnitController as a single entity system 2.0 h (3.0 h)
    > Allows other systems to use it like the GameManager, and provide unit movement to units
-   >    based on player action(i.e. Unit Move action)
-   > Also fixed other bugs and improve compatibility with GameManager
+   >    based on player action(i.e. Unit Move action)  
+   > Also fixed other bugs and improve compatibility with GameManager  
    > Christopher Randin
 
 * [Completed/Can be improved] Updated GameManager some more 3.0 h (5.0 h)
-   > Added more facilitating features to allow game flow easier
-   > Added set winning conditions and appropriate checks
+   > Added more facilitating features to allow game flow easier  
+   > Added set winning conditions and appropriate checks  
    > Added check as to when the system should change to next players turn or
-   >    or this can be forced by player
+   >    or this can be forced by player  
    > Christopher Randin
 
 * [Completed] Organized project assets and facilitation 1.0 h (2.0 h)
-   > Cleaned up prefabs for the game. Centralized the Game prefab with other requires it needed.
+   > Cleaned up prefabs for the game. Centralized the Game prefab with other requires it needed.  
    > Centralized prefab "Generic_Game" will contain all necessary functionality that is
    >    required on startup of the game. Easy way of organizing things and instantly creating
-   >    maps with basic templates prepared.
-   > Improved responsiveness of the GameManager and assets that are being used by the GameManager
-   >    Currently, other group member's assets have not been include(should be done eventually)
+   >    maps with basic templates prepared.  
+   > Improved responsiveness of the GameManager and assets that are being used by the GameManager  
+   >    Currently, other group member's assets have not been include(should be done eventually)  
    > Added Unit_status script, which is a simply enum that gives current condition of the unit,
-   >    including leader. Currently, nothing modifies it.
-   > It contains the follow:
-        - Clean (no actions performed)
-        - Clicked (when the unit is being focused by the player)
-        - Movement (when the unit is moving)
-        - Combat (when the unit is performing some ability)
-        - Resting (when the unit can no longer perform any actions)
-        - Dead (player dead)
-   > Individual prefabs for each unit with appropriate scripts for when we want to add unit specific features
-   > Added more error check and warnings for GameManager.
+   >    including leader. Currently, nothing modifies it.  
+   > It contains the follow:  
+        - Clean (no actions performed)  
+        - Clicked (when the unit is being focused by the player)  
+        - Movement (when the unit is moving)  
+        - Combat (when the unit is performing some ability)  
+        - Resting (when the unit can no longer perform any actions)  
+        - Dead (player dead)  
+   > Individual prefabs for each unit with appropriate scripts for when we want to add unit specific features  
+   > Added more error check and warnings for GameManager.  
    > Christopher Randin
 
 * [Not Finished] Game Manager transitions/ control unit mechanics created from this week 10.0 h (2.0 h)
-   > Was working on transitions when I needed more functionality out of the GameManager and did some improvement
-   >    on it as stated above. I should be able to do transitions for this weeks tasks.
-   > Previous:
+   > Was working on transitions when I needed more functionality out of the GameManager and did some improvement  
+   >    on it as stated above. I should be able to do transitions for this weeks tasks.  
+   > Previous:  
    > Facilitate the game state transitions between players and units a like. Form rules to allow things to be
-   >    done only at a certain time.
-   > Flow of game, player turn. Allow unit selection for that player. Own player’s units can perform actions.
+   >    done only at a certain time.  
+   > Flow of game, player turn. Allow unit selection for that player. Own player's units can perform actions.  
    > When units have more depth into their available actions. Another system will take over and keep track of
-   >    available actions that are allowed for a given unit.
+   >    available actions that are allowed for a given unit.  
    > Christopher Randin
 
 * [Incomplete] Combat System using unit hierarchy 8.0 h (0.0 h)
-   > Did not reach this point yet. Unit class system (aka unit hierarchy) is complete, but personally dislike.
-   > Could use improvement, but will see if Mark or Ivan have better ideas for implementation.
-   > Previous:
-   > When unit hierarchy is complete. Integrate facilities for combat.
-   > An interface for such methods to communicate as a common object and fight.
+   > Did not reach this point yet. Unit class system (aka unit hierarchy) is complete, but personally dislike.  
+   > Could use improvement, but will see if Mark or Ivan have better ideas for implementation.  
+   > Previous:  
+   > When unit hierarchy is complete. Integrate facilities for combat.  
+   > An interface for such methods to communicate as a common object and fight.  
    > This is independent of animation. Some parts of the the system may depend on the animation itself,
-   >    but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
+   >    but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well  
    > Christopher Randin
 
 * [Partially Completed] Improve Networking Capabilities 20.0 h (20.0 h)
-  > Matchmaking Lobby
-    - Implemented Join Random Room Button: This button will connect to any open room, and will create a room if no open rooms are available.
-    - Did not implement private rooms with passwords: pushed to upcoming week
-    - Did not add a spectator option: pushed to upcoming week
-  > In Game
-        - Added in character models and attached networking scripts to them: Movement is a lot smoother, animations work correctly
-    - Allow chat between players: worked out many bugs that came up with the chat implementation. Players can now send and receive messages to each other, hide the messages by the ESC button, and quickly add new msgs by pressing either Enter buttons.
-    - Send and receive RPC signals of each player's character positions: RPC calls made characters movements much smoother, less lag.
-    - Send and receive RPC signals of actions: players are aware of each others attack actions
-  > In Unity
-    - Merge networking code with existing code from other scenes: beginning phase. Merged the Generic scene into the Networking scene. World Camera and main camera will need to be modified to work with networking.
+  > Matchmaking Lobby  
+    - Implemented Join Random Room Button: This button will connect to any open room, and will create a room if no open rooms are available.  
+    - Did not implement private rooms with passwords: pushed to upcoming week  
+    - Did not add a spectator option: pushed to upcoming week  
+  > In Game  
+        - Added in character models and attached networking scripts to them: Movement is a lot smoother, animations work correctly  
+    - Allow chat between players: worked out many bugs that came up with the chat implementation. Players can now send and receive messages to each other, hide the messages by the ESC button, and quickly add new msgs by pressing either Enter buttons.  
+    - Send and receive RPC signals of each player's character positions: RPC calls made characters movements much smoother, less lag.  
+    - Send and receive RPC signals of actions: players are aware of each others attack actions  
+  > In Unity  
+    - Merge networking code with existing code from other scenes: beginning phase. Merged the Generic scene into the Networking scene. World Camera and main camera will need to be modified to work with networking.  
   > Mark Martene
 
 
 This Week's Objectives
 ---------------------
 * Continue animation for our character models 7.0 h
-   > We will redo all of the animations that was not captured
-   > We will also attempt to do the arcane animation
-   > This time instead of using a gun prop we will try to use a wireframe gun-model
+   > We will redo all of the animations that was not captured  
+   > We will also attempt to do the arcane animation  
+   > This time instead of using a gun prop we will try to use a wireframe gun-model  
    > Ivan Espinosa, Mark Martene, and Chris Randin
 
 * Track Animation with iPi Mocap software 8.0 h
-   > This will requires Ivan's computer
-   > Hopefully there is no issues tracking the animations
+   > This will requires Ivan's computer  
+   > Hopefully there is no issues tracking the animations  
    > Ivan Espinosa
 
 * GameManager transitions between player, player-unit-actions 6.0 h
-   > This will manage the flow of how the game will play out in its basic form
-        - Player's turn
-        - Player moves units
-            - Units can perform actions, movement, combat, abilities
-        - All units have exhausted their possible actions
-        - Current player ends turn forcefully, game rules, or voluntarily
+   > This will manage the flow of how the game will play out in its basic form  
+        - Player's turn  
+        - Player moves units  
+        - Units can perform actions, movement, combat, abilities  
+        - All units have exhausted their possible actions  
+        - Current player ends turn forcefully, game rules, or voluntarily  
    > Christopher Randin
 
-* Make a combat system with the “unit_class” structure 4.0 h
-   > This will use the classes hierarchy to get numbers to take affect with other units.
-   > Currently, this will just show pure number changes, with delay (to simulate animation for each unit)
-   > Put in basic templates if possible
+* Make a combat system with the ‚Äúunit_class‚Äù structure 4.0 h
+   > This will use the classes hierarchy to get numbers to take affect with other units.  
+   > Currently, this will just show pure number changes, with delay (to simulate animation for each unit)  
+   > Put in basic templates if possible  
    > Christopher Randin
 
 * Continue Merging Projects 20.0 h
  > The purpose of this is to get each other all on the same page with a "base" game we can continue to work
-  >    off of and to be more organized in the construction of a base level.
+  >    off of and to be more organized in the construction of a base level.  
   > Familiarize ourselves with each others script for functionality and integrate code together,
-  >    mainly GameManager if needed.
-  > Ivan’s Camera
-	- Work’s with game manager to toggle between free camera movement and character movement/actions
-	- Work’s with networking to focus on a player’s units that they own
-	- Implement camera focus on a player’s leader by pressing F1
-  > Mark’s Networking
-	- Add Photon Viewers to all assets that need to be tracked and sent over the network
-	- Send RPC calls of player’s actions and game state
-	- Be able to end a player’s turn and switch to the opposing player’s turn
-  > Chris’s Game Manager
-	- Sync with camera work appropriately, logic is all handled independently, with exception from helper classes, which are a force requirement for the “Game nucleus” 
+  >    mainly GameManager if needed.  
+  > Ivan's Camera  
+	- Work's with game manager to toggle between free camera movement and character movement/actions  
+	- Work's with networking to focus on a player's units that they own  
+	- Implement camera focus on a player's leader by pressing F1  
+  > Mark's Networking  
+	- Add Photon Viewers to all assets that need to be tracked and sent over the network  
+	- Send RPC calls of player's actions and game state  
+	- Be able to end a player's turn and switch to the opposing player's turn  
+  > Chris's Game Manager  
+	- Sync with camera work appropriately, logic is all handled independently, with exception from helper classes, which are a force requirement for the ‚ÄúGame nucleus‚Äù   
   > Ivan Espinosa, Mark Martene, and Chris Randin
 
 
-2014-02-23 // Ivan’s Birthday
+2014-02-23 // Ivan's Birthday
 ==========
 Previous Week's Objectives
 ---------------------
@@ -194,25 +194,25 @@ Previous Week's Objectives
 * [Incomplete] Improve distance travel recording, distance ring constantly updating and following the unit 2 h (0.0 h)
    > Did not have the time to complete the task.
    > Improve the measurement recording 
-   > Update radius of ring to be dynamic, the unit’s new distance movement
+   > Update radius of ring to be dynamic, the unit's new distance movement
    > Christopher Randin
 
 *  [Completed/Can be improved] Use GameManager to help with scene transitions 4.0 h (4.0h)
    > Added leader tracker, to have a pointer to the game object, in which to access components for later use.
    > Testing GameManager, works pretty good so far. Co-exist with current Recruit System.
-   > Later implementation, distinguish between which player’s leader is whom
+   > Later implementation, distinguish between which player's leader is whom
    > As we add more functionality, keep tabs with the manager and decide if it is something
    >   it needs to keep track of. Like for when a combat system is necessary, the manager will
    >   see if it is valid to do combat
    > Keep up to date with other functionalities in the game. Optimize manager also improvement to add a better flow to the system.
-   > Control the functionalities we have created to let player’s do specific actions
+   > Control the functionalities we have created to let player's do specific actions
    depending on the status of their turn.
    > Christopher Randin
 
 * [Completed/Can be improved] Implement the recruit system 4.0 h (1.0 h)
    > Instantiate a capsule for now on top of unit. Instantiate is an expensive call. Future implementation will have a pool system to manage unit assets.
    > Assign unit cost on this system.
-   > Be within range of “recruitee” object and be able to purchase units
+   > Be within range of ‚Äúrecruitee‚Äù object and be able to purchase units
    > Check game restrictions like number of resources meets required pay
    > Have units spawn within a valid vicinity 
    > Christopher Randin
@@ -221,7 +221,7 @@ Previous Week's Objectives
   > Was able to find implementations of fog of war
 	- The fog uses a camera to project the distance that is revealed
 	- Ran into trouble with having two cameras
-	- If the script is attached to the main camera, it projects the revealed fog from the camera’s position and not from the player’s position
+	- If the script is attached to the main camera, it projects the revealed fog from the camera's position and not from the player's position
   > Will need to modify to configure for our game
   > Mark Martene and Ivan Espinosa
 
@@ -233,13 +233,13 @@ Previous Week's Objectives
 	- The player can view how many players are currently in the lobby
 	- The player can view the maximum number of players in each room
    > Allow players to join locally and get paired with an opponent
-	- Still need to have a “Join Random Room” Button
+	- Still need to have a ‚ÄúJoin Random Room‚Äù Button
 	- Will create private rooms with passwords
    > Allow chat between both parties and maybe a spectator view
 	- Still Need to implement the chat and spectator view
    > Mark Martene
 
-This Week’s Objectives
+This Week's Objectives
 ---------------------
 
 * Create Animations of our game characters 6.0 h
@@ -255,13 +255,13 @@ This Week’s Objectives
 
 * Complete Fog of War 20.0 h 
   > Allow the rendering of fog focus around players units 
-  > Have the map revealed where the player’s units have already been
+  > Have the map revealed where the player's units have already been
 	- less dense fog but still visible
   > Mark Martene and Ivan Espinosa
 
 * Game Manager transitions/ control unit mechanics created from this week 10.0 h
    > Facilitate the game state transitions between players and units a like. Form rules to allow things to be done only at a certain time. 
-   > Flow of game, player turn. Allow unit selection for that player. Own player’s units can perform actions.
+   > Flow of game, player turn. Allow unit selection for that player. Own player's units can perform actions.
    > When units have more depth into their available actions. Another system will take over and keep track of available actions that are allowed for a given unit.
    > Christopher Randin
 
@@ -273,13 +273,13 @@ This Week’s Objectives
 
 * Improve Networking Capabilities 20.0 h
   > Matchmaking Lobby
-- Add “Join Random Room” Button
+- Add ‚ÄúJoin Random Room‚Äù Button
 - Add in private rooms with passwords
 - Add in a spectator option
   > In Game
 	- Add in character models and attach networking scripts to them
 - Allow chat between players
-- Send and receive RPC signals of each player’s character positions
+- Send and receive RPC signals of each player's character positions
 - Send and receive RPC signals of actions
   > In Unity
 - Merge networking code with existing code from other scenes
@@ -371,7 +371,7 @@ Previous Week's Objectives
         - The opponents movement lags
    > Mark Martene
 
-This Week’s Objectives
+This Week's Objectives
 ---------------------
 * Meet up with artist to get work completed 5.0h
    > Get new environment concept art, new character models, and then pass off models to rigger
@@ -392,7 +392,7 @@ This Week’s Objectives
 
 * Use GameManager to help with scene transitions 4.0 h
    > GameManager to help with the flow of the game
-   > Control the functionalities we have created to let player’s do specific actions
+   > Control the functionalities we have created to let player's do specific actions
    depending on the status of their turn.
    > Christopher Randin
 
@@ -416,7 +416,7 @@ This Week’s Objectives
 
 * Improve distance travel recording, distance ring constantly updating and following the unit 2 h
    > Improve the measurement recording 
-   > Update radius of ring to be dynamic, the unit’s new distance movement
+   > Update radius of ring to be dynamic, the unit's new distance movement
    > Christopher Randin
 
 *Start designing Fog of War and implement it 10.0 h
@@ -505,7 +505,7 @@ Previous Week's Objectives
 
 * [Not Completed]Construct an easy to use camera pane system 4.0 h (1.0 h)
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on ‘valid’ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Allow, mouse to focus on ‚Äòvalid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
 
 * [Trashed] Devise a method for creating tile for the map 6.0 h (5.0h)
@@ -521,7 +521,7 @@ Previous Week's Objectives
    >	tile on the map.
    > Christopher Randin and Ivan Espinosa
 
-This Week’s Objectives
+This Week's Objectives
 ---------------------
 
 * Communicate and organize the artists 2.0 h
@@ -533,7 +533,7 @@ This Week’s Objectives
 
 * Continue constructing an easy to use camera pane system 4.0 h
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on ‘valid’ units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Allow, mouse to focus on ‚Äòvalid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
 
 * Document what interactable objects will be in the environment 3.0 h
@@ -551,7 +551,7 @@ This Week’s Objectives
    > The system should be capable in control which player is capable of moving their own units
    >	at a given time.
    > Control and keep track of what the unit is allowed to do(e.g movement, attack, etc)
-   > !! Phases to keep track of: Player’s turn, toggle between units, unit must complete all
+   > !! Phases to keep track of: Player's turn, toggle between units, unit must complete all
    >	allow ACTIONS(described later) before unit becomes exhausted (being you cannot do anymore actions), all units exhausted turn is done, as well as keeping track of game conditions
    > ACTIONS: 
    >	- Movement (toggle UnitController)
@@ -562,20 +562,20 @@ This Week’s Objectives
    > Christopher Randin
 
 * Construct a working UI interface 5.0 h
-   > Have static “always visible” info on the screen
+   > Have static ‚Äúalways visible‚Äù info on the screen
    > Have the action interface pop up when a character is selected
    > Have the character simulate an attack when the attack button is clicked - values changed not animated
    > Have the character defend when the defend button is clicked
-   > Have a temporary message “ability used” print to the console when the ability button is clicked
-   > Shadow out character  when “wait” or “hold” is clicked
-   > Have “Finish Turn” to have the game manager change player’s turn
+   > Have a temporary message ‚Äúability used‚Äù print to the console when the ability button is clicked
+   > Shadow out character  when ‚Äúwait‚Äù or ‚Äúhold‚Äù is clicked
+   > Have ‚ÄúFinish Turn‚Äù to have the game manager change player's turn
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
 
 2014-02-02
 ==========
 
-Previous Week’s Objectives
+Previous Week's Objectives
 ---------------------
 
 * [Completed] Reaching out to individuals interested in our game 3.5 d (7.0 h)
@@ -597,7 +597,7 @@ Previous Week’s Objectives
    > Ivan Espinosa and Mark Martene
 
 * [Completed] Setting up repo and SSH 1.0 h (3.0 h)
-   > Setting up a common repo for us all to work from. Currently, we have chosen to work under ‘usrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git’
+   > Setting up a common repo for us all to work from. Currently, we have chosen to work under ‚Äòusrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git'
    > SSH established for all of us.
    > Read the first 3 chapters of the GitPro book
    > Christopher Randin, Ivan Espinosa and Mark Martene
@@ -610,8 +610,8 @@ Previous Week’s Objectives
 * [Completed] Finalized theme, game objectives, structure and discuss creative gameplay 5.0 h (8.0h)
    > Discussion as to what we desired from a fantasy world. Not wanting to focusing on the same fantasy style (i.e. Orcs v Human) Synopsis of the world is that it is dying and different groups of people are fighting over resources to survive this per-apocalyptic world.
    > Acquired a desired game mode, i.e. versus, with multiple ways of winning.
-	- Acquire an X amount of ‘resources’
-	- Kill opponent’s leader
+	- Acquire an X amount of ‚Äòresources'
+	- Kill opponent's leader
 	- Capture and hold X number of resource points for a Y amount of turns
    > Discussed the current groups priorities for this game
 	- Submission as a final project
@@ -679,10 +679,10 @@ This Week's Objectives
 ---------------------
 
 * Show up to class 3.0 h
-   > Listen to Shafae’s lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
+   > Listen to Shafae's lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
-This Week’s Objectives
+This Week's Objectives
 -------------------
 
 * Setting up repo and SSH 1.0 h
