@@ -22,6 +22,33 @@ Previous Week's Objectives
    > Also fixed other bugs and improve compatibility with GameManager
    > Christopher Randin
 
+* [Completed/Can be improved] Updated GameManager some more 3.0 h (5.0 h)
+   > Added more facilitating features to allow game flow easier
+   > Added set winning conditions and approriate checks
+   > Added check as to when the system should change to next players turn or
+   >	or this can be forced by player
+   > Christoher Randin
+
+* [Completed] Organized project assets and facilitation 1.0 h (2.0 h)
+   > Cleaned up prefabs for the game. Centralized the Game prefab with other requires it needed.
+   > Centralized prefab "Generic_Game" will contain all necessary functionality that is 
+   >	required on startup of the game. Easy way of organizing things and instantly creating 
+   >	maps with basic templates prepared.
+   > Improved responsiviness of the GameManager and assets that are being used by the GameManager
+   >	Currently, other group memeber's assets have not been include(should be done eventually)
+   > Added Unit_status script, which is a simply enum that gives current condition of the unit, 
+   >	including leader. Currently, nothing modifies it. 
+   > It contains the follow:
+   		- Clean (no actions performed)
+		- Clicked (when the unit is being focused by the player)
+		- Movement (when the unit is moving)
+		- Combat (when the unit is performing some ability)
+		- Reseting (when the unit can no longer perform any actions)
+		- Dead (player dead)
+   > Individual prefabs for each unit with apprioate scripts for when we want to add unit specific features
+   > Added more error check and warnings for GameManager.
+   > Christopher Randin
+
 2014-02-23 // Ivan's Birthday
 ==========
 
