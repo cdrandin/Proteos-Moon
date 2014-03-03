@@ -24,7 +24,7 @@ Previous Week's Objectives
 
 * [Incomplete] Complete Fog of War 20.0 h (2.0 h)
   > Allow the rendering of fog focus around players units
-  > Have the map revealed where the playerÕs units have already been
+  > Have the map revealed where the player's units have already been
         - less dense fog but still visible
   > Had conflicts merging projects, pushed fog of war implementation to a later date
   > Mark Martene and Ivan Espinosa
@@ -110,7 +110,7 @@ Previous Week's Objectives
   > Mark Martene
 
 
-This Week’s Objectives
+This Week's Objectives
 ---------------------
 * Continue animation for our character models 7.0 h
    > We will redo all of the animations that was not captured
@@ -137,11 +137,6 @@ This Week’s Objectives
    > Currently, this will just show pure number changes, with delay (to simulate animation for each unit)
    > Put in basic templates if possible
    > Christopher Randin
-
-* Improve Networking Capabilities 7.0 h
-  > Matchmaking
-	- 
-	- 
 
 * Continue Merging Projects 20.0 h
  > The purpose of this is to get each other all on the same page with a "base" game we can continue to work
@@ -181,7 +176,7 @@ Previous Week's Objectives
 
  * [Completed] Meet up with artist to get work completed 5.0h (6.0 h)
    > Figured out how MoCap works to create animation for the characters of our game
-- Since we dont have any animators, we are using MoCap to create base animations of our characters
+- Since we don't have any animators, we are using MoCap to create base animations of our characters
   	- What MoCap does is that it will record our movements with two Microsoft Kinects
          	- Then riggers will attach the base human skeleton from maya
          	- We have schedule to meet Monday to get our animations done
@@ -402,7 +397,7 @@ This Week’s Objectives
    > Christopher Randin
 
 * Implement the recruit system 4.0 h
-   > Be within range of “recruitee” object and be able to purchase units
+   > Be within range of 'recruitee' object and be able to purchase units
    > Check game restrictions like number of resources meets required pay
    > Have units spawn within a valid vicinity 
    > Christopher Randin
@@ -426,7 +421,7 @@ This Week’s Objectives
 
 *Start designing Fog of War and implement it 10.0 h
   > Design shaders to implement the fog
-- Darker shader for farther fog
+- Darker shader for further fog
 - Lighter shader for the edge of the revealed parts of the map
   > Hide enemy units
 - Reveal enemy units when within units range
@@ -602,7 +597,7 @@ Previous Week’s Objectives
    > Ivan Espinosa and Mark Martene
 
 * [Completed] Setting up repo and SSH 1.0 h (3.0 h)
-   > Setting up a common repo for us all to work from. Currently, we have chosen to work under ìusrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.gitî
+   > Setting up a common repo for us all to work from. Currently, we have chosen to work under ‘usrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git’
    > SSH established for all of us.
    > Read the first 3 chapters of the GitPro book
    > Christopher Randin, Ivan Espinosa and Mark Martene
@@ -615,8 +610,8 @@ Previous Week’s Objectives
 * [Completed] Finalized theme, game objectives, structure and discuss creative gameplay 5.0 h (8.0h)
    > Discussion as to what we desired from a fantasy world. Not wanting to focusing on the same fantasy style (i.e. Orcs v Human) Synopsis of the world is that it is dying and different groups of people are fighting over resources to survive this per-apocalyptic world.
    > Acquired a desired game mode, i.e. versus, with multiple ways of winning.
-	- Acquire an X amount of ìresourcesî
-	- Kill opponentís leader
+	- Acquire an X amount of ‘resources’
+	- Kill opponent’s leader
 	- Capture and hold X number of resource points for a Y amount of turns
    > Discussed the current groups priorities for this game
 	- Submission as a final project
@@ -630,7 +625,7 @@ Previous Week’s Objectives
 	- Simple story/theme
 	- Game mode: Versus
 	- 1 Map(maybe 2 depending on time)
-	- Dynamic environment with each unit(grapel to trees, break trees/wall)
+	- Dynamic environment with each unit(grappel to trees, break trees/wall)
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
 * [Ongoing] Setting up the start-up requirements and small features 2.0h (2.0h)
@@ -684,10 +679,10 @@ This Week's Objectives
 ---------------------
 
 * Show up to class 3.0 h
-   > Listen to Shafaeís lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
+   > Listen to Shafae’s lecture about how to organize ourselves and using Git to make over independent work flow cohesive. 
    > Christopher Randin, Ivan Espinosa and Mark Martene
 
-This Weekís Objectives
+This Week’s Objectives
 -------------------
 
 * Setting up repo and SSH 1.0 h
