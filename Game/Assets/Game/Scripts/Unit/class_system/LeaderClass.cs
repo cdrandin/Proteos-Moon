@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class Leader: Entity
 {
-	public Leader(int hp, int exhaust, int damage, float distance, float attack_range):
+	public Leader(int hp, float exhaust, int damage, float distance, float attack_range):
 		base(hp, exhaust, damage, distance, attack_range, UnitType.Leader)
 	{
 	}

@@ -20,13 +20,13 @@ public enum UnitType
 public class Entity
 {
 	public int _hp;
-	public int _exhaust;
+	public float _exhaust;
 	public int _damage;
 	public float _distance_cost;
 	public float _attack_range;
 	public UnitType _unit_type;
 
-	public Entity(int hp, int exhaust, int damage, float distance, float attack_range, UnitType type)
+	public Entity(int hp, float exhaust, int damage, float distance, float attack_range, UnitType type)
 	{
 		_hp            = hp;
 		_exhaust       = exhaust;
@@ -48,7 +48,7 @@ public class Entity
 		}
 	}
 	
-	public int exhaust 
+	public float exhaust 
 	{ 
 		get
 		{

@@ -91,7 +91,7 @@ MonoBehaviour:
     _damage: 0
     _distance_cost: 0
     _attack_range: 0
-    _unit_type: 0
+    _unit_type: 6
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
