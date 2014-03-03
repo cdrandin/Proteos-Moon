@@ -7,16 +7,16 @@ Previous Week's Objectives
 * [Completed] Fixed issues with DistanceProjection 1.0 h (1.0 h)
    > Issue was incorrect usage of script. Now more easy to use.
    > Readjusted the ratio for display the projection with respect to the unit's 
-   >	alloted distance.
+   >	allotted distance.
    > Christopher Randin
 
 * [Completed] Made a "better" way to keep track of distance traveled 1.0 h (1.0 h)
    > Calculating distance based on the direction vector taken multiplied against 
    >	with the speed. Normalize, take the magnitude, then multiply that by deltatime
-   >	which is a mathod that calculate previous cpu cycle, indepedent of cpu speed.
+   >	which is a method that calculate previous cpu cycle, independent of cpu speed.
    > Christopher Randin
 
-* [Completed] Faciliatated UnitController as a single entity system 2.0 h (3.0 h)
+* [Completed] Facilitated UnitController as a single entity system 2.0 h (3.0 h)
    > Allows other systems to use it like the GameManager, and provide unit movement to units
    > 	based on player action(i.e. Unit Move action)
    > Also fixed other bugs and improve compatibility with GameManager
@@ -24,18 +24,18 @@ Previous Week's Objectives
 
 * [Completed/Can be improved] Updated GameManager some more 3.0 h (5.0 h)
    > Added more facilitating features to allow game flow easier
-   > Added set winning conditions and approriate checks
+   > Added set winning conditions and appropriate checks
    > Added check as to when the system should change to next players turn or
    >	or this can be forced by player
-   > Christoher Randin
+   > Christopher Randin
 
 * [Completed] Organized project assets and facilitation 1.0 h (2.0 h)
    > Cleaned up prefabs for the game. Centralized the Game prefab with other requires it needed.
    > Centralized prefab "Generic_Game" will contain all necessary functionality that is 
    >	required on startup of the game. Easy way of organizing things and instantly creating 
    >	maps with basic templates prepared.
-   > Improved responsiviness of the GameManager and assets that are being used by the GameManager
-   >	Currently, other group memeber's assets have not been include(should be done eventually)
+   > Improved responsivness of the GameManager and assets that are being used by the GameManager
+   >	Currently, other group member's assets have not been include(should be done eventually)
    > Added Unit_status script, which is a simply enum that gives current condition of the unit, 
    >	including leader. Currently, nothing modifies it. 
    > It contains the follow:
@@ -45,12 +45,12 @@ Previous Week's Objectives
 		- Combat (when the unit is performing some ability)
 		- Reseting (when the unit can no longer perform any actions)
 		- Dead (player dead)
-   > Individual prefabs for each unit with apprioate scripts for when we want to add unit specific features
+   > Individual prefabs for each unit with appropriate scripts for when we want to add unit specific features
    > Added more error check and warnings for GameManager.
    > Christopher Randin
 
 * [Not Finished] Game Manager transitions/ control unit mechanics created from this week 10.0 h (2.0 h)
-   > Was working on transitions when I needed more functionality out of the GameManager and did some imrpovement
+   > Was working on transitions when I needed more functionality out of the GameManager and did some improvement
    >	on it as stated above. I should be able to do transitions for this weeks tasks.
    > Previous:
    > Facilitate the game state transitions between players and units a like. Form rules to allow things to be 
@@ -61,7 +61,7 @@ Previous Week's Objectives
    > Christopher Randin
 
 
-* [Incompleted] Combat System using unit hierarchy 8.0 h (0.0 h)
+* [Incomplete] Combat System using unit hierarchy 8.0 h (0.0 h)
    > Did not reach this point yet. Unit class system (aka unit hierarchy) is complete, but personally dislike.
    > Could use improvement, but will see if Mark or Ivan have better ideas for implementation.
    > Previous:
@@ -70,6 +70,20 @@ Previous Week's Objectives
    > This is independent of animation. Some parts of the the system may depend on the animation itself, 
    >	but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
    > Christopher Randin
+
+* Improve Networking Capabilities 20.0 h (20.0 h)
+  > Matchmaking Lobby
+	- Implemented ÒJoin Random RoomÓ Button: This button will connect to any open room, and will create a room if no open rooms are available.
+	- Did not implement private rooms with passwords: pushed to upcoming week
+	- Did not add a spectator option: pushed to upcoming week
+  > In Game
+        - Added in character models and attached networking scripts to them: Movement is a lot smoother, animations work correctly
+	- Allow chat between players: worked out many bugs that came up with the chat implementation. PlayerÕs can now send and receive messages to each other, hide the messages by the ESC button, and quickly add new msgs by pressing either Enter buttons.
+	- Send and receive RPC signals of each playerÕs character positions: RPC calls made characters movements much smoother, less lag.
+	- Send and receive RPC signals of actions: playerÕs are aware of each otherÕs attack actions
+  > In Unity
+	- Merge networking code with existing code from other scenes: beginning phase. Merged the Generic scene into the Networking scene. World Camera and main camera will need to be modified to work with networking.
+  > Mark Martene
 
 2014-02-23 // Ivan's Birthday
 ==========

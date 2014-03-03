@@ -1,36 +1,31 @@
 ﻿using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
-
+/// <summary>
+/// Controls the Matchmaking Lobby. Allows the player to create & join gaming rooms. Player creates a player name
+/// Designates a Room name, and is displayed active rooms and how many players are currently in the room.
+/// </summary>
 public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	//private PhotonView pv;
-	private string room_name = "";
-	private string player_name = "";
-	//private string room_status = "";
 	private int max_players = 20;
-	private string max_players_text = "2";
-	private Room[] game;
-	//maybe remove
-	//HACK
-	private Vector2 scroll_position;
 	private float native_width = 1920;
 	private float native_height = 1080;
+	private string room_name = "";
+	private string player_name = "";
+	private string max_players_text = "2";
+	private Room[] game;
 	private char[] arr = new char[] { '\n', ' ' };
-
-	public string player_prefab = "NetworkPlayer";
-	public Transform spawn_object;
-	public GUIStyle network_status_style;
-	public GUISkin lobby_skin;
-	public GUISkin lobby_skin_alternate;
+	private Vector2 scroll_position;
+	
 	public int lobby_width = 800;
 	public int lobby_height = 600;
-
-	// Use this for initialization
-	void Start () {
-		//PhotonNetwork.ConnectUsingSettings("0.1");
-	}
-
+	public string player_prefab = "NetworkPlayer";
+	public Transform spawn_object;
+	public GUISkin lobby_skin;
+	public GUISkin lobby_skin_alternate;
+	public GUIStyle network_status_style;
+	
 	public void Awake()
 	{
 		// this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
@@ -39,8 +34,18 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 		// the following line checks if this client was just created (and not yet online). if so, we connect
 		if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
 		{
+			try {
 			// Connect to the photon master-server. We use the settings saved in PhotonServerSettings (a .asset file in this project)
 			PhotonNetwork.ConnectUsingSettings("1.0");
+			} catch {
+				// Second Retry to connect
+				try {
+					PhotonNetwork.ConnectUsingSettings("1.0");
+				} catch{
+					Debug.LogError("Unable to Connect");
+					return;
+				}
+			}
 		}
 		
 		// generate a name for this player, if none is assigned yet

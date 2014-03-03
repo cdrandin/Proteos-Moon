@@ -3535,31 +3535,31 @@ Prefab:
       objectReference: {fileID: 1880376800}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -.20094417
+      value: .312961489
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalRotation.y
-      value: .728131652
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -.239929885
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -.609819233
+      value: .949765801
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 149.402771
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -41.2440491
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 121.492188
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
@@ -9658,8 +9658,8 @@ Transform:
   m_PrefabParentObject: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
   m_PrefabInternal: {fileID: 516592812}
   m_GameObject: {fileID: 1502294334}
-  m_LocalRotation: {x: -.20094417, y: .728131652, z: -.239929885, w: -.609819233}
-  m_LocalPosition: {x: 149.402771, y: -41.2440491, z: 121.492188}
+  m_LocalRotation: {x: .312961489, y: 0, z: 0, w: .949765801}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 679021893}
