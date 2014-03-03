@@ -95,7 +95,7 @@ Previous Week's Objectives
    >	but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
    > Christopher Randin
 
-* [Partially Completed] Improve Networking Capabilities 20.0 h (20.0 h)
+* [Mostly Completed] Improve Networking Capabilities 20.0 h (20.0 h)
   > Matchmaking Lobby
 	- Implemented ÒJoin Random RoomÓ Button: This button will connect to any open room, and will create a room if no open rooms are available.
 	- Did not implement private rooms with passwords: pushed to upcoming week
@@ -113,7 +113,7 @@ Previous Week's Objectives
 
 This Week's Objectives
 ---------------------
-* Continue animation for our charcter models 7.0 h
+* Continue animation for our character models 7.0 h
    > We will redo all of the animations that was not captured
    > We will also attempt to do the arcane animation
    > This time instead of using a gun prop we will try to use a wireframe gun-model
@@ -123,6 +123,17 @@ This Week's Objectives
    > This will requires Ivan's computer
    > Hopefully there is no issues tracking the animations
    > Ivan Espinosa
+
+* Continue Merging Projects 20.0 h
+  > IvanÕs Camera
+	- WorkÕs with game manager to toggle between free camera movement and character movement/actions
+	- WorkÕs with networking to focus on a playerÕs units that they own
+	- Implement camera focus on a playerÕs leader by pressing F1
+  > MarkÕs Networking
+	- Add Photon Viewers to all assets that need to be tracked and sent over the network
+  > ChrisÕs Game Manager
+	- Able to summon units and work with the camera to switch between all units
+  > Ivan Espinosa, Mark Martene, and Chris Randin
 
 
 
