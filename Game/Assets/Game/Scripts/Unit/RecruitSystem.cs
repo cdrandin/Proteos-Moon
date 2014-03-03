@@ -4,26 +4,34 @@ using System.Collections;
 [System.Serializable]
 public class UnitCost
 {
-	public int Arcane;
-	public int Braver;
-	public int Scout;
-	public int Sniper;
-	public int Titan;
-	public int Vangaurd;
+	public int arcane;
+	public int braver;
+	public int scout;
+	public int sniper;
+	public int titan;
+	public int vangaurd;
 
 	public UnitCost(int arcane, int braver, int scout, int sniper, int titan, int vanguard)
 	{
-		Arcane   = arcane;
-		Braver   = braver;
-		Scout    = scout;
-		Sniper   = sniper;
-		Titan    = titan;
-		Vangaurd = vanguard;
+		this.arcane   = arcane;
+		this.braver   = braver;
+		this.scout    = scout;
+		this.sniper   = sniper;
+		this.titan    = titan;
+		this.vangaurd = vanguard;
 	}
 }
 
 public class RecruitSystem : MonoBehaviour 
 {
+	// Prefabs of the objects to summon
+	public GameObject arcane;
+	public GameObject braver;
+	public GameObject scout;
+	public GameObject sniper;
+	public GameObject titan;
+	public GameObject vangaurd;	
+
 	// Circle range in which units can be summoned
 	public float summoning_radius;
 
@@ -42,6 +50,24 @@ public class RecruitSystem : MonoBehaviour
 
 		if(summoning_radius <= 0)
 			Debug.LogWarning("Summoning radius is less than or equal to 0. May perform weird artifacts.");
+
+		if(this.arcane == null)
+			Debug.LogWarning("Missing Arcane GameObject reference");
+
+		if(this.braver == null)
+			Debug.LogWarning("Missing Braver GameObject reference");
+
+		if(this.scout == null)
+			Debug.LogWarning("Missing Scout GameObject reference");
+
+		if(this.sniper == null)
+			Debug.LogWarning("Missing Sniper GameObject reference");
+
+		if(this.titan == null)
+			Debug.LogWarning("Missing Titan GameObject reference");
+
+		if(this.vangaurd == null)
+			Debug.LogWarning("Missing Vangaurd GameObject reference");
 	}
 	
 	// Update is called once per frame
@@ -55,33 +81,55 @@ public class RecruitSystem : MonoBehaviour
 	// Does not use appropriate models, but logic is there
 	public GameObject SpawnUnit(UnitType unit_type)
 	{
-		Vector3 position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
+		Vector3 leader_position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
 		string name = "ERROR";
+		GameObject unit;
 
 		// For now have it spawn immediately
 		if(unit_type == UnitType.Arcane)
+		{
 			name = "Arcane";
+			unit = this.arcane;
+		}
 		
 		else if(unit_type == UnitType.Braver)
+		{
 			name = "Braver";
+			unit = this.braver;
+		}
 		
 		else if(unit_type == UnitType.Scout)
+		{
 			name = "Scout";
+			unit = this.scout;
+		}
 		
 		else if(unit_type == UnitType.Sniper)
+		{
 			name = "Sniper";
+			unit = this.sniper;
+		}
 		
 		else if(unit_type == UnitType.Titan)
+		{
 			name = "Titan";
+			unit = this.titan;
+		}
+
 		else if(unit_type == UnitType.Vangaurd)
+		{
 			name = "Vangaurd";
+			unit = this.vangaurd;
+		}
+
 		else
+		{
 			Debug.LogError("Spawn unit went to default switch. ERROR");
+			unit = null;
+		}
 
 		// Spawn behind leader
-		GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-		obj.transform.position = position + 2*Vector3.back;
-		obj.transform.rotation = Quaternion.identity;
+		GameObject obj = GameObject.Instantiate(unit, leader_position + 2*Vector3.back, Quaternion.identity) as GameObject;
 		obj.name = name;
 		obj.tag  = "Unit";
 		obj.layer = LayerMask.NameToLayer(obj.tag);

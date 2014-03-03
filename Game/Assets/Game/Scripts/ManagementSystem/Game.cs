@@ -155,7 +155,7 @@ public class Game : MonoBehaviour
 		string recruit_text = "Recently purchased";
 		string recruit_fail = "Could not purchase";
 
-		if(MakeButton(half + half/3, 0, string.Format("Arcane Cost: {0}", _unit_cost.Arcane)))
+		if(MakeButton(half + half/3, 0, string.Format("Arcane Cost: {0}", _unit_cost.arcane)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Arcane))
 			{
@@ -165,7 +165,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 50, string.Format("Braver Cost: {0}", _unit_cost.Braver)))
+		else if(MakeButton(half + half/3, 50, string.Format("Braver Cost: {0}", _unit_cost.braver)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Braver))
 			{
@@ -175,7 +175,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 100, string.Format("Scout Cost: {0}", _unit_cost.Scout)))
+		else if(MakeButton(half + half/3, 100, string.Format("Scout Cost: {0}", _unit_cost.scout)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Scout))
 			{
@@ -185,7 +185,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 150, string.Format("Sniper Cost: {0}", _unit_cost.Sniper)))
+		else if(MakeButton(half + half/3, 150, string.Format("Sniper Cost: {0}", _unit_cost.sniper)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Sniper))
 			{
@@ -195,7 +195,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 200, string.Format("Titan Cost: {0}", _unit_cost.Titan)))
+		else if(MakeButton(half + half/3, 200, string.Format("Titan Cost: {0}", _unit_cost.titan)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Titan))
 			{
@@ -205,7 +205,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 250, string.Format("Vangaurd Cost: {0}", _unit_cost.Vangaurd)))
+		else if(MakeButton(half + half/3, 250, string.Format("Vangaurd Cost: {0}", _unit_cost.vangaurd)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Vangaurd))
 			{

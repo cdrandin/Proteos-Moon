@@ -52,6 +52,7 @@ public static class GameManager
 	// Maybe good for now, might keep classtype for other stuff as needed
 	private static List<GameObject>[] _player_units; // Keep track each unit with respect to each player's unit
 
+	// Pointer to containers, units will be rooted to them
 	private static GameObject[] _player_container;
 
 	// Who has won
@@ -311,22 +312,22 @@ public static class GameManager
 		switch(unit_type)
 		{
 		case UnitType.Arcane:
-			cost = _unit_cost.Arcane;
+			cost = _unit_cost.arcane;
 			break;
 		case UnitType.Braver:
-			cost = _unit_cost.Braver;
+			cost = _unit_cost.braver;
 			break;
 		case UnitType.Scout:
-			cost = _unit_cost.Scout;
+			cost = _unit_cost.scout;
 			break;
 		case UnitType.Sniper:
-			cost = _unit_cost.Sniper;
+			cost = _unit_cost.sniper;
 			break;
 		case UnitType.Titan:
-			cost = _unit_cost.Titan;
+			cost = _unit_cost.titan;
 			break;
 		case UnitType.Vangaurd:
-			cost = _unit_cost.Vangaurd;
+			cost = _unit_cost.vangaurd;
 			break;
 		default:
 			Debug.LogError(string.Format("Unit type: {0} does not have an associated cost to it!", unit_type));
@@ -342,8 +343,11 @@ public static class GameManager
 			_resource_spent[(int)player] += cost;
 			++_units_obtained[(int)player]; 
 
-			// Signal spawner
-			AddUnitToManager(_rs.SpawnUnit(unit_type));
+			// Signal spawner and to approiate players container
+			GameObject unit = _rs.SpawnUnit(unit_type);
+
+			AddUnitToCurrentPlayersContainer(unit);
+			AddUnitToPlayerPool(unit);
 
 			return true;
 		}
@@ -498,9 +502,18 @@ public static class GameManager
 	/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
 	/// </summary>
 	/// <param name="unit">Unit.</param>
-	public static void AddUnitToManager(GameObject unit)
+	public static void AddUnitToCurrentPlayersContainer(GameObject unit)
 	{
 		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
+	}
+
+	/// <summary>
+	/// Adds the unit to the player's units pool
+	/// </summary>
+	/// <param name="unit">Unit.</param>
+	public static void AddUnitToPlayerPool(GameObject unit)
+	{
+		_player_units[(int)GetCurrentPlayer()].Add(unit);
 	}
 
 	private static void StartTimer()
