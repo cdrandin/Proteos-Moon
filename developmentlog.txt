@@ -89,6 +89,9 @@ Previous Week's Objectives
    >	but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
    > Christopher Randin
 
+
+
+
 * Improve Networking Capabilities 20.0 h (20.0 h)
   > Matchmaking Lobby
 	- Implemented ÒJoin Random RoomÓ Button: This button will connect to any open room, and will create a room if no open rooms are available.
@@ -102,6 +105,22 @@ Previous Week's Objectives
   > In Unity
 	- Merge networking code with existing code from other scenes: beginning phase. Merged the Generic scene into the Networking scene. World Camera and main camera will need to be modified to work with networking.
   > Mark Martene
+
+
+This Week's Objectives
+---------------------
+* Continue animation for our charcter models 7.0 h
+   > We will redo all of the animations that was not captured
+   > We will also attempt to do the arcane animation
+   > This time instead of using a gun prop we will try to use a wireframe gun-model
+   > Ivan Espinosa, Mark Martene, and Chris Randin
+
+* Track Animation with iPi Mocap software 8.0 h 
+   > This will requires Ivan's computer
+   > Hopefully there is no issues tracking the animations
+   > Ivan Espinosa
+
+
 
 2014-02-23 // Ivan's Birthday
 ==========
