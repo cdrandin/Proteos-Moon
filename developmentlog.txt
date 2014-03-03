@@ -7,7 +7,7 @@ Previous Week's Objectives
 * [Ongoing] Track animations for our game characters 6.0 h (8.0 h)
   > We met up with our artists to create animations for our game characters
   > It was our first meeting so it took a while for things to get done.
-    - We had to calbirate the software with the two kinects
+    - We had to calibrate the software with the two kinects
     - Then we had our actors create animations for each characters
     - Due to the time we were only able to animate three characters
   >  Ivan Espinosa, Christopher Randin, and Mark Martene
@@ -16,11 +16,18 @@ Previous Week's Objectives
   > We used iPi Mocap Studio 2 to help track animations
   > Due to large computations we had to use Ivan's computer to track the animations
   > We had a prop gun for the sniper, and it created extra data for calibration
-    - This made it dificult to track the body of the sniper
+    - This made it difficult to track the body of the sniper
   > Our scout animation was fine, but the calibration was off which made the data that we collected off
   > Our Braver animation was completed. All 13 animations
   > We need to recreate most animations. But no longer worried about computation time
   > Ivan Espinosa
+
+* [Incomplete] Complete Fog of War 20.0 h (2.0 h)
+  > Allow the rendering of fog focus around players units 
+  > Have the map revealed where the playerÕs units have already been
+        - less dense fog but still visible
+  > Had conflicts merging projects, pushed fog of war implementation to a later date
+  > Mark Martene and Ivan Espinosa
 
 * [Completed] Fixed issues with DistanceProjection 1.0 h (1.0 h)
    > Issue was incorrect usage of script. Now more easy to use.
@@ -52,7 +59,7 @@ Previous Week's Objectives
    > Centralized prefab "Generic_Game" will contain all necessary functionality that is 
    >	required on startup of the game. Easy way of organizing things and instantly creating 
    >	maps with basic templates prepared.
-   > Improved responsivness of the GameManager and assets that are being used by the GameManager
+   > Improved responsiveness of the GameManager and assets that are being used by the GameManager
    >	Currently, other group member's assets have not been include(should be done eventually)
    > Added Unit_status script, which is a simply enum that gives current condition of the unit, 
    >	including leader. Currently, nothing modifies it. 
@@ -78,7 +85,6 @@ Previous Week's Objectives
    >	available actions that are allowed for a given unit.
    > Christopher Randin
 
-
 * [Incomplete] Combat System using unit hierarchy 8.0 h (0.0 h)
    > Did not reach this point yet. Unit class system (aka unit hierarchy) is complete, but personally dislike.
    > Could use improvement, but will see if Mark or Ivan have better ideas for implementation.
@@ -89,7 +95,7 @@ Previous Week's Objectives
    >	but we will use some templates. Also, animation time vs delay in damage dealt is a factor as well
    > Christopher Randin
 
-* Improve Networking Capabilities 20.0 h (20.0 h)
+* [Partially Completed] Improve Networking Capabilities 20.0 h (20.0 h)
   > Matchmaking Lobby
 	- Implemented ÒJoin Random RoomÓ Button: This button will connect to any open room, and will create a room if no open rooms are available.
 	- Did not implement private rooms with passwords: pushed to upcoming week
@@ -102,6 +108,15 @@ Previous Week's Objectives
   > In Unity
 	- Merge networking code with existing code from other scenes: beginning phase. Merged the Generic scene into the Networking scene. World Camera and main camera will need to be modified to work with networking.
   > Mark Martene
+
+
+This WeekÕs Objectives
+---------------------
+
+
+
+
+
 
 2014-02-23 // Ivan's Birthday
 ==========
@@ -118,7 +133,6 @@ Previous Week's Objectives
    > We need to standardize asset usage, for all of us to use
    >	(no more creating unnecessary prefabs)
    > Ivan Espinosa, Chris Randin, and Mark Martene
-
 
 * [Completed] Fix Rotation issues with Camera Pan system  4.0 h (8.0 h)
    > Had to isolate Quaternion rotations when the Camera changed focus on the 
