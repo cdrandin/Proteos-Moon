@@ -10,6 +10,7 @@ public class Sniper: Entity
 	}
 }
 
+[RequireComponent (typeof(UnitStatus))]
 public class SniperClass : MonoBehaviour {
 
 	public Sniper sniper;

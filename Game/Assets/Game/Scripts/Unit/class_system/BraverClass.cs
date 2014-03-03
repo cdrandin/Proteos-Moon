@@ -10,6 +10,7 @@ public class Braver: Entity
 	}
 }
 
+[RequireComponent (typeof(UnitStatus))]
 public class BraverClass : MonoBehaviour {
 
 	public Braver braver;

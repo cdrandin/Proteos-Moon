@@ -10,6 +10,7 @@ public class Vangaurd: Entity
 	}
 }
 
+[RequireComponent (typeof(UnitStatus))]
 public class VangaurdClass : MonoBehaviour {
 
 	public Vangaurd vangaurd;

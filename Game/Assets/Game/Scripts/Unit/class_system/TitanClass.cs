@@ -9,7 +9,7 @@ public class Titan: Entity
 	{
 	}
 }
-
+[RequireComponent (typeof(UnitStatus))]
 public class TitanClass : MonoBehaviour {
 
 	public Titan titan;

@@ -10,6 +10,7 @@ public class Arcane: Entity
 	}
 }
 
+[RequireComponent (typeof(UnitStatus))]
 public class ArcaneClass : MonoBehaviour {
 
 	public Arcane arcane;

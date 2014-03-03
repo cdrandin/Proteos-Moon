@@ -10,6 +10,7 @@ public class Scout: Entity
 	}
 }
 
+[RequireComponent (typeof(UnitStatus))]
 public class ScoutClass : MonoBehaviour {
 
 	public Scout scout;

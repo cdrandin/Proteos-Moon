@@ -10,6 +10,7 @@ public class Leader: Entity
 	}
 }
 
+[RequireComponent (typeof(UnitStatus))]
 public class LeaderClass : MonoBehaviour {
 
 	public Leader leader;

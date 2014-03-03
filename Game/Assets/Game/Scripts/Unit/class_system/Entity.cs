@@ -16,6 +16,17 @@ public enum UnitType
 	Vangaurd
 }
 
+public enum Status
+{
+	Clean = 0, // Has not moved, all actions avaliable
+	Clicked,   // Mouse has the unit on focus
+	Movement,  // Unit is moving
+	Combat,    // Unit is in combat
+	Ability,   // Unit has used ability last
+	Resting,   // Unit has exhuasted its exhuast bar or cannot perform any more actions
+	Dead       // Unit is dead (Not sure if needed)
+}
+
 [System.Serializable]
 public class Entity
 {
@@ -24,7 +35,7 @@ public class Entity
 	public int _damage;
 	public float _distance_cost;
 	public float _attack_range;
-	public UnitType _unit_type;
+	private UnitType _unit_type;
 
 	public Entity(int hp, float exhaust, int damage, float distance, float attack_range, UnitType type)
 	{
@@ -35,7 +46,7 @@ public class Entity
 		_attack_range  = attack_range;
 		_unit_type     = type;
 	}
-
+	
 	public int hp 
 	{ 
 		get

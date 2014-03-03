@@ -14,6 +14,7 @@ GameObject:
   - 111: {fileID: 11100000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
+  - 114: {fileID: 11400004}
   m_Layer: 8
   m_Name: Leader
   m_TagString: Leader
@@ -91,7 +92,6 @@ MonoBehaviour:
     _damage: 0
     _distance_cost: 0
     _attack_range: 0
-    _unit_type: 2
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,6 +103,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
 --- !u!143 &14300000
 CharacterController:
   m_ObjectHideFlags: 1

@@ -48,11 +48,9 @@ public static class GameManager
 
 	// Keep track of each player's unit accordingly
 	private static GameObject[] _leaders;
-
-	// Maybe good for now, might keep classtype for other stuff as needed
-	private static List<GameObject>[] _player_units; // Keep track each unit with respect to each player's unit
-
+	
 	// Pointer to containers, units will be rooted to them
+	// The gameobject will contain the objects of that player's units and leader as its children nodes
 	private static GameObject[] _player_container;
 
 	// Who has won
@@ -102,9 +100,6 @@ public static class GameManager
 		}
 
 		total_players = num_of_players;
-
-		// How many lists is needed, based on player total
-		_player_units = new List<GameObject>[total_players];
 
 		_rs = GameObject.FindGameObjectWithTag("GameController").GetComponent<RecruitSystem>();
 		if(_rs == null)
@@ -186,8 +181,9 @@ public static class GameManager
 		return _max_resource;
 	}
 
-	/*
-	 * Win Conditions/helper functions
+	/* ###
+	 * Win Conditions
+	 * ###
 	 */
 	// Get who ever is winning currently in terms of resources
 	/// <summary>
@@ -212,9 +208,9 @@ public static class GameManager
 	{
 		int alive = 0;
 
-		foreach(bool leader in _leaders_alive)
+		foreach(GameObject leader in _leaders)
 		{
-			if(leader)
+			if(leader.GetComponent<LeaderClass>().leader.hp != 0)
 				++alive;
 		}
 		return alive;
@@ -236,14 +232,12 @@ public static class GameManager
 			return true;
 		}
 
-		// TODO Needs more work. Should be done better
 		// Win by having 1 leader survive/killing off other leaders
 		else if(GetSurvivingLeaderCount() == 1)
 		{
-			// Search for the one leader that is alive associated with the player
-			for(int i=0;i<_leaders_alive.Length;++i)
+			for(int i=1;i<=_leaders.Length;++i)
 			{
-				if(_leaders_alive[i])
+				if(_leaders[i].GetComponent<UnitStatus>().status != Status.Dead)
 				{
 					_winner = (Player)i;
 					return true;
@@ -262,8 +256,9 @@ public static class GameManager
 		return _winner;
 	}
 
-	/*
+	/* ###
 	 * End Win Conditions/helper functions
+	 * ###
 	 */
 
 	// Add X amount of points to resource counter array, according to player
@@ -346,14 +341,37 @@ public static class GameManager
 			// Signal spawner and to approiate players container
 			GameObject unit = _rs.SpawnUnit(unit_type);
 
+			// Put unit into appropriate player's container
 			AddUnitToCurrentPlayersContainer(unit);
-			AddUnitToPlayerPool(unit);
 
 			return true;
 		}
 		else
 			return false;
 	}
+
+	/// <summary>
+	/// Determines if it is next players turn by checking if all units and leaders have used up all of their exhuast.
+	/// Next player's turn can be interupted by an "End turn" type button,
+	/// </summary>
+	/// <returns><c>true</c> if is next players turn; otherwise, <c>false</c>.</returns>
+	public static bool IsNextPlayersTurn()
+	{
+		// Player should be in the scene. So it exist
+		// Check if leader can not longer perform action
+		if(_leaders[_current_player_turn].GetComponent<UnitStatus>().status != Status.Resting)
+			return false;
+
+		// If units exist for current player, check if they are able to move
+		UnitStatus[] units = _player_container[_current_player_turn].GetComponentsInChildren<UnitStatus>();
+		foreach(UnitStatus unit in units)
+		{
+			if(unit.status != Status.Resting)
+				return false;
+		}
+		return true;
+	}
+
 	// Method for allowing other player to take turn
 	// This should enable all options for the next player in the queue
 	// Disable the player's actions when they are done with their turn
@@ -468,52 +486,14 @@ public static class GameManager
 				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", leader.transform.tag));
 		}
 	}
-
-	// Keep track of units with their corresponding player
-	// Not really needed, but it is there
-	/*
-	private static void InitPlayersUnits()
-	{
-		// This point, all units are obtained
-		GameObject[] all_units = GameObject.FindGameObjectsWithTag("Unit");
-
-		// Sperate based on which player owns which unit
-		foreach(GameObject unit in all_units)
-		{
-			if(unit.transform.parent.tag == "Player1")
-				_player_units[0].Add(unit);
-
-			else if(unit.transform.parent.tag == "Player2")
-				_player_units[1].Add(unit);
-
-			else if(unit.transform.parent.tag == "Player3")
-				_player_units[2].Add(unit);
-
-			else if(unit.transform.parent.tag == "Player4")
-				_player_units[3].Add(unit);
-
-			else
-				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", unit.transform.tag));
-		}
-	}
-	*/
-
+	
 	/// <summary>
 	/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	public static void AddUnitToCurrentPlayersContainer(GameObject unit)
 	{
-		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
-	}
-
-	/// <summary>
-	/// Adds the unit to the player's units pool
-	/// </summary>
-	/// <param name="unit">Unit.</param>
-	public static void AddUnitToPlayerPool(GameObject unit)
-	{
-		_player_units[(int)GetCurrentPlayer()].Add(unit);
+		unit.transform.parent = _player_container[_current_player_turn].transform;
 	}
 
 	private static void StartTimer()

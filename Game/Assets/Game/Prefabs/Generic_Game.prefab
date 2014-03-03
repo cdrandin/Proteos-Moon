@@ -172,8 +172,10 @@ GameObject:
   - 143: {fileID: 14300002}
   - 111: {fileID: 11100002}
   - 114: {fileID: 11400008}
+  - 114: {fileID: 11400010}
+  - 114: {fileID: 11400018}
   m_Layer: 8
-  m_Name: Leader
+  m_Name: Leader2
   m_TagString: Leader
   m_Icon: {fileID: -1003283189, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -191,9 +193,11 @@ GameObject:
   - 23: {fileID: 2300002}
   - 143: {fileID: 14300004}
   - 111: {fileID: 11100004}
-  - 114: {fileID: 11400010}
+  - 114: {fileID: 11400012}
+  - 114: {fileID: 11400014}
+  - 114: {fileID: 11400016}
   m_Layer: 8
-  m_Name: Leader
+  m_Name: Leader1
   m_TagString: Leader
   m_Icon: {fileID: -1003283189, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -209,7 +213,7 @@ Transform:
   m_LocalPosition: {x: 3.34430122, y: .90089488, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400022}
+  - {fileID: 400020}
   m_Father: {fileID: 400018}
 --- !u!4 &400002
 Transform:
@@ -221,7 +225,7 @@ Transform:
   m_LocalPosition: {x: 3.34430122, y: .90089488, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400020}
+  - {fileID: 400022}
   m_Father: {fileID: 400018}
 --- !u!4 &400004
 Transform:
@@ -327,10 +331,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.6418095, y: 0, z: 0}
+  m_LocalPosition: {x: 22.2192154, y: 0, z: 0}
   m_LocalScale: {x: .398651987, y: .90524137, z: .398651987}
   m_Children: []
-  m_Father: {fileID: 400002}
+  m_Father: {fileID: 400000}
 --- !u!4 &400022
 Transform:
   m_ObjectHideFlags: 1
@@ -338,10 +342,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.3174915, y: 0, z: 0}
+  m_LocalPosition: {x: -11.0672131, y: 0, z: 0}
   m_LocalScale: {x: .398651987, y: .90524137, z: .398651987}
   m_Children: []
-  m_Father: {fileID: 400000}
+  m_Father: {fileID: 400002}
 --- !u!23 &2300000
 Renderer:
   m_ObjectHideFlags: 1
@@ -485,12 +489,12 @@ MonoBehaviour:
   summoning_radius: 1
   steps: 12
   unit_cost:
-    arcane: 0
-    braver: 0
-    scout: 0
-    sniper: 0
-    titan: 0
-    vangaurd: 0
+    arcane: 100
+    braver: 80
+    scout: 50
+    sniper: 120
+    titan: 200
+    vangaurd: 300
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -526,12 +530,70 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49091a7181094f642af7b651def885d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leader:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49091a7181094f642af7b651def885d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leader:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
+--- !u!114 &11400016
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
+--- !u!114 &11400018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
 --- !u!119 &11900000
 Projector:
   m_ObjectHideFlags: 1
