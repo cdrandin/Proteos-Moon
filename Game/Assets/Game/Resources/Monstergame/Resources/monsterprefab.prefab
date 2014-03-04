@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400006}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: monsterprefab
   m_TagString: Unit
@@ -2212,6 +2213,17 @@ Animation:
 --- !u!1002 &11100001
 EditorExtensionImpl:
   serializedVersion: 6
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731d4f58af7bc45d983cefef5fb2d79f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1002 &11400001
 EditorExtensionImpl:
   serializedVersion: 6
@@ -2236,7 +2248,6 @@ MonoBehaviour:
   runMaxAnimationSpeed: 8
   jumpAnimationSpeed: 4
   landAnimationSpeed: 1
-  attackAnimationSpeed: 1
   _characterState: 0
   walkSpeed: 10
   trotSpeed: 20
