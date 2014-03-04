@@ -91,8 +91,7 @@ public class WorldCamera : MonoBehaviour {
 	}
 	
 	
-	
-	
+
 	void LateUpdate () {
 
 		HandleMouseRotation ();
@@ -159,6 +158,15 @@ public class WorldCamera : MonoBehaviour {
 		mouseY = Input.mousePosition.y;
 		
 	}
+
+	public void LookAt(Vector3 newPosition, float smooth){
+		
+		Quaternion newRot =  Quaternion.FromToRotation( MainCamera.transform.forward , newPosition - this.transform.position );
+		MainCamera.transform.Rotate(new Vector3(newRot.eulerAngles.x , 0 , 0));
+		this.transform.Rotate(new Vector3(0, newRot.eulerAngles.y, 0));
+		
+	}	
+	
 
 	// Apply a scroll using the mouse wheel, or the trackpad
 	public void ApplyScroll(){

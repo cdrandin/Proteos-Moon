@@ -147,9 +147,7 @@ public class TargetTransition : MonoBehaviour {
 
 		CameraController.transform.position = Vector3.Lerp (CameraController.transform.position, newPosition, Time.deltaTime * smooth);
 
-
-		newRot =  Quaternion.FromToRotation( MainCamera.transform.forward , 
-		                                        unitArray [unitIndex].transform.position - newPosition );
+		newRot =  Quaternion.FromToRotation( MainCamera.transform.forward , unitArray [unitIndex].transform.position - newPosition );
 		MainCamera.transform.Rotate(new Vector3(newRot.eulerAngles.x , 0 , 0));
 		CameraController.transform.Rotate(new Vector3(0, newRot.eulerAngles.y, 0));
 
