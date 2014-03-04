@@ -218,7 +218,7 @@ public class ThirdPersonController : MonoBehaviour
             }
         
             moveSpeed = Mathf.Lerp(moveSpeed, targetSpeed, curSmooth);
-			if (Input.GetKey (KeyCode.F1)) {
+			if (Input.GetKey (KeyCode.F2)) {
 				_characterState = CharacterState.Attacking;
 			}
             // Reset walk time start when we slow down

@@ -98,7 +98,6 @@ public class WorldCameraModified : MonoBehaviour {
 		HandleMouseRotation ();
 
 		ApplyScroll ();
-		print(ScrollAngle.transform.position.y);
 		if(CheckIfUserCameraInput()){
 		
 			Vector3 desiredTranslation = GetDesiredTranslation();
