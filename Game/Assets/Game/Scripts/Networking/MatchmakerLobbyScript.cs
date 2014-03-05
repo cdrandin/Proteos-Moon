@@ -86,8 +86,8 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 		//TODO
 		// Changed isControllable to false
 		myplayer.GetComponent<ThirdPersonController>().isControllable = true;
-		Camera.main.GetComponent<SmoothFollow>().enabled = true;
-		Camera.main.GetComponent<SmoothLookAt>().enabled = true;
+		//Camera.main.GetComponent<SmoothFollow>().enabled = true;
+		//Camera.main.GetComponent<SmoothLookAt>().enabled = true;
 		Camera.main.GetComponent<SmoothLookAt>().target = myplayer.transform;
 		Camera.main.GetComponent<SmoothFollow>().target = myplayer.transform;
 		//myplayer.GetComponent<PersonController>().isControllable = true;
