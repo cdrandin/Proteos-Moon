@@ -14,6 +14,7 @@ public class InRoomChat : Photon.MonoBehaviour
 	private Vector2 scrollPos = new Vector2(Mathf.Infinity, Mathf.Infinity);
 
     public static readonly string ChatRPC = "Chat";
+	public static readonly string GameChatRPC = "GameChat";
 
     public void Start()
     {
@@ -23,8 +24,28 @@ public class InRoomChat : Photon.MonoBehaviour
         }
     }
 	public void OnJoinedRoom(){
-		this.messages.Add(PhotonNetwork.playerName + " joined the room");
+		//this.inputLine = PhotonNetwork.playerName + " joined the room";
+		//this.messages.Add(PhotonNetwork.playerName + " joined the room");
+		//this.photonView.RPC ("Chat", PhotonTargets.All, this.inputLine);
+		//this.inputLine = "";
+		this.photonView.RPC ("GameChat", PhotonTargets.All, "Joined");
+		//
+		//GUI.FocusControl("");
 	}
+
+	public void OnLeftRoom(){
+		this.photonView.RPC("GameChat", PhotonTargets.All, "LeftRoom");
+	}
+
+	/*public void OnPhotonPlayerDisconnected(){
+		this.photonView.RPC("GameChat", PhotonTargets.All, "Disconnected");
+	}
+
+	public void OnPhotonPlayerConnected(){
+		this.photonView.RPC("GameChat", PhotonTargets.All, "Connected");
+	}*/
+
+
     public void OnGUI()
     {
         if (!this.IsVisible || PhotonNetwork.connectionStateDetailed != PeerState.Joined)
@@ -69,9 +90,8 @@ public class InRoomChat : Photon.MonoBehaviour
         GUILayout.BeginHorizontal();
         GUI.SetNextControlName("ChatInput");
 		inputLine = inputLine.TrimStart(arr);
-		//inputLine = inputLine.TrimEnd (arr); was meant to trim any trailing spaces. doesn't allow player to type
         inputLine = GUILayout.TextArea(inputLine, 180);
-        if (GUILayout.Button("Send", GUILayout.ExpandWidth(false)))
+        if ((GUILayout.Button("Send", GUILayout.ExpandWidth(false))) && inputLine != "")
         {
             this.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
 			this.inputLine = "";
@@ -100,6 +120,36 @@ public class InRoomChat : Photon.MonoBehaviour
 
         this.messages.Add(senderName +": " + newLine);
     }
+
+	[RPC]
+	public void GameChat(string newLine, PhotonMessageInfo mi) {
+		string senderName = "anonymous";
+
+		if (mi != null && mi.sender != null)
+		{
+			if (!string.IsNullOrEmpty(mi.sender.name))
+			{
+				senderName = mi.sender.name;
+			}
+			else
+			{
+				senderName = "player " + mi.sender.ID;
+			}
+		}
+		if (newLine == "Joined"){
+			this.messages.Add(senderName + " joined the room");
+		}
+		else if (newLine == "LeftRoom"){
+			this.messages.Add(senderName + " has left the room");
+		}
+		else if (newLine == "Disconnected"){
+			this.messages.Add(senderName + " has been disconnected");
+		}
+		else if (newLine == "Connected"){
+			this.messages.Add(senderName + " has been reconnected");
+		}
+
+	}
 
     public void AddLine(string newLine)
     {

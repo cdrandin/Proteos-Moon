@@ -8,6 +8,10 @@ public class EventManager : MonoBehaviour {
 
 	void OnGUI()
 	{
+		if (GUI.Button(new Rect(Screen.width - 210, 5, 100, 30), "Leave Room"))
+		{
+			Application.LoadLevel("TitleScene");
+		}
 		if (GUI.Button(new Rect(Screen.width - 105, 5, 100, 30), "Attack"))
 		{
 			if(OnClicked != null)
