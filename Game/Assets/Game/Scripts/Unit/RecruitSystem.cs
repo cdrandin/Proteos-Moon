@@ -129,7 +129,7 @@ public class RecruitSystem : MonoBehaviour
 		}
 
 		// Spawn behind leader
-		GameObject obj = GameObject.Instantiate(unit, leader_position + 2*Vector3.back, Quaternion.identity) as GameObject;
+		GameObject obj = GameObject.Instantiate(unit, leader_position + summoning_radius*Vector3.back, Quaternion.identity) as GameObject;
 		obj.name = name;
 		obj.tag  = "Unit";
 		obj.layer = LayerMask.NameToLayer(obj.tag);

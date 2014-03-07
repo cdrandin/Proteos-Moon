@@ -161,6 +161,11 @@ public static class GameManager
 		return _player_turn_order[_current_player_turn]; 
 	}
 
+	public static Player GetPlayer(int player)
+	{
+		return (Player)player;
+	}
+
 	// Get resource amount from a player
 	/// <summary>
 	/// Gets the resource from a player.
@@ -390,6 +395,9 @@ public static class GameManager
 		// Next player's turn
 		_current_player_turn = (_current_player_turn+1)%total_players;
 
+		// Unfocus any unit
+		GameManager.SetUnitControllerActiveOff();
+
 		// When all player's have had their turn increment round number counter
 		if((_current_player_turn+1)%total_players == 0)
 			++_round_num;
@@ -422,7 +430,8 @@ public static class GameManager
 	/// <param name="unit">Unit.</param>
 	public static void SetUnitControllerActiveOn(GameObject unit)
 	{
-		_uc.SetFocusOnUnit(unit);
+		 if(Input.GetMouseButtonDown(0))
+			_uc.SetFocusOnUnit(unit);
 	}
 
 	public static void SetUnitControllerActiveOff()

@@ -54,15 +54,30 @@ public class Game : MonoBehaviour
 	void Update () 
 	{
 		if(GameManager.IsOn())
-			Debug.Log(GameManager.IsNextPlayersTurn());
+		{
+			if(testing)
+			{
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit, 100))
+				{
+					if(hit.transform.tag == "Unit" || hit.transform.tag == "Leader")
+					{
+						GameManager.SetUnitControllerActiveOn(hit.transform.gameObject);
+					}
+				}
+			}
+		}
 
 		// Reset timer for display the resource text
 		if(Input.GetMouseButtonDown(0))
 			timer = 0;
 
 		if(GameManager.IsOn())
+		{
 			if(GameManager.IsThereAWinner())
 				_game_manager_gui.text = string.Format("The winner is {0}!", GameManager.GetWinner());
+		}
 
 		//Only run when GameManager is active
 		if(GameManager.IsOn())
