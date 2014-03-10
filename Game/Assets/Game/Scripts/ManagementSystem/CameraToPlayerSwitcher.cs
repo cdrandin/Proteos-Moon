@@ -19,7 +19,7 @@ public class CameraToPlayerSwitcher : Photon.MonoBehaviour {
 			if(_player) {
 				_player.GetComponent<myThirdPersonController>().enabled = !toggle;
 			} else {
-				_player = GameObject.FindGameObjectWithTag("Unit");
+				_player = GameObject.FindGameObjectWithTag("Player");
 				_player.GetComponent<myThirdPersonController>().enabled = !toggle;
 			}
 			_world_camera.enabled = toggle;

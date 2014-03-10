@@ -20,10 +20,10 @@ public class ThirdPersonController : MonoBehaviour
     public AnimationClip jumpPoseAnimation;
 	public AnimationClip attackAnimation;
 
-    public float walkMaxAnimationSpeed = 0.75f;
-    public float trotMaxAnimationSpeed = 1.0f;
-    public float runMaxAnimationSpeed = 1.0f;
-    public float jumpAnimationSpeed = 1.15f;
+    public float walkMaxAnimationSpeed = 2.0f;
+    public float trotMaxAnimationSpeed = 6.0f;
+    public float runMaxAnimationSpeed = 8.0f;
+    public float jumpAnimationSpeed = 4.0f;
     public float landAnimationSpeed = 1.0f;
 
     private Animation _animation;
@@ -33,16 +33,16 @@ public class ThirdPersonController : MonoBehaviour
     public CharacterState _characterState;
 
     // The speed when walking
-    public float walkSpeed = 2.0f;
+    public float walkSpeed = 15.0f;
     // after trotAfterSeconds of walking we trot with trotSpeed
-    public float trotSpeed = 4.0f;
+    public float trotSpeed = 25.0f;
     // when pressing "Fire3" button (cmd) we start running
-    public float runSpeed = 6.0f;
+    public float runSpeed = 40.0f;
 
     public float inAirControlAcceleration = 3.0f;
 
     // How high do we jump when pressing jump and letting go immediately
-    public float jumpHeight = 0.5f;
+    public float jumpHeight = 2.0f;
 
     // The gravity for the character
     public float gravity = 20.0f;
@@ -51,7 +51,7 @@ public class ThirdPersonController : MonoBehaviour
     public float rotateSpeed = 500.0f;
     public float trotAfterSeconds = 3.0f;
 
-    public bool canJump = false;
+    public bool canJump = true;
 
     private float jumpRepeatTime = 0.05f;
     private float jumpTimeout = 0.15f;
@@ -75,7 +75,7 @@ public class ThirdPersonController : MonoBehaviour
     private bool jumpingReachedApex = false;
 
     // Are we moving backwards (This locks the camera to not do a 180 degree spin)
-    private bool movingBack = true;
+    private bool movingBack = false;
     // Is the user pressing any keys?
     private bool isMoving = false;
     // When did the user start walking (Used for going into trot after a while)
