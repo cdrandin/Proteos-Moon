@@ -65,6 +65,8 @@ public static class GameManager
 	
 	private static float _base_time;
 
+	private static WorldCameraModified _wcm;
+
 	private static void Awake ()
 	{
 		_game_init = false;
@@ -109,6 +111,10 @@ public static class GameManager
 		if(_uc == null)
 			Debug.LogWarning("Unit Controller missing reference");
 
+		_wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
+		if(_wcm == null)
+			Debug.LogWarning("World Camera missing reference");
+
 		_winner = Player.NONE;
 
 		// Keep track of cost
@@ -148,6 +154,9 @@ public static class GameManager
 		ResetGameState();
 	
 		StartTimer();
+
+		// Set camera
+		_wcm.ChangeCamera();
 	}
 
 	// Get which player's is taking there turn currently
@@ -401,6 +410,9 @@ public static class GameManager
 		// When all player's have had their turn increment round number counter
 		if((_current_player_turn+1)%total_players == 0)
 			++_round_num;
+
+		// Change camera accoring to player
+		_wcm.ChangeCamera();
 	}
 
 	// Get current round
@@ -425,7 +437,7 @@ public static class GameManager
 	}
 
 	/// <summary>
-	/// Get a unit and trys to apply the UnitController to it if possible
+	/// Get a unit and trys to apply the UnitController to it if possible. Already does at check if unit belongs to the appropriate player.
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	public static void SetUnitControllerActiveOn(GameObject unit)

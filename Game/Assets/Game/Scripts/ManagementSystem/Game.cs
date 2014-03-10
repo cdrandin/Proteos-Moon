@@ -57,13 +57,19 @@ public class Game : MonoBehaviour
 		{
 			if(testing)
 			{
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if (Physics.Raycast(ray, out hit, 100))
+				//Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+				// for now ~~~~~~~~~~~~
+				if(GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>().MainCamera != null)
 				{
-					if(hit.transform.tag == "Unit" || hit.transform.tag == "Leader")
+					Ray ray = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>().MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+					if (Physics.Raycast(ray, out hit, 100))
 					{
-						GameManager.SetUnitControllerActiveOn(hit.transform.gameObject);
+						if(hit.transform.tag == "Unit" || hit.transform.tag == "Leader")
+						{
+							GameManager.SetUnitControllerActiveOn(hit.transform.gameObject);
+						}
 					}
 				}
 			}

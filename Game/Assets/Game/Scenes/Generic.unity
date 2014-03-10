@@ -140,7 +140,7 @@ Transform:
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 285036684}
@@ -158,7 +158,7 @@ GameObject:
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 285036683}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 101, y: 70, z: 60}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400000, guid: e6803e1a5205abe438af1b24e2f5a1e2,
     type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 285036683}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 11400002, guid: e6803e1a5205abe438af1b24e2f5a1e2,
     type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 285036683}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -204,8 +204,9 @@ MonoBehaviour:
 --- !u!114 &285036687
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400004, guid: e6803e1a5205abe438af1b24e2f5a1e2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 285036683}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -278,13 +279,46 @@ GameObject:
   - 143: {fileID: 602163492}
   - 111: {fileID: 602163491}
   - 114: {fileID: 602163496}
+  - 114: {fileID: 602163489}
+  - 114: {fileID: 602163488}
   m_Layer: 8
-  m_Name: Unit
+  m_Name: Arcane
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &602163488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1114845558}
+  m_GameObject: {fileID: 602163487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
+--- !u!114 &602163489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1114845558}
+  m_GameObject: {fileID: 602163487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6ba46e4cfe9ee4786e7439b16fb51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcane:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
 --- !u!111 &602163491
 Animation:
   m_ObjectHideFlags: 0
@@ -449,11 +483,13 @@ GameObject:
   - 143: {fileID: 626148573}
   - 111: {fileID: 626148572}
   - 114: {fileID: 626148577}
+  - 114: {fileID: 626148571}
+  - 114: {fileID: 626148570}
   - 114: {fileID: 626148569}
   m_Layer: 8
-  m_Name: Unit
+  m_Name: Arcane
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -468,6 +504,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &626148570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1677506962}
+  m_GameObject: {fileID: 626148568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
+--- !u!114 &626148571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1677506962}
+  m_GameObject: {fileID: 626148568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6ba46e4cfe9ee4786e7439b16fb51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcane:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
 --- !u!111 &626148572
 Animation:
   m_ObjectHideFlags: 0
@@ -649,10 +716,12 @@ GameObject:
   - 143: {fileID: 853000711}
   - 111: {fileID: 853000710}
   - 114: {fileID: 853000707}
+  - 114: {fileID: 853000709}
+  - 114: {fileID: 853000708}
   m_Layer: 8
-  m_Name: Unit
+  m_Name: Arcane
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -668,6 +737,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &853000708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1783182677}
+  m_GameObject: {fileID: 853000706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
+--- !u!114 &853000709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1783182677}
+  m_GameObject: {fileID: 853000706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6ba46e4cfe9ee4786e7439b16fb51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcane:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
 --- !u!111 &853000710
 Animation:
   m_ObjectHideFlags: 0
@@ -780,62 +880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d4cc29635722c40b3a491a21eac5c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &880676857
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 101
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: WorldTerrain
-      value: 
-      objectReference: {fileID: 1847304704}
-    - target: {fileID: 11400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: smooth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: rotation_smooth
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-      propertyPath: WorldTerrainPadding
-      value: 25
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-  m_RootGameObject: {fileID: 285036683}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &1024321078
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,14 +893,29 @@ GameObject:
   - 143: {fileID: 1024321081}
   - 111: {fileID: 1024321080}
   - 114: {fileID: 1024321087}
+  - 114: {fileID: 1024321083}
+  - 114: {fileID: 1024321079}
   - 114: {fileID: 1024321086}
   m_Layer: 8
-  m_Name: Unit
+  m_Name: Arcane
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1024321079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1744319180}
+  m_GameObject: {fileID: 1024321078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
 --- !u!111 &1024321080
 Animation:
   m_ObjectHideFlags: 0
@@ -909,6 +968,24 @@ Renderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortingLayerID: 0
+--- !u!114 &1024321083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1744319180}
+  m_GameObject: {fileID: 1024321078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6ba46e4cfe9ee4786e7439b16fb51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcane:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
 --- !u!33 &1024321084
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -992,7 +1069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f492cf598ed6f944834111ea779f177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
   speed: 10
   max_travel_distance: 4
   can_jump: 1
@@ -1156,15 +1232,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79127b232a64147479e167794dd388eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arcane: {fileID: 0}
+  braver: {fileID: 0}
+  scout: {fileID: 0}
+  sniper: {fileID: 0}
+  titan: {fileID: 0}
+  vangaurd: {fileID: 0}
   summoning_radius: 1
   steps: 12
   unit_cost:
-    Arcane: 100
-    Braver: 80
-    Scout: 50
-    Sniper: 120
-    Titan: 200
-    Vangaurd: 300
+    arcane: 0
+    braver: 0
+    scout: 0
+    sniper: 0
+    titan: 0
+    vangaurd: 0
 --- !u!114 &1262918921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,11 +1302,55 @@ Transform:
   - {fileID: 1262918922}
   - {fileID: 1045951662}
   m_Father: {fileID: 0}
+--- !u!1001 &1330197392
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+      propertyPath: WorldTerrain
+      value: 
+      objectReference: {fileID: 1847304704}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
+  m_RootGameObject: {fileID: 285036683}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1429189277
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 100002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1429189282}
@@ -1244,7 +1370,7 @@ AudioListener:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 8100000, guid: e6803e1a5205abe438af1b24e2f5a1e2,
     type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 1429189277}
   m_Enabled: 1
 --- !u!124 &1429189279
@@ -1252,7 +1378,7 @@ Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 12400000, guid: e6803e1a5205abe438af1b24e2f5a1e2,
     type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 1429189277}
   m_Enabled: 1
 --- !u!92 &1429189280
@@ -1260,7 +1386,7 @@ Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 9200000, guid: e6803e1a5205abe438af1b24e2f5a1e2,
     type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 1429189277}
   m_Enabled: 1
 --- !u!20 &1429189281
@@ -1268,7 +1394,7 @@ Camera:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 2000000, guid: e6803e1a5205abe438af1b24e2f5a1e2,
     type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 1429189277}
   m_Enabled: 1
   serializedVersion: 2
@@ -1297,7 +1423,7 @@ Camera:
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 400002, guid: e6803e1a5205abe438af1b24e2f5a1e2, type: 2}
-  m_PrefabInternal: {fileID: 880676857}
+  m_PrefabInternal: {fileID: 1330197392}
   m_GameObject: {fileID: 1429189277}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1317,11 +1443,13 @@ GameObject:
   - 143: {fileID: 1580537756}
   - 111: {fileID: 1580537755}
   - 114: {fileID: 1580537760}
+  - 114: {fileID: 1580537754}
+  - 114: {fileID: 1580537753}
   - 114: {fileID: 1580537752}
   m_Layer: 8
-  m_Name: Unit
+  m_Name: Arcane
   m_TagString: Unit
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 266726316, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1336,6 +1464,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2ccd54e789e9a34d982c5a5033106ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1580537753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400004, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1925266350}
+  m_GameObject: {fileID: 1580537751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873b71d73aa3d4946827cd39590e4a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: 0
+--- !u!114 &1580537754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: be88c325c32661441945cbfe20f2818a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1925266350}
+  m_GameObject: {fileID: 1580537751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e6ba46e4cfe9ee4786e7439b16fb51b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcane:
+    _hp: 0
+    _exhaust: 0
+    _damage: 0
+    _distance_cost: 0
+    _attack_range: 0
 --- !u!111 &1580537755
 Animation:
   m_ObjectHideFlags: 0

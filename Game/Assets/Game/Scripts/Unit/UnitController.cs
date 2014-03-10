@@ -245,14 +245,14 @@ public class UnitController : MonoBehaviour
 
 	public void SetFocusOnUnit(GameObject unit)
 	{
-		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString());
+		// -1 because enum starts at 0 for player1
+		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
 
 		if( GameManager.GetPlayer(player_num) != GameManager.GetCurrentPlayer())
 		{
 			Debug.LogWarning("Not your turn to move that unit");
 			return;
 		}
-
 
 		// Move valid unit
 		if(unit.tag == "Unit" || unit.tag == "Leader")

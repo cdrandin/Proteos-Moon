@@ -63,6 +63,8 @@ public class WorldCameraModified : MonoBehaviour {
 	public LayerMask TerrainOnly;
 	private float minDistanceToObject = 40f;
 
+	private bool _local;
+
 	#endregion
 	
 	
@@ -73,7 +75,8 @@ public class WorldCameraModified : MonoBehaviour {
 	
 	
 	void Start () {
-		
+		_local = true; // simply bool to show local host
+
 		//Declare camera limits
 		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
 		cameraLimits.RightLimit  = WorldTerrain.terrainData.size.x - WorldTerrainPadding;
@@ -92,7 +95,35 @@ public class WorldCameraModified : MonoBehaviour {
 	
 	
 	
-	
+	void Update ()
+	{
+		/*
+		if(GameManager.IsOn())
+		{
+			string camera_name = "camera_player" + ((int)GameManager.GetCurrentPlayer() + 1).ToString();
+
+			if(MainCamera != null)
+			{
+				MainCamera.GetComponent<AudioListener>().enabled = false;
+				MainCamera.GetComponent<Camera>().enabled = false;
+
+				MainCamera = GameObject.Find (camera_name);
+
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+			}
+			else
+			{
+				MainCamera = GameObject.Find (camera_name);
+				
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+			}
+
+		}
+		*/
+	}
+
 	void LateUpdate () {
 
 		HandleMouseRotation ();
@@ -177,7 +208,7 @@ public class WorldCameraModified : MonoBehaviour {
 
 		//Configure the ScrollAngle GameObject
 		ScrollAngle.transform.position = transform.position;
-		ScrollAngle.transform.eulerAngles = new Vector3 (EulerAnglesX, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+		ScrollAngle.transform.eulerAngles = new Vector3 (EulerAnglesX, transform.eulerAngles.y, this.transform.eulerAngles.z);
 		ScrollAngle.transform.Translate (Vector3.back * ScrollWheelValue);
 
 		Vector3 desiredScrollPosition = ScrollAngle.transform.position;
@@ -346,4 +377,41 @@ public class WorldCameraModified : MonoBehaviour {
 			return true; else return false;
 	}
 	#endregion
+
+	public void ChangeCamera()
+	{
+		string camera_name = "camera_player" + ((int)GameManager.GetCurrentPlayer() + 1).ToString();
+
+		if(_local)
+		{
+			if(MainCamera != null)
+			{
+				// Remove camera from container
+				MainCamera.transform.parent = null;
+
+				// Disable audio listener before we switch
+				MainCamera.GetComponent<AudioListener>().enabled = false;
+				MainCamera.GetComponent<Camera>().enabled = false;
+				
+				MainCamera = GameObject.Find (camera_name);
+				
+				// switch cameras then turn on this ones audio listener
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
+			}
+			else
+			{
+				MainCamera = GameObject.Find (camera_name);
+				
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
+			}
+		}
+	}
 }
