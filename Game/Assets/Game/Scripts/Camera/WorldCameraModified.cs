@@ -389,6 +389,11 @@ public class WorldCameraModified : MonoBehaviour {
 				// Remove camera from container
 				MainCamera.transform.parent = null;
 
+				//saves transform in old camera
+				MainCamera.transform.position = this.transform.position;
+				MainCamera.transform.eulerAngles = new Vector3( MainCamera.transform.eulerAngles.x,  this.transform.eulerAngles.y, 0.0f);
+
+
 				// Disable audio listener before we switch
 				MainCamera.GetComponent<AudioListener>().enabled = false;
 				MainCamera.GetComponent<Camera>().enabled = false;
@@ -401,6 +406,10 @@ public class WorldCameraModified : MonoBehaviour {
 
 				// Add camera from container
 				MainCamera.transform.parent = this.transform;
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
 			}
 			else
 			{
@@ -411,6 +420,13 @@ public class WorldCameraModified : MonoBehaviour {
 
 				// Add camera from container
 				MainCamera.transform.parent = this.transform;
+
+				//Change Transform information
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+
 			}
 		}
 	}
