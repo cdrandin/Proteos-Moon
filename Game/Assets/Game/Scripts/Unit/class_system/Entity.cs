@@ -46,7 +46,15 @@ public class Entity
 		_attack_range  = attack_range;
 		_unit_type     = type;
 	}
-	
+
+	public Transform transform
+	{
+		get
+		{
+			return this.transform;
+		}
+	}
+
 	public int hp 
 	{ 
 		get
