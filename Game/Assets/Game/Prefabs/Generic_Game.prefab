@@ -331,8 +331,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.2192154, y: 0, z: 0}
-  m_LocalScale: {x: .398651987, y: .90524137, z: .398651987}
+  m_LocalPosition: {x: 229.788467, y: 3.64412427, z: 264.147095}
+  m_LocalScale: {x: 2, y: 4, z: 2}
   m_Children: []
   m_Father: {fileID: 400000}
 --- !u!4 &400022
@@ -342,8 +342,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.0672131, y: 0, z: 0}
-  m_LocalScale: {x: .398651987, y: .90524137, z: .398651987}
+  m_LocalPosition: {x: -11.0672131, y: 2.9009552, z: 9.31266022}
+  m_LocalScale: {x: 2, y: 4, z: 2}
   m_Children: []
   m_Father: {fileID: 400002}
 --- !u!23 &2300000
@@ -486,7 +486,7 @@ MonoBehaviour:
   sniper: {fileID: 100000, guid: 2e69d2b90b73b664b944aa21962252c3, type: 2}
   titan: {fileID: 100000, guid: c8f696a9df2228c4e91cda9d50b1a6b6, type: 2}
   vangaurd: {fileID: 100000, guid: e18f1d8d8cd3aa743a3241eaf2f97b69, type: 2}
-  summoning_radius: 1
+  summoning_radius: 6
   steps: 12
   unit_cost:
     arcane: 100
