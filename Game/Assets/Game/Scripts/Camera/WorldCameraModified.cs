@@ -40,6 +40,7 @@ public class WorldCameraModified : MonoBehaviour {
 
 	public GameObject MainCamera;
 	private GameObject ScrollAngle;
+	private GameObject FogOfWarCamera;
 
 	private float cameraMoveSpeed = 60f; // This values adjust the camera speed
 	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
@@ -71,6 +72,7 @@ public class WorldCameraModified : MonoBehaviour {
 	void Awake()
 	{
 		//Instance = this;
+		FogOfWarCamera = GameObject.Find ("FogOfWarCamera");
 	}
 	
 	
@@ -406,6 +408,13 @@ public class WorldCameraModified : MonoBehaviour {
 
 				// Add camera from container
 				MainCamera.transform.parent = this.transform;
+
+				//Give Camera FogOfWarCamera as a child
+				FogOfWarCamera.transform.parent = MainCamera.transform;
+				FogOfWarCamera.transform.localPosition = Vector3.zero;
+				FogOfWarCamera.transform.localEulerAngles = Vector3.zero;
+
+				//Update Transformation
 				this.transform.position = MainCamera.transform.position;
 				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
 				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
@@ -420,6 +429,11 @@ public class WorldCameraModified : MonoBehaviour {
 
 				// Add camera from container
 				MainCamera.transform.parent = this.transform;
+
+				//Give Camera FogOfWarCamera as a child
+				FogOfWarCamera.transform.parent = MainCamera.transform;
+				FogOfWarCamera.transform.localPosition = Vector3.zero;
+				FogOfWarCamera.transform.localEulerAngles = Vector3.zero;
 
 				//Change Transform information
 				this.transform.position = MainCamera.transform.position;

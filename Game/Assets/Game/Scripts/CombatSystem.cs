@@ -20,15 +20,19 @@ public class CombatSystem : MonoBehaviour {
 
 	bool CanHitUnit(GameObject attacker, GameObject defender){
 
-		return attacker.GetComponent<Entity> ().attack_range < Vector3.Distance (defender.transform.position, attacker.transform.position);
+//		return attacker.GetComponent<Entity> ().attack_range < Vector3.Distance (defender.transform.position, attacker.transform.position);
+		return false;
 	}
 
 	void AttackUnit(Entity attacker, Entity defender){
 
-		while (true) {
-			yield return new WaitForSeconds (5.0f);
-			break;
-		}
+		//HACK need animation time
+		float animationTemp = 5.0f;
+		WaitForAnimation (animationTemp);
 		defender.hp = defender.hp - attacker.damage;
+	}
+		
+	IEnumerator WaitForAnimation(float time){
+		yield return new WaitForSeconds (time);
 	}
 }
