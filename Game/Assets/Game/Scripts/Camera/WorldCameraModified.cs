@@ -40,7 +40,6 @@ public class WorldCameraModified : MonoBehaviour {
 
 	public GameObject MainCamera;
 	private GameObject ScrollAngle;
-	private GameObject FogOfWarCamera;
 
 	private float cameraMoveSpeed = 60f; // This values adjust the camera speed
 	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
@@ -60,7 +59,7 @@ public class WorldCameraModified : MonoBehaviour {
 
 	[HideInInspector] public float cameraHeight; //Only for scrolling or zooming
 	[HideInInspector] public float cameraY; //this will change relative to terrain
-	private float maxCameraHeight = 85f;
+	private float maxCameraHeight = 10f;
 	public LayerMask TerrainOnly;
 	private float minDistanceToObject = 40f;
 
@@ -71,10 +70,8 @@ public class WorldCameraModified : MonoBehaviour {
 	
 	void Awake()
 	{
-		//Instance = this;
-		FogOfWarCamera = GameObject.Find ("FogOfWarCamera");
+		//Instance = this;	}
 	}
-	
 	
 	void Start () {
 		_local = true; // simply bool to show local host
@@ -409,11 +406,6 @@ public class WorldCameraModified : MonoBehaviour {
 				// Add camera from container
 				MainCamera.transform.parent = this.transform;
 
-				//Give Camera FogOfWarCamera as a child
-				FogOfWarCamera.transform.parent = MainCamera.transform;
-				FogOfWarCamera.transform.localPosition = Vector3.zero;
-				FogOfWarCamera.transform.localEulerAngles = Vector3.zero;
-
 				//Update Transformation
 				this.transform.position = MainCamera.transform.position;
 				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
@@ -429,11 +421,6 @@ public class WorldCameraModified : MonoBehaviour {
 
 				// Add camera from container
 				MainCamera.transform.parent = this.transform;
-
-				//Give Camera FogOfWarCamera as a child
-				FogOfWarCamera.transform.parent = MainCamera.transform;
-				FogOfWarCamera.transform.localPosition = Vector3.zero;
-				FogOfWarCamera.transform.localEulerAngles = Vector3.zero;
 
 				//Change Transform information
 				this.transform.position = MainCamera.transform.position;
