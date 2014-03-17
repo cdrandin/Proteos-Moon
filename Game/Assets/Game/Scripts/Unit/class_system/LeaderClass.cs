@@ -5,7 +5,7 @@ using System.Collections;
 public class Leader: Entity
 {
 	public Leader(int hp, float exhaust, int damage, float distance, float attack_range):
-		base(hp, exhaust, damage, distance, attack_range, UnitType.Leader)
+		base(hp, exhaust, damage, distance, attack_range)
 	{
 	}
 }
@@ -14,10 +14,11 @@ public class Leader: Entity
 public class LeaderClass : MonoBehaviour {
 
 	public Leader leader;
+	public UnitType unit_type;
 
 	// Use this for initialization
 	void Start () {
-		leader.unit_type = UnitType.Leader;
+		unit_type = UnitType.Leader;
 	}
 	
 	// Update is called once per frame

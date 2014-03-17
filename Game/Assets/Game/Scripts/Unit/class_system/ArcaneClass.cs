@@ -5,7 +5,7 @@ using System.Collections;
 public class Arcane: Entity
 {
 	public Arcane(int hp, float exhaust, int damage, float distance, float attack_range):
-		base(hp, exhaust, damage, distance, attack_range, UnitType.Arcane)
+		base(hp, exhaust, damage, distance, attack_range)
 	{
 	}
 }
@@ -14,10 +14,11 @@ public class Arcane: Entity
 public class ArcaneClass : MonoBehaviour {
 
 	public Arcane arcane;
+	public UnitType unit_type;
 
 	// Use this for initialization
 	void Start () {
-		arcane.unit_type = UnitType.Arcane;
+		unit_type = UnitType.Arcane;
 	}
 	
 	// Update is called once per frame

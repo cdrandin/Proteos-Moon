@@ -442,10 +442,12 @@ public static class GameManager
 	/// <param name="unit">Unit.</param>
 	public static void SetUnitControllerActiveOn(GameObject unit)
 	{
-		 if(Input.GetMouseButtonDown(0))
-			_uc.SetFocusOnUnit(unit);
+		_uc.SetFocusOnUnit(unit);
 	}
 
+	/// <summary>
+	/// Sets the unit controller active off. Killing input to move for the previous unit selected.
+	/// </summary>
 	public static void SetUnitControllerActiveOff()
 	{
 		_uc.ClearFocusUnit();
