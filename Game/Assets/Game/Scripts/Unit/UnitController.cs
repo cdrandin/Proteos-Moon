@@ -102,7 +102,7 @@ public class UnitController : MonoBehaviour
 	void Start() 
 	{
 		// Forward is the +Z axis
-		_move_direction  = Vector3.zero; //transform.TransformDirection(Vector3.forward);
+		_move_direction  = Vector3.forward; //transform.TransformDirection(Vector3.forward);
 		//HACK _is_jumping      = false;
 		_is_controllable = true;
 		_vertical_speed  = 0.0f;

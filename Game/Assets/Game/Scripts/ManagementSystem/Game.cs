@@ -68,6 +68,7 @@ public class Game : MonoBehaviour
 						RaycastHit hit;
 						if (Physics.Raycast(ray, out hit, 100))
 						{
+							// Correct, units
 							if(hit.transform.tag == "Unit" || hit.transform.tag == "Leader")
 							{
 								GameObject obj = hit.transform.gameObject;
@@ -75,7 +76,10 @@ public class Game : MonoBehaviour
 								GameManager.SetUnitControllerActiveOn(obj);
 							}
 							else
+							{
+								Debug.Log("off");
 								GameManager.SetUnitControllerActiveOff();
+							}
 						}
 					}
 				}
