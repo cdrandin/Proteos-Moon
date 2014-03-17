@@ -1,3 +1,71 @@
+2014-03-16
+==========
+
+Previous Week's Objectives
+--------------------------
+
+*  [Completed] Track Animation with iPi Mocap software 10.0 h  (13.0 h)
+   > Created 12 new animations file for 5 characters each saved in .fbx files  
+   > Showed the files to two new animators of the group  
+    	- Explained what is needed and expected from the animators  
+		- Animators will update and refine the track animations  
+   > Shared the files amongst the group  
+   > Ivan Espinosa  
+
+*  [Completed] Fog of War Implemented 6.0 h  (8.0 h)
+   > Independently created a fog of war system by applying a shader to a 
+   >   mesh-plane object  
+   > Problem was that the fog of war system worked only on a 2D plane 
+   > After some research found an already developed volumetric fog of war system 
+   >  and implemented to the game  
+   > It provided scripts and shaders that can also improve performance to reduce 
+   >  what will need to get rendered to the screen  
+   > Ivan Espinosa  
+
+* [Complete\Needs-work] Game Manager Transitions 6.0 h  (2.0 h)
+   > It can do the transitions correctly. Need to have GameManager determine when 
+   >  each unit has used up their exhaustive bar. Also, need to make units orientate
+   >  around the exhaustive resource rather than being unlimited.
+									   > Christopher Randin  
+
+* [Incomplete\On-hold] Make a combat system with the unit_class structure 4.0 h (1.0 h)
+   > Main issue is wanting to come up with a better hierarchical system for our unit classes 
+   > Need to come up with better way to get things working as well as add other possible features 
+   > Christopher Randin  
+
+* [Unfinished] Complete game prototype  15.0 h (7.0h) 
+   > Need transitions to work a little better. Also, need to add in temporary 
+   >  to act as player actions. Which, currently, we only have movement. 
+   >  We can just send user feedback for blank features.
+   > Christopher Randin, Mark Martene, Ivan Espinosa  
+
+* Add in network tools to the prototype 5.0 h  
+   > Add all photon network views to each trackable object  
+   > Add ability to switch turns over the network  
+   > Add ability for one player to move units while other player cannot  
+   > Pass game state/data to each player    
+   > Mark Martene  
+
+This Week's Objectives // GDC Week
+---------------------
+
+*Current Game Design Techniques  30.0 h
+   > Attend talks in GDC that will either involve unity or game design talks
+   > Ivan Espinosa, Chris Randin, and Mark Martene
+
+* Improve Game Transitions and user interaction 6.0 h
+   > This will try to better the flow of the game as a base gameplay.
+   > Include basic GUI buttons for actions.
+   > Just simulate movement and units using up their exhaustive resource
+   > Christopher Randin
+
+* Improve hierarchy structure of unit classes 6.0 h
+   > If time allows, make the classes better.
+   > Currently, feel clunky.
+   > Add more abilities and functionality to base classes.
+   > Christopher Randin
+
+
 2014-03-09
 ==========
 

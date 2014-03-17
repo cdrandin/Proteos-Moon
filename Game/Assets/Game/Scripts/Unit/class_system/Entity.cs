@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿	using UnityEngine;
 using System.Collections;
 
 /*
@@ -31,9 +31,11 @@ public enum Status
 public class Entity
 {
 	public int _hp;
+	private int _max_hp;
 
 	[Range(0,100)]
 	public float _exhaust;
+	private float _max_exhaust;
 
 	public int _damage;
 	public float _distance_cost;
@@ -42,8 +44,10 @@ public class Entity
 
 	public Entity(int hp, float exhaust, int damage, float distance, float attack_range, UnitType type)
 	{
-		_hp            = hp;
-		_exhaust       = exhaust;
+		_max_hp        = hp;
+		_hp            = _max_hp;
+		_max_exhaust   = exhaust;
+		_exhaust       = _max_exhaust;
 		_damage        = damage; 
 		_distance_cost = distance; 
 		_attack_range  = attack_range;
@@ -66,7 +70,7 @@ public class Entity
 		}
 		set
 		{
-			_hp = value;
+			_hp = Mathf.Clamp(value, 0, _max_hp);
 		}
 	}
 	
@@ -78,7 +82,7 @@ public class Entity
 		}
 		set
 		{
-			_exhaust = value;
+			_exhaust = Mathf.Clamp(value, 0, _max_exhaust);
 		}
 	}
 	
