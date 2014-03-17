@@ -31,7 +31,10 @@ public enum Status
 public class Entity
 {
 	public int _hp;
+
+	[Range(0,100)]
 	public float _exhaust;
+
 	public int _damage;
 	public float _distance_cost;
 	public float _attack_range;
