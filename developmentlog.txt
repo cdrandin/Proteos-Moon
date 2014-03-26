@@ -1,3 +1,77 @@
+2014-03-23 // GDC
+==========
+
+Previous Week's Objectives
+--------------------------
+
+* [Completed] Current Game Design Techniques  30.0 h (20.0h)  
+  > Attend talks in GDC that will either involve unity or game design talks  
+  > We met the lead architect who created the photon network server.  
+  	- He gave us three months free to support up to 500 users  
+  > Was introduced to the modeling tool, SpeedTree. This tool can create different variations of trees for Unity.  
+  > Came back motivated  
+  > Ivan Espinosa, Chris Randin, and Mark Martene  
+
+* [Ongoing] Improve Game Transitions and user interaction 6.0 h (1.0 h)  
+  > This will try to better the flow of the game as a base gameplay.  
+  > Include basic GUI buttons for actions.  
+  > Just simulate movement and units using up their exhaustive resource  
+  > Christopher Randin  
+
+* [Ongoing] Improve hierarchy structure of unit classes 6.0 h (2.0 h)  
+  > Not much time to completely implement them, but have a basic outline for how this will work  
+  > Research design methods and implementation which would best suite the needs of the class system.  
+  > If time allows, make the classes better.  
+  > Currently, feel clunky.  
+  > Add more abilities and functionality to base classes.  
+  > Christopher Randin  
+
+This Week's Objectives
+---------------------  
+
+* Complete and Test Combat System 16.0h  
+  > Make sure when the unit is hit, it loose health  
+  > When unit has negative health, it needs to die  
+  > A good way to check to see when unit is in range that it can get hit  
+  > Ivan Espinosa  
+
+* Fog of War 4.0h  
+  > Fix the alpha setting that is applied to the terrain    
+  	- Issue is that line-of-sight is being overextended passed the terrain boundaries  
+  > See if we can apply textures to the fog for a more unique look  
+  > Ivan Espinosa  
+
+* Continue Game Transitions and user interaction 6.0 h  
+  > This will try to better the flow of the game as a base gameplay.  
+  > Include basic GUI buttons for actions.  
+  > Just simulate movement and units using up their exhaustive resource  
+  > Christopher Randin  
+
+* Continue hierarchy structure of unit classes 6.0  
+  > If time allows, make the classes better.  
+  > Currently, feel clunky.  
+  > Add more abilities and functionality to base classes.  
+  > Christopher Randin  
+
+* Expand upon Game Flowchart 4.0 h  
+  > Make a flowchart for the game scene  
+	- Player's turn  
+	- Events  
+  > Make a flowchart for options  
+  > Mark Martene  
+
+* Further develop game story 8.0 h  
+  > Confer with lead artist about the dialog and cut scene details  
+  > Cut unnecessary scenes  
+  > Write down dialog to be recorded  
+  > Mark Martene, Ivan Espinosa  
+
+* Convert Photon Network settings from Realtime to Turn-Based  8.0 h  
+  > Download the new turn-based SDK for Photon  
+  > Implement the changes to the game  
+  > Mark Martene  
+
+
 2014-03-16
 ==========
 
@@ -234,7 +308,7 @@ Previous Week's Objectives
 
 * [Completed] Organized project assets and facilitation 1.0 h (2.0 h)  
    > Cleaned up prefabs for the game. Centralized the Game prefab with other requires it needed.  
-   > Centralized prefab "Generic_Game" will contain all necessary functionality that is
+   > Centralized prefab "GenericGame" will contain all necessary functionality that is
    >    required on startup of the game. Easy way of organizing things and instantly creating
    >    maps with basic templates prepared.  
    > Improved responsiveness of the GameManager and assets that are being used by the GameManager
