@@ -102,7 +102,7 @@ public class UnitController : MonoBehaviour
 	void Start() 
 	{
 		// Forward is the +Z axis
-		_move_direction  = Vector3.zero; //transform.TransformDirection(Vector3.forward);
+		_move_direction  = Vector3.forward; //transform.TransformDirection(Vector3.forward);
 		//HACK _is_jumping      = false;
 		_is_controllable = true;
 		_vertical_speed  = 0.0f;
@@ -248,6 +248,7 @@ public class UnitController : MonoBehaviour
 		// -1 because enum starts at 0 for player1
 		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
 
+		// Check for player moving their own units
 		if( GameManager.GetPlayer(player_num) != GameManager.GetCurrentPlayer())
 		{
 			Debug.LogWarning("Not your turn to move that unit");

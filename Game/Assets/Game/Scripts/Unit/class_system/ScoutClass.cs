@@ -5,7 +5,7 @@ using System.Collections;
 public class Scout: Entity
 {
 	public Scout(int hp, float exhaust, int damage, float distance, float attack_range):
-		base(hp, exhaust, damage, distance, attack_range, UnitType.Scout)
+		base(hp, exhaust, damage, distance, attack_range)
 	{
 	}
 }
@@ -14,10 +14,11 @@ public class Scout: Entity
 public class ScoutClass : MonoBehaviour {
 
 	public Scout scout;
+	public UnitType unit_type;
 
 	// Use this for initialization
 	void Start () {
-		scout.unit_type = UnitType.Scout;
+		unit_type = UnitType.Scout;
 	}
 	
 	// Update is called once per frame

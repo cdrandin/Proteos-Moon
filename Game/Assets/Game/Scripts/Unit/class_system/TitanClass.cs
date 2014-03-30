@@ -5,7 +5,7 @@ using System.Collections;
 public class Titan: Entity
 {
 	public Titan(int hp, float exhaust, int damage, float distance, float attack_range):
-		base(hp, exhaust, damage, distance, attack_range, UnitType.Titan)
+		base(hp, exhaust, damage, distance, attack_range)
 	{
 	}
 }
@@ -13,10 +13,11 @@ public class Titan: Entity
 public class TitanClass : MonoBehaviour {
 
 	public Titan titan;
+	public UnitType unit_type;
 
 	// Use this for initialization
 	void Start () {
-		titan.unit_type = UnitType.Titan;
+		unit_type = UnitType.Titan;
 	}
 	
 	// Update is called once per frame

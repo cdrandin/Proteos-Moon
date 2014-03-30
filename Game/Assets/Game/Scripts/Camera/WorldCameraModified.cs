@@ -64,6 +64,7 @@ public class WorldCameraModified : MonoBehaviour {
 	private float minDistanceToObject = 40f;
 
 	private bool _local;
+	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
 
 	#endregion
 	
@@ -381,6 +382,7 @@ public class WorldCameraModified : MonoBehaviour {
 	{
 		string camera_name = "camera_player" + ((int)GameManager.GetCurrentPlayer() + 1).ToString();
 
+		// Local stuff, same computer
 		if(_local)
 		{
 			if(MainCamera != null)
@@ -429,6 +431,10 @@ public class WorldCameraModified : MonoBehaviour {
 				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
 
 			}
-		}
+		} // End of local
+	}
+
+	public void FollowUnit()
+	{
 	}
 }

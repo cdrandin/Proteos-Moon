@@ -1,4 +1,4 @@
-﻿	using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 /*
@@ -40,9 +40,8 @@ public class Entity
 	public int _damage;
 	public float _distance_cost;
 	public float _attack_range;
-	private UnitType _unit_type;
 
-	public Entity(int hp, float exhaust, int damage, float distance, float attack_range, UnitType type)
+	public Entity(int hp, float exhaust, int damage, float distance, float attack_range)
 	{
 		_max_hp        = hp;
 		_hp            = _max_hp;
@@ -51,7 +50,6 @@ public class Entity
 		_damage        = damage; 
 		_distance_cost = distance; 
 		_attack_range  = attack_range;
-		_unit_type     = type;
 	}
 
 	public Transform transform
@@ -119,18 +117,6 @@ public class Entity
 		set
 		{
 			_attack_range = value;
-		}
-	}
-
-	public UnitType unit_type
-	{
-		get
-		{
-			return _unit_type;
-		}
-		set
-		{
-			_unit_type = value;
 		}
 	}
 }

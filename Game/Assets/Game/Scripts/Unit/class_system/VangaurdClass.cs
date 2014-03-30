@@ -5,7 +5,7 @@ using System.Collections;
 public class Vangaurd: Entity
 {
 	public Vangaurd(int hp, float exhaust, int damage, float distance, float attack_range):
-		base(hp, exhaust, damage, distance, attack_range, UnitType.Vangaurd)
+		base(hp, exhaust, damage, distance, attack_range)
 	{
 	}
 }
@@ -14,10 +14,11 @@ public class Vangaurd: Entity
 public class VangaurdClass : MonoBehaviour {
 
 	public Vangaurd vangaurd;
-
+	public UnitType unit_type;
+	
 	// Use this for initialization
 	void Start () {
-		vangaurd.unit_type = UnitType.Vangaurd;
+		unit_type = UnitType.Vangaurd;
 	}
 	
 	// Update is called once per frame

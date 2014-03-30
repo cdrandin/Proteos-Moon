@@ -5,7 +5,7 @@ using System.Collections;
 public class Sniper: Entity
 {
 	public Sniper(int hp, float exhaust, int damage, float distance, float attack_range):
-		base(hp, exhaust, damage, distance, attack_range, UnitType.Sniper)
+		base(hp, exhaust, damage, distance, attack_range)
 	{
 	}
 }
@@ -14,10 +14,11 @@ public class Sniper: Entity
 public class SniperClass : MonoBehaviour {
 
 	public Sniper sniper;
+	public UnitType unit_type;
 
 	// Use this for initialization
 	void Start () {
-		sniper.unit_type = UnitType.Sniper;
+		unit_type = UnitType.Sniper;
 	}
 	
 	// Update is called once per frame
