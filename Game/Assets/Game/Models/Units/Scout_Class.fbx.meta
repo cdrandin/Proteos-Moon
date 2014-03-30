@@ -1,0 +1,200 @@
+fileFormatVersion: 2
+guid: 988253bdbf86b654eab2f4ea24eb3edb
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Blade2
+    100002: Blade3
+    100004: FrontImage
+    100006: group1
+    100008: left
+    100010: Left_Eye
+    100012: Left_Eye1
+    100014: LeftEar
+    100016: Right_Eye
+    100018: Right_Eye1
+    100020: RightEar
+    100022: SarenScout
+    100024: SarenScout1
+    100026: SarenScout2
+    100028: //RootNode
+    100030: Sheath
+    100032: Sheath 1
+    100034: SheathBelt
+    100036: SheathBelt 1
+    100038: SheathBelt1
+    100040: SideImage
+    100042: StraightBlade
+    100044: StraightBlade 1
+    100046: StraightBlade 2
+    100048: StraightBlade 3
+    100050: StraightBlade1
+    100052: Weapon
+    100054: Weapon2
+    100056: Weapon3
+    400000: Blade2
+    400002: Blade3
+    400004: FrontImage
+    400006: group1
+    400008: left
+    400010: Left_Eye
+    400012: Left_Eye1
+    400014: LeftEar
+    400016: Right_Eye
+    400018: Right_Eye1
+    400020: RightEar
+    400022: SarenScout
+    400024: SarenScout1
+    400026: SarenScout2
+    400028: //RootNode
+    400030: Sheath
+    400032: Sheath 1
+    400034: SheathBelt
+    400036: SheathBelt 1
+    400038: SheathBelt1
+    400040: SideImage
+    400042: StraightBlade
+    400044: StraightBlade 1
+    400046: StraightBlade 2
+    400048: StraightBlade 3
+    400050: StraightBlade1
+    400052: Weapon
+    400054: Weapon2
+    400056: Weapon3
+    2300000: FrontImage
+    2300002: Left_Eye
+    2300004: Left_Eye1
+    2300006: LeftEar
+    2300008: Right_Eye
+    2300010: Right_Eye1
+    2300012: RightEar
+    2300014: SarenScout
+    2300016: SarenScout1
+    2300018: SarenScout2
+    2300020: Sheath
+    2300022: Sheath 1
+    2300024: SheathBelt
+    2300026: SheathBelt 1
+    2300028: SheathBelt1
+    2300030: SideImage
+    2300032: StraightBlade
+    2300034: StraightBlade 1
+    2300036: StraightBlade 2
+    2300038: StraightBlade 3
+    2300040: StraightBlade1
+    3300000: FrontImage
+    3300002: Left_Eye
+    3300004: Left_Eye1
+    3300006: LeftEar
+    3300008: Right_Eye
+    3300010: Right_Eye1
+    3300012: RightEar
+    3300014: SarenScout
+    3300016: SarenScout1
+    3300018: SarenScout2
+    3300020: Sheath
+    3300022: Sheath 1
+    3300024: SheathBelt
+    3300026: SheathBelt 1
+    3300028: SheathBelt1
+    3300030: SideImage
+    3300032: StraightBlade
+    3300034: StraightBlade 1
+    3300036: StraightBlade 2
+    3300038: StraightBlade 3
+    3300040: StraightBlade1
+    4300000: FrontImage
+    4300002: SideImage
+    4300004: SarenScout
+    4300006: Sheath
+    4300008: StraightBlade
+    4300010: Sheath
+    4300012: StraightBlade
+    4300014: SarenScout1
+    4300016: StraightBlade
+    4300018: SheathBelt
+    4300020: StraightBlade
+    4300022: SheathBelt
+    4300024: Left_Eye
+    4300026: Right_Eye
+    4300028: LeftEar
+    4300030: RightEar
+    4300032: StraightBlade1
+    4300034: SheathBelt1
+    4300036: SarenScout2
+    4300038: Left_Eye1
+    4300040: Right_Eye1
+    6400000: FrontImage
+    6400002: Left_Eye
+    6400004: Left_Eye1
+    6400006: LeftEar
+    6400008: Right_Eye
+    6400010: Right_Eye1
+    6400012: RightEar
+    6400014: SarenScout
+    6400016: SarenScout1
+    6400018: SarenScout2
+    6400020: Sheath
+    6400022: Sheath 1
+    6400024: SheathBelt
+    6400026: SheathBelt 1
+    6400028: SheathBelt1
+    6400030: SideImage
+    6400032: StraightBlade
+    6400034: StraightBlade 1
+    6400036: StraightBlade 2
+    6400038: StraightBlade 3
+    6400040: StraightBlade1
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 1
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
