@@ -77,7 +77,6 @@ public class Game : MonoBehaviour
 							}
 							else
 							{
-								Debug.Log("off");
 								GameManager.SetUnitControllerActiveOff();
 							}
 						}
