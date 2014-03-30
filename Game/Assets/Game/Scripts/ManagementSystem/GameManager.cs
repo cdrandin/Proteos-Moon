@@ -482,7 +482,7 @@ public static class GameManager
 		// Number of allocated leaders and number of leaders found should be the same, else a leader is missing
 		if(_leaders.Length != _all_leaders.Length)
 		{
-			Debug.LogError(string.Format("A leader is missing!! Should be a total of {0} leaders.", total_players));
+			Debug.LogError(string.Format("A leader is missing!! Should be a total of {0} leaders currently there is {1}.", total_players, _all_leaders.Length));
 			ForceQuit();
 			return;
 		}

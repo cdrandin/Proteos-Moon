@@ -263,16 +263,21 @@ public class UnitController : MonoBehaviour
 
 			// If it doesn't exist
 			if(_unit_focus_cc == null)
+			{
 				Debug.LogWarning(string.Format("{0} unit is missing a CharacterController!", unit.name));
 
-			// Assume we got what we need now.
-			else
-			{
-				_unit_focus_cc.detectCollisions = false;
+				// Create character controller
+				unit.AddComponent("CharacterController");
+
 			}
+
+			// Assume we got what we need now.
+			_unit_focus_cc.detectCollisions = false;
 		}
 		else
 			Debug.LogWarning(string.Format("{0} object s trying to be moved by UnitController and SHOULDN'T", unit.name));
+
+		Debug.Log("Here");
 	}
 
 	public void ClearFocusUnit()

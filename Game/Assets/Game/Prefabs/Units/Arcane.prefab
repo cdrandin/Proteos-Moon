@@ -11,6 +11,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
+  - 136: {fileID: 13600000}
   m_Layer: 8
   m_Name: Arcane
   m_TagString: Unit
@@ -962,7 +963,7 @@ GameObject:
   - 95: {fileID: 9500000}
   m_Layer: 8
   m_Name: Arcane_Class_UV
-  m_TagString: Unit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3567,6 +3568,19 @@ MonoBehaviour:
     _distance_cost: 0
     _attack_range: 0
   unit_type: 0
+--- !u!136 &13600000
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .663232446
+  m_Height: 2.30999994
+  m_Direction: 1
+  m_Center: {x: 0, y: .949999988, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
