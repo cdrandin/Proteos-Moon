@@ -22,7 +22,7 @@ public class Game : MonoBehaviour
 
 	private float waitingTime;
 	private float timer;
-
+	private bool init;
 
 	void Awake() 
 	{
@@ -45,9 +45,11 @@ public class Game : MonoBehaviour
 			recruit_gui_on = true;
 			waitingTime = 5.0f;
 			timer = 0.0f;
+
+			init = false;
 		}
 		else
-			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+			GameManager.Init(num_of_players, 1/*RandomFirstPlayer(num_of_players)*/, resource_limit, GetComponent<RecruitSystem>().unit_cost);
 	}
 	
 	// Update is called once per frame
@@ -57,23 +59,23 @@ public class Game : MonoBehaviour
 		{
 			if(testing)
 			{
-				//Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
 				if(Input.GetMouseButtonDown(0))
 				{
 					// for now ~~~~~~~~~~~~
-					if(GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>().MainCamera != null)
+					WorldCameraModified wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
+					if(wcm.MainCamera != null)
 					{
-						Ray ray = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>().MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+						Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
 						RaycastHit hit;
-						if (Physics.Raycast(ray, out hit, 100))
+						if(Physics.Raycast(ray, out hit, 100))
 						{
-							// Correct, units
-							if(hit.transform.tag == "Unit" || hit.transform.tag == "Leader")
+							// Get correct, unit
+							string tag = hit.transform.tag;
+
+							if(tag == "Unit" || tag == "Leader")
 							{
 								GameObject obj = hit.transform.gameObject;
-
-								GameManager.SetUnitControllerActiveOn(obj);
+								GameManager.SetUnitControllerActiveOn(ref obj);
 							}
 							else
 							{
@@ -120,8 +122,11 @@ public class Game : MonoBehaviour
 	{
 		if(MakeButton(0,0,"Start GameManager"))
 		{
-			this.gui_method += GUI_menu;
+			if(init)
+				return;
 
+			this.gui_method += GUI_menu;
+			init = true;
 			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 
 			_game_manager_gui.text = "Game Manager enabled";
@@ -129,8 +134,11 @@ public class Game : MonoBehaviour
 		
 		else if(MakeButton(0, 50, "End GameManager"))
 		{
-			this.gui_method -= GUI_menu;
+			if(!init)
+				return;
 
+			this.gui_method -= GUI_menu;
+			init = false;
 			GameManager.ResetGameState();
 
 			_game_manager_gui.text = "Game Manager disabled";
