@@ -34,7 +34,7 @@ public class InRoomChat : Photon.MonoBehaviour
 	}
 
 	public void OnLeftRoom(){
-		this.photonView.RPC("GameChat", PhotonTargets.All, "LeftRoom");
+		//this.photonView.RPC("GameChat", PhotonTargets.All, "LeftRoom");
 	}
 
 	/*public void OnPhotonPlayerDisconnected(){
