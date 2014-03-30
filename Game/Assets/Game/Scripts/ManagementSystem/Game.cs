@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
 			init = false;
 		}
 		else
-			GameManager.Init(num_of_players, 1/*RandomFirstPlayer(num_of_players)*/, resource_limit, GetComponent<RecruitSystem>().unit_cost);
+			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 	}
 	
 	// Update is called once per frame
