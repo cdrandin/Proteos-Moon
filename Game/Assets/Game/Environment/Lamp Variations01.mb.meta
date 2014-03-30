@@ -143,6 +143,18 @@ ModelImporter:
     4300018: polySurface22
     4300020: polySurface23
     4300022: polySurface24
+    6400000: polySurface12
+    6400002: polySurface13
+    6400004: polySurface14
+    6400006: polySurface15
+    6400008: polySurface16
+    6400010: polySurface17
+    6400012: polySurface18
+    6400014: polySurface20
+    6400016: polySurface21
+    6400018: polySurface22
+    6400020: polySurface23
+    6400022: polySurface24
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -163,8 +175,8 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
-    addColliders: 0
+    meshCompression: 1
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

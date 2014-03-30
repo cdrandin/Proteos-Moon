@@ -86,6 +86,9 @@ ModelImporter:
     4300000: polySurface18
     4300002: pPlane3
     4300004: pPlane4
+    6400000: polySurface18
+    6400002: pPlane3
+    6400004: pPlane4
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -106,8 +109,8 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
-    addColliders: 0
+    meshCompression: 1
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

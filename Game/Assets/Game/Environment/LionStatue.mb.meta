@@ -91,6 +91,8 @@ ModelImporter:
     3300002: pasted__polySurface17
     4300000: pasted__polySurface14
     4300002: pasted__polySurface17
+    6400000: pasted__polySurface14
+    6400002: pasted__polySurface17
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -112,8 +114,8 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
-    addColliders: 0
+    meshCompression: 1
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
