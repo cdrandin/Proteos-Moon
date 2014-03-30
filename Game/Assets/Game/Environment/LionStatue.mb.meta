@@ -1,0 +1,147 @@
+fileFormatVersion: 2
+guid: 66e44c1e812b14289a69213c84a28451
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: pasted__polySurface14
+    100004: pasted__polySurface17
+    100006: pasted__pPlane1
+    100008: pasted__pPlane10
+    100010: pasted__pPlane11
+    100012: pasted__pPlane12
+    100014: pasted__pPlane13
+    100016: pasted__pPlane2
+    100018: pasted__pPlane27
+    100020: pasted__pPlane28
+    100022: pasted__pPlane29
+    100024: pasted__pPlane3
+    100026: pasted__pPlane30
+    100028: pasted__pPlane31
+    100030: pasted__pPlane32
+    100032: pasted__pPlane4
+    100034: pasted__pPlane5
+    100036: pasted__pPlane6
+    100038: pasted__pPlane7
+    100040: pasted__pPlane8
+    100042: pasted__pPlane9
+    100044: pasted__transform10
+    100046: pasted__transform11
+    100048: pasted__transform12
+    100050: pasted__transform13
+    100052: pasted__transform14
+    100054: pasted__transform15
+    100056: pasted__transform16
+    100058: pasted__transform17
+    100060: pasted__transform18
+    100062: pasted__transform19
+    100064: pasted__transform20
+    100066: pasted__transform21
+    100068: pasted__transform3
+    100070: pasted__transform4
+    100072: pasted__transform5
+    100074: pasted__transform6
+    100076: pasted__transform7
+    100078: pasted__transform8
+    100080: pasted__transform9
+    400000: //RootNode
+    400002: pasted__polySurface14
+    400004: pasted__polySurface17
+    400006: pasted__pPlane1
+    400008: pasted__pPlane10
+    400010: pasted__pPlane11
+    400012: pasted__pPlane12
+    400014: pasted__pPlane13
+    400016: pasted__pPlane2
+    400018: pasted__pPlane27
+    400020: pasted__pPlane28
+    400022: pasted__pPlane29
+    400024: pasted__pPlane3
+    400026: pasted__pPlane30
+    400028: pasted__pPlane31
+    400030: pasted__pPlane32
+    400032: pasted__pPlane4
+    400034: pasted__pPlane5
+    400036: pasted__pPlane6
+    400038: pasted__pPlane7
+    400040: pasted__pPlane8
+    400042: pasted__pPlane9
+    400044: pasted__transform10
+    400046: pasted__transform11
+    400048: pasted__transform12
+    400050: pasted__transform13
+    400052: pasted__transform14
+    400054: pasted__transform15
+    400056: pasted__transform16
+    400058: pasted__transform17
+    400060: pasted__transform18
+    400062: pasted__transform19
+    400064: pasted__transform20
+    400066: pasted__transform21
+    400068: pasted__transform3
+    400070: pasted__transform4
+    400072: pasted__transform5
+    400074: pasted__transform6
+    400076: pasted__transform7
+    400078: pasted__transform8
+    400080: pasted__transform9
+    2300000: pasted__polySurface14
+    2300002: pasted__polySurface17
+    3300000: pasted__polySurface14
+    3300002: pasted__polySurface17
+    4300000: pasted__polySurface14
+    4300002: pasted__polySurface17
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
