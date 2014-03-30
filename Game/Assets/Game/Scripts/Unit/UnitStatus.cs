@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(UnitSelected))]
 public class UnitStatus : MonoBehaviour {
 	public Status status;
 

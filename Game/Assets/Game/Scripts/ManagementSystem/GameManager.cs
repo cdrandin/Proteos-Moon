@@ -98,8 +98,9 @@ public static class GameManager
 		_game_init = true;
 
 		// Valid player limit
-		if(who_goes_first == 0 || (who_goes_first > num_of_players) || num_of_players > 4)
+		if((who_goes_first < 1) || (who_goes_first > num_of_players) || (num_of_players > 4))
 		{
+			_game_init = false;
 			Debug.LogError("Player limit reached!\nProblem in GameManager.cs");
 			return;
 		}

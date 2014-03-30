@@ -147,15 +147,6 @@ public class UnitController : MonoBehaviour
 				_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
 
 			_unit_focus_cc.Move(movement);
-
-			Vector3 pos = _unit_focus_cc.gameObject.transform.position;
-			if(IsGrounded())
-				;
-			else
-				pos += movement;
-
-			_unit_focus_cc.gameObject.transform.position = pos;
-			//Debug.Log(string.Format(">>{0}<<",_unit_focus_cc.gameObject.name));
 		}
 	}
 
@@ -167,8 +158,9 @@ public class UnitController : MonoBehaviour
 		float v = Input.GetAxisRaw("Vertical");//Input.GetAxis("Vertical");
 		float h = Input.GetAxisRaw("Horizontal");//Input.GetAxis("Horizontal");
 
-		Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
-
+		//Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
+		Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
+		
 		if(IsGrounded())
 		{
 			//HACK _is_jumping = false;
