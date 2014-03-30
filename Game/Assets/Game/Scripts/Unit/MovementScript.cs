@@ -35,7 +35,7 @@ public class MovementScript : Photon.MonoBehaviour {
 			cc.Move(new Vector3(Input.GetAxis("Horizontal") * speed * Time.deltaTime, -gravity * Time.deltaTime, Input.GetAxis("Vertical") * speed * Time.deltaTime));
 		}
 		else{
-			enabled = false;
+			enabled = true;
 		}
 	}
 }
