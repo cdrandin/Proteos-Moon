@@ -4129,7 +4129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f492cf598ed6f944834111ea779f177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 4
   max_travel_distance: 4
   can_jump: 1
   air_jumps: 0

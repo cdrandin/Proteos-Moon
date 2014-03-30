@@ -41,7 +41,7 @@ public class WorldCameraModified : MonoBehaviour {
 	public GameObject MainCamera;
 	private GameObject ScrollAngle;
 
-	private float cameraMoveSpeed = 0.0f; //60f; // This values adjust the camera speed
+	private float cameraMoveSpeed = 20f; // This values adjust the camera speed
 	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
 	private float mouseBoundary   = 5f; //This value is the padding around the screen to apply mouse movement
 
@@ -90,7 +90,8 @@ public class WorldCameraModified : MonoBehaviour {
 		mouseScrollLimits.BottomLimit = mouseBoundary;
 
 		cameraHeight = transform.position.y;
-		ScrollAngle =  new GameObject();
+		//ScrollAngle =  gameObject;//new GameObject();
+		ScrollAngle = new GameObject();
 	}
 	
 	
