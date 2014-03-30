@@ -147,6 +147,15 @@ public class UnitController : MonoBehaviour
 				_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
 
 			_unit_focus_cc.Move(movement);
+
+			Vector3 pos = _unit_focus_cc.gameObject.transform.position;
+			if(IsGrounded())
+				;
+			else
+				pos += movement;
+
+			_unit_focus_cc.gameObject.transform.position = pos;
+			//Debug.Log(string.Format(">>{0}<<",_unit_focus_cc.gameObject.name));
 		}
 	}
 
@@ -243,7 +252,7 @@ public class UnitController : MonoBehaviour
 		_travel_distance = 0.0f;
 	}
 
-	public void SetFocusOnUnit(GameObject unit)
+	public void SetFocusOnUnit(ref GameObject unit)
 	{
 		// -1 because enum starts at 0 for player1
 		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
@@ -264,11 +273,16 @@ public class UnitController : MonoBehaviour
 			// If it doesn't exist
 			if(_unit_focus_cc == null)
 			{
-				Debug.LogWarning(string.Format("{0} unit is missing a CharacterController!", unit.name));
+				Debug.LogWarning(string.Format("{0} unit is missing a CharacterController! Putting one on it now.", unit.name));
 
 				// Create character controller
 				unit.AddComponent("CharacterController");
+				_unit_focus_cc = unit.GetComponent<CharacterController>();
 
+				// Preset values to test
+				_unit_focus_cc.center = new Vector3(_unit_focus_cc.center.x, 0.95f,_unit_focus_cc.center.z);
+				_unit_focus_cc.radius = 0.3f;
+				_unit_focus_cc.height = 2.31f;
 			}
 
 			// Assume we got what we need now.
@@ -276,8 +290,6 @@ public class UnitController : MonoBehaviour
 		}
 		else
 			Debug.LogWarning(string.Format("{0} object s trying to be moved by UnitController and SHOULDN'T", unit.name));
-
-		Debug.Log("Here");
 	}
 
 	public void ClearFocusUnit()

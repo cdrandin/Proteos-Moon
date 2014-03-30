@@ -92,6 +92,9 @@ public static class GameManager
 	/// <param name="unit_cost">Unit_cost.</param>
 	public static void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
 	{
+		if(IsOn())
+			return;
+
 		_game_init = true;
 
 		// Valid player limit
@@ -440,9 +443,9 @@ public static class GameManager
 	/// Get a unit and trys to apply the UnitController to it if possible. Already does at check if unit belongs to the appropriate player.
 	/// </summary>
 	/// <param name="unit">Unit.</param>
-	public static void SetUnitControllerActiveOn(GameObject unit)
+	public static void SetUnitControllerActiveOn(ref GameObject unit)
 	{
-		_uc.SetFocusOnUnit(unit);
+		_uc.SetFocusOnUnit(ref unit);
 	}
 
 	/// <summary>
