@@ -81,46 +81,38 @@ public class RecruitSystem : MonoBehaviour
 	// Does not use appropriate models, but logic is there
 	public GameObject SpawnUnit(UnitType unit_type)
 	{
-		Vector3 leader_position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
-		Debug.Log(string.Format("GetCurrentPlayer(): {0}", GameManager.GetCurrentPlayer()));
-
+		Transform leader = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform;
 		string name = "ERROR";
 		GameObject unit;
 
 		// For now have it spawn immediately
 		if(unit_type == UnitType.Arcane)
 		{
-			name = "Arcane";
 			unit = this.arcane;
 		}
 		
 		else if(unit_type == UnitType.Braver)
 		{
-			name = "Braver";
 			unit = this.braver;
 		}
 		
 		else if(unit_type == UnitType.Scout)
 		{
-			name = "Scout";
 			unit = this.scout;
 		}
 		
 		else if(unit_type == UnitType.Sniper)
 		{
-			name = "Sniper";
 			unit = this.sniper;
 		}
 		
 		else if(unit_type == UnitType.Titan)
 		{
-			name = "Titan";
 			unit = this.titan;
 		}
 
 		else if(unit_type == UnitType.Vangaurd)
 		{
-			name = "Vangaurd";
 			unit = this.vangaurd;
 		}
 
@@ -131,10 +123,10 @@ public class RecruitSystem : MonoBehaviour
 		}
 
 		// Spawn behind leader
-		GameObject obj = GameObject.Instantiate(unit, leader_position + summoning_radius*Vector3.back, Quaternion.identity) as GameObject;
-		obj.name = name;
-		obj.tag  = "Unit";
-		obj.layer = LayerMask.NameToLayer(obj.tag);
+		GameObject obj = GameObject.Instantiate(unit, leader.position + summoning_radius*Vector3.back, leader.rotation) as GameObject;
+		obj.name = unit.name;
+		//obj.tag  = "Unit";
+		//obj.layer = LayerMask.NameToLayer(obj.tag);
 
 		return obj;
 
