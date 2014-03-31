@@ -82,6 +82,8 @@ public class RecruitSystem : MonoBehaviour
 	public GameObject SpawnUnit(UnitType unit_type)
 	{
 		Vector3 leader_position = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform.position;
+		Debug.Log(string.Format("GetCurrentPlayer(): {0}", GameManager.GetCurrentPlayer()));
+
 		string name = "ERROR";
 		GameObject unit;
 

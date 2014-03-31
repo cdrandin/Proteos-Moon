@@ -250,7 +250,7 @@ public class UnitController : MonoBehaviour
 		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
 
 		// Check for player moving their own units
-		if( GameManager.GetPlayer(player_num) != GameManager.GetCurrentPlayer())
+		if(GameManager.GetPlayer(player_num) != GameManager.GetCurrentPlayer())
 		{
 			Debug.LogWarning("Not your turn to move that unit");
 			return;

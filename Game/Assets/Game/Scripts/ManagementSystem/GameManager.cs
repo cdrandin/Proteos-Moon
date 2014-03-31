@@ -301,11 +301,11 @@ public static class GameManager
 	/// <param name="amount">Amount.</param>
 	public static void AddResourcesToCurrentPlayer(int amount)
 	{
-		_resource_count[_current_player_turn] += amount;
-		_resources_obtained[_current_player_turn] += amount;
+		_resource_count[(int)GetCurrentPlayer()] += amount;
+		_resources_obtained[(int)GetCurrentPlayer()] += amount;
 		
-		if(_resource_count[_current_player_turn]<0)
-			_resource_count[_current_player_turn] = 0;
+		if(_resource_count[(int)GetCurrentPlayer()]<0)
+			_resource_count[(int)GetCurrentPlayer()] = 0;
 	}
 
 	// Return bool if player can purchase unit, if so do purchase
@@ -520,7 +520,7 @@ public static class GameManager
 	/// <param name="unit">Unit.</param>
 	public static void AddUnitToCurrentPlayersContainer(GameObject unit)
 	{
-		unit.transform.parent = _player_container[_current_player_turn].transform;
+		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
 	}
 
 	private static void StartTimer()

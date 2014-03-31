@@ -152,6 +152,7 @@ public class Game : MonoBehaviour
 		if(MakeButton(half, 0, "Next player's turn"))
 		{
 			GameManager.NextPlayersTurn();
+			this.gui_method -= GUI_recruit;
 
 			_game_manager_gui.text = string.Format("Next player's turn\n" + 
 			                                       "Current player: {0}\n",
