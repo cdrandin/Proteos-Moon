@@ -1,3 +1,121 @@
+2014-03-30  
+==========  
+
+Previous Week's Objectives  
+--------------------------  
+
+* [Completed] Motivation Meeting 2.0 h (2.0 h)  
+  > Refocused our goals and plans for the game  
+  > Set reached, short deadlines for the game  
+  > Plan set up for spring break  
+  > Christopher Randin, Mark Martene, Ivan Espinosa  
+
+* [Ongoing] Complete and Test Combat System 16.0h ( 1.0 h )  
+  > Make sure when the unit is hit, it loose health  
+  > When unit has negative health, it needs to die  
+  > A good way to check to see when unit is in range that it can get hit  
+  > Ivan Espinosa  
+
+* [Ongoing] Fog of War 4.0h ( 2.0 h)  
+  > Get the shaders to work for Unity  
+  > Still need to find out how to get the textures to work on the fog  
+  > Ivan Espinosa  
+
+* [On-going] Continue Game Transitions and user interaction 6.0 h ( 2.0 h)  
+  > Flow is a lot better. Need to constraint units to game rules and then  
+  > start implementing specific phases to the transitions.  
+  > This will try to better the flow of the game as a base gameplay.  
+  > Just simulate movement and units using up their exhaustive resource  
+  > Christopher Randin  
+
+* [Postponed] Continue hierarchy structure of unit classes 6.0 ( 0.0 h )  
+  > Encountered bugs and huge over sighted when importing models.  
+  > Had to be resolved which took up a lot of time  
+  > If time allows, make the classes better.  
+  > Currently, feel clunky.  
+  > Add more abilities and functionality to base classes.  
+  > Christopher Randin  
+
+* [Partially Completed] Expand upon Game Flowchart 4.0 h (3.0h)  
+  > Make a flowchart for the game scene  
+	- Player’s turn needs to be made  
+- Completed flow chart for game scene  
+	- Events  
+  > Make a flowchart for options  
+  > Mark Martene  
+
+* [In Progress] Further develop game story 8.0 h (1.0h)  
+  > Confer with lead artist about the dialog and cut scene details  
+	- Lead Artist is working on the dialog and scenes  
+  > Cut unnecessary scenes  
+  > Write down dialog to be recorded  
+  > Mark Martene, Ivan Espinosa  
+
+* [Partially Completed] Convert Photon Network from Realtime to Turn-Based 8.0 h (2.0h)  
+  > Download the new turn-based SDK for Photon  
+	- There is no sdk for turn-based  
+	- Turn-Based is in Beta  
+	- Applied for the Beta program  
+  > Implement the changes to the game  
+- Waiting on approval into Beta program  
+  > Mark Martene  
+
+* [Partially Completed] Start building Battle Map 8.0 h (5.0h)  
+  > Created new scene  
+  > Terraformed the terrain  
+	- Still needs refinement  
+  > Added in trees  
+	- Still needs refinement  
+  > Added in procite locations  
+  > Added Breakable walls  
+  > Added Streams and waterfall  
+  > Mark Martene
+
+This Week's Objectives // Spring break  
+---------------------   
+
+* Get working on prototype to be working and playable game 12.0 h  
+  > Allow up to minor bugs  
+  > Be able to play out the game and even win, probably won’t involve a good clean up.  
+  > Meaning to play again restart the scene  
+  > Allow up to moving and attacking  
+  > Focus on putting this game to work over a network  
+  > Christopher Randin and Mark Martene  
+
+* Plan out unit specific abilities and their interaction with the environment 8.0 h  
+  > Plan out who can do what and how they can do.  
+  > Decide how much "exhaust" it will use up.  
+  > How these abilities will tie in with the units background  
+  > Interaction with environment  
+  > Mark Martene, Ivan Espinosa  
+
+* Finish up class hierarchy 6.0 h  
+  > Use composition to help fulfill this  
+  > Also, break down the unit and what they are expected to contain into basic entities  
+  > This will help shape for reusability  
+  > Christopher Randin  
+
+* Implement abilities 10.0 h  
+  > Once class hierarchy is done, inject abilities for each unit  
+  > Will need to figure out how each unit will be allow to do specific abilities, but also  
+  >   structure it in a way where we are not making the code non-flexible.  
+  >   Christopher Randin, Mark Martene, Ivan Espinosa  
+
+* Unit test like procedure to testing what we have made 20.0 h  
+  > Checking to see if unit functionality will always work. See where things break  
+  > Adjust any features or numbers to get the feel right  
+  > Independent scenes for testing combat, abilities and then whole flow of the game   
+  > Combine all functionality together  
+  > Christopher Randin, Mark Martene, Ivan Espinosa  
+
+* Continue Building Battle Map 5.0h  
+  > Add in more environment assets  
+	- Add the Railroad tracks  
+	- Add platforms  
+	- Paint textures  
+  > Modify and refine existing map  
+  > Mark Martene  
+
 2014-03-23 // GDC
 ==========
 
