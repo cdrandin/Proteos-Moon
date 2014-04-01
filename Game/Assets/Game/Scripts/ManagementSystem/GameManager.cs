@@ -648,6 +648,15 @@ public static class GameManager
 	}
 
 	/// <summary>
+	/// Sets the current focused unit's controller to on/off, which prevent the user from moving the unit.
+	/// </summary>
+	/// <param name="v">If set to <c>true</c> v.</param>
+	public static void SetFocusController(bool v)
+	{
+		_uc.GetUnitControllerFocus().GetComponent<UnitController>().SetIsControllable(v);
+	}
+
+	/// <summary>
 	/// Set _game_init = false. Preventing GameManager from working. To show that something is missing that is necessary for the GameManager to know
 	/// Also display warning to fix error
 	/// </summary>
