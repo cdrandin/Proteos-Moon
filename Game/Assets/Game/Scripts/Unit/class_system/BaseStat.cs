@@ -18,15 +18,17 @@ public enum UnitType
 public class BaseStat
 {
 	private byte _current_val;
+	private byte _max_val;
 
 	public BaseStat()
 	{
 		_current_val = 0;
 	}
 
-	public BaseStat(byte val)
+	public BaseStat(byte max)
 	{
-		_current_val = val;
+		_current_val = 0;
+		_max_val = max;
 	}
 
 	public byte Value
@@ -40,6 +42,12 @@ public class BaseStat
 		}
 
 		set { _current_val = value; }
+	}
+
+	public byte Max
+	{
+		get { return _max_val; }
+		set { _max_val = value; }
 	}
 
 	public enum StatName

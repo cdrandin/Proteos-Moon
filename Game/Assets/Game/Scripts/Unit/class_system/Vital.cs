@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Vital
 {
-	private float _max_val;
 	private float _current_val;
+	private float _max_val;
 
 	public Vital()
 	{
 		_current_val = 0;
-		_max_val     = 100.0f;
+		_max_val     = 0.0f;
 	}
 
 	public Vital(float max)
 	{
-		_current_val = _max_val = max;
+		_current_val = 0.0f;
+		_max_val = max;
 	}
 
 	public float Value
@@ -32,6 +34,12 @@ public class Vital
 		}
 		
 		set { _current_val = value; }
+	}
+
+	public float Max
+	{
+		get { return _max_val; }
+		set { _max_val = value; }
 	}
 
 	public enum VitalName
