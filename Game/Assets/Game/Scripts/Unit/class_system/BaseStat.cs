@@ -15,6 +15,7 @@ public enum UnitType
 }
 */
 
+[System.Serializable]
 public class BaseStat
 {
 	private byte _current_val;
@@ -22,32 +23,39 @@ public class BaseStat
 
 	public BaseStat()
 	{
-		_current_val = 0;
+		this._current_val = 0;
+		this._max_val     = 0;
 	}
 
 	public BaseStat(byte max)
 	{
-		_current_val = 0;
-		_max_val = max;
+		this._current_val = 0;
+		this._max_val     = max;
+	}
+
+	public BaseStat(BaseStat bs)
+	{
+		this._current_val = bs._current_val;
+		this._max_val     = bs._max_val;
 	}
 
 	public byte Value
 	{
 		get
 		{
-			if(_current_val < 0)
+			if(this._current_val < 0)
 				return 0;
 			else
-				return _current_val;
+				return this._current_val;
 		}
 
-		set { _current_val = value; }
+		set { this._current_val = value; }
 	}
 
 	public byte Max
 	{
-		get { return _max_val; }
-		set { _max_val = value; }
+		get { return this._max_val; }
+		set { this._max_val = value; }
 	}
 
 	public enum StatName

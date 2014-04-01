@@ -9,6 +9,7 @@ public class BaseClass : MonoBehaviour
 
 	void Awake()
 	{
+
 		_base_stat = new BaseStat[Enum.GetValues(typeof(BaseStat.StatName)).Length];
 		_vital = new Vital[Enum.GetValues(typeof(Vital.VitalName)).Length];
 
@@ -18,7 +19,22 @@ public class BaseClass : MonoBehaviour
 		SetUpBaseStatsValues(100, 20, 5, 10, 30, 30);
 		SetUpVitalValues(1000.0f, 100.0f);
 
-		Debug.Log (GetVital(Vital.VitalName.Hp).Value);
+		/*
+		foreach(string vital in GetVitalNames())
+		{
+			Debug.Log(string.Format("Name: {0}    Value: {1}", vital, (int)Enum.Parse((typeof(Vital.VitalName)), vital)));
+		}
+		*/
+	}
+
+	public BaseStat[] base_stats
+	{
+		get{ return _base_stat; }
+	}
+
+	public Vital[] vitals
+	{
+		get{ return _vital; }
 	}
 
 	/// <summary>
@@ -179,4 +195,13 @@ public class BaseClass : MonoBehaviour
 		return _vital[(int)v];
 	}
 
+	public string[] GetVitalNames()
+	{
+		return Enum.GetNames((typeof(Vital.VitalName)));
+	}
+
+	public string[] GetStatNames()
+	{
+		return Enum.GetNames((typeof(BaseStat.StatName)));
+	}
 }
