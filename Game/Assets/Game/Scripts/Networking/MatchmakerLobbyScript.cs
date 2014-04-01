@@ -82,9 +82,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	//}
 
 	void OnJoinedRoom(){
-		if(PhotonNetwork.countOfPlayersInRooms >= 2){
-			Application.LoadLevel("network_testing");
-		}
+		PhotonNetwork.LoadLevel(1);
 		//GameObject myplayer = PhotonNetwork.Instantiate(player_prefab, spawn_object.position, Quaternion.identity, 0);
 		//TODO
 		// Changed isControllable to false
@@ -98,8 +96,8 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	}
 
 	void OnPhotonPlayerConnected(){
-		if(PhotonNetwork.countOfPlayersInRooms >= 2){
-			Application.LoadLevel("network_testing");
+		if(PhotonNetwork.countOfPlayersInRooms == 2){
+			PhotonNetwork.LoadLevel(1);
 		}
 	}
 
