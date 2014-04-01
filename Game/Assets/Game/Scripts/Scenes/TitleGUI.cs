@@ -13,13 +13,13 @@ public class TitleGUI : MonoBehaviour {
 		int half_screen_width = Screen.width / 2;
 
 		if(GUI.Button(new Rect(half_screen_width - half_button_width, 350, button_width, button_height), "Begin Story")){
-			Application.LoadLevel("Generic");
+			Application.LoadLevel("BattleMap");
 		}
 		if(GUI.Button(new Rect(half_screen_width - half_button_width, 410, button_width, button_height), "Options")){
 			Application.LoadLevel("Options");
 		}
 		if(GUI.Button(new Rect(half_screen_width - half_button_width, 470, button_width, button_height), "Multiplayer")){
-			Application.LoadLevel("Networking");
+			Application.LoadLevel("Login");
 		}
 	}
 }
