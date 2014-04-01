@@ -20,8 +20,8 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	
 	public int lobby_width = 800;
 	public int lobby_height = 600;
-	public string player_prefab = "NetworkPlayer";
-	public Transform spawn_object;
+	//public string player_prefab = "NetworkPlayer";
+	//public Transform spawn_object;
 	public GUISkin lobby_skin;
 	public GUISkin lobby_skin_alternate;
 	public GUIStyle network_status_style;
@@ -64,12 +64,12 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	void OnPhotonCreateRoomFailed() {
 		try {
-			Debug.LogError("Create Room Failed");
+			Debug.LogWarning("Create Room Failed. Retrying...");
 			PhotonNetwork.CreateRoom(room_name, true, true, max_players);
 		}
 		catch {
-			Debug.Log ("Unable to create room");
-			Application.LoadLevel("Networking");
+			Debug.LogError("Retry Failed. Unable to create room.");
+			//Application.LoadLevel("Networking");
 		}
 	}
 	void OnJoinedLobby(){
@@ -82,16 +82,25 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	//}
 
 	void OnJoinedRoom(){
-		GameObject myplayer = PhotonNetwork.Instantiate(player_prefab, spawn_object.position, Quaternion.identity, 0);
+		if(PhotonNetwork.countOfPlayersInRooms >= 2){
+			Application.LoadLevel("network_testing");
+		}
+		//GameObject myplayer = PhotonNetwork.Instantiate(player_prefab, spawn_object.position, Quaternion.identity, 0);
 		//TODO
 		// Changed isControllable to false
-		myplayer.GetComponent<ThirdPersonController>().isControllable = true;
+		//myplayer.GetComponent<ThirdPersonController>().isControllable = true;
 		//Camera.main.GetComponent<SmoothFollow>().enabled = true;
 		//Camera.main.GetComponent<SmoothLookAt>().enabled = true;
-		Camera.main.GetComponent<SmoothLookAt>().target = myplayer.transform;
-		Camera.main.GetComponent<SmoothFollow>().target = myplayer.transform;
+		//Camera.main.GetComponent<SmoothLookAt>().target = myplayer.transform;
+		//Camera.main.GetComponent<SmoothFollow>().target = myplayer.transform;
 		//myplayer.GetComponent<PersonController>().isControllable = true;
 		//pv = myplayer.GetComponent<PhotonView>();
+	}
+
+	void OnPhotonPlayerConnected(){
+		if(PhotonNetwork.countOfPlayersInRooms >= 2){
+			Application.LoadLevel("network_testing");
+		}
 	}
 
 	void OnJoinedRandomRoomFailed(){
