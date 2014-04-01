@@ -289,6 +289,11 @@ public class UnitController : MonoBehaviour
 		_unit_focus_cc = null;
 	}
 
+	public GameObject GetUnitControllerFocus()
+	{
+		return _unit_focus_cc.gameObject;
+	}
+
 	void Reset ()
 	{
 		// Testing numbers that had a "nice" feel

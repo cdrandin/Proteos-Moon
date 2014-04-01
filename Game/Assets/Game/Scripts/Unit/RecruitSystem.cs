@@ -82,7 +82,6 @@ public class RecruitSystem : MonoBehaviour
 	public GameObject SpawnUnit(UnitType unit_type)
 	{
 		Transform leader = GameManager.GetPlayerLeader(GameManager.GetCurrentPlayer()).transform;
-		string name = "ERROR";
 		GameObject unit;
 
 		// For now have it spawn immediately
@@ -90,32 +89,26 @@ public class RecruitSystem : MonoBehaviour
 		{
 			unit = this.arcane;
 		}
-		
 		else if(unit_type == UnitType.Braver)
 		{
 			unit = this.braver;
 		}
-		
 		else if(unit_type == UnitType.Scout)
 		{
 			unit = this.scout;
 		}
-		
 		else if(unit_type == UnitType.Sniper)
 		{
 			unit = this.sniper;
 		}
-		
 		else if(unit_type == UnitType.Titan)
 		{
 			unit = this.titan;
 		}
-
 		else if(unit_type == UnitType.Vangaurd)
 		{
 			unit = this.vangaurd;
 		}
-
 		else
 		{
 			Debug.LogError("Spawn unit went to default switch. ERROR");
@@ -132,7 +125,6 @@ public class RecruitSystem : MonoBehaviour
 			//obj.layer = LayerMask.NameToLayer(obj.tag);
 			return obj;
 		}
-
 		else
 			return null;
 

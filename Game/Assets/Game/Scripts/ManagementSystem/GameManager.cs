@@ -639,6 +639,15 @@ public static class GameManager
 	}
 
 	/// <summary>
+	/// Gets the current focused unit in which a player has clicked on, awaiting an action.
+	/// </summary>
+	/// <returns>The current focus.</returns>
+	public static GameObject GetCurrentFocus()
+	{
+		_uc.GetUnitControllerFocus();
+	}
+
+	/// <summary>
 	/// Set _game_init = false. Preventing GameManager from working. To show that something is missing that is necessary for the GameManager to know
 	/// Also display warning to fix error
 	/// </summary>
