@@ -66,6 +66,16 @@ public class WorldCameraModified : MonoBehaviour {
 	private bool _local;
 	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
 
+	
+	private float height = 5.0f;
+	private float heightDamping = 2.0f;
+	private float rotationDamping = 3.0f;
+	
+	private float wantedRotationAngle;
+	private float wantedHeight;
+	private float currentRotationAngle;
+	private float currentHeight;
+	private Quaternion currentRotation;	
 	#endregion
 	
 	
@@ -92,38 +102,12 @@ public class WorldCameraModified : MonoBehaviour {
 		cameraHeight = transform.position.y;
 		//ScrollAngle =  gameObject;//new GameObject();
 		ScrollAngle = new GameObject();
+		
 	}
 	
 	
 	
-	void Update ()
-	{
-		/*
-		if(GameManager.IsOn())
-		{
-			string camera_name = "camera_player" + ((int)GameManager.GetCurrentPlayer() + 1).ToString();
-
-			if(MainCamera != null)
-			{
-				MainCamera.GetComponent<AudioListener>().enabled = false;
-				MainCamera.GetComponent<Camera>().enabled = false;
-
-				MainCamera = GameObject.Find (camera_name);
-
-				MainCamera.GetComponent<AudioListener>().enabled = true;
-				MainCamera.GetComponent<Camera>().enabled = true;
-			}
-			else
-			{
-				MainCamera = GameObject.Find (camera_name);
-				
-				MainCamera.GetComponent<AudioListener>().enabled = true;
-				MainCamera.GetComponent<Camera>().enabled = true;
-			}
-
-		}
-		*/
-	}
+	void Update (){}
 
 	void LateUpdate () {
 
@@ -434,8 +418,38 @@ public class WorldCameraModified : MonoBehaviour {
 			}
 		} // End of local
 	}
+	
+	
+	public void SmoothFollow(ref Transform target){
 
-	public void FollowUnit()
-	{
+		wantedRotationAngle = target.eulerAngles.y;
+		wantedHeight = target.position.y + height;
+		
+		currentRotationAngle = transform.eulerAngles.y;
+		currentHeight = transform.position.y;
+		
+		// Damp the rotation around the y-axis
+		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+		
+		// Damp the height
+		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+		
+		// Convert the angle into a rotation
+		currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
+		
+		// Set the position of the camera on the x-z plane to:
+		// distance meters behind the target
+		this.transform.position = target.position;
+		this.transform.position -= currentRotation * Vector3.forward * 10;
+		
+		// Set the height of the camera
+		this.transform.position = new Vector3 (transform.position.x, currentHeight, transform.position.z);
+		
+		
+		this.transform.LookAt(new Vector3(0,target.position.y, 0 ) );
+		MainCamera.transform.LookAt(new Vector3(target.position.x, 0, 0) );
 	}
+	
+//	rotation = Quaternion.LookRotation(target.position - transform.position);
+//	transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
 }
