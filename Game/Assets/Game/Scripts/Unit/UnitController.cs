@@ -291,7 +291,10 @@ public class UnitController : MonoBehaviour
 
 	public GameObject GetUnitControllerFocus()
 	{
-		return _unit_focus_cc.gameObject;
+		if(_unit_focus_cc != null)
+			return _unit_focus_cc.gameObject;
+		else
+			return null;
 	}
 
 	void Reset ()
