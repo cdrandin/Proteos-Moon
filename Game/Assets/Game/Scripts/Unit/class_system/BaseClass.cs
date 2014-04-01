@@ -21,6 +21,9 @@ public class BaseClass : MonoBehaviour
 		Debug.Log (GetVital(Vital.VitalName.Hp).Value);
 	}
 
+	/// <summary>
+	/// Max values for BaseStat is the default=Byte.MaxValue.
+	/// </summary>
 	public void BaseStatsInit()
 	{
 		for(int i=0;i<_base_stat.Length;++i)
@@ -60,6 +63,9 @@ public class BaseClass : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Max values for Vital is the default=9999.99f.
+	/// </summary>
 	public void VitalsInit()
 	{
 		for(int i=0;i<_vital.Length;++i)
@@ -95,6 +101,11 @@ public class BaseClass : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Sets up base stats values by the list of stats: 
+	/// {stamina, strength, intellect, recovery, physical defense, magical defense}
+	/// </summary>
+	/// <param name="list">List.</param>
 	public void SetUpBaseStatsValues(params byte[] list)
 	{
 		if(list.Length != _base_stat.Length)
@@ -121,6 +132,11 @@ public class BaseClass : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Sets up vital values by the list of vitals: 
+	/// {hp, exhaust}
+	/// </summary>
+	/// <param name="list">List.</param>
 	public void SetUpVitalValues(params float[] list)
 	{
 		if(list.Length != _vital.Length)
@@ -143,11 +159,21 @@ public class BaseClass : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Gets the base stat.
+	/// </summary>
+	/// <returns>The base stat.</returns>
+	/// <param name="stat">Stat.</param>
 	public BaseStat GetBaseStat(BaseStat.StatName stat)
 	{
 		return _base_stat[(int)stat];
 	}
 
+	/// <summary>
+	/// Gets the vital.
+	/// </summary>
+	/// <returns>The vital.</returns>
+	/// <param name="v">V.</param>
 	public Vital GetVital(Vital.VitalName v)
 	{
 		return _vital[(int)v];
