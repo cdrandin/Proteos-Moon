@@ -12,12 +12,13 @@ public class BaseCharacterEditor : Editor
 	{
 		var controller = target as BaseClass;
 
-		/*
-		foreach(Vital vital in controller.vital)
+		EditorGUIUtility.LookLikeInspector();
+		foreach(Vital v in controller.vitals)
 		{
 
 		}
 
+		/*
 		EditorGUIUtility.LookLikeInspector ();
 		EditorGUILayout.TextField ("Text Field:", "Hello There");
 		EditorGUILayout.IntField("Int Field:", 10);
