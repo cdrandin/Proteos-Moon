@@ -122,13 +122,19 @@ public class RecruitSystem : MonoBehaviour
 			unit = null;
 		}
 
-		// Spawn behind leader
-		GameObject obj = GameObject.Instantiate(unit, leader.position + summoning_radius*Vector3.back, leader.rotation) as GameObject;
-		obj.name = unit.name;
-		//obj.tag  = "Unit";
-		//obj.layer = LayerMask.NameToLayer(obj.tag);
+		if(unit != null)
+		{
+			// Spawn behind leader
+			GameObject obj = GameObject.Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation) as GameObject;
 
-		return obj;
+			obj.name = unit.name;
+			//obj.tag  = "Unit";
+			//obj.layer = LayerMask.NameToLayer(obj.tag);
+			return obj;
+		}
+
+		else
+			return null;
 
 		/*// Summon in a ring of units around Leader
 		foreach(Vector3 location in SpawnLocations(position))
