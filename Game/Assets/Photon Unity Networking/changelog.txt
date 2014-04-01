@@ -1,4 +1,8 @@
-v1.25 (18. February 2014)
+v1.25.1 (26. March 2014)
+Fixed: Custom Authentication was failing in v1.25. This version is again compatible with the currently deployed servers in the Photon Cloud. 
+Note: This version is compatible with v1.25 clients, so no new versionPUN string.
+
+v1.25 (25. March 2014)
 Fixed: Coroutines (IENumerators) are now called via their own script instance instead of the PhotonHandler monobehaviour. This fixes an issue where the IENumerators would continue running even after the script was destroyed.
 Fixed: The Demo Worker controller no longer makes the character shake wildly when colliding with others. It was some issue with the grounded flag. This makes movement finally smooth-ish.
 Changed: When using JoinRoom with the option to create a room (on demand), it will call OnJoinedRoom in all cases. It will call OnCreatedRoom (only) if it actually created the room.

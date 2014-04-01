@@ -173,7 +173,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
     {
         get
         {
-            return this.CustomAuthenticationValues != null && !String.IsNullOrEmpty(this.CustomAuthenticationValues.Secret);
+            return false; // this.CustomAuthenticationValues != null && !String.IsNullOrEmpty(this.CustomAuthenticationValues.Secret);
         }
     }
 

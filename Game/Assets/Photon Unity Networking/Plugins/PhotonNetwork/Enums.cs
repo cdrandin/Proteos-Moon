@@ -181,11 +181,11 @@ public enum PhotonNetworkingMessage
     OnCreatedRoom,
 
     /// <summary>
-    /// Called on entering the Master Server's lobby. Client can create/join rooms but room list is not available until OnReceivedRoomListUpdate is called!
+    /// Called on entering the Master Server's lobby. The actual room-list updates will call OnReceivedRoomListUpdate.
     /// Example: void OnJoinedLobby(){ ... }
     /// </summary>
     /// <remarks>
-    /// Note: When PhotonNetwork.autoJoinLobby is false, OnConnectedToMaster will be called instead and the room list won't be available.
+    /// Note: When PhotonNetwork.autoJoinLobby is false, OnConnectedToMaster will be called instead and the room list won't become available.
     /// While in the lobby, the roomlist is automatically updated in fixed intervals (which you can't modify).
     /// </remarks>
     OnJoinedLobby,

@@ -362,7 +362,7 @@ internal class LoadbalancingPeer : PhotonPeer
         if (authValues != null && authValues.Secret != null)
         {
             opParameters[ParameterCode.Secret] = authValues.Secret;
-            return this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, false);
+            //return this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, false);
         }
 
         opParameters[ParameterCode.AppVersion] = appVersion;
@@ -392,8 +392,8 @@ internal class LoadbalancingPeer : PhotonPeer
             {
                 opParameters[ParameterCode.Secret] = authValues.Secret;
             }
-            else
-            {
+            //else
+            //{
                 if (!string.IsNullOrEmpty(authValues.AuthParameters))
                 {
                     opParameters[ParameterCode.ClientAuthenticationParams] = authValues.AuthParameters;
@@ -402,9 +402,9 @@ internal class LoadbalancingPeer : PhotonPeer
                 {
                     opParameters[ParameterCode.ClientAuthenticationData] = authValues.AuthPostData;
                 }
-            }
+            //}
         }
-
+        
         bool sent = this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, this.IsEncryptionAvailable);
         if (!sent)
         {
@@ -850,10 +850,12 @@ public class AuthenticationValues
 
     /// <summary>This string must contain any (http get) parameters expected by the used authentication service. By default, username and token.</summary>
     /// <remarks>Standard http get parameters are used here and passed on to the service that's defined in the server (Photon Cloud Dashboard).</remarks>
-    public string AuthParameters;
-
+    public string AuthParameters;   // { get { return a; } set { a = value; UnityEngine.Debug.LogWarning("AuthParameters set: " + value + " server: " + PhotonNetwork.ServerAddress); } }
+    //private string a;
+    
     /// <summary>After initial authentication, Photon provides a secret for this client / user, which is subsequently used as (cached) validation.</summary>
-    public string Secret;
+    public string Secret;   // { get { return s; } set { s = value; UnityEngine.Debug.LogWarning("Secret set: " + value + " server: " + PhotonNetwork.ServerAddress); } }
+    //private string s;
 
     /// <summary>Data to be passed-on to the auth service via POST. Default: null (not sent). Either string or byte[] (see setters).</summary>
     public object AuthPostData { get; private set; }
