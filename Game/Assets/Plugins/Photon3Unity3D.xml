@@ -589,7 +589,7 @@
             <summary>Removes this event (by eventCode) from the cache.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.Lite.EventCaching.AddToRoomCache">
-            <summary>Adds an event to the room's cache</summary>
+            <summary>Adds an event to the room's cache.</summary>
         </member>
         <member name="F:ExitGames.Client.Photon.Lite.EventCaching.AddToRoomCacheGlobal">
             <summary>Adds this event to the cache for actor 0 (becoming a "globally owned" event in the cache).</summary>
@@ -599,18 +599,6 @@
         </member>
         <member name="F:ExitGames.Client.Photon.Lite.EventCaching.RemoveFromRoomCacheForActorsLeft">
             <summary>Removes events of players who already left the room (cleaning up).</summary>
-        </member>
-        <member name="F:ExitGames.Client.Photon.Lite.EventCaching.SliceIncreaseIndex">
-            <summary>Increase the index of the sliced cache.</summary>
-        </member>
-        <member name="F:ExitGames.Client.Photon.Lite.EventCaching.SliceSetIndex">
-            <summary>Set the index of the sliced cache. You must set RaiseEventOptions.CacheSliceIndex for this.</summary>
-        </member>
-        <member name="F:ExitGames.Client.Photon.Lite.EventCaching.SlicePurgeIndex">
-            <summary>Purge cache slice with index. Exactly one slice is removed from cache. You must set RaiseEventOptions.CacheSliceIndex for this.</summary>
-        </member>
-        <member name="F:ExitGames.Client.Photon.Lite.EventCaching.SlicePurgeUpToIndex">
-            <summary>Purge cache slices with specified index and anything lower than that. You must set RaiseEventOptions.CacheSliceIndex for this.</summary>
         </member>
         <member name="T:ExitGames.Client.Photon.Lite.ReceiverGroup">
             <summary>
