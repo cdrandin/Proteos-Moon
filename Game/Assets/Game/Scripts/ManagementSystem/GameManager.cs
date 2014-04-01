@@ -644,7 +644,7 @@ public static class GameManager
 	/// <returns>The current focus.</returns>
 	public static GameObject GetCurrentFocus()
 	{
-		_uc.GetUnitControllerFocus();
+		return _uc.GetUnitControllerFocus();
 	}
 
 	/// <summary>
