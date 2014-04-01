@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[System.Serializable]
 public class Vital
 {
 	private float _current_val;
@@ -9,14 +9,20 @@ public class Vital
 
 	public Vital()
 	{
-		_current_val = 0;
-		_max_val     = 0.0f;
+		this._current_val = 0;
+		this._max_val     = 0.0f;
 	}
 
 	public Vital(float max)
 	{
-		_current_val = 0.0f;
-		_max_val = max;
+		this._current_val = 0.0f;
+		this._max_val     = max;
+	}
+
+	public Vital(Vital v)
+	{
+		this._current_val = v._current_val;
+		this._max_val     = v._max_val;
 	}
 
 	public float Value
@@ -24,22 +30,22 @@ public class Vital
 		get 
 		{
 			// Lowest is 0
-			if(_current_val < 0)
+			if(this._current_val < 0)
 				return 0;
 			// Most is _max_hp
-			else if(_current_val > _max_val)
-				return _max_val;
+			else if(this._current_val > this._max_val)
+				return this._max_val;
 			else
-				return _current_val;
+				return this._current_val;
 		}
 		
-		set { _current_val = value; }
+		set { this._current_val = value; }
 	}
 
 	public float Max
 	{
-		get { return _max_val; }
-		set { _max_val = value; }
+		get { return this._max_val; }
+		set { this._max_val = value; }
 	}
 
 	public enum VitalName

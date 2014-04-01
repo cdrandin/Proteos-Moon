@@ -1,12 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 using UnityEditor;
 
 [CustomEditor (typeof(BaseClass))]
-public class BaseCharacterEditor : Editor {
+public class BaseCharacterEditor : Editor 
+{
+	// Play around with inspector so we can customize
 
 	public override void OnInspectorGUI()
 	{
-		BaseClass base_class_script = (BaseClass)target;
+		var controller = target as BaseClass;
+
+		/*
+		foreach(Vital vital in controller.vital)
+		{
+
+		}
+
+		EditorGUIUtility.LookLikeInspector ();
+		EditorGUILayout.TextField ("Text Field:", "Hello There");
+		EditorGUILayout.IntField("Int Field:", 10);
+		EditorGUILayout.FloatField("Float Field:", 11.1f);
+
+		EditorGUILayout.Space();
+
+		EditorGUIUtility.LookLikeControls();
+		EditorGUILayout.TextField ("Text Field", "Hi There");
+		EditorGUILayout.IntField("Int Field:", 99);
+		EditorGUILayout.FloatField("Float Field:", 99.9f);
+		*/
 	}
+
 }
