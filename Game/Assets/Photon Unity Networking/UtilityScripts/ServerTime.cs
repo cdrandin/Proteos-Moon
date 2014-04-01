@@ -11,7 +11,7 @@ public class ServerTime : MonoBehaviour
         GUILayout.Label(string.Format("Time Offset: {0}", PhotonNetwork.networkingPeer.ServerTimeInMilliSeconds - Environment.TickCount));
         if (GUILayout.Button("fetch"))
         {
-            PhotonNetwork.FetchServerTimestamp();
+            PhotonNetwork.networkingPeer.FetchServerTimestamp();
         }
         GUILayout.EndArea();
     }
