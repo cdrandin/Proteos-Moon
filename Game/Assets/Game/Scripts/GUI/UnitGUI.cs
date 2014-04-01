@@ -8,7 +8,7 @@ public class UnitGUI : MonoBehaviour {
 	private delegate void GUIMethod();
 	private GUIMethod gui_method;
 	private UnitCost _unit_cost;
-	GameObject focusTemp, focusObject, worldCamera, mainCamera;
+	private GameObject focusTemp, focusObject, worldCamera, mainCamera;
 	private bool init;
 	private float height = 5.0f;
 	private float heightDamping = 2.0f;
@@ -52,16 +52,13 @@ public class UnitGUI : MonoBehaviour {
 				this.gui_method += UnitsOptions;
 				init = true;
 			}
-			
 			RemoveGUI();
-			
 		}
 		
 	}
 	
 	void LateUpdate(){
-		if(movement){
-			print ("Focus Object:" + focusObject);
+		if(movement && focusObject != null){
 			SmoothFollow(focusObject.transform);
 		}
 		
@@ -147,13 +144,12 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void SmoothFollow(Transform target){
 		
-		print (target.position);
 		//print (target.localPosition);
 		wantedRotationAngle = target.eulerAngles.y;
 		wantedHeight = target.position.y + height;
 		
-		currentRotationAngle = transform.eulerAngles.y;
-		currentHeight = transform.position.y;
+		currentRotationAngle = worldCamera.transform.eulerAngles.y;
+		currentHeight = worldCamera.transform.position.y;
 		
 		// Damp the rotation around the y-axis
 		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -167,9 +163,7 @@ public class UnitGUI : MonoBehaviour {
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
 		worldCamera.transform.position = target.position;
-		worldCamera.transform.position -= currentRotation * Vector3.forward * 10;
-		print (worldCamera.transform.position);
-	
+		worldCamera.transform.position -= currentRotation * Vector3.forward * 10;	
 		
 		// Set the height of the camera
 		worldCamera.transform.position = new Vector3 (worldCamera.transform.position.x, currentHeight, worldCamera.transform.position.z);

@@ -75,11 +75,7 @@ public class WorldCameraModified : MonoBehaviour {
 	private float wantedHeight;
 	private float currentRotationAngle;
 	private float currentHeight;
-	private Quaternion currentRotation;
-	
-	private Transform oldWorldTransform;
-	private Transform oldMainCameraTransform;
-	
+	private Quaternion currentRotation;	
 	#endregion
 	
 	
@@ -423,21 +419,6 @@ public class WorldCameraModified : MonoBehaviour {
 		} // End of local
 	}
 	
-	public void Push(){
-	
-		oldWorldTransform.position = this.transform.position;
-		oldWorldTransform.eulerAngles = this.transform.eulerAngles;
-		oldMainCameraTransform.position = MainCamera.transform.localPosition;
-		oldMainCameraTransform.eulerAngles = MainCamera.transform.localEulerAngles;
-	}
-	
-	public void Pop(){
-	
-		this.transform.position = oldWorldTransform.position;
-		this.transform.eulerAngles = oldWorldTransform.eulerAngles;
-		MainCamera.transform.localPosition = oldMainCameraTransform.position;
-		MainCamera.transform.localEulerAngles = oldMainCameraTransform.localEulerAngles;
-	}
 	
 	public void SmoothFollow(ref Transform target){
 
