@@ -289,6 +289,14 @@ public class UnitController : MonoBehaviour
 		_unit_focus_cc = null;
 	}
 
+	public GameObject GetUnitControllerFocus()
+	{
+		if(_unit_focus_cc != null)
+			return _unit_focus_cc.gameObject;
+		else
+			return null;
+	}
+
 	void Reset ()
 	{
 		// Testing numbers that had a "nice" feel

@@ -69,7 +69,7 @@ public class TargetTransition : MonoBehaviour {
 			if(interpolate){
 				InterpolateToNewPosition();
 
-				if( IsWithinBuffer(buffer) || AreCameraMovementPress() || WorldCamera.IsMousePositionWithinBoundaries()){
+				if( IsWithinBuffer(buffer) || AreCameraMovementPressed() || WorldCamera.IsMousePositionWithinBoundaries()){
 					interpolate = false;
 				}
 			}
@@ -85,7 +85,7 @@ public class TargetTransition : MonoBehaviour {
 	
 	}
 
-	public bool AreCameraMovementPress(){
+	public static bool AreCameraMovementPressed(){
 		if ( Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.A) || 
 		     Input.GetKey (KeyCode.D) || (Input.GetAxis("Mouse ScrollWheel") != 0 ) || Input.GetMouseButtonDown (1))
 			return true;
