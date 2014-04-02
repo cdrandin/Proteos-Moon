@@ -8,7 +8,6 @@ public enum CharacterState
     Trotting = 2,
     Running = 3,
     Jumping = 4,
-	Attacking = 5,
 }
 
 public class ThirdPersonController : MonoBehaviour
@@ -18,12 +17,11 @@ public class ThirdPersonController : MonoBehaviour
     public AnimationClip walkAnimation;
     public AnimationClip runAnimation;
     public AnimationClip jumpPoseAnimation;
-	public AnimationClip attackAnimation;
 
-    public float walkMaxAnimationSpeed = 2.0f;
-    public float trotMaxAnimationSpeed = 6.0f;
-    public float runMaxAnimationSpeed = 8.0f;
-    public float jumpAnimationSpeed = 4.0f;
+    public float walkMaxAnimationSpeed = 0.75f;
+    public float trotMaxAnimationSpeed = 1.0f;
+    public float runMaxAnimationSpeed = 1.0f;
+    public float jumpAnimationSpeed = 1.15f;
     public float landAnimationSpeed = 1.0f;
 
     private Animation _animation;
@@ -33,16 +31,16 @@ public class ThirdPersonController : MonoBehaviour
     public CharacterState _characterState;
 
     // The speed when walking
-    public float walkSpeed = 15.0f;
+    public float walkSpeed = 2.0f;
     // after trotAfterSeconds of walking we trot with trotSpeed
-    public float trotSpeed = 25.0f;
+    public float trotSpeed = 4.0f;
     // when pressing "Fire3" button (cmd) we start running
-    public float runSpeed = 40.0f;
+    public float runSpeed = 6.0f;
 
     public float inAirControlAcceleration = 3.0f;
 
     // How high do we jump when pressing jump and letting go immediately
-    public float jumpHeight = 2.0f;
+    public float jumpHeight = 0.5f;
 
     // The gravity for the character
     public float gravity = 20.0f;
@@ -51,7 +49,7 @@ public class ThirdPersonController : MonoBehaviour
     public float rotateSpeed = 500.0f;
     public float trotAfterSeconds = 3.0f;
 
-    public bool canJump = true;
+    public bool canJump = false;
 
     private float jumpRepeatTime = 0.05f;
     private float jumpTimeout = 0.15f;
@@ -125,11 +123,6 @@ public class ThirdPersonController : MonoBehaviour
             _animation = null;
             Debug.Log("No jump animation found and the character has canJump enabled. Turning off animations.");
         }
-		if (!attackAnimation)
-		{
-			_animation = null;
-			Debug.Log("No attack animation found. Turning off animations.");
-		}
 
     }
 
@@ -218,9 +211,7 @@ public class ThirdPersonController : MonoBehaviour
             }
         
             moveSpeed = Mathf.Lerp(moveSpeed, targetSpeed, curSmooth);
-			if (Input.GetKey (KeyCode.F2)) {
-				_characterState = CharacterState.Attacking;
-			}
+
             // Reset walk time start when we slow down
             if (moveSpeed < walkSpeed * 0.3f)
                 walkTimeStart = Time.time;
@@ -348,15 +339,11 @@ public class ThirdPersonController : MonoBehaviour
             }
             else
             {
-				if (this.isControllable && velocity.sqrMagnitude < 0.001f && _characterState != CharacterState.Attacking)
-				{
-					_characterState = CharacterState.Idle;
-					_animation.CrossFade(idleAnimation.name);
-				}
-				else if (this.isControllable && velocity.sqrMagnitude < 0.001f && _characterState == CharacterState.Attacking)
-				{
-					_animation.CrossFade(attackAnimation.name);
-				}
+                if (this.isControllable && velocity.sqrMagnitude < 0.001f)
+                {
+                    _characterState = CharacterState.Idle;
+                    _animation.CrossFade(idleAnimation.name);
+                }
                 else
                 {
                     if (_characterState == CharacterState.Idle)
@@ -405,12 +392,13 @@ public class ThirdPersonController : MonoBehaviour
         }
         else
         {
-            Vector3 xzMove = velocity;
+            /* This causes choppy behaviour when colliding with SIDES
+             * Vector3 xzMove = velocity;
             xzMove.y = 0;
             if (xzMove.sqrMagnitude > 0.001f)
             {
                 transform.rotation = Quaternion.LookRotation(xzMove);
-            }
+            }*/
         }
 
         // We are in jump mode but just became grounded
