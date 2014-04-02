@@ -376,21 +376,16 @@ public static class GameManager
 	{
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
-		Debug.LogError("IsNextPlayersTurn: Need check for when leader is done moving");
-		/*
-		if(_leaders[_current_player_turn].GetComponent<UnitStatus>().status != Status.Resting)
+		if(_leader_status[_current_player_turn] != Status.Resting)
 			return false;
-		*/
+
 		// If units exist for current player, check if they are able to move
-		Debug.LogError("IsNextPlayersTurn: Need check for when units are done moving");
-		/*
-		UnitStatus[] units = _player_container[_current_player_turn].GetComponentsInChildren<UnitStatus>();
-		foreach(UnitStatus unit in units)
+		foreach(BaseClass unit_base_class in _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>())
 		{
-			if(unit.status != Status.Resting)
+			if(unit_base_class.unit_status.status != Status.Resting)
 				return false;
 		}
-		*/
+
 		return true;
 	}
 
@@ -407,8 +402,11 @@ public static class GameManager
 		// Enable Fog of War for other player's perspective
 		
 		// Change player's camera perspective 
+		SetUnitControllerActiveOff();
 
-		
+		// Reset unit controller travel distance
+		_uc._travel_distance = 0.0f;
+
 		// Next player's turn
 		_current_player_turn = (_current_player_turn+1)%total_players;
 

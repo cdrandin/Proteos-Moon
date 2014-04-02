@@ -16,16 +16,6 @@ public class BaseClass : MonoBehaviour
 	[SerializeField] 
 	private UnitStatus _unit_status;
 
-	// Use this for initialization
-	void Start () 
-	{
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
-	}
 
 	public BaseStat base_stat
 	{
