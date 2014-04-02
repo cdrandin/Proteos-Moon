@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class LoginScript : MonoBehaviour
 {
-	public Vector2 GuiSize = new Vector2(300, 400);
+	public Vector2 GuiSize = new Vector2(350, 400);
 	private string player_name = "";
 	private Rect guiCenteredRect;
 	public MonoBehaviour componentToEnable;
