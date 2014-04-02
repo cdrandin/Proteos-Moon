@@ -140,7 +140,7 @@ public class LobbyScript : Photon.MonoBehaviour
 	private void EndGame()
 	{
 		this.objectToActivate.SetActive(false);
-		GameManager.ResetGameState();
+		GameManager.ResetGameManager();
 	}
 	
 	/*private string FormatRoomProps()
