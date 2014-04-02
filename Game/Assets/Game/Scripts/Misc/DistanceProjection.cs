@@ -109,6 +109,7 @@ public class DistanceProjection : MonoBehaviour
 	/// <param name="target">Target.</param>
 	public void SetProjectionOn(GameObject target)
 	{
+		print ("here");
 		SetProjectorFocus(target);
 
 		foreach(Projector p in projectors)

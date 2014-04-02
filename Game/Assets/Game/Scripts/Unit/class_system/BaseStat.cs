@@ -24,6 +24,9 @@ public class BaseStat
 	[SerializeField] 
 	private ByteStats _strength;
 
+	[SerializeField]
+	private ByteStats _agility;
+
 	[SerializeField] 
 	private ByteStats _intellect;
 
@@ -63,6 +66,7 @@ public class BaseStat
 		set { _stamina = value;}
 	}
 	
+
 	public ByteStats Strength
 	{
 		get	
@@ -73,7 +77,21 @@ public class BaseStat
 				_strength.current = _strength.max;
 			return _strength;
 		}
+		
+		set { _strength = value;}
+	}
 
+	public ByteStats Agility
+	{
+		get	
+		{
+			if(_agility.current < 0)
+				_agility.current = 0;
+			else if (_agility.current > _agility.max)
+				_agility.current = _agility.max;
+			return _agility;
+		}
+		
 		set { _strength = value;}
 	}
 	
