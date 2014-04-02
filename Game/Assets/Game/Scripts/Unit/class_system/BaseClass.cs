@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(UnitSelected))]
+[RequireComponent (typeof(UnitActions))]
 public class BaseClass : MonoBehaviour 
 {
 	[SerializeField] 

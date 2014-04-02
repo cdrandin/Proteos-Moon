@@ -1,16 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CombatSystem : MonoBehaviour {
+public static class CombatSystem{
 
+	// Event Handler
+	private delegate void WithinRangeEvent(GameObject currentFocus);
+	private static event WithinRangeEvent WithinRange;
+	private int currentCount;
 	// Use this for initialization
-	void Start () {
-	
+	public static void Start () {
+		currentCount = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	public static void Update () {
 	
+	}
+	
+	public static void AddWithinRange(){
+//		if(currentCount != (GameManager.))
+		
 	}
 	/*
 	bool CanHitUnit(Entity attacker, Entity defender){
