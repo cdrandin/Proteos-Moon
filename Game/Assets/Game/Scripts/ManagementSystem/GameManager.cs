@@ -257,11 +257,14 @@ public static class GameManager
 		{
 			for(int i=1;i<=_leaders.Length;++i)
 			{
+				Debug.LogError("IsTHereAWinner(): Fix _leaders. Currently, is none");
+				/*
 				if(_leaders[i].GetComponent<UnitStatus>().status != Status.Dead)
 				{
 					_winner = (Player)i;
 					return true;
 				}
+				*/
 			}
 		}
 		return false;
@@ -379,16 +382,21 @@ public static class GameManager
 	{
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
+		Debug.LogError("IsNextPlayersTurn: Need check for when leader is done moving");
+		/*
 		if(_leaders[_current_player_turn].GetComponent<UnitStatus>().status != Status.Resting)
 			return false;
-
+		*/
 		// If units exist for current player, check if they are able to move
+		Debug.LogError("IsNextPlayersTurn: Need check for when units are done moving");
+		/*
 		UnitStatus[] units = _player_container[_current_player_turn].GetComponentsInChildren<UnitStatus>();
 		foreach(UnitStatus unit in units)
 		{
 			if(unit.status != Status.Resting)
 				return false;
 		}
+		*/
 		return true;
 	}
 
