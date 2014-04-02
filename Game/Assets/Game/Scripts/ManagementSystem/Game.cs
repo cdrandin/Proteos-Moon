@@ -120,6 +120,7 @@ public class Game : MonoBehaviour
 	
 	void GUI_init()
 	{
+
 		if(MakeButton(0,0,"Start GameManager"))
 		{
 			if(init)

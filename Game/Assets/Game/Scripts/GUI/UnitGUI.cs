@@ -53,10 +53,11 @@ public class UnitGUI : MonoBehaviour {
 				focusObject = focusTemp;
 				GameManager.SetUnitControllerActiveOff();
 				this.gui_method += UnitsOptions;
-				init = true;
+				
 			}
 			if(movement){
 				if (proteus != NearProcite()){
+
 					this.gui_method -= UnitsOptions;
 					this.gui_method += UnitsOptions;
 					proteus = NearProcite();
@@ -109,7 +110,6 @@ public class UnitGUI : MonoBehaviour {
 		
 		if(MakeButton(button_pos,TopButtonPos (0),"Attack")){
 			//TODO: Attack Code
-			
 		}
 		
 		GUI.enabled = proteus;
@@ -118,16 +118,18 @@ public class UnitGUI : MonoBehaviour {
 			//TODO: Gather code
 		}
 		GUI.enabled = true;
-		if(movement){
-			this.gui_method -= MovementButton;
-			this.gui_method -= WaitButton;
-			this.gui_method += EndMovement;
-		}else{
-			this.gui_method += MovementButton;
-			this.gui_method += WaitButton;
-			
+		if(!init){
+			init = true;
+			if(movement){
+				
+				this.gui_method += EndMovement;
+			}else{
+				this.gui_method += MovementButton;
+				this.gui_method += WaitButton;
+			}
 		}
 	}
+	
 	
 	private void MovementButton(){
 	
