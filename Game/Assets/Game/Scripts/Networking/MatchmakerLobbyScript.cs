@@ -65,7 +65,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 	void OnPhotonCreateRoomFailed() {
 		try {
 			Debug.LogWarning("Create Room Failed. Retrying...");
-			PhotonNetwork.CreateRoom(room_name, true, true, max_players);
+			PhotonNetwork.CreateRoom(room_name);
 		}
 		catch {
 			Debug.LogError("Retry Failed. Unable to create room.");
@@ -103,7 +103,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 
 	void OnJoinedRandomRoomFailed(){
 		if (room_name != "" && max_players > 0) {
-			PhotonNetwork.CreateRoom(room_name, true, true, max_players);
+			PhotonNetwork.CreateRoom(room_name);
 		}
 	}
 
@@ -155,7 +155,7 @@ public class MatchmakerLobbyScript : Photon.MonoBehaviour {
 			}
 			if (GUILayout.Button("Create Room ")) {
 				if (room_name != "" && max_players > 0 && player_name != "") {
-					PhotonNetwork.CreateRoom(room_name, true, true, max_players);
+					PhotonNetwork.CreateRoom(room_name);
 				}
 			}
 			GUILayout.Space(2);
