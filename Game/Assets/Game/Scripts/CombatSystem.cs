@@ -6,7 +6,7 @@ public static class CombatSystem{
 	// Event Handler
 	private delegate void WithinRangeEvent(GameObject currentFocus);
 	private static event WithinRangeEvent WithinRange;
-	private int currentCount;
+	private static int currentCount;
 	// Use this for initialization
 	public static void Start () {
 		currentCount = 0;
