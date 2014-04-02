@@ -11,6 +11,9 @@ public class MovementStat
 	// How much exhaust moving cost per frame
 	public float movement_cost_per_frame;
 
+	// How much the unit has traveled so far
+	public float current_distance;
+	 
 	// How far the unit should be able to travel
 	// Close to ~ in meters perse.
 	public float max_travel_distance;

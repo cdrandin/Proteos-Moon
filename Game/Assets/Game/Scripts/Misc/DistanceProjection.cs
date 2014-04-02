@@ -18,7 +18,6 @@ public class DistanceProjection : MonoBehaviour
 
 	// Keep track of which unit is being focus
 	private GameObject _focus;
-	private UnitController _uc;
 
 	// The ratio of how many units in world space to convert to get 1 ortho size for the projection
 	// new ortho size is calculated when we got focus, then sizes projection according to that unit's distance
@@ -31,6 +30,8 @@ public class DistanceProjection : MonoBehaviour
 	// Array of projectors
 	public Projector[] projectors;
 
+	private MovementStat _movement;
+
 	void Awake ()
 	{
 		projectors = GetComponentsInChildren<Projector>();
@@ -40,6 +41,8 @@ public class DistanceProjection : MonoBehaviour
 	void Start () 
 	{
 		_focus    = null;
+		_movement = null;
+
 		_distance = 0.0f;
 		SetProjectionOff();
 	}
@@ -51,7 +54,9 @@ public class DistanceProjection : MonoBehaviour
 			SetProjectionOn(GameObject.Find("Altier_Seita") as GameObject);
 
 		if(_focus != null)
+		{
 			UpdateProjection();
+		}
 	}
 	 
 	// Focus to target, get distance, calculate new ortho size for projections
@@ -61,16 +66,6 @@ public class DistanceProjection : MonoBehaviour
 	{
 		if(_focus == null)
 		{
-			_uc = target.GetComponent<UnitController>() as UnitController;
-
-			if(_uc == null)
-			{
-				Debug.LogWarning(string.Format("Trying to project onto {0}, but it does not contain the UnitController script.", target.name));
-				return;
-			}
-
-			_focus            = target;
-			_distance         = _uc.GetMaxDistance();
 			_new_ortho_size   = _distance*_ratio;
 
 			// Resize
@@ -91,7 +86,7 @@ public class DistanceProjection : MonoBehaviour
 		new_position.y       = transform.position.y;
 		transform.position = new_position;
 
-		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _uc.GetTravelDistance()*_ratio,
+		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _movement.current_distance*_ratio,
 		                              0.0f,
 		                              _distance*_ratio);
 

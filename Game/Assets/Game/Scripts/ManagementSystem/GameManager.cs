@@ -496,6 +496,7 @@ public static class GameManager
 				}
 		}
 	
+<<<<<<< HEAD
 		/// <summary>
 		/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
 		/// </summary>
@@ -571,6 +572,99 @@ public static class GameManager
 				for (int i=0; i<_leader_status.Length; ++i)
 						_leader_status [i] = Status.Clean;
 		}
+=======
+	/// <summary>
+	/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
+	/// </summary>
+	/// <param name="unit">Unit.</param>
+	public static void AddUnitToCurrentPlayersContainer(GameObject unit)
+	{
+		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
+	}
+
+	/// <summary>
+	/// Get all units(including leader) from a chosen player.
+	/// </summary>
+	/// <returns>The units from player.</returns>
+	/// <param name="player">Player.</param>
+	public static GameObject[] GetUnitsFromPlayer(Player player)
+	{
+		BaseClass[] base_class = _player_container[(int)player].GetComponentsInChildren<BaseClass>();
+		GameObject[] units = new GameObject[base_class.Length];
+		for(int i=0;i<units.Length;++i)
+			units[i] = base_class[i].gameObject;
+
+		return units;
+	}
+	
+	private static void StartTimer()
+	{
+		_base_time = Time.time;
+	}
+
+	/// <summary>
+	/// Gets the current time.
+	/// </summary>
+	/// <returns>The current time.</returns>
+	public static float GetCurrentTime()
+	{
+		return Time.time - _base_time;
+	}
+
+	// Reset variables that are required to keep track of info during the game
+	/// <summary>
+	/// Resets the state of the game. Typically used for when the game is over or restart.
+	/// </summary>
+	public static void ResetGameState()
+	{
+		// Reset values that are used for recording players numbers
+		ResetRecordings();
+
+		// Reset leaders to be alive
+		ResetLeaders();
+
+		// Player order	
+		GenerateTurnSequence();
+
+		_winner = Player.NONE;
+	}
+
+	/// <summary>
+	/// Resets the game manager as well as reseting the game state
+	/// </summary>
+	public static void ResetGameManager()
+	{
+		_game_init = false;
+
+		ResetGameState();
+	}
+
+	// Blank resource counts
+	private static void ResetRecordings()
+	{
+		// Reset round number
+		_round_num = 0;
+
+		// Reset 
+		//_timer = 0.0f;
+
+		for(int i=0;i<_resource_count.Length;++i)
+		{
+			_resource_count[i]     = 0;
+			_resource_spent[i]     = 0;
+			_resources_obtained[i] = 0;
+			_units_obtained[i]     = 0;
+		}
+		StartTimer();
+	}
+
+	// All leaders are alive
+	private static void ResetLeaders()
+	{
+		for(int i=0;i<_leader_status.Length;++i)
+			_leader_status[i] = Status.Clean;
+	}
+>>>>>>> chris
 	
 		// Currently, shuffles player's turn order
 		private static void GenerateTurnSequence ()
