@@ -16,7 +16,6 @@ public class Vital
 	private FloatStats _health_point;
 
 	[SerializeField]
-	[Range (0.0f, 100.0f)]
 	private FloatStats _exhaust;
 
 	/*
