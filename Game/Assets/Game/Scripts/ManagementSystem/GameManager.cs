@@ -225,11 +225,13 @@ public static class GameManager
 	private static int GetSurvivingLeaderCount()
 	{
 		int alive = 0;
-
+		Debug.LogError("MIssing actual check for suriving leader count!!");
 		foreach(GameObject leader in _leaders)
 		{
+			/*
 			if(leader.GetComponent<LeaderClass>().leader.hp != 0)
 				++alive;
+				*/
 		}
 		return alive;
 	}

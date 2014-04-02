@@ -12,7 +12,7 @@ public class CombatSystem : MonoBehaviour {
 	void Update () {
 	
 	}
-
+	/*
 	bool CanHitUnit(Entity attacker, Entity defender){
 
 		return attacker.attack_range < Vector3.Distance (defender.transform.position, attacker.transform.position);
@@ -35,4 +35,5 @@ public class CombatSystem : MonoBehaviour {
 	IEnumerator WaitForAnimation(float time){
 		yield return new WaitForSeconds (time);
 	}
+	*/
 }

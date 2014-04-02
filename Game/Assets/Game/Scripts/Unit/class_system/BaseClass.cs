@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(UnitStatus))]
 public class BaseClass : MonoBehaviour 
 {
-	public BaseStat _base_stat;
-	public Vital _vital;
+	private BaseStat _base_stat;
+	private Vital _vital;
 	public MovementStat _movement;
 
 	// Use this for initialization
