@@ -43,25 +43,6 @@ public class LobbyScript : Photon.MonoBehaviour
 		this.GameInstance = null;*/
 	}
 	
-	public void Update()
-	{
-		//this.GameInstance.Service();
-		
-		// "back" button of phone will quit
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			GUILayout.BeginArea(LobbyRect);
-			GUILayout.Label("Are you sure you want to quit?");
-			GUILayout.BeginHorizontal();
-			if(GUILayout.Button("Yes"))
-				Application.Quit();
-			else if(GUILayout.Button("No"))
-				return;
-			GUILayout.EndHorizontal();
-			GUILayout.EndArea();
-		} 
-	}
-	
 	public void OnGUI()
 	{
 		GUI.skin.button.stretchWidth = true;

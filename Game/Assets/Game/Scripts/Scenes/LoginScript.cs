@@ -5,12 +5,11 @@ using Random = UnityEngine.Random;
 public class LoginScript : MonoBehaviour
 {
 	public Vector2 GuiSize = new Vector2(300, 400);
-	public static string username = string.Empty;
-	
+	private string player_name = "";
 	private Rect guiCenteredRect;
 	public MonoBehaviour componentToEnable;
 	public string logintext = "Please Log In";
-	private const string UserNamePlayerPref = "Guest";
+	private char[] arr = new char[] { '\n', ' ' };
 	
 	
 	public void Awake()
@@ -21,11 +20,11 @@ public class LoginScript : MonoBehaviour
 		{
 			Debug.LogError("To use the Login, the ComponentToEnable should be defined in inspector and disabled initially.");
 		}
-		
-		string prefsName = PlayerPrefs.GetString(LoginScript.UserNamePlayerPref);
-		if (!string.IsNullOrEmpty(prefsName))
+
+		if (string.IsNullOrEmpty(PhotonNetwork.playerName))
 		{
-			LoginScript.username = prefsName;
+			PhotonNetwork.playerName = "Guest" + Random.Range(1, 9999);
+			player_name = PhotonNetwork.playerName;
 		}
 	}
 	
@@ -34,7 +33,7 @@ public class LoginScript : MonoBehaviour
 		// Enter-Key handling:
 		if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return))
 		{
-			if (!string.IsNullOrEmpty(LoginScript.username))
+			if (!string.IsNullOrEmpty(player_name))
 			{
 				this.ConnectToLobby();
 				return;
@@ -48,7 +47,15 @@ public class LoginScript : MonoBehaviour
 		
 		GUILayout.BeginHorizontal();
 		GUI.SetNextControlName("NameInput");
-		LoginScript.username = GUILayout.TextField(LoginScript.username);
+		player_name = GUILayout.TextField(player_name, 20);
+		player_name = player_name.TrimStart(arr);
+		player_name = player_name.TrimEnd(arr);
+		PhotonNetwork.playerName = player_name;
+		if (GUI.changed)
+		{
+			// Save name
+			PlayerPrefs.SetString("playername", PhotonNetwork.playerName);
+		}
 		if (GUILayout.Button("Connect", GUILayout.Width(80)))
 		{
 			this.ConnectToLobby();
@@ -67,7 +74,7 @@ public class LoginScript : MonoBehaviour
 	
 	private void ConnectToLobby()
 	{
-		PlayerPrefs.SetString(LoginScript.UserNamePlayerPref, LoginScript.username);
+		PhotonNetwork.playerName = player_name;
 		this.componentToEnable.enabled = true;
 		this.enabled = false;
 	}
