@@ -121,7 +121,7 @@ public class Game : MonoBehaviour
 	void GUI_init()
 	{
 
-		if(MakeButton(0,0,"Start GameManager"))
+		if(MakeButton(0,50,"Start GameManager"))
 		{
 			if(init)
 				return;
@@ -133,7 +133,7 @@ public class Game : MonoBehaviour
 			_game_manager_gui.text = "Game Manager enabled";
 		}
 		
-		else if(MakeButton(0, 50, "End GameManager"))
+		else if(MakeButton(0, 100, "End GameManager"))
 		{
 			if(!init)
 				return;
