@@ -61,7 +61,7 @@ public static class GameManager
 	private static int[] _resource_spent;
 	private static int[] _units_obtained;
 	private static int _round_num;
-	//HACK private static float _timer;
+	//private static float _timer;
 	
 	private static float _base_time;
 
@@ -157,10 +157,10 @@ public static class GameManager
 
 		ResetGameState();
 	
-		StartTimer();
-
 		// Set camera
 		_wcm.ChangeCamera();
+
+		StartTimer();
 	}
 
 	// Get which player's is taking there turn currently
@@ -545,12 +545,6 @@ public static class GameManager
 	/// </summary>
 	public static void ResetGameState()
 	{
-		// Associate a player 
-		for(int i=0;i<total_players;++i)
-		{
-			_player_turn_order[i] = (Player)i;
-		}
-
 		// Reset values that are used for recording players numbers
 		ResetRecordings();
 
@@ -569,8 +563,8 @@ public static class GameManager
 		// Reset round number
 		_round_num = 0;
 
-		// Reset timer
-		//HACK _timer = 0.0f;
+		// Reset 
+		//_timer = 0.0f;
 
 		for(int i=0;i<_resource_count.Length;++i)
 		{
@@ -579,6 +573,7 @@ public static class GameManager
 			_resources_obtained[i] = 0;
 			_units_obtained[i]     = 0;
 		}
+		StartTimer();
 	}
 
 	// All leaders are alive
