@@ -140,7 +140,7 @@ public class Game : MonoBehaviour
 
 			this.gui_method -= GUI_menu;
 			init = false;
-			GameManager.ResetGameState();
+			GameManager.ResetGameManager();
 
 			_game_manager_gui.text = "Game Manager disabled";
 		}
