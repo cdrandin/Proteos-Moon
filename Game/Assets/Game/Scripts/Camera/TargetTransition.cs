@@ -1,17 +1,17 @@
-﻿//
-//  UnityEngine;
-//using System.Collections;
-//
-///*
-// * This class will allow the user to change the camera position of their units
-// * 
-// * 
-// * 
-// * */
-//
-//
-//public class TargetTransition : MonoBehaviour {
-//
+﻿
+using UnityEngine;
+using System.Collections;
+
+/*
+ * This class will allow the user to change the camera position of their units
+ * 
+ * 
+ * 
+ * */
+
+
+public class TargetTransition : MonoBehaviour {
+
 //
 //	#region class variables
 //	
@@ -155,4 +155,4 @@
 //	}
 //
 //	#endregion
-//}
+}
