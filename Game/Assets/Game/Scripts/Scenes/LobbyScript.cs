@@ -9,8 +9,9 @@ public class LobbyScript : Photon.MonoBehaviour
 	public Rect LobbyRect;  		// set in inspector to position the lobby screen
 	public Rect leftToolbar;  		// set in inspector to position the lobby screen
 	public GUIStyle network_status_style;
-	public string gameVersion = "1.0";
+	public string game_version = "1.0";
 	private string room_name = "";
+	public GameObject objectToActivate;
 	
 	public void Start()
 	{
@@ -22,24 +23,18 @@ public class LobbyScript : Photon.MonoBehaviour
 			room_name = "Room" + Random.Range(1, 9999);
 		}
 		//this.GameInstance.OnStateChangeAction += this.OnStateChanged;
-	}
-	
-	/*private void OnStateChanged(PeerState state)
-	{
-		if (state == PeerState.ConnectedToMaster)
+		if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
 		{
-			this.GetRoomsList();
+			PhotonNetwork.ConnectUsingSettings(game_version);
 		}
 	}
+
 	
-	private void GetRoomsList()
-	{
-		this.GameInstance.OpWebRpc("GetGameList", new Dictionary<string, object>());
-	}*/
 	
 	public void OnApplicationQuit()
 	{
-		PhotonNetwork.Disconnect();
+		if(PhotonNetwork.connected)
+			PhotonNetwork.Disconnect();
 		/*if (this.GameInstance != null && this.GameInstance.loadBalancingPeer != null)
 		{
 			this.GameInstance.Disconnect();
@@ -85,7 +80,7 @@ public class LobbyScript : Photon.MonoBehaviour
 		else if(PhotonNetwork.connectionStateDetailed == PeerState.Disconnected)
 		{
 			if (GUILayout.Button("Connect"))
-				PhotonNetwork.ConnectUsingSettings(gameVersion);
+				PhotonNetwork.ConnectUsingSettings(game_version);
 		}
 	}
 	
@@ -97,13 +92,14 @@ public class LobbyScript : Photon.MonoBehaviour
 		
 		if (GUILayout.Button("Join Random (or create)"))
 		{
+			print ("random");
 			if(!PhotonNetwork.JoinRandomRoom())
 				PhotonNetwork.CreateRoom(room_name);
 		}
-		if (GUILayout.Button("Create New Game"))
+		else if (GUILayout.Button("Create New Game"))
 		{
 			PhotonNetwork.CreateRoom(room_name);
-			GameObject.Find("Game_Init").SetActive(true);
+			StartGame();
 		}
 		GUILayout.Space(20);
 		
@@ -141,18 +137,29 @@ public class LobbyScript : Photon.MonoBehaviour
 
 		
 		GUILayout.Space(15);
-		
-		GUILayout.FlexibleSpace();
+
 		
 		if (GUILayout.Button("Leave (return later)"))
 		{
 			PhotonNetwork.LeaveRoom();
 		}
-		if (GUILayout.Button("Abandon"))
-		{
-			PhotonNetwork.LeaveLobby();
-		}
 		GUILayout.EndArea();
+	}
+
+	void OnLeftRoom()
+	{
+		EndGame();
+	}
+
+	private void StartGame()
+	{
+		this.objectToActivate.SetActive(true);
+	}
+
+	private void EndGame()
+	{
+		this.objectToActivate.SetActive(false);
+		GameManager.ResetGameState();
 	}
 	
 	/*private string FormatRoomProps()
