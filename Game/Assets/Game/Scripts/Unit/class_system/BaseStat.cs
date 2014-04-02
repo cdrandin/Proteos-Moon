@@ -17,13 +17,14 @@ public class ByteStats
 public class BaseStat 
 {
 	// Some basic stats for stuff
-	public ByteStats _stamina;
-	public ByteStats _strength;
-	public ByteStats _intellect;
-	public ByteStats _recovery;
-	public ByteStats _physical_def;
-	public ByteStats _magical_def;
-	
+	private ByteStats _stamina;
+	private ByteStats _strength;
+	private ByteStats _intellect;
+	private ByteStats _recovery;
+	private ByteStats _physical_def;
+	private ByteStats _magical_def;
+
+	/*
 	public BaseStat(byte stamina, byte strength, byte intellect, byte recovery, byte p_def, byte m_def, byte max=byte.MaxValue)
 	{
 		this._stamina      = new ByteStats(stamina, max);
@@ -33,7 +34,8 @@ public class BaseStat
 		this._physical_def = new ByteStats(p_def, max);
 		this._magical_def  = new ByteStats(m_def, max);
 	}
-	
+	*/
+
 	// Getters and Setters
 	public ByteStats Stamina
 	{
@@ -119,58 +121,3 @@ public class BaseStat
 		set { _magical_def = value;}
 	}
 }
-
-/*
-[System.Serializable]
-public class BaseStat
-{
-	private ByteStats stats;
-
-	public BaseStat()
-	{
-		this.stats.current = 0;
-		this.stats.max     = 0;
-	}
-
-	public BaseStat(byte max)
-	{
-		this.stats.current = 0;
-		this.stats.max     = max;
-	}
-
-	public BaseStat(BaseStat bs)
-	{
-		this.stats.current = bs.stats.current;
-		this.stats.max     = bs.stats.max;
-	}
-
-	public byte Value
-	{
-		get
-		{
-			if(this.stats.current < 0)
-				return 0;
-			else
-				return this.stats.current;
-		}
-
-		set { this.stats.current = value; }
-	}
-
-	public byte Max
-	{
-		get { return this.stats.max; }
-		set { this.stats.max = value; }
-	}
-
-	public enum StatName
-	{
-		Stamina = 0,
-		Strength,
-		Intellect, 
-		Recovery,
-		Physical_Defense,
-		Magical_Defense
-	}
-}
-*/

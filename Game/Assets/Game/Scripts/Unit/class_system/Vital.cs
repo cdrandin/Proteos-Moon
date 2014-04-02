@@ -11,9 +11,10 @@ public class FloatStats
 public class Vital
 {
 	// Vitals each unit will have
-	public FloatStats _health_point;
-	public FloatStats _exhaust;
-	
+	private FloatStats _health_point;
+	private FloatStats _exhaust;
+
+	/*
 	public Vital(float max_hp, float max_exhaust)
 	{
 		_health_point.current = max_hp;
@@ -25,6 +26,7 @@ public class Vital
 		this._health_point = hp;
 		this._exhaust      = exhaust;
 	}
+	*/
 
 	// Setters and Getters
 	public FloatStats HP
@@ -59,58 +61,3 @@ public class Vital
 		set { _exhaust = value; }
 	}
 }
-
-/*
-[System.Serializable]
-public class Vital
-{
-	private FloatStats stats;
-
-	public Vital()
-	{
-		this.stats.current = 0.0f;
-		this.stats.max     = 0.0f;
-	}
-
-	public Vital(float max)
-	{
-		this.stats.current = 0.0f;
-		this.stats.max     = max;
-	}
-
-	public Vital(Vital v)
-	{
-		this.stats.current = v.stats.current;
-		this.stats.max     = v.stats.max;
-	}
-
-	public float Value
-	{
-		get 
-		{
-			// Lowest is 0
-			if(this.stats.current < 0)
-				return 0;
-			// Most is _max_hp
-			else if(this.stats.current > this.stats.max)
-				return this.stats.max;
-			else
-				return this.stats.current;
-		}
-		
-		set { this.stats.current = value; }
-	}
-
-	public float Max
-	{
-		get { return this.stats.max; }
-		set { this.stats.max = value; }
-	}
-
-	public enum VitalName
-	{
-		Hp = 0,
-		Exhaust
-	}
-}
-*/
