@@ -29,7 +29,7 @@ public class DistanceProjection : MonoBehaviour
 	private const float _ratio = 12.25f;
 
 	// Array of projectors
-	private Projector[] projectors;
+	public Projector[] projectors;
 
 	void Awake ()
 	{
@@ -47,13 +47,11 @@ public class DistanceProjection : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		/*
 		if(Input.GetKeyDown(KeyCode.T))
-			SetProjectionOn(GameObject.FindGameObjectWithTag("Unit") as GameObject);
-		*/
+			SetProjectionOn(GameObject.Find("Altier_Seita") as GameObject);
+
 		if(_focus != null)
 			UpdateProjection();
-
 	}
 	 
 	// Focus to target, get distance, calculate new ortho size for projections
@@ -109,7 +107,6 @@ public class DistanceProjection : MonoBehaviour
 	/// <param name="target">Target.</param>
 	public void SetProjectionOn(GameObject target)
 	{
-		print ("here");
 		SetProjectorFocus(target);
 
 		foreach(Projector p in projectors)

@@ -100,8 +100,6 @@ public class UnitController : MonoBehaviour
 		_air_jump_count  = 0;
 		_travel_distance = 0.0f;
 
-		//character_state_ = CharacterState.Idle;
-
 		ClearFocusUnit();
 	}
 	

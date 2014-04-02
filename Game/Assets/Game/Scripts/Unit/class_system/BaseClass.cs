@@ -16,6 +16,8 @@ public class BaseClass : MonoBehaviour
 	[SerializeField] 
 	private UnitStatus _unit_status;
 
+	[SerializeField]
+	private float _attack_range;
 
 	public BaseStat base_stat
 	{
@@ -35,5 +37,10 @@ public class BaseClass : MonoBehaviour
 	public UnitStatus unit_status
 	{
 		get { return _unit_status; }
+	}
+
+	public float attack_range
+	{
+		get { return _attack_range; }
 	}
 }
