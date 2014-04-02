@@ -525,6 +525,21 @@ public static class GameManager
 		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
 	}
 
+	/// <summary>
+	/// Get all units(including leader) from a chosen player.
+	/// </summary>
+	/// <returns>The units from player.</returns>
+	/// <param name="player">Player.</param>
+	public static GameObject[] GetUnitsFromPlayer(Player player)
+	{
+		BaseClass[] base_class = _player_container[(int)player].GetComponentsInChildren<BaseClass>();
+		GameObject[] units = new GameObject[base_class.Length];
+		for(int i=0;i<units.Length;++i)
+			units[i] = base_class[i].gameObject;
+
+		return units;
+	}
+	
 	private static void StartTimer()
 	{
 		_base_time = Time.time;
