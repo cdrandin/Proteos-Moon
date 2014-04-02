@@ -32,12 +32,22 @@ public class Game : MonoBehaviour
 		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
 	}
 
+	void OnEnable()
+	{
+		GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+	}
+
+	void OnDisable()
+	{
+		GameManager.ResetGameManager();
+	}
+
 	// Use this for initialization
 	void Start () 
 	{
 		if(testing)
 		{
-			this.gui_method = GUI_init;
+			this.gui_method += GUI_init;
 			_game_manager_gui.enabled = true;
 			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 			_game_manager_gui.fontSize = 16;
@@ -59,7 +69,7 @@ public class Game : MonoBehaviour
 		{
 			if(testing)
 			{
-				if(Input.GetMouseButtonDown(0))
+				if(Input.GetMouseButtonDown(0) && GameObject.Find ("WorldCamera") != null)
 				{
 					// for now ~~~~~~~~~~~~
 					WorldCameraModified wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
@@ -125,7 +135,6 @@ public class Game : MonoBehaviour
 		{
 			if(init)
 				return;
-
 			this.gui_method += GUI_menu;
 			init = true;
 			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
@@ -149,47 +158,50 @@ public class Game : MonoBehaviour
 	void GUI_menu()
 	{
 		float half = Screen.width/2;
-		
-		if(MakeButton(half, 0, "Next player's turn"))
-		{
-			GameManager.NextPlayersTurn();
-			this.gui_method -= GUI_recruit;
 
-			_game_manager_gui.text = string.Format("Next player's turn\n" + 
-			                                       "Current player: {0}\n",
-			                                       GameManager.GetCurrentPlayer());
-		}
-		
-		else if(MakeButton(half, 50, "Current round #"))
-			_game_manager_gui.text = string.Format("Current round: {0}",
-			                                       GameManager.GetCurrentRound());
-		
-		else if(MakeButton(half, 100, "Timer"))
-			_game_manager_gui.text = string.Format("Current time: {0}", GameManager.GetCurrentTime());
-		
-		else if(MakeButton(half, 150, string.Format("Add 50 resource pts\n to {0}", GameManager.GetCurrentPlayer())))
+		if(GameManager.IsOn())
 		{
-			GameManager.AddResources(GameManager.GetCurrentPlayer(),50);
-			_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
-			                                       GameManager.GetCurrentPlayer(), 
-			                                       (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString(),
-			                                       GameManager.GetMaxResourceLimit().ToString());
-		}
-
-		else if(MakeButton(half, 200, "Recruit Menu"))
-		{
-			if(recruit_gui_on)
+			if(MakeButton(half, 0, "Next player's turn"))
 			{
-				this.gui_method += GUI_recruit;
-				_game_manager_gui.text = "Recruit Menu opened";
-			}
-			else
-			{	
+				GameManager.NextPlayersTurn();
 				this.gui_method -= GUI_recruit;
-				_game_manager_gui.text = "Recruit Menu closed";
+
+				_game_manager_gui.text = string.Format("Next player's turn\n" + 
+				                                       "Current player: {0}\n",
+				                                       GameManager.GetCurrentPlayer());
+			}
+			
+			else if(MakeButton(half, 50, "Current round #"))
+				_game_manager_gui.text = string.Format("Current round: {0}",
+				                                       GameManager.GetCurrentRound());
+			
+			else if(MakeButton(half, 100, "Timer"))
+				_game_manager_gui.text = string.Format("Current time: {0}", GameManager.GetCurrentTime());
+			
+			else if(MakeButton(half, 150, string.Format("Add 50 resource pts\n to {0}", GameManager.GetCurrentPlayer())))
+			{
+				GameManager.AddResources(GameManager.GetCurrentPlayer(),50);
+				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
+				                                       GameManager.GetCurrentPlayer(), 
+				                                       (GameManager.GetResourceFrom(GameManager.GetCurrentPlayer())).ToString(),
+				                                       GameManager.GetMaxResourceLimit().ToString());
 			}
 
-			recruit_gui_on = !recruit_gui_on;
+			else if(MakeButton(half, 200, "Recruit Menu"))
+			{
+				if(recruit_gui_on)
+				{
+					this.gui_method += GUI_recruit;
+					_game_manager_gui.text = "Recruit Menu opened";
+				}
+				else
+				{	
+					this.gui_method -= GUI_recruit;
+					_game_manager_gui.text = "Recruit Menu closed";
+				}
+
+				recruit_gui_on = !recruit_gui_on;
+			}
 		}
 	}
 
@@ -275,5 +287,6 @@ public class Game : MonoBehaviour
 		num_of_players = 2;
 		resource_limit = 500;
 		testing = false;
+		_game_manager_gui.text = "";
 	}
 }
