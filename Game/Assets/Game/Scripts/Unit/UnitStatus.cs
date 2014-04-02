@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public enum UnitType
 {
 	Arcane = 0,
@@ -12,6 +13,7 @@ public enum UnitType
 	Vangaurd
 }
 
+[System.Serializable]
 public enum Status
 {
 	Clean = 0, // Has not moved, all actions avaliable
@@ -23,15 +25,30 @@ public enum Status
 	Dead       // Unit is dead (Not sure if needed)
 }
 
-[RequireComponent (typeof(UnitSelected))]
-public class UnitStatus : MonoBehaviour 
+[System.Serializable]
+public class UnitStatus 
 {
-	public Status status;
-	public UnitType unit_type;
+	[SerializeField] 
+	private Status _status;
+
+	[SerializeField] 
+	private UnitType _unit_type;
 
 	// Use this for initialization
 	void Start () 
 	{
-		status = Status.Clean;
+		_status = Status.Clean;
+	}
+
+	public Status status
+	{
+		get { return _status; }
+		set { _status = value; }
+	}
+
+	public UnitType unit_type
+	{
+		get { return _unit_type ; }
+		set { _unit_type = value; }
 	}
 }

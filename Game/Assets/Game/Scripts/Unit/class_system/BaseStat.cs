@@ -17,11 +17,22 @@ public class ByteStats
 public class BaseStat 
 {
 	// Some basic stats for stuff
+	[SerializeField] 
 	private ByteStats _stamina;
+
+	[SerializeField] 
 	private ByteStats _strength;
+
+	[SerializeField] 
 	private ByteStats _intellect;
+
+	[SerializeField] 
 	private ByteStats _recovery;
+
+	[SerializeField] 
 	private ByteStats _physical_def;
+
+	[SerializeField] 
 	private ByteStats _magical_def;
 
 	/*
