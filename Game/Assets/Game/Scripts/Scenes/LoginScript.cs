@@ -20,8 +20,8 @@ public class LoginScript : MonoBehaviour
 		{
 			Debug.LogError("To use the Login, the ComponentToEnable should be defined in inspector and disabled initially.");
 		}
-
-		if (string.IsNullOrEmpty(PhotonNetwork.playerName))
+		player_name = PlayerPrefs.GetString("playername");
+		if (string.IsNullOrEmpty(player_name))
 		{
 			PhotonNetwork.playerName = "Guest" + Random.Range(1, 9999);
 			player_name = PhotonNetwork.playerName;
