@@ -63,22 +63,13 @@ public class UnitController : MonoBehaviour
 	// This is the unit of focus that is moving
 	private CharacterController _unit_focus_cc;
 
-	/*
-	// State of the unit
-	private enum CharacterState : byte
-	{
-		Idle = 0,
-		Running,
-		Jumping,
-		Attacking,
-		Mining
-	};
+	// Keep track of the projector for how far a unit can move
+	private DistanceProjection _distance_proj;
 
-	private CharacterState character_state;
-	*/
-	
 	void Awake()
 	{	
+		_distance_proj = GameObject.FindObjectOfType<DistanceProjection>();
+
 		//HACK to get rid of warnings
 		/*_animation = GetComponent<Animation>();
 		if (!idle_animation)

@@ -545,6 +545,8 @@ public static class GameManager
 	/// </summary>
 	public static void ResetGameState()
 	{
+		_game_init = false;
+
 		// Reset values that are used for recording players numbers
 		ResetRecordings();
 
