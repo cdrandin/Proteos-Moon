@@ -116,6 +116,7 @@ public class UnitGUI : MonoBehaviour {
 
 		if(MakeButton(button_pos, TopButtonPos(1), "Gather"	) ){
 			//TODO: Gather code
+			GameManager.AddResourcesToCurrentPlayer(50);
 		}
 		GUI.enabled = true;
 		if(!init){
@@ -177,6 +178,7 @@ public class UnitGUI : MonoBehaviour {
 		if(MakeButton(button_pos, TopButtonPos(2), "End Movement")){
 			GameManager.SetUnitControllerActiveOff();
 			this.gui_method -= EndMovement;
+			this.gui_method += MovementButton;
 			this.gui_method += WaitButton;
 			movement = false;
 			RestCamera();
