@@ -21,6 +21,7 @@ public enum Status
 	Movement,  // Unit is moving
 	Combat,    // Unit is in combat
 	Ability,   // Unit has used ability last
+	Gathering,    // UNit is gathering a resource
 	Resting,   // Unit has exhuasted its exhuast bar or cannot perform any more actions
 	Dead       // Unit is dead (Not sure if needed)
 }

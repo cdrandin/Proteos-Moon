@@ -44,11 +44,11 @@ public static class GameManager
 	// Winning conditions
 	private static int[] _resource_count;
 	private static int _max_resource;
-	private static bool[] _leaders_alive; // Find better way
+	private static Status[] _leader_status;
 
 	// Keep track of each player's unit accordingly
 	private static GameObject[] _leaders;
-	
+
 	// Pointer to containers, units will be rooted to them
 	// The gameobject will contain the objects of that player's units and leader as its children nodes
 	private static GameObject[] _player_container;
@@ -136,7 +136,7 @@ public static class GameManager
 		_resources_obtained = new int[total_players];
 
 		// Allocated correct number of leader counters
-		_leaders_alive = new bool[total_players];
+		_leader_status = new Status[total_players];
 
 		// Allocate correct number of leaders
 		_leaders = new GameObject[total_players];
@@ -225,13 +225,10 @@ public static class GameManager
 	private static int GetSurvivingLeaderCount()
 	{
 		int alive = 0;
-		Debug.LogError("Missing actual check for suriving leader count!!");
-		foreach(GameObject leader in _leaders)
+		foreach(Status lead_status in _leader_status)
 		{
-			/*
-			if(leader.GetComponent<LeaderClass>().leader.hp != 0)
+			if(lead_status != Status.Dead)
 				++alive;
-				*/
 		}
 		return alive;
 	}
@@ -255,16 +252,13 @@ public static class GameManager
 		// Win by having 1 leader survive/killing off other leaders
 		else if(GetSurvivingLeaderCount() == 1)
 		{
-			for(int i=1;i<=_leaders.Length;++i)
+			for(int i=0;i<=_leader_status.Length;++i)
 			{
-				Debug.LogError("IsTHereAWinner(): Fix _leaders. Currently, is none");
-				/*
-				if(_leaders[i].GetComponent<UnitStatus>().status != Status.Dead)
+				if(_leader_status[i] != Status.Dead)
 				{
 					_winner = (Player)i;
 					return true;
 				}
-				*/
 			}
 		}
 		return false;
@@ -592,8 +586,8 @@ public static class GameManager
 	// All leaders are alive
 	private static void ResetLeaders()
 	{
-		for(int i=0;i<_leaders_alive.Length;++i)
-			_leaders_alive[i] = true;
+		for(int i=0;i<_leader_status.Length;++i)
+			_leader_status[i] = Status.Clean;
 	}
 	
 	// Currently, shuffles player's turn order
@@ -634,7 +628,7 @@ public static class GameManager
 				"Leader alive:{3}\n" +
 				"Units obtained:{4}\n" +
 				"Enemy units killed:{5}\n\n", 
-				i+1, _resources_obtained[i], _resource_spent[i], _leaders_alive[i], _units_obtained[i], -1);
+				i+1, _resources_obtained[i], _resource_spent[i], _leader_status[i], _units_obtained[i], -1);
 		}
 
 		string scores = string.Format("Total rounds:{0}\n" +
