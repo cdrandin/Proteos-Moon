@@ -266,6 +266,9 @@ public class UnitController : MonoBehaviour
 				_unit_focus_cc.center = new Vector3(_unit_focus_cc.center.x, 0.95f,_unit_focus_cc.center.z);
 				_unit_focus_cc.radius = 0.3f;
 				_unit_focus_cc.height = 2.31f;
+
+				// Set distance projector to focus unit
+				_distance_proj.SetProjectionOn(unit);
 			}
 
 			// Assume we got what we need now.
@@ -278,6 +281,9 @@ public class UnitController : MonoBehaviour
 	public void ClearFocusUnit()
 	{
 		_unit_focus_cc = null;
+
+		// Set distance projector to unfocus
+		_distance_proj.SetProjectionOff();
 	}
 
 	public GameObject GetUnitControllerFocus()

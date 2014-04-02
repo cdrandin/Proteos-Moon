@@ -545,8 +545,6 @@ public static class GameManager
 	/// </summary>
 	public static void ResetGameState()
 	{
-		_game_init = false;
-
 		// Reset values that are used for recording players numbers
 		ResetRecordings();
 
@@ -557,6 +555,16 @@ public static class GameManager
 		GenerateTurnSequence();
 
 		_winner = Player.NONE;
+	}
+
+	/// <summary>
+	/// Resets the game manager as well as reseting the game state
+	/// </summary>
+	public static void ResetGameManager()
+	{
+		_game_init = false;
+
+		ResetGameState();
 	}
 
 	// Blank resource counts

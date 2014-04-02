@@ -50,10 +50,10 @@ public class DistanceProjection : MonoBehaviour
 		/*
 		if(Input.GetKeyDown(KeyCode.T))
 			SetProjectionOn(GameObject.FindGameObjectWithTag("Unit") as GameObject);
-
+		*/
 		if(_focus != null)
 			UpdateProjection();
-		*/
+
 	}
 	 
 	// Focus to target, get distance, calculate new ortho size for projections
