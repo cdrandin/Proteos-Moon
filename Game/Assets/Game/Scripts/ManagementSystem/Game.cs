@@ -277,6 +277,15 @@ public class Game : MonoBehaviour
 	{
 		return Random.Range(1,number_of_players+1);
 	}
+
+	public void ResetGUIState()
+	{
+		init = false;
+		this.gui_method -= GUI_init;
+		this.gui_method -= GUI_menu;
+		this.gui_method -= GUI_recruit;
+	}
+
 	
 	void Reset ()
 	{
