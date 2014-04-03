@@ -90,78 +90,78 @@ public static class GameManager
 	/// <param name="resource_win_count">Resource_win_count.</param>
 	/// <param name="unit_cost">Unit_cost.</param>
 	public static void Init (int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
-	{
-			if (IsOn ())
-			{
-				Debug.LogError("GameManager is already on. You shouldn't be calling init again.");
+{
+		if (IsOn ())
+		{
+			Debug.LogError("GameManager is already on. You shouldn't be calling init again.");
+			return;
+		}
+
+		// Valid player limit
+		if ((who_goes_first < 1) || (who_goes_first > num_of_players) || (num_of_players > 4)) {
+				_game_init = false;
+				Debug.LogError ("Player limit reached!\nProblem in GameManager.cs");
 				return;
-			}
+		}
 
-			_game_init = true;
+		total_players = num_of_players;
 
-			// Valid player limit
-			if ((who_goes_first < 1) || (who_goes_first > num_of_players) || (num_of_players > 4)) {
-					_game_init = false;
-					Debug.LogError ("Player limit reached!\nProblem in GameManager.cs");
-					return;
-			}
+		_rs = GameObject.FindGameObjectWithTag("GameController").GetComponent<RecruitSystem> ();
+		if (_rs == null)
+				Debug.LogWarning("Recruit System missing reference");
 
-			total_players = num_of_players;
+		_uc = GameObject.FindGameObjectWithTag ("UnitController").GetComponent<UnitController> ();
+		if (_uc == null)
+				Debug.LogWarning("Unit Controller missing reference");
 
-			_rs = GameObject.FindGameObjectWithTag("GameController").GetComponent<RecruitSystem> ();
-			if (_rs == null)
-					Debug.LogWarning("Recruit System missing reference");
+		_wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified> ();
+		if (_wcm == null)
+				Debug.LogWarning("World Camera missing reference");
 
-			_uc = GameObject.FindGameObjectWithTag ("UnitController").GetComponent<UnitController> ();
-			if (_uc == null)
-					Debug.LogWarning("Unit Controller missing reference");
+		_winner = Player.NONE;
 
-			_wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified> ();
-			if (_wcm == null)
-					Debug.LogWarning("World Camera missing reference");
+		// Keep track of cost
+		_unit_cost = unit_cost;
 
-			_winner = Player.NONE;
+		// What is the max number of resources required to win
+		_max_resource = resource_win_count;
 
-			// Keep track of cost
-			_unit_cost = unit_cost;
+		// One time calls of basic init.
+		_player_turn_order = new Player[total_players];
 
-			// What is the max number of resources required to win
-			_max_resource = resource_win_count;
+		// Allocate correct number of resource counters
+		_resource_count = new int[total_players];
+		_resource_spent = new int[total_players];
+		_resources_obtained = new int[total_players];
 
-			// One time calls of basic init.
-			_player_turn_order = new Player[total_players];
+		// Allocated correct number of leader counters
+		_leader_status = new Status[total_players];
 
-			// Allocate correct number of resource counters
-			_resource_count = new int[total_players];
-			_resource_spent = new int[total_players];
-			_resources_obtained = new int[total_players];
+		// Allocate correct number of leaders
+		_leaders = new GameObject[total_players];
 
-			// Allocated correct number of leader counters
-			_leader_status = new Status[total_players];
+		// Allocate correct number of player containers for their units/leaders
+		_player_container = new GameObject[total_players];
 
-			// Allocate correct number of leaders
-			_leaders = new GameObject[total_players];
+		// How many units ech player purchased
+		_units_obtained = new int[total_players];
 
-			// Allocate correct number of player containers for their units/leaders
-			_player_container = new GameObject[total_players];
+		// Pointer to the leader script, to keep track of hp
+		// _leader_script = new ^LeaderScript^[total_players];
 
-			// How many units ech player purchased
-			_units_obtained = new int[total_players];
+		// Get player units on the screen, for now assuming leaders are there before the game starts
+		InitPlayerContainers ();
+		InitPlayersLeader ();
+		//InitPlayersUnits();
 
-			// Pointer to the leader script, to keep track of hp
-			// _leader_script = new ^LeaderScript^[total_players];
+		ResetGameState ();
 
-			// Get player units on the screen, for now assuming leaders are there before the game starts
-			InitPlayerContainers ();
-			InitPlayersLeader ();
-			//InitPlayersUnits();
+		// Set camera
+		_wcm.ChangeCamera ();
 
-			ResetGameState ();
+		StartTimer ();
 
-			// Set camera
-			_wcm.ChangeCamera ();
-
-			StartTimer ();
+		_game_init = true;
 	}
 
 	// Get which player's is taking there turn currently
