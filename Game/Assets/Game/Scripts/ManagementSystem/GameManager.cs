@@ -152,7 +152,8 @@ public static class GameManager
 		// Get player units on the screen, for now assuming leaders are there before the game starts
 		InitPlayerContainers ();
 		InitPlayersLeader ();
-		//InitPlayersUnits();
+
+		ResetGameState ();
 
 		// Set camera
 		_wcm.ChangeCamera ();
@@ -160,7 +161,6 @@ public static class GameManager
 		StartTimer ();
 
 		_game_init = true;
-		ResetGameState ();
 	}
 
 	// Get which player's is taking there turn currently
@@ -171,10 +171,7 @@ public static class GameManager
 	/// <returns>The current player.</returns>
 	public static Player GetCurrentPlayer ()
 	{
-		if(IsOn())
-			return _player_turn_order [_current_player_turn]; 
-		else
-			return Player.NONE;
+		return _player_turn_order [_current_player_turn]; 
 	}
 
 	public static Player GetPlayer (int player)
@@ -551,8 +548,6 @@ public static class GameManager
 		// Reset leaders to be alive
 		ResetLeaders();
 
-		Deallocate();
-
 		// Player order	
 		//GenerateTurnSequence();
 
@@ -567,6 +562,7 @@ public static class GameManager
 		_game_init = false;
 
 		ResetGameState();
+		Deallocate();
 	}
 
 	// Blank resource counts

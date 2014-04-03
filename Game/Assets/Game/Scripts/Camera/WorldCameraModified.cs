@@ -403,23 +403,17 @@ public class WorldCameraModified : MonoBehaviour {
 			{
 				MainCamera = GameObject.Find (camera_name);
 
-				if(MainCamera != null)
-				{
-					MainCamera.GetComponent<AudioListener>().enabled = true;
-					MainCamera.GetComponent<Camera>().enabled = true;
-					
-					// Add camera from container
-					MainCamera.transform.parent = this.transform;
-					
-					//Change Transform information
-					this.transform.position = MainCamera.transform.position;
-					MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
-					this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
-					MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
-				}
-
-
-
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+				
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
+				
+				//Change Transform information
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
 			}
 		} // End of local
 	}
