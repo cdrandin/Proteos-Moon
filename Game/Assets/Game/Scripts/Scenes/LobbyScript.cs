@@ -11,6 +11,7 @@ public class LobbyScript : MonoBehaviour
 	public GUIStyle network_status_style;
 	public GUISkin lobby_skin;
 	public GUISkin lobby_skin_alternate;
+	//public Texture tex;
 	public string game_version = "1.0";
 	private string room_name = "";
 	private Vector2 scroll_position;
@@ -71,13 +72,14 @@ public class LobbyScript : MonoBehaviour
 	private void GuiInLobby()
 	{
 		GUILayout.BeginArea(LobbyRect);
-		GUILayout.Box("mainpaper");
+		//GUILayout.Box(tex);
 		GUILayout.Label("Lobby Screen");
 		GUILayout.Label(string.Format("Players in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
 			PhotonNetwork.JoinRandomRoom();
+			StartGame();
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
@@ -97,11 +99,12 @@ public class LobbyScript : MonoBehaviour
 		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {
 			//GUI.color = Color.green;
 			GUI.skin = lobby_skin_alternate;
-			GUILayout.Box(game.name + " " + game.playerCount + "/" + game.maxPlayers);
+			GUILayout.Box(game.name + " " + game.playerCount + "/2");
 			GUI.skin = lobby_skin;
 			//GUI.color = Color.white;
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
+				StartGame();
 			}
 		}
 		GUILayout.EndScrollView();
@@ -112,7 +115,7 @@ public class LobbyScript : MonoBehaviour
 	private void GuiInGame()
 	{
 		GUILayout.BeginArea(leftToolbar);
-		GUILayout.Box("mainpaper");
+		//GUILayout.Box(tex);
 		GUI.skin.button.stretchWidth = false;
 		GUI.skin.button.fixedWidth = 150;
 		
@@ -144,8 +147,9 @@ public class LobbyScript : MonoBehaviour
 		EndGame();
 	}
 
-	void OnJoinRandomRoomFail()
+	void OnPhotonRandomJoinFailed()
 	{
+		print ("yo");
 		PhotonNetwork.CreateRoom(room_name);
 	}
 
