@@ -84,7 +84,7 @@ public class LobbyScript : Photon.MonoBehaviour
 		}
 		GUILayout.Space(20);
 		
-		if (GUILayout.Button("Refresh", GUILayout.Width(150)))
+		if (GUILayout.Button("Refresh"))
 		{
 			PhotonNetwork.GetRoomList();
 		}
