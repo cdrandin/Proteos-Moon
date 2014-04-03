@@ -9,8 +9,11 @@ public class LobbyScript : Photon.MonoBehaviour
 	public Rect LobbyRect;  		// set in inspector to position the lobby screen
 	public Rect leftToolbar;  		// set in inspector to position the lobby screen
 	public GUIStyle network_status_style;
+	public GUISkin lobby_skin;
+	public GUISkin lobby_skin_alternate;
 	public string game_version = "1.0";
 	private string room_name = "";
+	private Vector2 scroll_position;
 	public GameObject objectToActivate;
 	
 	public void Start()
@@ -70,18 +73,18 @@ public class LobbyScript : Photon.MonoBehaviour
 		GUILayout.BeginArea(LobbyRect);
 		GUILayout.Label("Lobby Screen");
 		GUILayout.Label(string.Format("Players in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
-		
+		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
-			print ("random");
 			if(!PhotonNetwork.JoinRandomRoom())
 				PhotonNetwork.CreateRoom(room_name);
 		}
-		else if (GUILayout.Button("Create New Game"))
+		if (GUILayout.Button("Create New Game"))
 		{
 			PhotonNetwork.CreateRoom(room_name);
 			StartGame();
 		}
+		GUILayout.EndHorizontal();
 		GUILayout.Space(20);
 		
 		if (GUILayout.Button("Refresh"))
@@ -90,14 +93,18 @@ public class LobbyScript : Photon.MonoBehaviour
 		}
 		GUILayout.Space(20);
 		
-		/*GUILayout.Label("Rooms in lobby: " + PhotonNetwork.countOfRooms);
-		foreach (RoomInfo roomInfo in PhotonNetwork.GetRoomList())
-		{
-			if (GUILayout.Button(roomInfo.name + " turn: " + roomInfo.customProperties["t#"]))
-			{
-				this.GameInstance.OpJoinRoom(roomInfo.name);
+		scroll_position = GUILayout.BeginScrollView(scroll_position, false, false);
+		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {
+			//GUI.color = Color.green;
+			GUI.skin = lobby_skin_alternate;
+			GUILayout.Box(game.name + " " + game.playerCount + "/" + game.maxPlayers);
+			GUI.skin = lobby_skin;
+			//GUI.color = Color.white;
+			if (GUILayout.Button("Join Room")) {
+				PhotonNetwork.JoinRoom(game.name);
 			}
-		}*/
+		}
+		GUILayout.EndScrollView();
 		
 		GUILayout.EndArea();
 	}
