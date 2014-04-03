@@ -32,16 +32,6 @@ public class Game : MonoBehaviour
 		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
 	}
 
-	void OnEnable()
-	{
-		GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
-	}
-
-	void OnDisable()
-	{
-		GameManager.ResetGameManager();
-	}
-
 	// Use this for initialization
 	void Start () 
 	{

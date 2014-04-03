@@ -92,7 +92,10 @@ public static class GameManager
 		public static void Init (int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
 		{
 				if (IsOn ())
-						return;
+				{
+					Debug.LogError("GameManager is already on. You shouldn't be calling init again.");
+					return;
+				}
 
 				_game_init = true;
 
