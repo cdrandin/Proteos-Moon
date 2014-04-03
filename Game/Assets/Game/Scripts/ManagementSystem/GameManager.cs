@@ -422,7 +422,7 @@ public static class GameManager
 			GameManager.SetUnitControllerActiveOff ();
 
 			// When all player's have had their turn increment round number counter
-			if ((_current_player_turn + 1) % total_players == 0)
+			if (_current_player_turn == 0)
 					++_round_num;
 
 			// Change camera accoring to player
