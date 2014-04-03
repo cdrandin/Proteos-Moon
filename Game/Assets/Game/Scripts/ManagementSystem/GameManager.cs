@@ -154,14 +154,13 @@ public static class GameManager
 		InitPlayersLeader ();
 		//InitPlayersUnits();
 
-		ResetGameState ();
-
 		// Set camera
 		_wcm.ChangeCamera ();
 
 		StartTimer ();
 
 		_game_init = true;
+		ResetGameState ();
 	}
 
 	// Get which player's is taking there turn currently
@@ -172,7 +171,10 @@ public static class GameManager
 	/// <returns>The current player.</returns>
 	public static Player GetCurrentPlayer ()
 	{
+		if(IsOn())
 			return _player_turn_order [_current_player_turn]; 
+		else
+			return null;
 	}
 
 	public static Player GetPlayer (int player)
