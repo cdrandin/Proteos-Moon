@@ -174,7 +174,7 @@ public static class GameManager
 		if(IsOn())
 			return _player_turn_order [_current_player_turn]; 
 		else
-			return null;
+			return Player.NONE;
 	}
 
 	public static Player GetPlayer (int player)
