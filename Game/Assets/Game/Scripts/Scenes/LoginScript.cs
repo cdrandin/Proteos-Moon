@@ -7,6 +7,7 @@ public class LoginScript : MonoBehaviour
 	public Vector2 GuiSize = new Vector2(350, 400);
 	private string player_name = "";
 	private Rect guiCenteredRect;
+	//public Texture tex;
 	public MonoBehaviour componentToEnable;
 	public string logintext = "Please Log In";
 	private char[] arr = new char[] { '\n', ' ' };
@@ -41,7 +42,7 @@ public class LoginScript : MonoBehaviour
 		}
 		GUI.skin.label.wordWrap = true;
 		GUILayout.BeginArea(guiCenteredRect);
-		GUILayout.Box("mainpaper");
+		//GUILayout.Box(tex);
 		
 		GUILayout.Label(this.logintext);
 		

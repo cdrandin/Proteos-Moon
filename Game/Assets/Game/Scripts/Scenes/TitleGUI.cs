@@ -19,7 +19,7 @@ public class TitleGUI : MonoBehaviour {
 			Application.LoadLevel("Options");
 		}
 		if(GUI.Button(new Rect(half_screen_width - half_button_width, 470, button_width, button_height), "Multiplayer")){
-			Application.LoadLevel("KABLAAAAAHHHH");
+			Application.LoadLevel("Login");
 		}
 	}
 }
