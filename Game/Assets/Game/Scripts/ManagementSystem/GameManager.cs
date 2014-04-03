@@ -538,7 +538,7 @@ public static class GameManager
 
 	// Reset variables that are required to keep track of info during the game
 	/// <summary>
-	/// Resets the state of the game. Typically used for when the game is over or restart.
+	/// Resets the values in the game. Typically used for when the game is over or restart.
 	/// </summary>
 	public static void ResetGameState()
 	{
@@ -555,13 +555,13 @@ public static class GameManager
 	}
 
 	/// <summary>
-	/// Resets the game manager as well as reseting the game state
+	/// Deallocate values that were used
 	/// </summary>
 	public static void ResetGameManager()
 	{
 		_game_init = false;
 
-		ResetGameState();
+		//ResetGameState();
 		Deallocate();
 	}
 
