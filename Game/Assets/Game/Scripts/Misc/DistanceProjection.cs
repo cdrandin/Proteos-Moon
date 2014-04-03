@@ -50,9 +50,6 @@ public class DistanceProjection : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.T))
-			SetProjectionOn(GameObject.Find("Altier_Seita") as GameObject);
-
 		if(_focus != null)
 		{
 			UpdateProjection();
@@ -66,6 +63,9 @@ public class DistanceProjection : MonoBehaviour
 	{
 		if(_focus == null)
 		{
+			_focus    = target;
+			_movement = _focus.GetComponent<BaseClass>().movement;
+			_distance = _movement.max_distance;
 			_new_ortho_size   = _distance*_ratio;
 
 			// Resize
@@ -80,11 +80,11 @@ public class DistanceProjection : MonoBehaviour
 	/// <summary>
 	/// Updates the projection. Keep calling this function if you want the projectin to follow the unit
 	/// </summary>
-	public void UpdateProjection()
+	private void UpdateProjection()
 	{
 		Vector3 new_position = _focus.transform.position;
 		new_position.y       = transform.position.y;
-		transform.position = new_position;
+		transform.position   = new_position;
 
 		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _movement.current_distance*_ratio,
 		                              0.0f,

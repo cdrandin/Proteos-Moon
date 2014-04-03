@@ -17,7 +17,12 @@ public class UnitGUI : MonoBehaviour {
 	private float [] shift;
 	private Transform from;
 	#endregion
-	
+
+	public GameObject focus_object 
+	{
+		get { return this.focusObject; }
+	}
+
 	// Use this for initialization
 	void Awake(){
 		//set objects to null
@@ -167,6 +172,7 @@ public class UnitGUI : MonoBehaviour {
 			GameManager.SetUnitControllerActiveOff();
 			this.gui_method -= WaitButton;
 			this.gui_method -= UnitsOptions;
+			this.gui_method -= MovementButton;
 			focusObject = null;
 			init = false;
 			}
