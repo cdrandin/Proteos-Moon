@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * BaseStat.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
@@ -57,9 +63,14 @@ public class BaseStat
 		get	
 		{
 			if(_stamina.current < 0)
+			{
 				_stamina.current = 0;
+			}
 			else if (_stamina.current > _stamina.max)
+			{
 				_stamina.current = _stamina.max;
+			}
+
 			return _stamina;
 		}
 
@@ -72,9 +83,14 @@ public class BaseStat
 		get	
 		{
 			if(_strength.current < 0)
+			{
 				_strength.current = 0;
+			}
 			else if (_strength.current > _strength.max)
+			{
 				_strength.current = _strength.max;
+			}
+
 			return _strength;
 		}
 		
@@ -86,9 +102,14 @@ public class BaseStat
 		get	
 		{
 			if(_agility.current < 0)
+			{
 				_agility.current = 0;
+			}
 			else if (_agility.current > _agility.max)
+			{
 				_agility.current = _agility.max;
+			}
+
 			return _agility;
 		}
 		
@@ -100,9 +121,14 @@ public class BaseStat
 		get	
 		{
 			if(_intellect.current < 0)
+			{
 				_intellect.current = 0;
+			}
 			else if (_intellect.current > _intellect.max)
+			{
 				_intellect.current = _intellect.max;
+			}
+
 			return _intellect;
 		}
 
@@ -114,9 +140,14 @@ public class BaseStat
 		get	
 		{
 			if(_recovery.current < 0)
+			{
 				_recovery.current = 0;
+			}
 			else if (_recovery.current > _recovery.max)
+			{
 				_recovery.current = _recovery.max;
+			}
+
 			return _recovery;
 		}
 
@@ -128,9 +159,14 @@ public class BaseStat
 		get	
 		{
 			if(_physical_def.current < 0)
+			{
 				_physical_def.current = 0;
+			}
 			else if (_physical_def.current > _physical_def.max)
+			{
 				_physical_def.current = _physical_def.max;
+			}
+
 			return _physical_def;
 		}
 
@@ -142,9 +178,14 @@ public class BaseStat
 		get	
 		{
 			if(_magical_def.current < 0)
+			{
 				_magical_def.current = 0;
+			}
 			else if (_strength.current > _magical_def.max)
+			{
 				_magical_def.current = _magical_def.max;
+			}
+
 			return _magical_def;
 		}
 

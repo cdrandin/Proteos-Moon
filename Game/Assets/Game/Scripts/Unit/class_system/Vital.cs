@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Vital.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
@@ -39,10 +45,16 @@ public class Vital
 		{
 			// Lowest hp is 0
 			if(_health_point.current < 0)
+			{
 				_health_point.current = 0;
+			}
+				
 			// Most hp is _max_hp
 			else if(_health_point.current > _health_point.max)
+			{
 				_health_point.current = _health_point.max;
+			}
+				
 			return _health_point;
 		}
 		
@@ -55,10 +67,16 @@ public class Vital
 		{
 			// Lowest exhaust is 0
 			if(_exhaust.current < 0)
+			{
 				_exhaust.current = 0;
+			}
+				
 			// Most exhaust is _max_exhaust
 			else if(_exhaust.current > _exhaust.max)
+			{
 				_exhaust.current = _exhaust.max;
+			}
+				
 			return _exhaust;
 		}
 

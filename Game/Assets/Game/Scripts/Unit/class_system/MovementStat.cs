@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * MovementStat.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
@@ -50,7 +56,10 @@ public class MovementStat
 		get 
 		{
 			if(_current_distance < 0)
+			{
 				_current_distance = 0;
+			}
+
 			return _current_distance;
 		}
 

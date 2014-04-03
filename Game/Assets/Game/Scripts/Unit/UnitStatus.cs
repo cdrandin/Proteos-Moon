@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * UnitStatus.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]

@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * PoolingSystem.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 public class PoolingSystem : MonoBehaviour

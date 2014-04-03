@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Cursor.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 public class Cursor : MonoBehaviour 
@@ -16,12 +22,16 @@ public class Cursor : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void LateUpdate () 
 	{
 		if(Input.GetMouseButtonDown(0))
+		{
 			_current = mouse_down;
+		}
 		else if(Input.GetMouseButtonUp(0))
+		{
 			_current = mouse_up;
+		}
 	}
 
 

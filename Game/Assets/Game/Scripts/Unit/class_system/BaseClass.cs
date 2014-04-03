@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * BaseClass.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(UnitActions))]
