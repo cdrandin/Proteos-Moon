@@ -128,6 +128,10 @@ public class LobbyScript : Photon.MonoBehaviour
 		{
 			PhotonNetwork.LeaveRoom();
 		}
+		if (GUILayout.Button("Back To Main Menu"))
+		{
+			Application.LoadLevel("TitleScene");
+		}
 		GUILayout.EndArea();
 	}
 
