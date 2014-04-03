@@ -71,11 +71,6 @@ public static class GameManager
 	 * HACKY
 	 */
 	private static Game _game_gui;
-
-	public static void InitGUIState()
-	{
-		_game_gui.InitGUIState();
-	}
 	/*
 	 * 
 	 */
@@ -184,6 +179,7 @@ public static class GameManager
 		StartTimer ();
 
 		_game_init = true;
+		_game_gui.InitGUIState();
 	}
 
 	// Get which player's is taking there turn currently
