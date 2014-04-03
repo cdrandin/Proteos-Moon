@@ -48,6 +48,7 @@ public class LoginScript : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		GUI.SetNextControlName("NameInput");
 		player_name = GUILayout.TextField(player_name, 20);
+		GUILayout.EndHorizontal();
 		player_name = player_name.TrimStart(arr);
 		player_name = player_name.TrimEnd(arr);
 		PhotonNetwork.playerName = player_name;
@@ -56,18 +57,16 @@ public class LoginScript : MonoBehaviour
 			// Save name
 			PlayerPrefs.SetString("playername", PhotonNetwork.playerName);
 		}
-		if (GUILayout.Button("Connect", GUILayout.Width(80)))
+		GUILayout.BeginHorizontal();
+		if (GUILayout.Button("Connect"))
 		{
 			this.ConnectToLobby();
 		}
 		GUI.FocusControl("NameInput");
-		GUILayout.EndHorizontal();
-		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Back To Main Menu"))
 		{
 			Application.LoadLevel("TitleScene");
 		}
-		
 		GUILayout.EndHorizontal();
 		GUILayout.EndArea();
 	}
