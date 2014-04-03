@@ -39,10 +39,10 @@ public class Game : MonoBehaviour
 		{
 			this.gui_method += GUI_init;
 			_game_manager_gui.enabled = true;
+			recruit_gui_on = true;
 			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 			_game_manager_gui.fontSize = 16;
 
-			recruit_gui_on = true;
 			waitingTime = 5.0f;
 			timer = 0.0f;
 
@@ -120,7 +120,6 @@ public class Game : MonoBehaviour
 	
 	void GUI_init()
 	{
-
 		if(MakeButton(0,80,"Start GameManager"))
 		{
 			if(init)
@@ -289,6 +288,7 @@ public class Game : MonoBehaviour
 		this.gui_method -= GUI_init;
 		this.gui_method -= GUI_menu;
 		this.gui_method -= GUI_recruit;
+		recruit_gui_on = true;
 	}
 
 	
