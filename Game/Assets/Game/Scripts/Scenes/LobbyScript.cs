@@ -3,7 +3,7 @@ using UnityEngine;
 //using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
-public class LobbyScript : Photon.MonoBehaviour
+public class LobbyScript : MonoBehaviour
 {
 	//public Game GameInstance;
 	public Rect LobbyRect;  		// set in inspector to position the lobby screen
@@ -14,7 +14,7 @@ public class LobbyScript : Photon.MonoBehaviour
 	public string game_version = "1.0";
 	private string room_name = "";
 	private Vector2 scroll_position;
-	public GameObject objectToActivate;
+	//public GameObject objectToActivate;
 	
 	public void Start()
 	{
@@ -71,13 +71,13 @@ public class LobbyScript : Photon.MonoBehaviour
 	private void GuiInLobby()
 	{
 		GUILayout.BeginArea(LobbyRect);
+		GUILayout.Box("mainpaper");
 		GUILayout.Label("Lobby Screen");
 		GUILayout.Label(string.Format("Players in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
-			if(!PhotonNetwork.JoinRandomRoom())
-				PhotonNetwork.CreateRoom(room_name);
+			PhotonNetwork.JoinRandomRoom();
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
@@ -112,6 +112,7 @@ public class LobbyScript : Photon.MonoBehaviour
 	private void GuiInGame()
 	{
 		GUILayout.BeginArea(leftToolbar);
+		GUILayout.Box("mainpaper");
 		GUI.skin.button.stretchWidth = false;
 		GUI.skin.button.fixedWidth = 150;
 		
@@ -124,12 +125,15 @@ public class LobbyScript : Photon.MonoBehaviour
 		}*/
 
 		
-		if (GUILayout.Button("Leave (return later)"))
+		if (GUILayout.Button("Leave Room"))
 		{
+			//PhotonNetwork.DestroyPlayerObjects();
 			PhotonNetwork.LeaveRoom();
 		}
 		if (GUILayout.Button("Back To Main Menu"))
 		{
+			PhotonNetwork.LeaveRoom();
+			PhotonNetwork.Disconnect();
 			Application.LoadLevel("TitleScene");
 		}
 		GUILayout.EndArea();
@@ -140,14 +144,19 @@ public class LobbyScript : Photon.MonoBehaviour
 		EndGame();
 	}
 
+	void OnJoinRandomRoomFail()
+	{
+		PhotonNetwork.CreateRoom(room_name);
+	}
+
 	private void StartGame()
 	{
-		this.objectToActivate.SetActive(true);
+		Application.LoadLevel("StartGame");
 	}
 
 	private void EndGame()
 	{
-		this.objectToActivate.SetActive(false);
+		//this.objectToActivate.SetActive(false);
 		GameManager.ResetGameManager();
 	}
 	

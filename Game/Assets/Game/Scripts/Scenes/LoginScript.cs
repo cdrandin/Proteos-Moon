@@ -40,8 +40,8 @@ public class LoginScript : MonoBehaviour
 			}
 		}
 		GUI.skin.label.wordWrap = true;
-		
 		GUILayout.BeginArea(guiCenteredRect);
+		GUILayout.Box("mainpaper");
 		
 		GUILayout.Label(this.logintext);
 		
