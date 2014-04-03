@@ -147,6 +147,8 @@ public static class GameManager
 		// One time calls of basic init.
 		_player_turn_order = new Player[total_players];
 
+		_current_player_turn = 0; 
+
 		// Allocate correct number of resource counters
 		_resource_count = new int[total_players];
 		_resource_spent = new int[total_players];
