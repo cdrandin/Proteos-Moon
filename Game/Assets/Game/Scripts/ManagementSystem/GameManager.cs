@@ -72,6 +72,10 @@ public static class GameManager
 	 */
 	private static Game _game_gui;
 
+	public static void InitGUIState()
+	{
+		_game_gui.InitGUIState();
+	}
 	/*
 	 * 
 	 */
