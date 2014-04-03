@@ -187,7 +187,7 @@ public static class GameManager
 	/// <returns>The current player.</returns>
 	public static Player GetCurrentPlayer ()
 	{
-		return _player_turn_order [_current_player_turn]; 
+		return (Player)_current_player_turn;
 	}
 
 	public static Player GetPlayer (int player)
@@ -245,6 +245,7 @@ public static class GameManager
 			if (lead_status != Status.Dead)
 				++alive;
 		}
+
 		return alive;
 	}
 
@@ -276,6 +277,7 @@ public static class GameManager
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -301,11 +303,13 @@ public static class GameManager
 	/// <param name="amount">Amount.</param>
 	public static void AddResources (Player player_turn, int amount)
 	{
-		_resource_count [(int)player_turn] += amount;
+		_resource_count [(int)player_turn]     += amount;
 		_resources_obtained [(int)player_turn] += amount;
 
 		if (_resource_count [(int)player_turn] < 0)
+		{
 			_resource_count [(int)player_turn] = 0;
+		}
 	}
 
 	// Add X amount of points to resource counter array, according to player
@@ -315,11 +319,13 @@ public static class GameManager
 	/// <param name="amount">Amount.</param>
 	public static void AddResourcesToCurrentPlayer (int amount)
 	{
-		_resource_count [(int)GetCurrentPlayer ()] += amount;
-		_resources_obtained [(int)GetCurrentPlayer ()] += amount;
+		_resource_count[_current_player_turn]     += amount;
+		_resources_obtained[_current_player_turn] += amount;
 
-		if (_resource_count [(int)GetCurrentPlayer ()] < 0)
-			_resource_count [(int)GetCurrentPlayer ()] = 0;
+		if (_resource_count [_current_player_turn] < 0)
+		{
+			_resource_count [_current_player_turn] = 0;
+		}
 	}
 
 	// Return bool if player can purchase unit, if so do purchase
@@ -379,7 +385,9 @@ public static class GameManager
 			return true;
 		} 
 		else
+		{
 			return false;
+		}
 	}
 
 	/// <summary>
@@ -392,13 +400,17 @@ public static class GameManager
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
 		if (_leader_status [_current_player_turn] != Status.Resting)
+		{
 				return false;
+		}
 
 		// If units exist for current player, check if they are able to move
 		foreach (BaseClass unit_base_class in _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>()) 
 		{
 			if (unit_base_class.unit_status.status != Status.Resting)
+			{
 				return false;
+			}
 		}
 
 		return true;
@@ -551,7 +563,7 @@ public static class GameManager
 	/// <param name="unit">Unit.</param>
 	public static void AddUnitToCurrentPlayersContainer(GameObject unit)
 	{
-		unit.transform.parent = _player_container[(int)GetCurrentPlayer()].transform;
+		unit.transform.parent = _player_container[_current_player_turn].transform;
 	}
 
 	/// <summary>
