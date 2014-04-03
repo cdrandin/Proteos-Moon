@@ -66,6 +66,17 @@ public static class GameManager
 	private static float _base_time;
 	private static WorldCameraModified _wcm;
 
+
+	/*
+	 * HACKY
+	 */
+	private static Game _game_gui;
+
+	/*
+	 * 
+	 */
+
+
 	private static void Awake ()
 	{
 			_game_init = false;
@@ -117,6 +128,14 @@ public static class GameManager
 		_wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified> ();
 		if (_wcm == null)
 				Debug.LogWarning("World Camera missing reference");
+
+		/*
+		 * HACKY
+		 */
+		_game_gui = GameObject.Find("GameController").GetComponent<Game>();
+		/*
+		 * 
+		 */
 
 		_winner = Player.NONE;
 
@@ -560,6 +579,8 @@ public static class GameManager
 	public static void ResetGameManager()
 	{
 		_game_init = false;
+
+		_game_gui.ResetGUIState();
 
 		//ResetGameState();
 		Deallocate();
