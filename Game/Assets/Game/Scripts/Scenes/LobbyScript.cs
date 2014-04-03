@@ -117,9 +117,6 @@ public class LobbyScript : Photon.MonoBehaviour
 		}*/
 
 		
-		GUILayout.Space(15);
-
-		
 		if (GUILayout.Button("Leave (return later)"))
 		{
 			PhotonNetwork.LeaveRoom();

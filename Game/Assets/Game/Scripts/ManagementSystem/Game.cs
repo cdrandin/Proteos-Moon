@@ -121,7 +121,7 @@ public class Game : MonoBehaviour
 	void GUI_init()
 	{
 
-		if(MakeButton(0,50,"Start GameManager"))
+		if(MakeButton(0,80,"Start GameManager"))
 		{
 			if(init)
 				return;
@@ -138,6 +138,11 @@ public class Game : MonoBehaviour
 				return;
 
 			this.gui_method -= GUI_menu;
+			if(!recruit_gui_on)
+			{
+				this.gui_method -= GUI_recruit;
+				recruit_gui_on = !recruit_gui_on;
+			}
 			init = false;
 			GameManager.ResetGameManager();
 
@@ -147,28 +152,29 @@ public class Game : MonoBehaviour
 
 	void GUI_menu()
 	{
-		float half = Screen.width/2;
+		float half = 0; //Screen.width/2;
 
 		if(GameManager.IsOn())
 		{
-			if(MakeButton(half, 0, "Next player's turn"))
+			if(MakeButton(half, 150, "Next player's turn"))
 			{
 				GameManager.NextPlayersTurn();
 				this.gui_method -= GUI_recruit;
+				recruit_gui_on = !recruit_gui_on;
 
 				_game_manager_gui.text = string.Format("Next player's turn\n" + 
 				                                       "Current player: {0}\n",
 				                                       GameManager.GetCurrentPlayer());
 			}
 			
-			else if(MakeButton(half, 50, "Current round #"))
+			else if(MakeButton(half, 170, "Current round #"))
 				_game_manager_gui.text = string.Format("Current round: {0}",
 				                                       GameManager.GetCurrentRound());
 			
-			else if(MakeButton(half, 100, "Timer"))
+			else if(MakeButton(half, 190, "Timer"))
 				_game_manager_gui.text = string.Format("Current time: {0}", GameManager.GetCurrentTime());
 			
-			else if(MakeButton(half, 150, string.Format("Add 50 resource pts\n to {0}", GameManager.GetCurrentPlayer())))
+			else if(MakeButton(half, 210, string.Format("Add 50 resource pts"/*\n to {0}", GameManager.GetCurrentPlayer()*/)))
 			{
 				GameManager.AddResources(GameManager.GetCurrentPlayer(),50);
 				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
@@ -177,7 +183,7 @@ public class Game : MonoBehaviour
 				                                       GameManager.GetMaxResourceLimit().ToString());
 			}
 
-			else if(MakeButton(half, 200, "Recruit Menu"))
+			else if(MakeButton(half, 260, "Recruit Menu"))
 			{
 				if(recruit_gui_on)
 				{
@@ -197,11 +203,11 @@ public class Game : MonoBehaviour
 
 	void GUI_recruit()
 	{
-		float half = Screen.width/2;
+		float half = 0;//Screen.width/2;
 		string recruit_text = "Recently purchased";
 		string recruit_fail = "Could not purchase";
 
-		if(MakeButton(half + half/3, 0, string.Format("Arcane Cost: {0}", _unit_cost.arcane)))
+		if(MakeButton(half /*+ half/3*/, 280, string.Format("Arcane Cost: {0}", _unit_cost.arcane)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Arcane))
 			{
@@ -211,7 +217,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 50, string.Format("Braver Cost: {0}", _unit_cost.braver)))
+		else if(MakeButton(half /*+ half/3*/, 300, string.Format("Braver Cost: {0}", _unit_cost.braver)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Braver))
 			{
@@ -221,7 +227,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 100, string.Format("Scout Cost: {0}", _unit_cost.scout)))
+		else if(MakeButton(half /*+ half/3*/, 320, string.Format("Scout Cost: {0}", _unit_cost.scout)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Scout))
 			{
@@ -231,7 +237,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 150, string.Format("Sniper Cost: {0}", _unit_cost.sniper)))
+		else if(MakeButton(half /*+ half/3*/, 340, string.Format("Sniper Cost: {0}", _unit_cost.sniper)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Sniper))
 			{
@@ -241,7 +247,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 200, string.Format("Titan Cost: {0}", _unit_cost.titan)))
+		else if(MakeButton(half /*+ half/3*/, 360, string.Format("Titan Cost: {0}", _unit_cost.titan)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Titan))
 			{
@@ -251,7 +257,7 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
 		}
 		
-		else if(MakeButton(half + half/3, 250, string.Format("Vangaurd Cost: {0}", _unit_cost.vangaurd)))
+		else if(MakeButton(half /*+ half/3*/, 380, string.Format("Vangaurd Cost: {0}", _unit_cost.vangaurd)))
 		{
 			if(GameManager.RecruitUnit(GameManager.GetCurrentPlayer(), UnitType.Vangaurd))
 			{
@@ -264,7 +270,7 @@ public class Game : MonoBehaviour
 
 	bool MakeButton(float left, float top, string name)
 	{
-		return GUI.Button(new Rect(left,top+50, 150,50), name);
+		return GUI.Button(new Rect(left,top+20, 150,20), name);
 	}
 
 	int RandomFirstPlayer(int number_of_players)
