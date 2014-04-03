@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * UnitController.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
@@ -133,7 +139,9 @@ public class UnitController : MonoBehaviour
 
 			// Just adding some numbers to get distance traveled
 			if(IsMoving())
+			{
 				_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
+			}
 
 			_unit_focus_cc.Move(movement);
 		}
@@ -142,7 +150,9 @@ public class UnitController : MonoBehaviour
 	void Move()
 	{
 		if(!_is_controllable)
+		{
 			return;
+		}
 
 		float v = Input.GetAxisRaw("Vertical");//Input.GetAxis("Vertical");
 		float h = Input.GetAxisRaw("Horizontal");//Input.GetAxis("Horizontal");
@@ -273,7 +283,9 @@ public class UnitController : MonoBehaviour
 			_unit_focus_cc.detectCollisions = false;
 		}
 		else
+		{
 			Debug.LogWarning(string.Format("{0} object s trying to be moved by UnitController and SHOULDN'T", unit.name));
+		}
 	}
 
 	public void ClearFocusUnit()
@@ -287,9 +299,13 @@ public class UnitController : MonoBehaviour
 	public GameObject GetUnitControllerFocus()
 	{
 		if(_unit_focus_cc != null)
+		{
 			return _unit_focus_cc.gameObject;
+		}
 		else
+		{
 			return null;
+		}
 	}
 
 	void Reset ()

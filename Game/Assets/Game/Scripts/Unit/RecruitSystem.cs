@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * RecruitSystem.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
@@ -43,37 +49,45 @@ public class RecruitSystem : MonoBehaviour
 	private float _interval;
 	
 	// Use this for initialization
-	void Start ()
+	void Awake()
 	{
 		_interval = 360.0f/steps;
 		++steps; // Just works for now
 
 		if(summoning_radius <= 0)
+		{
 			Debug.LogWarning("Summoning radius is less than or equal to 0. May perform weird artifacts.");
+		}
 
 		if(this.arcane == null)
+		{
 			Debug.LogWarning("Missing Arcane GameObject reference");
+		}
 
 		if(this.braver == null)
+		{
 			Debug.LogWarning("Missing Braver GameObject reference");
+		}
 
 		if(this.scout == null)
+		{
 			Debug.LogWarning("Missing Scout GameObject reference");
+		}
 
 		if(this.sniper == null)
+		{
 			Debug.LogWarning("Missing Sniper GameObject reference");
+		}
 
 		if(this.titan == null)
+		{
 			Debug.LogWarning("Missing Titan GameObject reference");
+		}
 
 		if(this.vangaurd == null)
+		{
 			Debug.LogWarning("Missing Vangaurd GameObject reference");
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-	
+		}
 	}
 
 	// Bring unit onto the field
@@ -126,7 +140,9 @@ public class RecruitSystem : MonoBehaviour
 			return obj;
 		}
 		else
+		{
 			return null;
+		}
 
 		/*// Summon in a ring of units around Leader
 		foreach(Vector3 location in SpawnLocations(position))
@@ -151,9 +167,10 @@ public class RecruitSystem : MonoBehaviour
 			// Equation of circle
 			// All that is carred for ix X-Z position
 			locations[i] = new Vector3(summoning_radius * Mathf.Cos(i*_interval) + origin.x, 
-			                             origin.y, 
-			                             summoning_radius * Mathf.Sin(i*_interval) + origin.z);
+			                           origin.y, 
+			                           summoning_radius * Mathf.Sin(i*_interval) + origin.z);
 		}
+
 		return locations;
 	}
 

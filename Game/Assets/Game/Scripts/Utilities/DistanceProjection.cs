@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * DistanceProjection.cs
+ * 
+ * Christopher Randin
+ */
+
+using UnityEngine;
 using System.Collections;
 
 /*
@@ -70,7 +76,9 @@ public class DistanceProjection : MonoBehaviour
 
 			// Resize
 			foreach(Projector p in projectors)
+			{
 				p.orthographicSize = _new_ortho_size;
+			}
 
 			UpdateProjection();
 		}
@@ -91,8 +99,9 @@ public class DistanceProjection : MonoBehaviour
 		                              _distance*_ratio);
 
 		foreach(Projector p in projectors)
+		{
 			p.orthographicSize = _new_ortho_size;
-
+		}
 	}
 
 	// Turn on projectors
@@ -105,7 +114,9 @@ public class DistanceProjection : MonoBehaviour
 		SetProjectorFocus(target);
 
 		foreach(Projector p in projectors)
+		{
 			p.enabled = true;
+		}
 	}
 	// Loses focuses target
 	/// <summary>
@@ -114,7 +125,10 @@ public class DistanceProjection : MonoBehaviour
 	public void SetProjectionOff()
 	{
 		foreach(Projector p in projectors)
+		{
 			p.enabled = false;
+		}
+			
 		_focus = null;
 	}
 }

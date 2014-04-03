@@ -1,3 +1,9 @@
+/*
+ * Game.cs
+ * 
+ * Christopher Randin
+ */
+
 using UnityEngine;
 using System.Collections;
 
@@ -49,7 +55,9 @@ public class Game : MonoBehaviour
 			init = false;
 		}
 		else
+		{
 			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+		}
 	}
 	
 	// Update is called once per frame
@@ -89,19 +97,24 @@ public class Game : MonoBehaviour
 
 		// Reset timer for display the resource text
 		if(Input.GetMouseButtonDown(0))
+		{
 			timer = 0;
-
+		}
+			
 		if(GameManager.IsOn())
 		{
 			if(GameManager.IsThereAWinner())
+			{
 				_game_manager_gui.text = string.Format("The winner is {0}!", GameManager.GetWinner());
+			}
 		}
 
 		//Only run when GameManager is active
 		if(GameManager.IsOn())
 		{
 			timer += Time.deltaTime;
-			if(timer > waitingTime){
+			if(timer > waitingTime)
+			{
 				//Action
 				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
 				                                       GameManager.GetCurrentPlayer(), 
@@ -115,7 +128,9 @@ public class Game : MonoBehaviour
 	void OnGUI()
 	{
 		if(this.gui_method != null)
+		{
 			this.gui_method();
+		}
 	}
 	
 	void GUI_init()
@@ -123,18 +138,22 @@ public class Game : MonoBehaviour
 		if(MakeButton(0,80,"Start GameManager"))
 		{
 			if(init)
+			{
 				return;
+			}
+				
 			this.gui_method += GUI_menu;
 			init = true;
 			GameManager.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
-
 			_game_manager_gui.text = "Game Manager enabled";
 		}
 		
 		else if(MakeButton(0, 100, "End GameManager"))
 		{
 			if(!init)
+			{
 				return;
+			}
 
 			this.gui_method -= GUI_menu;
 			if(!recruit_gui_on)
@@ -167,11 +186,15 @@ public class Game : MonoBehaviour
 			}
 			
 			else if(MakeButton(half, 170, "Current round #"))
+			{
 				_game_manager_gui.text = string.Format("Current round: {0}",
 				                                       GameManager.GetCurrentRound());
+			}
 			
 			else if(MakeButton(half, 190, "Timer"))
+			{
 				_game_manager_gui.text = string.Format("Current time: {0}", GameManager.GetCurrentTime());
+			}
 			
 			else if(MakeButton(half, 210, string.Format("Add 50 resource pts"/*\n to {0}", GameManager.GetCurrentPlayer()*/)))
 			{
@@ -213,7 +236,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_text);
 			}
 			else
+			{
 				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
+			}
 		}
 		
 		else if(MakeButton(half /*+ half/3*/, 300, string.Format("Braver Cost: {0}", _unit_cost.braver)))
@@ -223,7 +248,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_text);
 			}
 			else
+			{
 				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
+			}
 		}
 		
 		else if(MakeButton(half /*+ half/3*/, 320, string.Format("Scout Cost: {0}", _unit_cost.scout)))
@@ -233,7 +260,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_text);
 			}
 			else
+			{
 				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
+			}
 		}
 		
 		else if(MakeButton(half /*+ half/3*/, 340, string.Format("Sniper Cost: {0}", _unit_cost.sniper)))
@@ -243,7 +272,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_text);
 			}
 			else
+			{
 				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
+			}
 		}
 		
 		else if(MakeButton(half /*+ half/3*/, 360, string.Format("Titan Cost: {0}", _unit_cost.titan)))
@@ -253,7 +284,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_text);
 			}
 			else
+			{
 				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
+			}
 		}
 		
 		else if(MakeButton(half /*+ half/3*/, 380, string.Format("Vangaurd Cost: {0}", _unit_cost.vangaurd)))
@@ -263,7 +296,9 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_text);
 			}
 			else
+			{
 				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_fail);
+			}
 		}
 	}
 
