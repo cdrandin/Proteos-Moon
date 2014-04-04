@@ -16,7 +16,7 @@ public class MovementStat
 	private float _speed;
 
 	// How much exhaust moving cost per frame
-	[SerializeField]
+	//[SerializeField]
 	private float _movement_cost_per_frame;
 
 	// How much the unit has traveled so far
