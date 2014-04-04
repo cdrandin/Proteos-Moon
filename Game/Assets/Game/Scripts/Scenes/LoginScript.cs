@@ -8,6 +8,7 @@ public class LoginScript : MonoBehaviour
 	private string player_name = "";
 	private Rect guiCenteredRect;
 	//public Texture tex;
+	public GUISkin lobby_skin;
 	public MonoBehaviour componentToEnable;
 	public string logintext = "Please Log In";
 	private char[] arr = new char[] { '\n', ' ' };
@@ -43,8 +44,8 @@ public class LoginScript : MonoBehaviour
 		GUI.skin.label.wordWrap = true;
 		GUILayout.BeginArea(guiCenteredRect);
 		//GUILayout.Box(tex);
-		
-		GUILayout.Label(this.logintext);
+		GUI.skin = lobby_skin;
+		GUILayout.Box(this.logintext);
 		
 		GUILayout.BeginHorizontal();
 		GUI.SetNextControlName("NameInput");
