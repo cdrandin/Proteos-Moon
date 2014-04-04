@@ -424,15 +424,13 @@ public static class GameManager
 	/// </summary>
 	public static void NextPlayersTurn ()
 	{
-		// Disable unit selection for current player
-
 		// Enable Fog of War for other player's perspective
 
 		// Change player's camera perspective 
 		SetUnitControllerActiveOff ();
 
 		// Reset unit controller travel distance
-		_uc._travel_distance = 0.0f;
+		_uc.travel_distance = 0.0f;
 
 		// Next player's turn
 		_current_player_turn = (_current_player_turn + 1) % total_players;

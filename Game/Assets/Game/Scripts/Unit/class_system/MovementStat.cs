@@ -20,8 +20,8 @@ public class MovementStat
 	private float _movement_cost_per_frame;
 
 	// How much the unit has traveled so far
-	[SerializeField]
-	private float _current_distance;
+	//[SerializeField]
+	//private float _current_distance;
 	 
 	// How far the unit should be able to travel
 	// Close to ~ in meters perse.
@@ -41,6 +41,12 @@ public class MovementStat
 	[SerializeField]
 	private float _jump_height;
 
+	[SerializeField]
+	private float _fall_speed;
+
+	// Keep track of unit controller for the current moved amount
+	private UnitController _uc = null;
+
 	public float speed
 	{
 		get { return _speed; }
@@ -53,6 +59,19 @@ public class MovementStat
 
 	public float current_distance
 	{
+		get
+		{
+			float cur = float.MaxValue;
+
+			if(_uc == null)
+			{
+				_uc = GameObject.Find("UnitController").GetComponent<UnitController>();
+				cur = _uc.travel_distance;
+			}
+
+			return cur;
+		}
+		/*
 		get 
 		{
 			if(_current_distance < 0)
@@ -62,8 +81,8 @@ public class MovementStat
 
 			return _current_distance;
 		}
-
-		set { _current_distance = value; }
+		*/
+		//set { _current_distance = value; }
 	}
 
 	public float max_distance
@@ -84,5 +103,10 @@ public class MovementStat
 	public float jump_height 
 	{
 		get { return _jump_height; }
+	}
+
+	public float fall_speed
+	{
+		get { return _fall_speed; }
 	}
 }
