@@ -73,7 +73,8 @@ public class LobbyScript : MonoBehaviour
 	{
 		GUILayout.BeginArea(LobbyRect);
 		//GUILayout.Box(tex);
-		GUILayout.Label("Lobby Screen");
+		GUI.skin = lobby_skin;
+		GUILayout.Box("Lobby Screen");
 		GUILayout.Label(string.Format("Players in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
@@ -97,11 +98,9 @@ public class LobbyScript : MonoBehaviour
 		
 		scroll_position = GUILayout.BeginScrollView(scroll_position, false, false);
 		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {
-			//GUI.color = Color.green;
 			GUI.skin = lobby_skin_alternate;
 			GUILayout.Box(game.name + " " + game.playerCount + "/2");
 			GUI.skin = lobby_skin;
-			//GUI.color = Color.white;
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
 				StartGame();
