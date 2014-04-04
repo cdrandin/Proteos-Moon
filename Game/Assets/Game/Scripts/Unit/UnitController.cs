@@ -8,45 +8,42 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(Animation))]
 public class UnitController : MonoBehaviour
 {
 	/*
 	 * Public methods for Unit Controller
 	 */
-	//HACK to get rid of warnings
-	// Animations needed for each unit
-	/*public AnimationClip idle_animation;
-	public AnimationClip run_animation;
-	public AnimationClip jump_animation;*/
-
 	// How fast unit can move
-	public float speed;
+	[SerializeField]
+	private float speed;
+
+	// Keep track how far the unit has traveled
+	[SerializeField]
+	private float _travel_distance;
 
 	// How far the unit should be able to travel
 	// Close to ~ in meters perse.
-	public float max_travel_distance;
+	[SerializeField]
+	private float max_travel_distance;
 
 	// Unit allowed to jump
-	public bool can_jump;
+	private bool can_jump;
 
 	// Amount of air-jumps allowed, 0 - only capable of jumping once, 1 - "double" jump (init jump then mid-air jump)
-	public int air_jumps;
+	private int air_jumps;
 
 	// How high the unit can jump
-	public float jump_height;
+	private float jump_height;
 
 	// aka. gravity, but can also be used to allow certain units to fall more slowly
-	public float fall_speed;
+	private float fall_speed;
 
 	// If true, player will stop when distance traveled is met
-	public bool enforce_distance;
+	[SerializeField]
+	private bool enforce_distance;
 	/*
 	 * Private methods for Unit Controller
 	 */
-
-	// Method for accessing the animation component
-	//HACK private Animation _animation;
 
 	// Move direction allow is the X and Z axis. Y is only affected by incline or jumping
 	private Vector3 _move_direction;
@@ -63,48 +60,31 @@ public class UnitController : MonoBehaviour
 	// Check to see if the unit should be allow to move, disabled when unit has done its actions
 	private bool _is_controllable;
 
-	// Keep track how far the unit has traveled
-	public float _travel_distance;
-
 	// This is the unit of focus that is moving
 	private CharacterController _unit_focus_cc;
 
 	// Keep track of the projector for how far a unit can move
 	private DistanceProjection _distance_proj;
 
+	// Keep track of units' movement stat script
+	private MovementStat _unit_focus_movement;
+
 	void Awake()
 	{	
 		_distance_proj = GameObject.FindObjectOfType<DistanceProjection>();
-
-		//HACK to get rid of warnings
-		/*_animation = GetComponent<Animation>();
-		if (!idle_animation)
-		{
-			_animation = null;
-			Debug.Log("No idle animation found. Turning off animations.");
-		}
-		if (!run_animation)
-		{
-			_animation = null;
-			Debug.Log("No run animation found. Turning off animations.");
-		}
-		if (!jump_animation && can_jump) 
-		{
-			_animation = null;
-			Debug.Log("No jump animation found and the character has canJump enabled. Turning off animations.");
-		}*/
 	}
 
 	// Use this for initialization
 	void Start() 
 	{
 		// Forward is the +Z axis
-		_move_direction  = Vector3.forward; //transform.TransformDirection(Vector3.forward);
+		_move_direction  	= Vector3.forward; //transform.TransformDirection(Vector3.forward);
 		//HACK _is_jumping      = false;
-		_is_controllable = true;
-		_vertical_speed  = 0.0f;
-		_air_jump_count  = 0;
-		_travel_distance = 0.0f;
+		_is_controllable 	= true;
+		_vertical_speed  	= 0.0f;
+		_air_jump_count 	 = 0;
+		_travel_distance 	= 0.0f;
+		max_travel_distance = 0.0f;
 
 		ClearFocusUnit();
 	}
@@ -170,13 +150,13 @@ public class UnitController : MonoBehaviour
 
 	void ApplyGravity()
 	{
-		_vertical_speed -= fall_speed * Time.deltaTime;
-		/*
+		//_vertical_speed -= fall_speed * Time.deltaTime;
+		//*
 		if (IsGrounded())
 			_vertical_speed = 0.0f;
 		else
 			_vertical_speed -= fall_speed * Time.deltaTime;
-			*/
+		//	*/
 	}
 
 	void Jump()
@@ -233,9 +213,10 @@ public class UnitController : MonoBehaviour
 		return max_travel_distance;
 	}
 
-	public float GetTravelDistance()
+	public float travel_distance
 	{
-		return _travel_distance;
+		get { return _travel_distance; }
+		set { _travel_distance = value; }
 	}
 
 	public void ResetDistanceTraveled()
@@ -261,11 +242,12 @@ public class UnitController : MonoBehaviour
 			// Get controller
 			_unit_focus_cc = unit.GetComponent<CharacterController>();
 
-			// If it doesn't exist
+			// If unit is mising controller
 			if(_unit_focus_cc == null)
 			{
 				Debug.LogWarning(string.Format("{0} unit is missing a CharacterController! Putting one on it now.", unit.name));
-
+				return;
+				/*
 				// Create character controller
 				unit.AddComponent("CharacterController");
 				_unit_focus_cc = unit.GetComponent<CharacterController>();
@@ -274,7 +256,23 @@ public class UnitController : MonoBehaviour
 				_unit_focus_cc.center = new Vector3(_unit_focus_cc.center.x, 0.95f,_unit_focus_cc.center.z);
 				_unit_focus_cc.radius = 0.3f;
 				_unit_focus_cc.height = 2.31f;
+				*/
 			}
+
+			// Get movementstat
+			BaseClass bc = unit.GetComponent<BaseClass>();
+
+			// If unit movement script missing
+			if(bc == null)
+			{
+				Debug.LogWarning(string.Format("{0} unit is missing a BaseClass! Put it on now.", unit.name));
+				return;
+			}
+
+			_unit_focus_movement = bc.movement;
+
+			// Setup UnitController's variables with selected unit's movement info
+			Setup();
 
 			// Set distance projector to focus unit
 			_distance_proj.SetProjectionOn(unit);
@@ -292,6 +290,9 @@ public class UnitController : MonoBehaviour
 	{
 		_unit_focus_cc = null;
 
+		// Reset UnitController's variables to 0
+		ShutDown();
+
 		// Set distance projector to unfocus
 		_distance_proj.SetProjectionOff();
 	}
@@ -308,13 +309,36 @@ public class UnitController : MonoBehaviour
 		}
 	}
 
+	void Setup()
+	{		
+		max_travel_distance = _unit_focus_movement.max_distance;
+		speed               = _unit_focus_movement.speed;
+		can_jump            = _unit_focus_movement.can_jump;
+		jump_height         = _unit_focus_movement.jump_height;
+		fall_speed          = _unit_focus_movement.fall_speed;
+		air_jumps 			= _unit_focus_movement.air_jumps;
+	}
+
+	void ShutDown()
+	{
+		_unit_focus_movement = null;
+
+		_travel_distance 	= 0;
+		max_travel_distance = 0;
+		speed               = 0;
+		can_jump            = false; 
+		jump_height         = 0;
+		fall_speed          = 0;
+		air_jumps 			= 0;
+	}
+	/*
 	void Reset ()
 	{
 		// Testing numbers that had a "nice" feel
 		speed               = 10.0f;
-		max_travel_distance = 4.0f;
 		can_jump            = true;
 		jump_height         = 6.0f;
 		fall_speed          = 60.0f;
 	}
+	*/
 }
