@@ -251,7 +251,7 @@ public class UnitGUI : MonoBehaviour {
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
 		Vector3 worldCameraPosition =  target.position;
-		worldCameraPosition -= currentRotation * Vector3.forward * 10;	
+		worldCameraPosition -= currentRotation * target.forward * 10;	
 		
 		// Set the height of the camera
 		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
