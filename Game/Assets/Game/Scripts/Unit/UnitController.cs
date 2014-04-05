@@ -78,11 +78,11 @@ public class UnitController : MonoBehaviour
 	void Start() 
 	{
 		// Forward is the +Z axis
-		_move_direction  	= Vector3.forward; //transform.TransformDirection(Vector3.forward);
+		_move_direction  	= Vector3.zero; //transform.TransformDirection(Vector3.forward);
 		//HACK _is_jumping      = false;
 		_is_controllable 	= true;
 		_vertical_speed  	= 0.0f;
-		_air_jump_count 	 = 0;
+		_air_jump_count  	= 0;
 		_travel_distance 	= 0.0f;
 		max_travel_distance = 0.0f;
 
@@ -90,7 +90,7 @@ public class UnitController : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update() 
+	void FixedUpdate() 
 	{
 		// Controller is found, then use UnitController
 		if(_unit_focus_cc != null)
@@ -123,6 +123,8 @@ public class UnitController : MonoBehaviour
 				_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
 			}
 
+			//movement = transform.TransformDirection(movement);
+
 			_unit_focus_cc.Move(movement);
 		}
 	}
@@ -139,7 +141,7 @@ public class UnitController : MonoBehaviour
 
 		//Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
 		Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
-		
+
 		if(IsGrounded())
 		{
 			//HACK _is_jumping = false;
@@ -315,7 +317,17 @@ public class UnitController : MonoBehaviour
 		speed               = _unit_focus_movement.speed;
 		can_jump            = _unit_focus_movement.can_jump;
 		jump_height         = _unit_focus_movement.jump_height;
+
+		if(_unit_focus_movement.fall_speed == 0)
+		{
+			Debug.LogWarning(string.Format("{0}'s MovementState fall_speed is 0, thus won't be falling and the UnitController will break. Putting the default 60.", _unit_focus_cc.gameObject.name));
+			fall_speed 		= 60.0f;
+		}
+		else
+		{
 		fall_speed          = _unit_focus_movement.fall_speed;
+		}
+
 		air_jumps 			= _unit_focus_movement.air_jumps;
 	}
 
