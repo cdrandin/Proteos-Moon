@@ -59,7 +59,7 @@ public class PoolingSystem : MonoBehaviour
 		get { return _num_used; }
 	}
 	
-	void Awake ()
+	void Awake()
 	{
 		_pool      = new GameObject[_num_obj];
 		_in_use    = new bool[_num_obj];
@@ -114,11 +114,11 @@ public class PoolingSystem : MonoBehaviour
 		{
 			if(_in_use[i] == false)
 			{
-				obj = _pool[i]; 
-				_in_use[i] = true;
+				obj         = _pool[i]; 
+				_in_use[i]  = true;
 				_num_used  += 1;
-				ReadyToDeploy (ref obj, location);
-				i = _num_obj;
+				ReadyToDeploy(ref obj, location);
+				i           = _num_obj;
 			}
 		}
 		
@@ -135,7 +135,7 @@ public class PoolingSystem : MonoBehaviour
 	/// </summary>
 	/// <returns><c>true</c>, if object was returned, <c>false</c> otherwise.</returns>
 	/// <param name="obj">Object.</param>
-	public bool ReturnObject(GameObject obj)
+	public bool ReturnObject(ref GameObject obj)
 	{
 		bool recieved = false;
 		
@@ -145,12 +145,12 @@ public class PoolingSystem : MonoBehaviour
 			{
 				if(_in_use[i])
 				{
-					_pool[i] = obj; 
-					Shutoff (ref _pool[i]);
+					_pool[i]   = obj; 
+					Shutoff(ref _pool[i]);
 					_in_use[i] = false; 
 					_num_used -= 1;
-					i = _num_obj;
-					recieved = true;
+					i          = _num_obj;
+					recieved   = true;
 				}
 			}
 		}
