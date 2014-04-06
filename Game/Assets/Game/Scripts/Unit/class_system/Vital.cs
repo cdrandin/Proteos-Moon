@@ -18,7 +18,7 @@ public class FloatStats
 public class Vital
 {
 	// Vitals each unit will have
-	[SerializeField] 
+	[SerializeField]
 	private FloatStats _health_point;
 
 	[SerializeField]

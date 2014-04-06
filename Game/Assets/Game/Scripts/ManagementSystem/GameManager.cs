@@ -383,7 +383,7 @@ public static class GameManager
 			AddUnitToCurrentPlayersContainer (unit);
 
 			return true;
-		} 
+		}
 		else
 		{
 			return false;
