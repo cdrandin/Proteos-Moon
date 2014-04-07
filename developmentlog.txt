@@ -9,14 +9,14 @@ Previous Week's Objectives
   > Focus on putting this game to work over a network  
   > Christopher Randin and Mark Martene  
 
-* [Partially Completed] Plan out unit specific abilities and their interaction with the environment 8.0 h  (1.0 h)
+* [Partially Completed] Plan out unit specific abilities and their interaction with the environment 8.0 h  (1.0 h)  
   > Planned out who can do what  
   > Decided how much "exhaust" it will use up.  
   > How these abilities will tie in with the units background  
   > Interaction with environment  
   > Mark Martene, Ivan Espinosa  
 
-* [Finished] Finish up class hierarchy 6.0 h (6.0 h)
+* [Finished] Finish up class hierarchy 6.0 h (6.0 h)  
   > Use composition to help fulfill this  
   > Also, break down the unit and what they are expected to contain into basic entities  
   > This will help shape for reusability  
@@ -28,19 +28,19 @@ Previous Week's Objectives
   > This helps when completing the combat system for the game  
   > Ivan Espinosa  
 
-* [Ongoing] Working on combat system 6.0 h (3.0 h)
+* [Ongoing] Working on combat system 6.0 h (3.0 h)  
   > Working on scripts that will create delegate functions for each unit to work with  
-  > Created a scene to test out when the scripts are complete
+  > Created a scene to test out when the scripts are complete  
   > Want to create a static combat system so any two units can fight each other  
   > Need to apply delay for animation in the future  
   > Ivan Espinosa  
 
-* [Completed] Character Movement 8.0 h (10.0 h)
+* [Completed] Character Movement 8.0 h (10.0 h)  
   > When character gets selected a gui of buttons is displayed on the right side of the screen  
   > If the user selects the movement button, the camera will move its focus behind the unit  
   > The unit will also move until it has completed its arbitrary movement distance  
-  > Working on creating a projector that will tell the user how far the character can move  
-  > Ivan Espinosa
+  > Working on creating a projector that will tell the user how far the character can move    
+  > Ivan Espinosa  
 
 * [On Hold] Implement abilities 10.0 h  
   > Once class hierarchy is done, inject abilities for each unit  
@@ -79,7 +79,7 @@ Previous Week's Objectives
   > Further scripts need to include this new GameManager denoted as:  
   > 	GM, to get the instance use, "GM.Instance"  
   > Added safe clean up for when the GameManager is not needed, works best
-  >	with the GM.Instance
+  >	with the GM.Instance  
   > Christopher Randin  
   
 * [Completed] Creating a simple pooling system 4.0 h (4.0 h)  
@@ -105,9 +105,9 @@ Previous Week's Objectives
  > Change in texture to present more visible  
  > Fixed the artifact of the projector. Continues to scale the radius downward  
  > 	as the unit moves  
- > Christopher Randin
+ > Christopher Randin  
 
-* [Completed] Separate the Matchmaking into a separate scene 6.0h (12.0h)
+* [Completed] Separate the Matchmaking into a separate scene 6.0h (12.0h)  
 > Created a Login screen to choose a nickname for the player to use  
 	- The player connects to the Network and is transitioned to the lobby  
 > The lobby was redesigned and will need more visual work later  
