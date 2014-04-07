@@ -22,6 +22,26 @@ Previous Week's Objectives
   > This will help shape for reusability  
   > Christopher Randin  
 
+* [Ongoing] Created a mock of base stats 2.0 h (2.0 h)  
+  > Used similar range of numbers that can be found in D&D  
+  > The arbitrary values will distinguish what each unit excels at  
+  > This helps when completing the combat system for the game  
+  > Ivan Espinosa  
+
+* [Ongoing] Working on combat system 6.0 h (3.0 h)
+  > Working on scripts that will create delegate functions for each unit to work with  
+  > Created a scene to test out when the scripts are complete
+  > Want to create a static combat system so any two units can fight each other  
+  > Need to apply delay for animation in the future  
+  > Ivan Espinosa  
+
+* [Completed] Character Movement 8.0 h (10.0 h)
+  > When character gets selected a gui of buttons is displayed on the right side of the screen  
+  > If the user selects the movement button, the camera will move its focus behind the unit  
+  > The unit will also move until it has completed its arbitrary movement distance  
+  > Working on creating a projector that will tell the user how far the character can move  
+  > Ivan Espinosa
+
 * [On Hold] Implement abilities 10.0 h  
   > Once class hierarchy is done, inject abilities for each unit  
   > Will need to figure out how each unit will be allow to do specific abilities, but also  
@@ -100,7 +120,7 @@ Previous Week's Objectives
 This Week's Objectives  
 ---------------------   
 
-* Make the game playable over the network rather than locally  20.0 h
+* Make the game playable over the network rather than locally  20.0 h  
 > Merge the use of a Photon Player into the Game Manager  
 	- Gives the ability to destroy all objects that the Photon Player owns  
 	- Gives the ability to instantiate objects and add them to that players ownership  
@@ -109,6 +129,18 @@ This Week's Objectives
 > Complete turn switching and waiting  
 > Mark Martene  
 
+* Completing the Combat System 16.0 h  
+  > Continue working on the scripts to get it working  
+  > Test and tweak values to make the game reasonable  
+  > Ivan Espinosa  
+
+* Plan out unit specific abilities and their interaction with the environment 8.0 h  
+  > Plan out who can do what and how they can do.  
+  > Decide how much "exhaust" it will use up.  
+  > How these abilities will tie in with the units background  
+  > Interaction with environment  
+  > Mark Martene, Ivan Espinosa  
+
 * Continue adding to the Battle Map 5.0 h  
 > Add in the revised assets into the scene according to the map plan  
 > Add in the railroad tracks and platforms  
@@ -116,13 +148,13 @@ This Week's Objectives
 > Test for any ways the character could fall off the map  
 > Mark Martene  
 
-* Finalize some core functionality with the game 20.0 h
+* Finalize some core functionality with the game 20.0 h  
   > Get final functionality to work. Throw in a HP bar GUI for units to see what
   > 	is going on.  
   > Main focus to test Gathering resources and basic combat  
   > Christopher Randin and Ivan Espinosa  
 
-* Start implementing unit specific abilities 20.0 h
+* Start implementing unit specific abilities 20.0 h  
   > Start up to get the feel on how to achieve this  
   > Try to devise a method to make this easily integratable into our already built system  
   > Keep abilities simple for now to get functionality there and integrated.  
@@ -994,7 +1026,7 @@ Previous Week's Objectives
 
 * [Not Completed]Construct an easy to use camera pane system 4.0 h (1.0 h)
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on ‘valid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Allow, mouse to focus on 'valid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
 
 * [Trashed] Devise a method for creating tile for the map 6.0 h (5.0h)
@@ -1022,7 +1054,7 @@ This Week's Objectives
 
 * Continue constructing an easy to use camera pane system 4.0 h
    > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on ‘valid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
+   > Allow, mouse to focus on 'valid' units, thus lock the camera towards that unit and reach only to its valid movement spaces.
    > Ivan Espinosa and Mark Martene
 
 * Document what interactable objects will be in the environment 3.0 h
@@ -1086,7 +1118,7 @@ Previous Week's Objectives
    > Ivan Espinosa and Mark Martene
 
 * [Completed] Setting up repo and SSH 1.0 h (3.0 h)
-   > Setting up a common repo for us all to work from. Currently, we have chosen to work under ‘usrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git'
+   > Setting up a common repo for us all to work from. Currently, we have chosen to work under 'usrname@delaunay.ecs.fullerton.edu/var/git/crandin/Ember_Quest.git'
    > SSH established for all of us.
    > Read the first 3 chapters of the GitPro book
    > Christopher Randin, Ivan Espinosa and Mark Martene
@@ -1099,7 +1131,7 @@ Previous Week's Objectives
 * [Completed] Finalized theme, game objectives, structure and discuss creative gameplay 5.0 h (8.0h)
    > Discussion as to what we desired from a fantasy world. Not wanting to focusing on the same fantasy style (i.e. Orcs v Human) Synopsis of the world is that it is dying and different groups of people are fighting over resources to survive this per-apocalyptic world.
    > Acquired a desired game mode, i.e. versus, with multiple ways of winning.
-        - Acquire an X amount of ‘resources'
+        - Acquire an X amount of 'resources'
         - Kill opponent's leader
         - Capture and hold X number of resource points for a Y amount of turns
    > Discussed the current groups priorities for this game
