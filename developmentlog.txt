@@ -4,23 +4,36 @@
 Previous Week's Objectives  
 -------------------------- 
 * [Needs work] Get working on prototype to be working and playable game 12.0 h (20.0 h)  
-  > A nice simply play through works out. Some game rules aren't fully there.  
+  > A nice simply play through works out. Some game rules aren’t fully there.  
   > Lots of bugs encountered or other slow downs  
   > Focus on putting this game to work over a network  
   > Christopher Randin and Mark Martene  
 
-* [Partially Completed] Plan out unit specific abilities and their interaction with the environment 8.0 h  (1.0 h)
-  > Planned out who can do what  
-  > Decided how much "exhaust" it will use up.  
-  > How these abilities will tie in with the units background  
-  > Interaction with environment  
-  > Mark Martene, Ivan Espinosa  
-
 * [Finished] Finish up class hierarchy 6.0 h (6.0 h)
-  > Use composition to help fulfill this  
+  > Use composition to help fulfil this  
   > Also, break down the unit and what they are expected to contain into basic entities  
   > This will help shape for reusability  
   > Christopher Randin  
+
+* [Ongoing] Created a mock of base stats 2.0 h (2.0 h)  
+  > Used similar range of numbers that can be found in D&D  
+  > The arbitrary values will distinguish what each unit excels at  
+  > This helps when completing the combat system for the game  
+  > Ivan Espinosa  
+
+*[Ongoing] Working on combat system 6.0 h (3.0 h)
+  > Working on scripts that will create delegate functions for each unit to work with  
+  > Created a scene to test out when the scripts are complete
+  > Want to create a static combat system so any two units can fight each other  
+  > Need to apply delay for animation in the future  
+  > Ivan Espinosa  
+
+*[Completed] Character Movement 8.0 h (10.0 h)
+  > When character gets selected a gui of buttons is displayed on the right side of the screen  
+  > If the user selects the movement button, the camera will move its focus behind the unit  
+  > The unit will also move until it has completed its arbitrary movement distance  
+  > Working on creating a projector that will tell the user how far the character can move  
+  > Ivan Espinosa
 
 * [On Hold] Implement abilities 10.0 h  
   > Once class hierarchy is done, inject abilities for each unit  
@@ -49,7 +62,7 @@ Previous Week's Objectives
   > One simple error led to a long delay in time causing many scripts   
   >	to fail or not work properly. Solved, which was mesh generated  
   >	colliders conflicting with other collider checking.  
-  > Tediously adjusted each unit's collider to fit correctly around the unit  
+  > Tediously adjusted each unit’s collider to fit correctly around the unit  
   > Christopher Randin  
 
 * [Completed/Needs testing] Reconstruction of the GameManager 6.0 h (8.0 h)  
@@ -57,13 +70,13 @@ Previous Week's Objectives
   > Made better getters and easy interface with.  
   > More documented methods  
   > Further scripts need to include this new GameManager denoted as:  
-  > 	GM, to get the instance use, "GM.Instance"  
+  > 	GM, to get the instance use, “GM.Instance”  
   > Added safe clean up for when the GameManager is not needed, works best
   >	with the GM.Instance
   > Christopher Randin  
   
 * [Completed] Creating a simple pooling system 4.0 h (4.0 h)  
-  > This allows the usage of reusing objects instead of having to recreate  
+  > This allows the usage of reusing objects insteading of having to recreate  
   >	and destroy the objects. Currently, this is not in use since we are  
   >	unaware of the amount of units that will be needed and currently, this  
   >	does not expand its cap.  
@@ -72,10 +85,10 @@ Previous Week's Objectives
   > Christopher Randin  
 
 * [Completed] Made the UnitController expandable to multiple unit 3.0 h (5.0 h)  
-  > This allows any unit with the appropriate unit "BaseClass" containing a  
+  > This allows any unit with the appropriate unit “BaseClass” containing a  
   >	MovementStats script to influences the UnitController to allow the unit  
   >	to move with its own setup status.  
-  > Encountered bugs with trying to manipulate each other's values  
+  > Encountered bugs with trying to manipulate each other’s values  
   > Also, fixed a bug that would allow the unit to move straight with no input  
   > Christopher Randin  
 
@@ -106,27 +119,39 @@ This Week's Objectives
 	- Gives the ability to instantiate objects and add them to that players ownership  
 > Make the game wait until all players have joined before loading the game  
 > Fully reset the game state or serialize it when a player leaves or quits the game  
-> Complete turn switching and waiting  
-> Mark Martene  
+> Complete turn switching and waiting
+> Mark Martene
 
-* Continue adding to the Battle Map 5.0 h  
-> Add in the revised assets into the scene according to the map plan  
-> Add in the railroad tracks and platforms  
-> Paint the terrain  
-> Test for any ways the character could fall off the map  
-> Mark Martene  
+*Completing the Combat System 16.0 h
+  > Continue working on the scripts to get it working
+  > Test and tweak values to make the game reasonable
+  > Ivan Espinosa
+ 
+* Plan out unit specific abilities and their interaction with the environment 8.0 h  
+  > Plan out who can do what and how they can do.  
+  > Decide how much “exhaust” it will use up.  
+  > How these abilities will tie in with the units background  
+  > Interaction with environment  
+  > Mark Martene, Ivan Espinosa  
+
+* Continue adding to the Battle Map 5.0 h
+> Add in the revised assets into the scene according to the map plan
+> Add in the railroad tracks and platforms
+> Paint the terrain
+> Test for any ways the character could fall off the map
+> Mark Martene
 
 * Finalize some core functionality with the game 20.0 h
   > Get final functionality to work. Throw in a HP bar GUI for units to see what
-  > 	is going on.  
-  > Main focus to test Gathering resources and basic combat  
-  > Christopher Randin and Ivan Espinosa  
+  > 	is going on.
+  > Main focus to test Gathering resources and basic combat
+  > Christopher Randin and Ivan Espinosa 
 
 * Start implementing unit specific abilities 20.0 h
-  > Start up to get the feel on how to achieve this  
-  > Try to devise a method to make this easily integratable into our already built system  
-  > Keep abilities simple for now to get functionality there and integrated.  
-  > Christopher Randin and Ivan Espinosa  
+  > Start up to get the feel on how to achieve this
+  > Try to devise a method to make this easily integratable into our already built system
+  > Keep abilities simple for now to get functionality there and integrated.
+  > Christopher Randin and Ivan Espinosa
 
 
 2014-03-30  
@@ -169,7 +194,7 @@ Previous Week's Objectives
 
 * [Partially Completed] Expand upon Game Flowchart 4.0 h (3.0h)  
   > Make a flowchart for the game scene  
-	- Player's turn needs to be made  
+	- Player’s turn needs to be made  
 - Completed flow chart for game scene  
 	- Events  
   > Make a flowchart for options  
@@ -207,7 +232,7 @@ This Week's Objectives // Spring break
 
 * Get working on prototype to be working and playable game 12.0 h  
   > Allow up to minor bugs  
-  > Be able to play out the game and even win, probably won't involve a good clean up.  
+  > Be able to play out the game and even win, probably won’t involve a good clean up.  
   > Meaning to play again restart the scene  
   > Allow up to moving and attacking  
   > Focus on putting this game to work over a network  
@@ -215,7 +240,7 @@ This Week's Objectives // Spring break
 
 * Plan out unit specific abilities and their interaction with the environment 8.0 h  
   > Plan out who can do what and how they can do.  
-  > Decide how much "exhaust" it will use up.  
+  > Decide how much “exhaust” it will use up.  
   > How these abilities will tie in with the units background  
   > Interaction with environment  
   > Mark Martene, Ivan Espinosa  
@@ -305,7 +330,7 @@ This Week's Objectives
 
 * Expand upon Game Flowchart 4.0 h  
   > Make a flowchart for the game scene  
-	- Player's turn  
+	- Player’s turn  
 	- Events  
   > Make a flowchart for options  
   > Mark Martene  
@@ -409,7 +434,7 @@ Previous Week's Objectives
    > Ivan Espinosa  
 
 * [Unfinished] GameManager transitions between player, player-unit-actions 6.0 h (3.0 h)  
-   > What was completed is the next player's turn transitions. Swap cameras and check if appropriate unit selection. Currently, you can move units around, no action available.  
+   > What was completed is the next player’s turn transitions. Swap cameras and check if appropriate unit selection. Currently, you can move units around, no action available.  
    > This will manage the flow of how the game will play out in its basic form  
         - Player's turn  
         - Player moves units  
@@ -418,7 +443,7 @@ Previous Week's Objectives
         - Current player ends turn forcefully, game rules, or voluntarily  
    > Christopher Randin  
 
-* [Unfinished] Make a combat system with the "unit_class" structure 4.0 h (0.0 h)  
+* [Unfinished] Make a combat system with the “unit_class” structure 4.0 h (0.0 h)  
    > Did not have enough time to reach this task.  
    > This will use the classes hierarchy to get numbers to take affect with other units.  
    > Currently, this will just show pure number changes, with delay (to simulate animation for each unit)  
@@ -439,7 +464,7 @@ Previous Week's Objectives
         - Send RPC calls of player's actions and game state  
         - Be able to end a player's turn and switch to the opposing player's turn  
   > Chris's Game Manager  
-        - Sync with camera work appropriately, logic is all handled independently, with exception from helper classes, which are a force requirement for the "Game nucleus"  
+        - Sync with camera work appropriately, logic is all handled independently, with exception from helper classes, which are a force requirement for the “Game nucleus”  
   > Ivan Espinosa, Mark Martene, and Chris Randin  
 
 This Week's Objectives
@@ -475,8 +500,8 @@ This Week's Objectives
 	- Be able to start a game  
 	- Be able to switch between character control and world camera control  
 	- Be able to click on and move units by their correct distance  
-	- Be able to end the turn once all player's own units have been moved  
-	- Be able to switch between player's turns  
+	- Be able to end the turn once all player’s own units have been moved  
+	- Be able to switch between player’s turns  
   > Christopher Randin, Mark Martene, Ivan Espinosa  
 
 * Add in network tools to the prototype 5.0 h  
@@ -621,7 +646,7 @@ This Week's Objectives
         - Current player ends turn forcefully, game rules, or voluntarily
    > Christopher Randin
 
-* Make a combat system with the "unit_class" structure 4.0 h
+* Make a combat system with the “unit_class” structure 4.0 h
    > This will use the classes hierarchy to get numbers to take affect with other units.
    > Currently, this will just show pure number changes, with delay (to simulate animation for each unit)
    > Put in basic templates if possible
@@ -641,7 +666,7 @@ This Week's Objectives
         - Send RPC calls of player's actions and game state
         - Be able to end a player's turn and switch to the opposing player's turn
   > Chris's Game Manager
-        - Sync with camera work appropriately, logic is all handled independently, with exception from helper classes, which are a force requirement for the "Game nucleus"
+        - Sync with camera work appropriately, logic is all handled independently, with exception from helper classes, which are a force requirement for the “Game nucleus”
   > Ivan Espinosa, Mark Martene, and Chris Randin
 
 
@@ -701,7 +726,7 @@ Previous Week's Objectives
 * [Completed/Can be improved] Implement the recruit system 4.0 h (1.0 h)
    > Instantiate a capsule for now on top of unit. Instantiate is an expensive call. Future implementation will have a pool system to manage unit assets.
    > Assign unit cost on this system.
-   > Be within range of "recruitee" object and be able to purchase units
+   > Be within range of “recruitee” object and be able to purchase units
    > Check game restrictions like number of resources meets required pay
    > Have units spawn within a valid vicinity
    > Christopher Randin
@@ -722,7 +747,7 @@ Previous Week's Objectives
         - The player can view how many players are currently in the lobby
         - The player can view the maximum number of players in each room
    > Allow players to join locally and get paired with an opponent
-        - Still need to have a "Join Random Room" Button
+        - Still need to have a “Join Random Room” Button
         - Will create private rooms with passwords
    > Allow chat between both parties and maybe a spectator view
         - Still Need to implement the chat and spectator view
@@ -762,7 +787,7 @@ This Week's Objectives
 
 * Improve Networking Capabilities 20.0 h
   > Matchmaking Lobby
-- Add "Join Random Room" Button
+- Add “Join Random Room” Button
 - Add in private rooms with passwords
 - Add in a spectator option
   > In Game
@@ -1051,13 +1076,13 @@ This Week's Objectives
    > Christopher Randin
 
 * Construct a working UI interface 5.0 h
-   > Have static "always visible" info on the screen
+   > Have static “always visible” info on the screen
    > Have the action interface pop up when a character is selected
    > Have the character simulate an attack when the attack button is clicked - values changed not animated
    > Have the character defend when the defend button is clicked
-   > Have a temporary message "ability used" print to the console when the ability button is clicked
-   > Shadow out character  when "wait" or "hold" is clicked
-   > Have "Finish Turn" to have the game manager change player's turn
+   > Have a temporary message “ability used” print to the console when the ability button is clicked
+   > Shadow out character  when “wait” or “hold” is clicked
+   > Have “Finish Turn” to have the game manager change player's turn
    > Have the UI communicate with the game manager system
    > Mark Martene and Christopher Randin
 
