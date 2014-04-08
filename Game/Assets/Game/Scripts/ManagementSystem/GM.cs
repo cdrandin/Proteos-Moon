@@ -75,6 +75,13 @@ public class GM : MonoBehaviour {
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
 	private  float _base_time;
 
+	/*
+	 * HACKY
+	 */
+	private static Game _game_gui;
+	/*
+	 * 
+	 */
 
 	public void Awake()
 	{
@@ -120,7 +127,15 @@ public class GM : MonoBehaviour {
 		{
 			Debug.LogWarning("World Camera missing reference");
 		}
-		
+
+		/*
+		 * HACKY
+		 */
+		_game_gui = GameObject.Find("GameController").GetComponent<Game>();
+		/*
+		 * 
+		 */
+
 		_winner = Player.NONE;
 		
 		// Keep track of cost
@@ -143,6 +158,9 @@ public class GM : MonoBehaviour {
 		_world_camera.ChangeCamera();
 		
 		StartTimer();
+
+		_game_init = true;
+		_game_gui.InitGUIState();
 	}
 
 	// Allocate memory blocks for things needed in the game
@@ -266,6 +284,7 @@ public class GM : MonoBehaviour {
 	{
 		Debug.Log("Destroy GM");
 		_instance  = null;
+		_game_init = false;
 	}
 
 	/// <summary>
@@ -275,7 +294,7 @@ public class GM : MonoBehaviour {
 	{
 		Destroy();
 		
-		//_game_gui.ResetGUIState();
+		_game_gui.ResetGUIState();
 		
 		ResetGameState();
 		Deallocate();
@@ -377,7 +396,7 @@ public class GM : MonoBehaviour {
 	/// <value><c>true</c> if this instance is on; otherwise, <c>false</c>.</value>
 	public bool IsOn
 	{
-		get { return(_instance != null) ? true : false; }
+		get { return _game_init; }
 	}
 
 	/// <summary>
@@ -461,6 +480,90 @@ public class GM : MonoBehaviour {
 	public GameObject CurrentFocus
 	{
 		get { return _unit_controller.GetUnitControllerFocus(); }
+	}
+
+	/// <summary>
+	/// Gets the current focused camera.
+	/// </summary>
+	/// <value>The current camera.</value>
+	public Camera CurrentFocusCamera
+	{
+		get { return _world_camera.MainCamera.GetComponent<Camera>(); }
+	}
+
+	/// <summary>
+	/// Gets all units near player. Including friendly and enemy units.
+	/// </summary>
+	/// <returns>The all units near player.</returns>
+	/// <param name="distance">Distance.</param>
+	public List<GameObject> GetAllUnitsNearPlayer(float distance)
+	{
+		// Get all units that have a base class, they all should have one.
+		BaseClass[] units_bc = GameObject.FindObjectsOfType<BaseClass>();
+		
+		List<GameObject> units = new List<GameObject>();
+		
+		foreach(BaseClass unit in units_bc)
+		{
+			if(Vector3.Distance(unit.transform.position, CurrentFocusCamera.transform.position) < distance)
+			{
+				units.Add(unit.gameObject);
+			}
+		}
+		
+		return units;
+	}
+
+	/// <summary>
+	/// Gets the friendly units near player.
+	/// </summary>
+	/// <returns>The friendly units near player.</returns>
+	/// <param name="distance">Distance.</param>
+	public List<GameObject> GetFriendlyUnitsNearPlayer(float distance)
+	{
+		// Get all of the current player's units that are in their unique player container.
+		BaseClass[] units_bc = _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>();
+		
+		List<GameObject> units = new List<GameObject>();
+		
+		foreach(BaseClass unit in units_bc)
+		{
+			if(Vector3.Distance(unit.transform.position, CurrentFocusCamera.transform.position) < distance)
+			{
+				units.Add(unit.gameObject);
+			}
+		}
+		
+		return units;
+	}
+
+	/// <summary>
+	/// Gets the enemy units near player.
+	/// </summary>
+	/// <returns>The enemy units near player.</returns>
+	/// <param name="distance">Distance.</param>
+	public List<GameObject> GetEnemyUnitsNearPlayer(float distance)
+	{
+		List<GameObject> enemies = new List<GameObject>();
+		for(int i=0;i<_total_players;++i)
+		{
+			// skip own units, we want enmies
+			if(i == _current_player_turn)
+			{
+			}
+			else
+			{
+				foreach(BaseClass unit in _player_container[i].GetComponentsInChildren<BaseClass>())
+				{
+					if(Vector3.Distance(unit.transform.position, CurrentFocusCamera.transform.position) < distance)
+					{
+						enemies.Add(unit.gameObject);
+					}
+				}
+			}
+		}
+		
+		return enemies;
 	}
 	#endregion
 
