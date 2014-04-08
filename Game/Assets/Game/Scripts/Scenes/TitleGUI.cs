@@ -12,6 +12,7 @@ public class TitleGUI : MonoBehaviour {
 	private const int OPTIONS = 1;
 	private const int MULTIPLAYER = 2;
 	private bool button_clicked = false;
+	public bool reset_playerprefs = false;
 	public MonoBehaviour componentToEnable;
 
 	public void Awake(){
@@ -20,6 +21,10 @@ public class TitleGUI : MonoBehaviour {
 		if (this.componentToEnable == null || this.componentToEnable.enabled)
 		{
 			Debug.LogError("To use the Login, the ComponentToEnable should be defined in inspector and disabled initially.");
+		}
+		if(reset_playerprefs)
+		{
+			PlayerPrefs.SetString("playername", "");
 		}
 	}
 	public void OnGUI(){
