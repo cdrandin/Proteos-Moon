@@ -5,11 +5,12 @@ public static class CombatSystem{
 
 	// Event Handler
 	private delegate void WithinRangeEvent(GameObject currentFocus);
-	private static event WithinRangeEvent WithinRange;
-	private static int currentCount;
+	public static event WithinRangeEvent WithinRange;
+	private static Player currentPlayer;
 	// Use this for initialization
 	public static void Start () {
-		currentCount = 0;
+
+		currentPlayer = Player.NONE;
 	}
 	
 	// Update is called once per frame
@@ -17,10 +18,43 @@ public static class CombatSystem{
 	
 	}
 	
-	public static void AddWithinRange(){
-//		if(currentCount != (GameManager.))
+	public static void UpdateWithinRangeDelegate(){
+ 
+		//HACK: this will only work for two players
+		if (currentPlayer != GM.instance.CurrentPlayer) {
+			
+			if(WithinRange != null)
+				CleanDelegateBeforeSwitch();
+			
+			AddDelegates();
+			
+			currentPlayer = GM.instance.CurrentPlayer;
+		}
 		
 	}
+
+	private static void AddDelegates(){
+		
+		Game [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer (!GM.instance.CurrentPlayer);
+		
+		for( uint i = 0 ; i < otherPlayerUnits.Length; ++i){
+			
+			WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+		}
+
+	}
+
+	private static void CleanDelegateBeforeSwitch(){
+
+		Game [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer (!GM.instance.CurrentPlayer);
+
+		for (uint i = 0; i < otherPlayerUnits.Length; ++i){
+
+			WithinRange -= otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+			}
+
+	}
+
 	/*
 	bool CanHitUnit(Entity attacker, Entity defender){
 

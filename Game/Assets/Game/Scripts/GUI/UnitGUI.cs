@@ -50,13 +50,13 @@ public class UnitGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(GameManager.IsOn())
+		if(GM.instance.IsOn)
 		{
-			focusTemp = GameManager.GetCurrentFocus();
+			focusTemp = GM.instance.CurrentFocus;
 			
 			if(!init && focusTemp != null){
 				focusObject = focusTemp;
-				GameManager.SetUnitControllerActiveOff();
+				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method += UnitsOptions;
 				
 			}
@@ -121,7 +121,7 @@ public class UnitGUI : MonoBehaviour {
 
 		if(MakeButton(button_pos, TopButtonPos(1), "Gather"	) ){
 			//TODO: Gather code
-			GameManager.AddResourcesToCurrentPlayer(50);
+			GM.instance.AddResourcesToCurrentPlayer(50);
 		}
 		GUI.enabled = true;
 		if(!init){
@@ -141,7 +141,7 @@ public class UnitGUI : MonoBehaviour {
 	
 		if(MakeButton(button_pos, TopButtonPos(2), "Movement")){
 
-			GameManager.SetUnitControllerActiveOn(ref focusObject);			
+			GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 			worldCamera.transform.eulerAngles = Vector3.zero;
 			mainCamera = CurrentMainCamera();
 
@@ -155,7 +155,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	GameObject CurrentMainCamera(){
 	
-		if( GameManager.GetCurrentPlayer() == 0 ){			
+		if( GM.instance.CurrentPlayer == 0 ){			
 			return  GameObject.Find ("camera_player1");
 		}
 		else{
@@ -169,7 +169,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		if(MakeButton(button_pos,TopButtonPos(3), "Wait")){
 			//Expend units action
-			GameManager.SetUnitControllerActiveOff();
+			GM.instance.SetUnitControllerActiveOff();
 			this.gui_method -= WaitButton;
 			this.gui_method -= UnitsOptions;
 			this.gui_method -= MovementButton;
@@ -182,7 +182,7 @@ public class UnitGUI : MonoBehaviour {
 	private void EndMovement(){
 
 		if(MakeButton(button_pos, TopButtonPos(2), "End Movement")){
-			GameManager.SetUnitControllerActiveOff();
+			GM.instance.SetUnitControllerActiveOff();
 			this.gui_method -= EndMovement;
 			this.gui_method += MovementButton;
 			this.gui_method += WaitButton;
