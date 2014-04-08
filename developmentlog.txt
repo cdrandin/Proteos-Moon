@@ -1,3 +1,14 @@
+2014-04-13  
+==========  
+Previous Week's Objectives  
+-------------------------- 
+*[Ongoing] Combat System 16.0 (3.0 h)
+  > Added functions to update an event delegate that will be called when a character starts to move / or is selected
+  > Created an attack function that will update the enemy unit hp
+  > Need to implement the functions that will be called within the event in the UnitActions script
+  > Once the line above is complete, need to make the UnitGUI script work with the combat system script
+  > Ivan Espinosa
+
 2014-04-06  
 ==========  
 
