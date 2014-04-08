@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class CombatSystem{
+public class CombatSystem{
 
 	// Event Handler
-	private delegate void WithinRangeEvent(GameObject currentFocus);
+	public delegate void WithinRangeEvent(GameObject currentFocus);
 	public static event WithinRangeEvent WithinRange;
 	private static Player currentPlayer;
 	// Use this for initialization
-	public static void Start () {
+	public void Start () {
 
 		currentPlayer = Player.NONE;
 	}
 	
 	// Update is called once per frame
-	public static void Update () {
+	public void Update () {
 	
 	}
 	
@@ -33,26 +33,55 @@ public static class CombatSystem{
 		
 	}
 
+	public static void Attack(GameObject focusUnit, ref GameObject enemyUnit){
+	
+		//TODO: Figure out how damage is dealt		
+	
+		WaitForAttackAnimation(5);
+		
+		
+		//HACK: default calculations are set
+		
+		enemyUnit.GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
+		enemyUnit.GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
+		
+	}
+
+	private static IEnumerator WaitForAttackAnimation(float timeInSeconds){
+	
+		yield return new WaitForSeconds(timeInSeconds);
+	}
+
 	private static void AddDelegates(){
 		
-		Game [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer (!GM.instance.CurrentPlayer);
+		for(uint j = 0; j < GM.instance.NumberOfPlayers; ++j){
 		
-		for( uint i = 0 ; i < otherPlayerUnits.Length; ++i){
-			
-			WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
-		}
+			if((Player)j == GM.instance.CurrentPlayer)
+				continue;
 
+			GameObject [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer ((Player)j);
+		
+			for( uint i = 0 ; i < otherPlayerUnits.Length; ++i){
+			
+				WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+			}
+		}
 	}
 
 	private static void CleanDelegateBeforeSwitch(){
+	
+		for(uint j = 0; j < GM.instance.NumberOfPlayers; ++j){
+	
+			if((Player)j == GM.instance.CurrentPlayer)
+				continue;
+			
+			GameObject [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer ((Player)j);
 
-		Game [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer (!GM.instance.CurrentPlayer);
+			for (uint i = 0; i < otherPlayerUnits.Length; ++i){
 
-		for (uint i = 0; i < otherPlayerUnits.Length; ++i){
-
-			WithinRange -= otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+				WithinRange -= otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
 			}
-
+		}
 	}
 
 	/*
