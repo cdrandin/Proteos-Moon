@@ -19,6 +19,7 @@ public class LobbyScript : MonoBehaviour
 	
 	public void Start()
 	{
+
 		CustomTypes.Register();
 		leftToolbar = new Rect(leftToolbar.x, leftToolbar.y, leftToolbar.width, Screen.height - leftToolbar.y);
 		//this.GameInstance = new Game();
@@ -146,9 +147,32 @@ public class LobbyScript : MonoBehaviour
 		EndGame();
 	}
 
+	void OnJoinedRoom()	
+	{ 
+		if (PhotonNetwork.countOfPlayers == 2) 		
+		{
+			// do something
+			
+			// remember you already instantiated your avatars!
+			
+			//instantiatedAvatars = true;
+			
+			// close the room	
+		}
+	}
+	
+	void OnPhotonPlayerConnected(PhotonPlayer newPlayer)	
+	{
+		//if (instantiatedAvatars == false && PhotonNetwork.countOfPlayers == 2) 		
+		//{
+			// do something
+			
+			// close the room
+		//}
+	}
+
 	void OnPhotonRandomJoinFailed()
 	{
-		print ("yo");
 		PhotonNetwork.CreateRoom(room_name);
 	}
 
@@ -161,6 +185,7 @@ public class LobbyScript : MonoBehaviour
 	{
 		//this.objectToActivate.SetActive(false);
 		GameManager.ResetGameManager();
+		//GM.instance.ResetGameManager();
 	}
 	
 	/*private string FormatRoomProps()
