@@ -74,7 +74,7 @@ public class LobbyScript : MonoBehaviour
 		GUILayout.BeginArea(LobbyRect);
 		//GUILayout.Box(tex);
 		GUI.skin = lobby_skin;
-		GUILayout.Box("Lobby Screen");
+		GUILayout.Box("Lobby");
 		GUILayout.Label(string.Format("Players in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))

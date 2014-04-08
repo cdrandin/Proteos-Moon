@@ -43,7 +43,7 @@ public class TitleGUI : MonoBehaviour {
 		}
 		else
 		{
-			switch((int)which_button_clicked)
+			switch(which_button_clicked)
 			{
 			case BEGIN:
 				Application.LoadLevel("BattleMap");
@@ -54,12 +54,14 @@ public class TitleGUI : MonoBehaviour {
 			case MULTIPLAYER:
 				if(PlayerPrefs.GetString("playername") == ""){
 					//this.GetComponent
+					this.componentToEnable = this.GetComponent<LoginScript>();
 					this.componentToEnable.enabled = true;
 					//LoginScript.
 				}
 				else
 				{
 					PhotonNetwork.playerName = PlayerPrefs.GetString("playername");
+					this.componentToEnable = this.GetComponent<LobbyScript>();
 					this.componentToEnable.enabled = true;
 					this.enabled = false;
 				}
