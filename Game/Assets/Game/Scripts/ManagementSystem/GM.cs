@@ -466,9 +466,9 @@ public class GM : MonoBehaviour {
 	/// <param name="player">Player.</param>
 	public GameObject[] GetUnitsFromPlayer(Player player)
 	{
+
 		BaseClass[] base_class = _player_container[(int)player].GetComponentsInChildren<BaseClass>();
 		GameObject[] units = new GameObject[base_class.Length];
-		
 		for(int i=0;i<units.Length;++i)
 		{
 			units[i] = base_class[i].gameObject;
@@ -509,7 +509,7 @@ public class GM : MonoBehaviour {
 	/// </summary>
 	/// <returns>The all units near player.</returns>
 	/// <param name="distance">Distance.</param>
-	public List<GameObject> GetAllUnitsNearPlayer(float distance)
+	public List<GameObject> GetAllUnitsNearPlayer(GameObject target, float distance)
 	{
 		// Get all units that have a base class, they all should have one.
 		BaseClass[] units_bc = GameObject.FindObjectsOfType<BaseClass>();
@@ -518,7 +518,7 @@ public class GM : MonoBehaviour {
 		
 		foreach(BaseClass unit in units_bc)
 		{
-			if(Vector3.Distance(unit.transform.position, CurrentFocusCamera.transform.position) < distance)
+			if(Vector3.Distance(unit.transform.position, target.transform.position) < distance)
 			{
 				units.Add(unit.gameObject);
 			}
@@ -532,7 +532,7 @@ public class GM : MonoBehaviour {
 	/// </summary>
 	/// <returns>The friendly units near player.</returns>
 	/// <param name="distance">Distance.</param>
-	public List<GameObject> GetFriendlyUnitsNearPlayer(float distance)
+	public List<GameObject> GetFriendlyUnitsNearPlayer(GameObject target, float distance)
 	{
 		// Get all of the current player's units that are in their unique player container.
 		BaseClass[] units_bc = _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>();
@@ -541,7 +541,7 @@ public class GM : MonoBehaviour {
 		
 		foreach(BaseClass unit in units_bc)
 		{
-			if(Vector3.Distance(unit.transform.position, CurrentFocusCamera.transform.position) < distance)
+			if(Vector3.Distance(unit.transform.position, target.transform.position) < distance)
 			{
 				units.Add(unit.gameObject);
 			}
@@ -555,7 +555,7 @@ public class GM : MonoBehaviour {
 	/// </summary>
 	/// <returns>The enemy units near player.</returns>
 	/// <param name="distance">Distance.</param>
-	public List<GameObject> GetEnemyUnitsNearPlayer(float distance)
+	public List<GameObject> GetEnemyUnitsNearPlayer(GameObject target, float distance)
 	{
 		List<GameObject> enemies = new List<GameObject>();
 		for(int i=0;i<_total_players;++i)
@@ -568,7 +568,7 @@ public class GM : MonoBehaviour {
 			{
 				foreach(BaseClass unit in _player_container[i].GetComponentsInChildren<BaseClass>())
 				{
-					if(Vector3.Distance(unit.transform.position, CurrentFocusCamera.transform.position) < distance)
+					if(Vector3.Distance(unit.transform.position, target.transform.position) < distance)
 					{
 						enemies.Add(unit.gameObject);
 					}

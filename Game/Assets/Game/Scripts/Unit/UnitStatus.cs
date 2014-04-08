@@ -35,7 +35,10 @@ public enum Status
 [System.Serializable]
 public class UnitStatus 
 {
+	[SerializeField]
 	private Status _status;
+
+	[SerializeField]
 	private UnitType _unit_type;
 
 	// Use this for initialization
