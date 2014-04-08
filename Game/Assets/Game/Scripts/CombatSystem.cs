@@ -6,6 +6,10 @@ public class CombatSystem{
 	// Event Handler
 	public delegate void WithinRangeEvent(GameObject currentFocus);
 	public static event WithinRangeEvent WithinRange;
+	
+	public delegate void ProjectorEvent();
+	public static event ProjectorEvent TurnOnProjector;
+	
 	private static Player currentPlayer;
 	// Use this for initialization
 	public void Start () {
@@ -32,7 +36,13 @@ public class CombatSystem{
 		}
 		
 	}
-
+	
+	public static void CallCombatDelegates(ref GameObject focusUnit){
+	
+		WithinRange(focusUnit);
+		TurnOnProjector();
+	}
+	
 	public static void Attack(GameObject focusUnit, ref GameObject enemyUnit){
 	
 		//TODO: Figure out how damage is dealt		
@@ -64,6 +74,7 @@ public class CombatSystem{
 			for( uint i = 0 ; i < otherPlayerUnits.Length; ++i){
 			
 				WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+				TurnOnProjector += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnProjector;
 			}
 		}
 	}
@@ -80,6 +91,8 @@ public class CombatSystem{
 			for (uint i = 0; i < otherPlayerUnits.Length; ++i){
 
 				WithinRange -= otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+				TurnOnProjector -= otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnProjector;
+				
 			}
 		}
 	}

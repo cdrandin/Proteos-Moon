@@ -61,6 +61,9 @@ public class UnitGUI : MonoBehaviour {
 				
 			}
 			if(movement){
+				
+				CombatSystem.CallCombatDelegates(ref focusObject);
+				
 				if (proteus != NearProcite()){
 
 					this.gui_method -= UnitsOptions;
@@ -113,8 +116,11 @@ public class UnitGUI : MonoBehaviour {
 	#region UNIT GUI BUTTONS
 	private void UnitsOptions(){
 		
+		
+		
 		if(MakeButton(button_pos,TopButtonPos (0),"Attack")){
 			//TODO: Attack Code
+			
 		}
 		
 		GUI.enabled = proteus;
@@ -126,6 +132,8 @@ public class UnitGUI : MonoBehaviour {
 		GUI.enabled = true;
 		if(!init){
 			init = true;
+			CombatSystem.UpdateWithinRangeDelegate();
+			
 			if(movement){
 				
 				this.gui_method += EndMovement;
@@ -136,6 +144,11 @@ public class UnitGUI : MonoBehaviour {
 		}
 	}
 	
+	//TODO: Make this function work to hit something
+	private bool Attackable(GameObject enemyObject){
+	
+		return false;
+	}
 	
 	private void MovementButton(){
 	
