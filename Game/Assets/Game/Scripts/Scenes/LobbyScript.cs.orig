@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 //using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
@@ -19,6 +19,7 @@ public class LobbyScript : MonoBehaviour
 	
 	public void Start()
 	{
+
 		CustomTypes.Register();
 		leftToolbar = new Rect(leftToolbar.x, leftToolbar.y, leftToolbar.width, Screen.height - leftToolbar.y);
 		//this.GameInstance = new Game();
@@ -183,7 +184,12 @@ public class LobbyScript : MonoBehaviour
 	private void EndGame()
 	{
 		//this.objectToActivate.SetActive(false);
+<<<<<<< HEAD
 		GM.instance.ResetGameManager();
+=======
+		GameManager.ResetGameManager();
+		//GM.instance.ResetGameManager();
+>>>>>>> mark
 	}
 	
 	/*private string FormatRoomProps()
