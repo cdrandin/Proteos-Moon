@@ -417,6 +417,19 @@ public class GM : MonoBehaviour {
 		get { return(Player)_current_player_turn; }
 	}
 
+	/// <summary>
+	/// Returns the player given an input int. If none match, returns Player.NONE
+	/// </summary>
+	/// <returns>The player.</returns>
+	/// <param name="p">P.</param>
+	public Player GetPlayer(int p)
+	{
+		if(p>5)
+		{
+			return Player.NONE;
+		}
+		return (Player)p;
+	}
 	// Get resource amount from a player
 	/// <summary>
 	/// Gets the resource from a player.
