@@ -160,7 +160,7 @@ public class LobbyScript : MonoBehaviour
 	private void EndGame()
 	{
 		//this.objectToActivate.SetActive(false);
-		GameManager.ResetGameManager();
+		GM.instance.ResetGameManager();
 	}
 	
 	/*private string FormatRoomProps()

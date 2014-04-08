@@ -61,28 +61,14 @@ public class MovementStat
 	{
 		get
 		{
-			float cur = float.MaxValue;
-
 			if(_uc == null)
 			{
 				_uc = GameObject.Find("UnitController").GetComponent<UnitController>();
-				cur = _uc.travel_distance;
 			}
 
-			return cur;
-		}
-		/*
-		get 
-		{
-			if(_current_distance < 0)
-			{
-				_current_distance = 0;
-			}
 
-			return _current_distance;
+			return _uc.travel_distance;
 		}
-		*/
-		//set { _current_distance = value; }
 	}
 
 	public float max_distance

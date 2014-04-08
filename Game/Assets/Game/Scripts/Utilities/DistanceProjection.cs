@@ -46,9 +46,6 @@ public class DistanceProjection : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		_focus    = null;
-		_movement = null;
-
 		_distance = 0.0f;
 		SetProjectionOff();
 	}
@@ -69,9 +66,9 @@ public class DistanceProjection : MonoBehaviour
 	{
 		if(_focus == null)
 		{
-			_focus    = target;
-			_movement = _focus.GetComponent<BaseClass>().movement;
-			_distance = _movement.max_distance;
+			_focus    		  = target;
+			_movement		  = _focus.GetComponent<BaseClass>().movement;
+			_distance         = _movement.max_distance;
 			_new_ortho_size   = _distance*_ratio;
 
 			// Resize
@@ -90,13 +87,19 @@ public class DistanceProjection : MonoBehaviour
 	/// </summary>
 	private void UpdateProjection()
 	{
-		Vector3 new_position = _focus.transform.position;
-		new_position.y       = transform.position.y;
-		transform.position   = new_position;
+		Vector3 new_position      = _focus.transform.position;
+		new_position.y            = this.transform.position.y;
+		this.transform.position   = new_position;
 
 		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _movement.current_distance*_ratio,
-		                              0.0f,
+		                              1.0f,
 		                              _distance*_ratio);
+
+		// Bad artifact when texture reaches size 1.0 <
+		if(_new_ortho_size <= 1.0f)
+		{
+			_new_ortho_size = 0.0f;
+		}
 
 		foreach(Projector p in projectors)
 		{
@@ -130,5 +133,6 @@ public class DistanceProjection : MonoBehaviour
 		}
 			
 		_focus = null;
+		_movement = null;
 	}
 }

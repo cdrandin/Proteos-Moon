@@ -347,8 +347,9 @@ public class WorldCameraModified : MonoBehaviour {
 	
 	public static bool AreCameraKeyboardButtonsPressed()
 	{
-		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-			return true; else return false;
+		return (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) ?
+				true : 
+				false;
 	}
 	
 	public static bool IsMousePositionWithinBoundaries()
@@ -365,7 +366,17 @@ public class WorldCameraModified : MonoBehaviour {
 
 	public void ChangeCamera()
 	{
-		string camera_name = "camera_player" + ((int)GameManager.GetCurrentPlayer() + 1).ToString();
+		string camera_name = "";
+
+		if(GM.instance.IsOn)
+		{
+			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
+		}
+		 else
+		{
+			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
+		}
+
 
 		// Local stuff, same computer
 		if(_local)
