@@ -10,7 +10,7 @@ public class UnitActions : MonoBehaviour {
 
 	public static bool isInRange;
 	private Transform myTransform;
-	
+	GameObject enemyProjector;
 	
 	void Awake(){
 	
@@ -30,6 +30,21 @@ public class UnitActions : MonoBehaviour {
 //		
 //		}
 			
+	}
+	
+	public void TurnOnProjector(){
+	
+		if(isInRange){
+			enemyProjector = GameObject.Find("EnemyProjector");
+			enemyProjector.transform.position = this.transform.position;
+			enemyProjector.GetComponent<Projector>().enabled = true;
+		
+		}
+		if( enemyProjector.GetComponent<Projector>().enabled && !isInRange	){
+		
+			enemyProjector.GetComponent<Projector>().enabled = false;
+			
+		}
 	}
 	
 	public void WithinRange(GameObject currentFocus){
