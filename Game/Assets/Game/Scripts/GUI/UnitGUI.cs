@@ -17,6 +17,9 @@ public class UnitGUI : MonoBehaviour {
 	private float [] shift;
 	private Transform from;
 	public GUISkin mySkin;
+	private Rect informationBox;
+	
+	public int toolbarInt = -1;
 	#endregion
 
 	public GameObject focus_object 
@@ -26,6 +29,9 @@ public class UnitGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake(){
+	
+		informationBox = new Rect(0,0,(3 * Screen.width)/ 8, (5 * Screen.height)/ 20) ;
+	
 		//set objects to null
 		focusObject = null;
 		focusTemp = null;
@@ -44,9 +50,6 @@ public class UnitGUI : MonoBehaviour {
 		
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 		
-		shift = new float[2];
-		shift[0] = 0.0f;
-		shift[1] = 0.0f;
 	}
 	
 	
@@ -59,7 +62,8 @@ public class UnitGUI : MonoBehaviour {
 			if(!isInitialize && focusTemp != null){
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
-				this.gui_method += UnitsOptions;
+				this.gui_method += UnitInformationBox;
+				this.gui_method += BaseSelectionButtons;
 				
 			}
 			if(isMoving){
@@ -68,8 +72,8 @@ public class UnitGUI : MonoBehaviour {
 				
 				if (proteus != NearProcite()){
 
-					this.gui_method -= UnitsOptions;
-					this.gui_method += UnitsOptions;
+					//this.gui_method -= UnitsOptions;
+					//this.gui_method += UnitInformationBox;
 					proteus = NearProcite();
 					
 				}
@@ -100,10 +104,8 @@ public class UnitGUI : MonoBehaviour {
 	
 	private void RemoveGUI(){
 
-		this.gui_method -= EndMovement;
-		this.gui_method -= MovementButton;
-		this.gui_method -= WaitButton;
-		this.gui_method -= UnitsOptions;
+		this.gui_method -= UnitInformationBox;
+		this.gui_method -= BaseSelectionButtons;
 		
 	}
 	
@@ -116,7 +118,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 
 	#region UNIT GUI BUTTONS
-	private void UnitsOptions(){
+/*	private void UnitsOptions(){
 		
 		if(MakeButton(button_pos,TopButtonPos (0),"Attack")){
 			//TODO: Attack Code
@@ -211,7 +213,63 @@ public class UnitGUI : MonoBehaviour {
 		}
 		
 	}
+	*/
 	#endregion
+
+	public void UnitInformationBox(){
+	
+		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 8  ,  (15 * Screen.height)/	20 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+		
+			isInitialize = true;
+			GUI.Box( informationBox, "");//focusObject.GetComponent<BaseClass>().unit_status.unit_type.ToString() );
+				
+			string currentHealth = focusObject.GetComponent<BaseClass>().vital.HP.current.ToString();
+			string maxHealth = focusObject.GetComponent<BaseClass>().vital.HP.max.ToString();
+			
+			string healthLabel = "HP\t" + currentHealth + " / " + maxHealth ;
+	
+			string currentExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.current.ToString();
+			string maxExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.max.ToString();
+			
+			string exhaustLabel = "Exhaust\t" + currentExhaust + " / " + maxExhaust;
+							
+			GUI.Label( new Rect( informationBox.width / 2 - 60, informationBox.height/2 - 40, 100, 30) , healthLabel );
+			GUI.Label( new Rect( informationBox.width / 2 - 60, informationBox.height/2 - 10, 200, 30) , exhaustLabel );
+		
+		GUI.EndGroup();
+	
+	}
+	
+	
+	public void BaseSelectionButtons(){
+	
+		GUI.BeginGroup(new Rect( (6 * Screen.width)/ 8  ,  (15 * Screen.height)/ 20 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+		
+			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Move")){
+					//Expend units action
+					/*				
+					focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
+					GM.instance.SetUnitControllerActiveOff();
+					this.gui_method -= WaitButton;
+					this.gui_method -= UnitsOptions;
+					this.gui_method -= MovementButton;
+					focusObject = null;
+					isInitialize = false;
+					*/
+			}
+			if(GUI.Button(new Rect(0, (5 * Screen.height)/ 80, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Action")){
+			
+			}
+			if(GUI.Button(new Rect(0, (10 * Screen.height)/ 80, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Gather")){
+				
+			}
+			if(GUI.Button(new Rect(0, (15 * Screen.height)/ 80, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Rest")){
+			
+			}
+		
+		GUI.EndGroup();
+		
+	}
 	
 	
 	#region Helper Functions
@@ -233,7 +291,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	bool MakeButton(float left, float top, string name){
-		return GUI.Button(new Rect(left,top+50, 150,50), name);
+		return GUI.Button(new Rect(left,top+0, 150,50), name);
 	}
 	
 	float TopButtonPos(float button_index){
