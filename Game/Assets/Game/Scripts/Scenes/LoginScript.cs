@@ -16,7 +16,7 @@ public class LoginScript : MonoBehaviour
 	
 	public void Awake()
 	{
-		this.guiCenteredRect = new Rect(Screen.width/2-GuiSize.x/2, Screen.height/2-GuiSize.y/2, GuiSize.x, GuiSize.y);
+		this.guiCenteredRect = new Rect(Screen.width/2-GuiSize.x/2, Screen.height/2-GuiSize.y/4, GuiSize.x, GuiSize.y);
 		
 		if (this.componentToEnable == null || this.componentToEnable.enabled)
 		{
@@ -54,11 +54,11 @@ public class LoginScript : MonoBehaviour
 		player_name = player_name.TrimStart(arr);
 		player_name = player_name.TrimEnd(arr);
 		PhotonNetwork.playerName = player_name;
-		if (GUI.changed)
+		/*if (GUI.changed)
 		{
 			// Save name
 			PlayerPrefs.SetString("playername", PhotonNetwork.playerName);
-		}
+		}*/
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Connect"))
 		{
@@ -76,6 +76,7 @@ public class LoginScript : MonoBehaviour
 	private void ConnectToLobby()
 	{
 		PhotonNetwork.playerName = player_name;
+		PlayerPrefs.SetString ("playername", PhotonNetwork.playerName);
 		this.componentToEnable.enabled = true;
 		this.enabled = false;
 	}

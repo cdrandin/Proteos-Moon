@@ -29,12 +29,18 @@ public class Game : MonoBehaviour
 	private float waitingTime;
 	private float timer;
 	private bool init;
+
+	private WorldCameraModified wcm;
 	
 	void Awake() 
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
 		_game_manager_gui.text = "";
-		
+		wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
+		if(wcm == null)
+		{
+			Debug.LogError("Cannot find WorldCamera");
+		}
 		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
 	}
 	
@@ -56,6 +62,7 @@ public class Game : MonoBehaviour
 		}
 		else
 		{
+			//this.gui_method += GUI_menu; 
 			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 		}
 	}
@@ -65,62 +72,44 @@ public class Game : MonoBehaviour
 	{
 		if(GM.instance.IsOn)
 		{
-			if(testing)
+			if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
 			{
-				if(Input.GetMouseButtonDown(0) && GameObject.Find ("WorldCamera") != null)
+				// Reset timer for display the resource text
+				timer = 0;
+				Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if(Physics.Raycast(ray, out hit, 100))
 				{
-					// for now ~~~~~~~~~~~~
-					WorldCameraModified wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
-					if(wcm.MainCamera != null)
+					// Get correct, unit
+					string tag = hit.transform.tag;
+					
+					if(tag == "Unit" || tag == "Leader")
 					{
-						Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
-						RaycastHit hit;
-						if(Physics.Raycast(ray, out hit, 100))
-						{
-							// Get correct, unit
-							string tag = hit.transform.tag;
-							
-							if(tag == "Unit" || tag == "Leader")
-							{
-								GameObject obj = hit.transform.gameObject;
-								GM.instance.SetUnitControllerActiveOn(ref obj);
-							}
-							else
-							{
-								GM.instance.SetUnitControllerActiveOff();
-							}
-						}
+						GameObject obj = hit.transform.gameObject;
+						GM.instance.SetUnitControllerActiveOn(ref obj);
+					}
+					else
+					{
+						GM.instance.SetUnitControllerActiveOff();
 					}
 				}
 			}
-		}
-		
-		// Reset timer for display the resource text
-		if(Input.GetMouseButtonDown(0))
-		{
-			timer = 0;
-		}
-		
-		if(GM.instance.IsOn)
-		{
 			if(GM.instance.IsThereAWinner())
 			{
 				_game_manager_gui.text = string.Format("The winner is {0}!", GM.instance.Winner);
 			}
-		}
-		
-		//Only run when GameManager is active
-		if(GM.instance.IsOn)
-		{
-			timer += Time.deltaTime;
-			if(timer > waitingTime)
+			if(testing)
 			{
-				//Action
-				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
-				                                       GM.instance.CurrentPlayer, 
-				                                       GM.instance.GetResourceFrom(GM.instance.CurrentPlayer).ToString(),
-				                             			GM.instance.MaxResourceLimit.ToString());
-				timer = 0;
+				timer += Time.deltaTime;
+				if(timer > waitingTime)
+				{
+					//Action
+					_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
+					                                       GM.instance.CurrentPlayer, 
+					                                       GM.instance.GetResourceFrom(GM.instance.CurrentPlayer).ToString(),
+					                                       GM.instance.MaxResourceLimit.ToString());
+					timer = 0;
+				}
 			}
 		}
 	}
@@ -315,7 +304,7 @@ public class Game : MonoBehaviour
 	
 	public void InitGUIState()
 	{
-		this.gui_method += GUI_init;
+		//this.gui_method += GUI_init;
 	}
 	
 	public void ResetGUIState()

@@ -82,7 +82,7 @@ public class HealthGUI : MonoBehaviour
 				Debug.Log("Refreshing");
 				Reset();
 
-				foreach(GameObject unit in GM.instance.GetAllUnitsNearPlayer(rendering_distance))
+				foreach(GameObject unit in GM.instance.GetAllUnitsNearPlayer(GM.instance.CurrentFocusCamera.gameObject, rendering_distance))
 				{
 					AddTarget(unit);
 				}
