@@ -16,7 +16,7 @@ public class LoginScript : MonoBehaviour
 	
 	public void Awake()
 	{
-		this.guiCenteredRect = new Rect(Screen.width/2-GuiSize.x/2, Screen.height/2-GuiSize.y/2, GuiSize.x, GuiSize.y);
+		this.guiCenteredRect = new Rect(Screen.width/2-GuiSize.x/2, Screen.height/2-GuiSize.y/4, GuiSize.x, GuiSize.y);
 		
 		if (this.componentToEnable == null || this.componentToEnable.enabled)
 		{
