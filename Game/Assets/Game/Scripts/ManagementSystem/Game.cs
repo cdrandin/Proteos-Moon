@@ -59,12 +59,10 @@ public class Game : MonoBehaviour
 			timer = 0.0f;
 			
 			init = false;
-			print ("testing is on");
 		}
 		else
 		{
-			print ("testing is off");
-			//this.gui_method += GUI_menu;
+			//this.gui_method += GUI_menu; 
 			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 		}
 	}
