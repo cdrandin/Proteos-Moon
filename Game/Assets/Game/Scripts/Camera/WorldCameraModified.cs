@@ -229,6 +229,7 @@ public class WorldCameraModified : MonoBehaviour {
 			if(heightDifference > -deadZone && heightDifference < deadZone) return;
 
 			if(newHeight > maxCameraHeight || newHeight < MinCameraHeight()) return;
+			
 
 			cameraY = newHeight;
 

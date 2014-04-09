@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CombatSystem{
+public class CombatSystem : MonoBehaviour{
 
 	// Event Handler
 	public delegate void WithinRangeEvent(GameObject currentFocus);

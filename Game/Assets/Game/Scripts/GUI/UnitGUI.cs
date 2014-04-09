@@ -10,12 +10,13 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject, worldCamera, mainCamera;
-	private bool init, smoothPos, movement, proteus;
-	private float height = 5.0f,heightDamping = 2.0f ,rotationDamping = 3.0f, button_pos = Screen.width - 250;
+	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking;
+	private float height = 5.0f, heightDamping = 2.0f , rotationDamping = 3.0f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	private Quaternion currentRotation;
 	private float [] shift;
 	private Transform from;
+	public GUISkin mySkin;
 	#endregion
 
 	public GameObject focus_object 
@@ -29,9 +30,10 @@ public class UnitGUI : MonoBehaviour {
 		focusObject = null;
 		focusTemp = null;
 		proteus = false;
+		isAttacking = false;
 		//Set bools to false
-		init = false;
-		movement = false;
+		isInitialize = false;
+		isMoving = false;
 		smoothPos = false;
 		
 	}
@@ -54,13 +56,13 @@ public class UnitGUI : MonoBehaviour {
 		{
 			focusTemp = GM.instance.CurrentFocus;
 			
-			if(!init && focusTemp != null){
+			if(!isInitialize && focusTemp != null){
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method += UnitsOptions;
 				
 			}
-			if(movement){
+			if(isMoving){
 				
 				CombatSystem.CallCombatDelegates(ref focusObject);
 				
@@ -78,7 +80,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	void LateUpdate(){
-		if(movement && focusObject != null){
+		if(isMoving && focusObject != null){
 			SmoothFollow(focusObject.transform);
 			
 		}
@@ -91,7 +93,7 @@ public class UnitGUI : MonoBehaviour {
 		
 			RemoveGUI();
 			focusObject = null;
-			init = false;
+			isInitialize = false;
 			
 		}
 	}
@@ -106,7 +108,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	void OnGUI(){
-	
+		GUI.skin = mySkin;
 		if(this.gui_method != null ){
 		
 			this.gui_method();
@@ -115,8 +117,6 @@ public class UnitGUI : MonoBehaviour {
 
 	#region UNIT GUI BUTTONS
 	private void UnitsOptions(){
-		
-		
 		
 		if(MakeButton(button_pos,TopButtonPos (0),"Attack")){
 			//TODO: Attack Code
@@ -128,13 +128,14 @@ public class UnitGUI : MonoBehaviour {
 		if(MakeButton(button_pos, TopButtonPos(1), "Gather"	) ){
 			//TODO: Gather code
 			GM.instance.AddResourcesToCurrentPlayer(50);
+			focusObject.GetComponent<BaseClass>().unit_status.status = Status.Gathering;
 		}
 		GUI.enabled = true;
-		if(!init){
-			init = true;
+		if(!isInitialize){
+			isInitialize = true;
 			CombatSystem.UpdateWithinRangeDelegate();
 			
-			if(movement){
+			if(isMoving){
 				
 				this.gui_method += EndMovement;
 			}else{
@@ -146,20 +147,23 @@ public class UnitGUI : MonoBehaviour {
 	
 	//TODO: Make this function work to hit something
 	private bool Attackable(GameObject enemyObject){
-	
-		return false;
+		
+		return Vector3.SqrMagnitude(focusObject.transform.position - enemyObject.transform.position )
+			< focusObject.GetComponent<BaseClass>().attack_range * focusObject.GetComponent<BaseClass>().attack_range;
+		
 	}
 	
 	private void MovementButton(){
 	
 		if(MakeButton(button_pos, TopButtonPos(2), "Movement")){
-
+			focusObject.GetComponent<BaseClass>().unit_status.status = Status.Movement;
+			
 			GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 			worldCamera.transform.eulerAngles = Vector3.zero;
 			mainCamera = CurrentMainCamera();
 
 			smoothPos = true;
-			movement = true;
+			isMoving = true;
 			this.gui_method -= WaitButton;
 			this.gui_method -= MovementButton;
 			this.gui_method += EndMovement;
@@ -182,12 +186,13 @@ public class UnitGUI : MonoBehaviour {
 		
 		if(MakeButton(button_pos,TopButtonPos(3), "Wait")){
 			//Expend units action
+			focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
 			GM.instance.SetUnitControllerActiveOff();
 			this.gui_method -= WaitButton;
 			this.gui_method -= UnitsOptions;
 			this.gui_method -= MovementButton;
 			focusObject = null;
-			init = false;
+			isInitialize = false;
 			}
 			
 	}
@@ -199,7 +204,8 @@ public class UnitGUI : MonoBehaviour {
 			this.gui_method -= EndMovement;
 			this.gui_method += MovementButton;
 			this.gui_method += WaitButton;
-			movement = false;
+			isMoving = false;
+			smoothPos = true;
 			RestCamera();
 		//		Pop ();
 		}
@@ -269,23 +275,28 @@ public class UnitGUI : MonoBehaviour {
 		// Set the height of the camera
 		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
 		
-		if (Mathf.Abs(worldCamera.transform.position.x - worldCameraPosition.x) < 0.1 &&
+		if (smoothPos && 
+			(Mathf.Abs(worldCamera.transform.position.x - worldCameraPosition.x) < 0.1 &&
 		    Mathf.Abs(worldCamera.transform.position.y - worldCameraPosition.y) < 0.1 &&
 		    Mathf.Abs(worldCamera.transform.position.z - worldCameraPosition.z) < 0.1
-		    ){
-		    	
+		    )){
+
 		    	smoothPos = false;
-		    	
 		    }
 		
 		if(smoothPos){
 		
 			worldCamera.transform.position = Vector3.Slerp(worldCamera.transform.position, worldCameraPosition, Time.deltaTime *5.5f);
-		}else{
-			worldCamera.transform.position = worldCameraPosition;
+			
 		}
-		
+		if (!smoothPos && Input.anyKey){
+			//print("in here");
+			worldCamera.transform.position = worldCameraPosition;
+		//	mainCamera.transform.LookAt(target);
+			
+		}
 		mainCamera.transform.LookAt(target);
+		
 	}
 	
 	#endregion

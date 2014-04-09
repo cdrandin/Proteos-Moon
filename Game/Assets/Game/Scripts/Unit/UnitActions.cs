@@ -15,10 +15,17 @@ public class UnitActions : MonoBehaviour {
 	void Awake(){
 	
 		myTransform = this.GetComponent<Transform>();	
+		
 	}
 	// Use this for initialization
 	void Start () {
+		enemyProjector = GameObject.Find("EnemyProjector");
+		
+	}
 	
+	public static bool IsUnitInRange(){
+	
+		return isInRange;
 	}
 	
 	// Update is called once per frame
@@ -35,8 +42,7 @@ public class UnitActions : MonoBehaviour {
 	public void TurnOnProjector(){
 	
 		if(isInRange){
-			enemyProjector = GameObject.Find("EnemyProjector");
-			enemyProjector.transform.position = this.transform.position;
+			enemyProjector.transform.position = new Vector3(this.transform.position.x ,this.transform.position.y + 10, this.transform.position.z)  ;
 			enemyProjector.GetComponent<Projector>().enabled = true;
 		
 		}
@@ -48,12 +54,17 @@ public class UnitActions : MonoBehaviour {
 	}
 	
 	public void WithinRange(GameObject currentFocus){
+
 		if( Vector3.SqrMagnitude(currentFocus.transform.position - myTransform.position )
-		   < currentFocus.GetComponent<BaseClass>().attack_range * currentFocus.GetComponent<BaseClass>().attack_range){
-		   
-		   
-		   		isInRange = true;
-		   }		
+			< currentFocus.GetComponent<BaseClass>().attack_range * currentFocus.GetComponent<BaseClass>().attack_range ){
+		
+		
+			isInRange = true;
+		}
+		else{
+		
+			isInRange = false;
+		}	
 	}
 	
 	// TODO: Create a function that will move a projector ontop of the current unit if isInRange is true
