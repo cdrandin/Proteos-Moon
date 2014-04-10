@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CombatSystem : MonoBehaviour{
 
@@ -10,23 +11,17 @@ public class CombatSystem : MonoBehaviour{
 	public delegate void ProjectorEvent();
 	public static event ProjectorEvent TurnOnProjector;
 	
-	private static Player currentPlayer;
-	// Use this for initialization
-	public void Start () {
+	private static Player currentPlayer = Player.NONE;
 
-		currentPlayer = Player.NONE;
-	}
-	
 	// Update is called once per frame
 	public void Update () {
 	
 	}
 	
 	public static void UpdateWithinRangeDelegate(){
- 
-		//HACK: this will only work for two players
+ 		
 		if (currentPlayer != GM.instance.CurrentPlayer) {
-			
+
 			if(WithinRange != null)
 				CleanDelegateBeforeSwitch();
 			
@@ -37,13 +32,32 @@ public class CombatSystem : MonoBehaviour{
 		
 	}
 	
-	public static void CallCombatDelegates(ref GameObject focusUnit){
+	public static bool AnyNearbyUnitsToAttack(GameObject focusUnit){
 	
+		
+		return GM.instance.GetEnemyUnitsNearPlayer(focusUnit, focusUnit.GetComponent<BaseClass>().attack_range).Count != 0;
+	}
+
+	public static List<GameObject> GetNearbyAttackableUnits(GameObject focusUnit){
+	
+	
+		return GM.instance.GetEnemyUnitsNearPlayer(focusUnit, focusUnit.GetComponent<BaseClass>().attack_range);
+	}
+	
+	public static void CallCombatDelegates(GameObject focusUnit){
+
 		WithinRange(focusUnit);
 		TurnOnProjector();
 	}
 	
-	public static void Attack(GameObject focusUnit, ref GameObject enemyUnit){
+	public static void CombatLookAt(ref GameObject MainCamera, GameObject focus, GameObject enemyUnit){
+	
+//		MainCamera.transform.LookAt();
+		
+	}
+	
+	
+	public static void Attack(GameObject focusUnit, GameObject enemyUnit){
 	
 		//TODO: Figure out how damage is dealt		
 	

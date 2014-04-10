@@ -115,7 +115,7 @@ public class WorldCameraModified : MonoBehaviour {
 
 		ApplyScroll ();
 		if(CheckIfUserCameraInput()){
-		
+			
 			Vector3 desiredTranslation = GetDesiredTranslation();
 			if(!isDesiredPositionOverBoundaries(desiredTranslation))
 			{

@@ -11,14 +11,14 @@ public class UnitGUI : MonoBehaviour {
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject, worldCamera, mainCamera;
 	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction;
-	private float height = 5.0f, heightDamping = 2.0f , rotationDamping = 3.0f, button_pos = Screen.width - 250;
+	private float height = 5.0f, heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	private Quaternion currentRotation;
 	private float [] shift;
 	private Transform from;
 	public GUISkin mySkin;
 	private Rect informationBox;
-	
+	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	#endregion
 
@@ -26,12 +26,8 @@ public class UnitGUI : MonoBehaviour {
 	{
 		get { return this.focusObject; }
 	}
-
-	// Use this for initialization
-	void Awake(){
 	
-		informationBox = new Rect(0,0,(3 * Screen.width)/ 8, (5 * Screen.height)/ 20) ;
-	
+	private void ResetFlags(){
 		//set objects to null
 		focusObject = null;
 		focusTemp = null;
@@ -42,6 +38,15 @@ public class UnitGUI : MonoBehaviour {
 		isInitialize = false;
 		isMoving = false;
 		smoothPos = false;
+		
+	}
+	
+	// Use this for initialization
+	void Awake(){
+	
+		informationBox = new Rect(0,0,(3 * Screen.width)/ 8, (5 * Screen.height)/ 20) ;
+		ResetFlags();
+
 		
 	}
 	
@@ -61,6 +66,7 @@ public class UnitGUI : MonoBehaviour {
 			focusTemp = GM.instance.CurrentFocus;
 			
 			if(!isInitialize && focusTemp != null){
+				CombatSystem.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method += UnitInformationBox;
@@ -68,13 +74,11 @@ public class UnitGUI : MonoBehaviour {
 				
 			}
 			if(isMoving){
-				
-				CombatSystem.CallCombatDelegates(ref focusObject);
+
+				CombatSystem.CallCombatDelegates(focusObject);
 				
 				if (proteus != NearProcite()){
 
-					//this.gui_method -= UnitsOptions;
-					//this.gui_method += UnitInformationBox;
 					proteus = NearProcite();
 					
 				}
@@ -97,8 +101,8 @@ public class UnitGUI : MonoBehaviour {
 		if( Input.GetKeyUp(KeyCode.Escape) || WorldCameraModified.AreCameraKeyboardButtonsPressed() ){
 		
 			RemoveGUI();
-			focusObject = null;
-			isInitialize = false;
+
+			ResetFlags();
 			
 		}
 	}
@@ -107,6 +111,8 @@ public class UnitGUI : MonoBehaviour {
 
 		this.gui_method -= UnitInformationBox;
 		this.gui_method -= BaseSelectionButtons;
+		this.gui_method -= ActionSelectionButtons;
+		this.gui_method -= MovementEndButton;
 		
 	}
 	
@@ -208,6 +214,7 @@ public class UnitGUI : MonoBehaviour {
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 				worldCamera.transform.eulerAngles = Vector3.zero;
 				mainCamera = CurrentMainCamera();
+
 				gui_method += MovementEndButton;
 				smoothPos = true;
 				isMoving = true;
@@ -218,9 +225,15 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += ActionSelectionButtons;
 				
 			}
+			
+			GUI.enabled = proteus && !isAction;	
 			if(GUI.Button(new Rect(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16) , "Gather")){
-	
+				//TODO: Gather code
+				GM.instance.AddResourcesToCurrentPlayer(50);
+				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Gathering;
+				
 			}
+			GUI.enabled = !isAction;
 			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16) , "Rest")){
 				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
 				GM.instance.SetUnitControllerActiveOff();
@@ -237,14 +250,14 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void MovementEndButton(){
 	
-		GUI.BeginGroup(new Rect( (13 * Screen.width)/ 16  ,  (31 * Screen.height)/ 40 , (3 * Screen.width)/8, (3 * Screen.height)/ 10 ));
+		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  (29 * Screen.height)/ 40 , (3 * Screen.width)/8, (3 * Screen.height)/ 10 ));
 		
 			GUI.depth = 2;
 			if(GUI.Button(new Rect(0,0,  Screen.width/ 8, Screen.height/ 16) , "End Movement")){
 				GM.instance.SetUnitControllerActiveOff();
 				isMoving = false;
 				smoothPos = true;
-				RestCamera();
+				ResetCamera();
 				gui_method -= MovementEndButton;
 				isAction  = false;
 			}
@@ -253,7 +266,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void ActionSelectionButtons(){
 	
-		GUI.BeginGroup(new Rect( (13 * Screen.width)/ 16  ,  (31 * Screen.height)/ 40 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  (29 * Screen.height)/ 40 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
 
 			GUI.depth = 2;
 			if(GUI.Button(new Rect(0,0, Screen.width/ 8, Screen.height/ 16) , "Attack")){
@@ -272,12 +285,17 @@ public class UnitGUI : MonoBehaviour {
 				gui_method -= ActionSelectionButtons;
 				isAction  =false;
 			}
+			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Back")){
+				
+				gui_method -= ActionSelectionButtons;
+				isAction  = false;
+			}
 		GUI.EndGroup();
 	}
 	
 	
 	#region Helper Functions
-	
+
 	public bool NearProcite(){
 	
 		if (procite_locations.Length != 0 ){
@@ -310,7 +328,7 @@ public class UnitGUI : MonoBehaviour {
 		return button_index * 50;
 	}
 		
-	private void RestCamera(){
+	private void ResetCamera(){
 
 		Vector3 oldWorldTransformEul = new Vector3(0.0f, worldCamera.transform.eulerAngles.y + mainCamera.transform.localEulerAngles.y, 0.0f);
 		Vector3 oldMainEul = new Vector3(mainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
@@ -349,12 +367,12 @@ public class UnitGUI : MonoBehaviour {
 		    Mathf.Abs(worldCamera.transform.position.y - worldCameraPosition.y) < 0.1 &&
 		    Mathf.Abs(worldCamera.transform.position.z - worldCameraPosition.z) < 0.1
 		    )){
-
+				
 		    	smoothPos = false;
 		    }
 		
 		if(smoothPos){
-		
+
 			worldCamera.transform.position = Vector3.Slerp(worldCamera.transform.position, worldCameraPosition, Time.deltaTime *5.5f);
 			
 		}
@@ -366,15 +384,12 @@ public class UnitGUI : MonoBehaviour {
 		}
 		mainCamera.transform.LookAt(target);
 		
+		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
+		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);
 	}
 	GameObject CurrentMainCamera(){
 		
-		if( GM.instance.CurrentPlayer == 0 ){			
-			return  GameObject.Find ("camera_player1");
-		}
-		else{
-			return  GameObject.Find ("camera_player2");
-		}
+		return  GameObject.Find ("camera_player" + ((int)GM.instance.CurrentPlayer + 1 ).ToString() );
 		
 	}
 	#endregion
