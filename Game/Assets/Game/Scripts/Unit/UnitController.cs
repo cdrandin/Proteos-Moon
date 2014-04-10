@@ -249,16 +249,6 @@ public class UnitController : MonoBehaviour
 			{
 				Debug.LogWarning(string.Format("{0} unit is missing a CharacterController! Putting one on it now.", unit.name));
 				return;
-				/*
-				// Create character controller
-				unit.AddComponent("CharacterController");
-				_unit_focus_cc = unit.GetComponent<CharacterController>();
-
-				// Preset values to test
-				_unit_focus_cc.center = new Vector3(_unit_focus_cc.center.x, 0.95f,_unit_focus_cc.center.z);
-				_unit_focus_cc.radius = 0.3f;
-				_unit_focus_cc.height = 2.31f;
-				*/
 			}
 
 			// Get movementstat
@@ -277,7 +267,7 @@ public class UnitController : MonoBehaviour
 			Setup();
 
 			// Set distance projector to focus unit
-			_distance_proj.SetProjectionOn(unit);
+			//_distance_proj.SetProjectionOn(unit);
 
 			// Assume we got what we need now.
 			_unit_focus_cc.detectCollisions = false;

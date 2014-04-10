@@ -38,9 +38,14 @@ public class DistanceProjection : MonoBehaviour
 
 	private MovementStat _movement;
 
+
+
+	private bool on;
+
 	void Awake ()
 	{
 		projectors = GetComponentsInChildren<Projector>();
+		on = false;
 	}
 
 	// Use this for initialization
@@ -53,6 +58,13 @@ public class DistanceProjection : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		if(GM.instance.IsOn && (GM.instance.CurrentFocus != null))
+		{
+			if(Input.GetKeyDown(KeyCode.Space))
+			{
+				SetProjectionOn(GM.instance.CurrentFocus);
+			}
+		}
 		if(_focus != null)
 		{
 			UpdateProjection();
