@@ -69,6 +69,8 @@ public class UnitController : MonoBehaviour
 	// Keep track of units' movement stat script
 	private MovementStat _unit_focus_movement;
 
+	private Vector3 start;
+
 	void Awake()
 	{	
 		_distance_proj = GameObject.FindObjectOfType<DistanceProjection>();
@@ -267,10 +269,11 @@ public class UnitController : MonoBehaviour
 			Setup();
 
 			// Set distance projector to focus unit
-			//_distance_proj.SetProjectionOn(unit);
+			_distance_proj.SetProjectionOn(unit);
 
 			// Assume we got what we need now.
 			_unit_focus_cc.detectCollisions = false;
+			start = _unit_focus_cc.gameObject.transform.position;
 		}
 		else
 		{
@@ -280,6 +283,8 @@ public class UnitController : MonoBehaviour
 
 	public void ClearFocusUnit()
 	{
+		if(_unit_focus_cc != null)
+			Debug.Log(string.Format("Distance afar: {0}", Vector3.Distance(_unit_focus_cc.gameObject.transform.position, start)));
 		_unit_focus_cc = null;
 
 		// Reset UnitController's variables to 0
@@ -287,6 +292,7 @@ public class UnitController : MonoBehaviour
 
 		// Set distance projector to unfocus
 		_distance_proj.SetProjectionOff();
+
 	}
 
 	public GameObject GetUnitControllerFocus()
