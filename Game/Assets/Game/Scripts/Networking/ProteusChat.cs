@@ -10,7 +10,7 @@ public class ProteusChat : Photon.MonoBehaviour
     public bool AlignBottom = true;
     public List<string> messages = new List<string>();
     private string inputLine = "";
-	private char[] arr = new char[0] { '\r', '\n', ' ' };
+	private char[] arr = new char[] { '\r', '\n', ' ' };
 	private Vector2 scrollPos = new Vector2(Mathf.Infinity, Mathf.Infinity);
 
     public static readonly string ChatRPC = "Chat";
