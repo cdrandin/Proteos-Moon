@@ -203,7 +203,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 1;
 			GUI.enabled = !isAction;
 			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
-				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Movement;
+				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Move;
 				
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 				worldCamera.transform.eulerAngles = Vector3.zero;
@@ -222,7 +222,7 @@ public class UnitGUI : MonoBehaviour {
 	
 			}
 			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16) , "Rest")){
-				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
+				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Rest;
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
