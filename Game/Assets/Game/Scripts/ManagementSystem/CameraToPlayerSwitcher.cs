@@ -3,11 +3,11 @@ using System.Collections;
 
 public class CameraToPlayerSwitcher : Photon.MonoBehaviour {
 	private bool toggle = true;
-	public WorldCameraModified _world_camera;
+	public WorldCamera _world_camera;
 	public GameObject _player;
 	// Use this for initialization
 	void Start () {
-		_world_camera = GameObject.Find ("WorldCamera").GetComponent<WorldCameraModified>();
+		_world_camera = GameObject.Find ("WorldCamera").GetComponent<WorldCamera>();
 		_world_camera.enabled = false;
 		_player = GameObject.FindGameObjectWithTag("Unit");
 	}

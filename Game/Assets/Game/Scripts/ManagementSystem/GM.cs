@@ -48,7 +48,7 @@ public class GM : MonoBehaviour {
 	private UnitCost            _unit_cost;
 	private RecruitSystem       _recruit_system;
 	private UnitController      _unit_controller;
-	private WorldCameraModified _world_camera;
+	private WorldCamera _world_camera;
 	
 	// Winning conditions
 	//
@@ -122,7 +122,7 @@ public class GM : MonoBehaviour {
 			Debug.LogWarning("Unit Controller missing reference");
 		}
 		
-		_world_camera = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
+		_world_camera = GameObject.Find("WorldCamera").GetComponent<WorldCamera>();
 		if(_world_camera == null)
 		{
 			Debug.LogWarning("World Camera missing reference");

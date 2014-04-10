@@ -66,6 +66,4 @@ public class UnitActions : MonoBehaviour {
 			isInRange = false;
 		}	
 	}
-	
-	// TODO: Create a function that will move a projector ontop of the current unit if isInRange is true
 }

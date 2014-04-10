@@ -30,13 +30,13 @@ public class Game : MonoBehaviour
 	private float timer;
 	private bool init;
 
-	private WorldCameraModified wcm;
+	private WorldCamera wcm;
 	
 	void Awake() 
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
 		_game_manager_gui.text = "";
-		wcm = GameObject.Find("WorldCamera").GetComponent<WorldCameraModified>();
+		wcm = GameObject.Find("WorldCamera").GetComponent<WorldCamera>();
 		if(wcm == null)
 		{
 			Debug.LogError("Cannot find WorldCamera");

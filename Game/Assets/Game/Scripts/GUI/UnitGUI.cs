@@ -9,7 +9,7 @@ public class UnitGUI : MonoBehaviour {
 	private delegate void GUIMethod();
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
-	private GameObject focusTemp, focusObject, worldCamera, mainCamera;
+	private GameObject focusTemp, focusObject;
 	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction;
 	private float height = 5.0f, heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
@@ -52,7 +52,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	void Start () {
 		//Initialize World Camera Object
-		worldCamera = GameObject.Find("WorldCamera");
+		//worldCamera = GameObject.Find("WorldCamera");
 		
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 		
@@ -98,7 +98,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	private void CheckButtonsPressedToRemoveGUI(){
 	
-		if( Input.GetKeyUp(KeyCode.Escape) || WorldCameraModified.AreCameraKeyboardButtonsPressed() ){
+		if( Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed() ){
 		
 			RemoveGUI();
 
@@ -212,8 +212,8 @@ public class UnitGUI : MonoBehaviour {
 				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Move;
 				
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
-				worldCamera.transform.eulerAngles = Vector3.zero;
-				mainCamera = CurrentMainCamera();
+				WorldCamera.Instance.transform.eulerAngles = Vector3.zero;
+				WorldCamera.Instance.MainCamera = CurrentMainCamera();
 
 				gui_method += MovementEndButton;
 				smoothPos = true;
@@ -230,7 +230,7 @@ public class UnitGUI : MonoBehaviour {
 			if(GUI.Button(new Rect(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16) , "Gather")){
 				//TODO: Gather code
 				GM.instance.AddResourcesToCurrentPlayer(50);
-				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Gathering;
+//				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Gathering;
 				
 			}
 			GUI.enabled = !isAction;
@@ -247,6 +247,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.EndGroup();
 		
 	}
+	
 	
 	public void MovementEndButton(){
 	
@@ -330,10 +331,10 @@ public class UnitGUI : MonoBehaviour {
 		
 	private void ResetCamera(){
 
-		Vector3 oldWorldTransformEul = new Vector3(0.0f, worldCamera.transform.eulerAngles.y + mainCamera.transform.localEulerAngles.y, 0.0f);
-		Vector3 oldMainEul = new Vector3(mainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
-		worldCamera.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
-		mainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
+		Vector3 oldWorldTransformEul = new Vector3(0.0f, WorldCamera.Instance.transform.eulerAngles.y + WorldCamera.Instance.MainCamera.transform.localEulerAngles.y, 0.0f);
+		Vector3 oldMainEul = new Vector3(WorldCamera.Instance.MainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
+		WorldCamera.Instance.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
+		WorldCamera.Instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
 	}
 		
 	public void SmoothFollow(Transform target){
@@ -342,8 +343,8 @@ public class UnitGUI : MonoBehaviour {
 		wantedRotationAngle = target.eulerAngles.y;
 		wantedHeight = target.position.y + height;
 		
-		currentRotationAngle = worldCamera.transform.eulerAngles.y;
-		currentHeight = worldCamera.transform.position.y;
+		currentRotationAngle = WorldCamera.Instance.transform.eulerAngles.y;
+		currentHeight = WorldCamera.Instance.transform.position.y;
 		
 		// Damp the rotation around the y-axis
 		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -363,9 +364,9 @@ public class UnitGUI : MonoBehaviour {
 		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
 		
 		if (smoothPos && 
-			(Mathf.Abs(worldCamera.transform.position.x - worldCameraPosition.x) < 0.1 &&
-		    Mathf.Abs(worldCamera.transform.position.y - worldCameraPosition.y) < 0.1 &&
-		    Mathf.Abs(worldCamera.transform.position.z - worldCameraPosition.z) < 0.1
+		    (Mathf.Abs(WorldCamera.Instance.transform.position.x - worldCameraPosition.x) < 0.1 &&
+			 Mathf.Abs(WorldCamera.Instance.transform.position.y - worldCameraPosition.y) < 0.1 &&
+			 Mathf.Abs(WorldCamera.Instance.transform.position.z - worldCameraPosition.z) < 0.1
 		    )){
 				
 		    	smoothPos = false;
@@ -373,16 +374,16 @@ public class UnitGUI : MonoBehaviour {
 		
 		if(smoothPos){
 
-			worldCamera.transform.position = Vector3.Slerp(worldCamera.transform.position, worldCameraPosition, Time.deltaTime *5.5f);
+			WorldCamera.Instance.transform.position = Vector3.Slerp(WorldCamera.Instance.transform.position, worldCameraPosition, Time.deltaTime *5.5f);
 			
 		}
 		if (!smoothPos && Input.anyKey){
 			//print("in here");
-			worldCamera.transform.position = worldCameraPosition;
+			WorldCamera.Instance.transform.position = worldCameraPosition;
 		//	mainCamera.transform.LookAt(target);
 			
 		}
-		mainCamera.transform.LookAt(target);
+		WorldCamera.Instance.MainCamera.transform.LookAt(target);
 		
 		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
 		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);

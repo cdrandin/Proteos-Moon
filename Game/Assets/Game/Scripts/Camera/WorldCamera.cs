@@ -41,7 +41,7 @@ public class WorldCamera : MonoBehaviour {
 	public GameObject MainCamera;
 	private GameObject ScrollAngle;
 
-	private float cameraMoveSpeed = 60f; // This values adjust the camera speed
+	private float cameraMoveSpeed = 20f; // This values adjust the camera speed
 	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
 	private float mouseBoundary   = 5f; //This value is the padding around the screen to apply mouse movement
 
@@ -59,21 +59,34 @@ public class WorldCamera : MonoBehaviour {
 
 	[HideInInspector] public float cameraHeight; //Only for scrolling or zooming
 	[HideInInspector] public float cameraY; //this will change relative to terrain
-	private float maxCameraHeight = 85f;
+	private float maxCameraHeight = 10f;
 	public LayerMask TerrainOnly;
 	private float minDistanceToObject = 40f;
 
+	private bool _local;
+	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
+
+	
+	private float height = 5.0f;
+	private float heightDamping = 2.0f;
+	private float rotationDamping = 3.0f;
+	
+	private float wantedRotationAngle;
+	private float wantedHeight;
+	private float currentRotationAngle;
+	private float currentHeight;
+	private Quaternion currentRotation;	
 	#endregion
 	
 	
 	void Awake()
 	{
-		Instance = this;
+		Instance = this;	
 	}
 	
-	
 	void Start () {
-		
+		_local = true; // simply bool to show local host
+
 		//Declare camera limits
 		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
 		cameraLimits.RightLimit  = WorldTerrain.terrainData.size.x - WorldTerrainPadding;
@@ -87,19 +100,22 @@ public class WorldCamera : MonoBehaviour {
 		mouseScrollLimits.BottomLimit = mouseBoundary;
 
 		cameraHeight = transform.position.y;
-		ScrollAngle =  new GameObject();
+		//ScrollAngle =  gameObject;//new GameObject();
+		ScrollAngle = new GameObject();
+		
 	}
 	
 	
+	
+	void Update (){}
 
 	void LateUpdate () {
 
 		HandleMouseRotation ();
 
 		ApplyScroll ();
-
 		if(CheckIfUserCameraInput()){
-		
+			
 			Vector3 desiredTranslation = GetDesiredTranslation();
 			if(!isDesiredPositionOverBoundaries(desiredTranslation))
 			{
@@ -159,15 +175,6 @@ public class WorldCamera : MonoBehaviour {
 		
 	}
 
-	public void LookAt(Vector3 newPosition, float smooth){
-		
-		Quaternion newRot =  Quaternion.FromToRotation( MainCamera.transform.forward , newPosition - this.transform.position );
-		MainCamera.transform.Rotate(new Vector3(newRot.eulerAngles.x , 0 , 0));
-		this.transform.Rotate(new Vector3(0, newRot.eulerAngles.y, 0));
-		
-	}	
-	
-
 	// Apply a scroll using the mouse wheel, or the trackpad
 	public void ApplyScroll(){
 
@@ -186,7 +193,7 @@ public class WorldCamera : MonoBehaviour {
 
 		//Configure the ScrollAngle GameObject
 		ScrollAngle.transform.position = transform.position;
-		ScrollAngle.transform.eulerAngles = new Vector3 (EulerAnglesX, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+		ScrollAngle.transform.eulerAngles = new Vector3 (EulerAnglesX, transform.eulerAngles.y, this.transform.eulerAngles.z);
 		ScrollAngle.transform.Translate (Vector3.back * ScrollWheelValue);
 
 		Vector3 desiredScrollPosition = ScrollAngle.transform.position;
@@ -222,6 +229,7 @@ public class WorldCamera : MonoBehaviour {
 			if(heightDifference > -deadZone && heightDifference < deadZone) return;
 
 			if(newHeight > maxCameraHeight || newHeight < MinCameraHeight()) return;
+			
 
 			cameraY = newHeight;
 
@@ -340,8 +348,9 @@ public class WorldCamera : MonoBehaviour {
 	
 	public static bool AreCameraKeyboardButtonsPressed()
 	{
-		if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-			return true; else return false;
+		return (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) ?
+				true : 
+				false;
 	}
 	
 	public static bool IsMousePositionWithinBoundaries()
@@ -355,4 +364,103 @@ public class WorldCamera : MonoBehaviour {
 			return true; else return false;
 	}
 	#endregion
+
+	public void ChangeCamera()
+	{
+		string camera_name = "";
+
+		if(GM.instance.IsOn)
+		{
+			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
+		}
+		 else
+		{
+			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
+		}
+
+
+		// Local stuff, same computer
+		if(_local)
+		{
+			if(MainCamera != null)
+			{
+				// Remove camera from container
+				MainCamera.transform.parent = null;
+
+				//saves transform in old camera
+				MainCamera.transform.position = this.transform.position;
+				MainCamera.transform.eulerAngles = new Vector3( MainCamera.transform.eulerAngles.x,  this.transform.eulerAngles.y, 0.0f);
+
+
+				// Disable audio listener before we switch
+				MainCamera.GetComponent<AudioListener>().enabled = false;
+				MainCamera.GetComponent<Camera>().enabled = false;
+				
+				MainCamera = GameObject.Find (camera_name);
+				
+				// switch cameras then turn on this ones audio listener
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
+
+				//Update Transformation
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+			}
+			else
+			{
+				MainCamera = GameObject.Find (camera_name);
+
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+				
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
+				
+				//Change Transform information
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+			}
+		} // End of local
+	}
+	
+	
+	public void SmoothFollow(ref Transform target){
+
+		wantedRotationAngle = target.eulerAngles.y;
+		wantedHeight = target.position.y + height;
+		
+		currentRotationAngle = transform.eulerAngles.y;
+		currentHeight = transform.position.y;
+		
+		// Damp the rotation around the y-axis
+		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+		
+		// Damp the height
+		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+		
+		// Convert the angle into a rotation
+		currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
+		
+		// Set the position of the camera on the x-z plane to:
+		// distance meters behind the target
+		this.transform.position = target.position;
+		this.transform.position -= currentRotation * Vector3.forward * 10;
+		
+		// Set the height of the camera
+		this.transform.position = new Vector3 (transform.position.x, currentHeight, transform.position.z);
+		
+		
+		this.transform.LookAt(new Vector3(0,target.position.y, 0 ) );
+		MainCamera.transform.LookAt(new Vector3(target.position.x, 0, 0) );
+	}
+	
+//	rotation = Quaternion.LookRotation(target.position - transform.position);
+//	transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
 }
