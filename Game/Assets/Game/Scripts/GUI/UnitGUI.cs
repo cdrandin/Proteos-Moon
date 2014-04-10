@@ -10,7 +10,7 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject, worldCamera, mainCamera;
-	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking;
+	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction;
 	private float height = 5.0f, heightDamping = 2.0f , rotationDamping = 3.0f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	private Quaternion currentRotation;
@@ -37,6 +37,7 @@ public class UnitGUI : MonoBehaviour {
 		focusTemp = null;
 		proteus = false;
 		isAttacking = false;
+		isAction = false;
 		//Set bools to false
 		isInitialize = false;
 		isMoving = false;
@@ -147,13 +148,7 @@ public class UnitGUI : MonoBehaviour {
 		}
 	}
 	
-	//TODO: Make this function work to hit something
-	private bool Attackable(GameObject enemyObject){
-		
-		return Vector3.SqrMagnitude(focusObject.transform.position - enemyObject.transform.position )
-			< focusObject.GetComponent<BaseClass>().attack_range * focusObject.GetComponent<BaseClass>().attack_range;
-		
-	}
+
 	
 	private void MovementButton(){
 	
@@ -172,54 +167,14 @@ public class UnitGUI : MonoBehaviour {
 		}
 	}
 	
-	GameObject CurrentMainCamera(){
-	
-		if( GM.instance.CurrentPlayer == 0 ){			
-			return  GameObject.Find ("camera_player1");
-		}
-		else{
-			return  GameObject.Find ("camera_player2");
-		}
-		
-	}
-	
-	private void WaitButton(){
-		
-		
-		if(MakeButton(button_pos,TopButtonPos(3), "Wait")){
-			//Expend units action
-			focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
-			GM.instance.SetUnitControllerActiveOff();
-			this.gui_method -= WaitButton;
-			this.gui_method -= UnitsOptions;
-			this.gui_method -= MovementButton;
-			focusObject = null;
-			isInitialize = false;
-			}
-			
-	}
-	
-	private void EndMovement(){
-
-		if(MakeButton(button_pos, TopButtonPos(2), "End Movement")){
-			GM.instance.SetUnitControllerActiveOff();
-			this.gui_method -= EndMovement;
-			this.gui_method += MovementButton;
-			this.gui_method += WaitButton;
-			isMoving = false;
-			smoothPos = true;
-			RestCamera();
-		//		Pop ();
-		}
-		
-	}
 	*/
 	#endregion
 
 	public void UnitInformationBox(){
 	
-		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 8  ,  (15 * Screen.height)/	20 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 8  ,  (3 * Screen.height)/	4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
 		
+			GUI.depth = 1	;
 			isInitialize = true;
 			GUI.Box( informationBox, "");//focusObject.GetComponent<BaseClass>().unit_status.unit_type.ToString() );
 				
@@ -243,32 +198,81 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void BaseSelectionButtons(){
 	
-		GUI.BeginGroup(new Rect( (6 * Screen.width)/ 8  ,  (15 * Screen.height)/ 20 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 4  ,  (3 * Screen.height)/ 4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
 		
-			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Move")){
-					//Expend units action
-					/*				
-					focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
-					GM.instance.SetUnitControllerActiveOff();
-					this.gui_method -= WaitButton;
-					this.gui_method -= UnitsOptions;
-					this.gui_method -= MovementButton;
-					focusObject = null;
-					isInitialize = false;
-					*/
+			GUI.depth = 1;
+			GUI.enabled = !isAction;
+			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
+				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Movement;
+				
+				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
+				worldCamera.transform.eulerAngles = Vector3.zero;
+				mainCamera = CurrentMainCamera();
+				gui_method += MovementEndButton;
+				smoothPos = true;
+				isMoving = true;
+				isAction = true;
 			}
-			if(GUI.Button(new Rect(0, (5 * Screen.height)/ 80, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Action")){
-			
-			}
-			if(GUI.Button(new Rect(0, (10 * Screen.height)/ 80, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Gather")){
+			if(GUI.Button(new Rect(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16) , "Action")){
+				isAction = true;
+				gui_method += ActionSelectionButtons;
 				
 			}
-			if(GUI.Button(new Rect(0, (15 * Screen.height)/ 80, (1 * Screen.width)/ 8, (5 * Screen.height)/ 80) , "Rest")){
-			
+			if(GUI.Button(new Rect(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16) , "Gather")){
+	
 			}
-		
+			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16) , "Rest")){
+				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Resting;
+				GM.instance.SetUnitControllerActiveOff();
+				this.gui_method -= UnitInformationBox;
+				this.gui_method -= BaseSelectionButtons;
+				this.gui_method -= ActionSelectionButtons;
+				focusObject = null;
+				isInitialize = false;
+			}
+			GUI.enabled = true;
 		GUI.EndGroup();
 		
+	}
+	
+	public void MovementEndButton(){
+	
+		GUI.BeginGroup(new Rect( (13 * Screen.width)/ 16  ,  (31 * Screen.height)/ 40 , (3 * Screen.width)/8, (3 * Screen.height)/ 10 ));
+		
+			GUI.depth = 2;
+			if(GUI.Button(new Rect(0,0,  Screen.width/ 8, Screen.height/ 16) , "End Movement")){
+				GM.instance.SetUnitControllerActiveOff();
+				isMoving = false;
+				smoothPos = true;
+				RestCamera();
+				gui_method -= MovementEndButton;
+				isAction  = false;
+			}
+		GUI.EndGroup();
+	}
+	
+	public void ActionSelectionButtons(){
+	
+		GUI.BeginGroup(new Rect( (13 * Screen.width)/ 16  ,  (31 * Screen.height)/ 40 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+
+			GUI.depth = 2;
+			if(GUI.Button(new Rect(0,0, Screen.width/ 8, Screen.height/ 16) , "Attack")){
+				//Expend units action
+				
+				gui_method -= ActionSelectionButtons;
+				isAction  = false;
+			}
+			if(GUI.Button(new Rect(0, Screen.height/ 15, Screen.width/ 8, Screen.height/ 16) , "Use")){
+				
+				gui_method -= ActionSelectionButtons;
+				isAction = false;
+			}
+			if(GUI.Button(new Rect(0, (2 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Special")){
+				
+				gui_method -= ActionSelectionButtons;
+				isAction  =false;
+			}
+		GUI.EndGroup();
 	}
 	
 	
@@ -290,6 +294,13 @@ public class UnitGUI : MonoBehaviour {
 			return false;
 	}
 	
+	//TODO: Make this function work to hit something
+	private bool Attackable(GameObject enemyObject){
+		
+		return Vector3.SqrMagnitude(focusObject.transform.position - enemyObject.transform.position )
+			< focusObject.GetComponent<BaseClass>().attack_range * focusObject.GetComponent<BaseClass>().attack_range;
+		
+	}
 	bool MakeButton(float left, float top, string name){
 		return GUI.Button(new Rect(left,top+0, 150,50), name);
 	}
@@ -356,7 +367,16 @@ public class UnitGUI : MonoBehaviour {
 		mainCamera.transform.LookAt(target);
 		
 	}
-	
+	GameObject CurrentMainCamera(){
+		
+		if( GM.instance.CurrentPlayer == 0 ){			
+			return  GameObject.Find ("camera_player1");
+		}
+		else{
+			return  GameObject.Find ("camera_player2");
+		}
+		
+	}
 	#endregion
 }
 
