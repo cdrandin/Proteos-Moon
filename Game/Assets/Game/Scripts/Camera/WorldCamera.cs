@@ -36,7 +36,7 @@ public class WorldCamera : MonoBehaviour {
 	
 	public static BoxLimit cameraLimits       = new BoxLimit();
 	public static BoxLimit mouseScrollLimits  = new BoxLimit();
-	public static WorldCamera Instance;
+	public static WorldCamera instance;
 
 	public GameObject MainCamera;
 	private GameObject ScrollAngle;
@@ -81,7 +81,7 @@ public class WorldCamera : MonoBehaviour {
 	
 	void Awake()
 	{
-		Instance = this;	
+		instance = this;	
 	}
 	
 	void Start () {
@@ -430,6 +430,13 @@ public class WorldCamera : MonoBehaviour {
 		} // End of local
 	}
 	
+	public void ResetCamera(){
+		
+		Vector3 oldWorldTransformEul = new Vector3(0.0f, WorldCamera.instance.transform.eulerAngles.y + WorldCamera.instance.MainCamera.transform.localEulerAngles.y, 0.0f);
+		Vector3 oldMainEul = new Vector3(WorldCamera.instance.MainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
+		WorldCamera.instance.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
+		WorldCamera.instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
+	}
 	
 	public void SmoothFollow(ref Transform target){
 
