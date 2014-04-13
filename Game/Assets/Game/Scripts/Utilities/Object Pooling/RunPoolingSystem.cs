@@ -11,7 +11,6 @@ public class RunPoolingSystem : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		objects_in_the_pool = new List<GameObject>();
 	}
 	
 	// Update is called once per frame

@@ -277,7 +277,9 @@ public class UnitGUI : MonoBehaviour {
 			Vector3 offset;
 			for(int i = 0; i < procite_locations.Length; ++i){
 				offset = procite_locations[i].gameObject.transform.position - focusObject.transform.position;
-				if(  offset.sqrMagnitude < 2 * 2) {
+				float range = focusObject.GetComponent<BaseClass>().gather_range;
+				range = range * range;
+				if( offset.sqrMagnitude < range) {
 					return true;
 				}
 			
