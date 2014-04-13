@@ -67,9 +67,10 @@ public class GM : MonoBehaviour {
 	private Player _winner;
 	
 	// Recording scores
-	private  int[] _resources_obtained;
-	private  int[] _resource_spent;
-	private  int[] _units_obtained;
+	private int[] _resources_obtained;
+	private int[] _resource_spent;
+	private int[] _units_obtained;
+	private int[]  _units_killed;
 	private  int   _round_num;
 
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
@@ -181,8 +182,9 @@ public class GM : MonoBehaviour {
 		// Allocate correct number of player containers for their units/leaders
 		_player_container 	= new GameObject[_total_players];
 		
-		// How many units ech player purchased
+		// How many units each player purchased & killed
 		_units_obtained 	= new int[_total_players];
+		_units_killed       = new int[_total_players];
 	}
 
 	// Point to player container or create one if needed, based on the number of players
@@ -310,6 +312,7 @@ public class GM : MonoBehaviour {
 		_leaders			= null;
 		_player_container	= null;
 		_units_obtained		= null;
+		_units_killed  		= null;
 	}
 
 	// Reset variables that are required to keep track of info during the game
@@ -345,6 +348,7 @@ public class GM : MonoBehaviour {
 			_resource_spent[i]     = 0;
 			_resources_obtained[i] = 0;
 			_units_obtained[i]     = 0;
+			_units_killed[i]	   = 0;
 		}
 		StartTimer();
 	}
@@ -560,9 +564,9 @@ public class GM : MonoBehaviour {
 		List<GameObject> enemies = new List<GameObject>();
 		for(int i=0;i<_total_players;++i)
 		{
-			// skip own units, we want enmies
 			if(i == _current_player_turn)
 			{
+				// skip own units, we want enmies
 			}
 			else
 			{
@@ -615,14 +619,14 @@ public class GM : MonoBehaviour {
 		get
 		{
 			int alive = 0;
-			Debug.LogWarning("Needs to check the leaders status(i.e GetComponent<UnitStatus>()");
-			/*
-			foreach(Status lead_status in _leader_status)
+			foreach(GameObject leader in _leaders)
 			{
-				if(lead_status != Status.Dead)
-					++alive;
+				if(leader.GetComponent<BaseClass>().unit_status.status != Status.Dead)
+				{
+					alive += 1;
+				}
 			}
-			*/
+
 			return alive;
 		}
 	}
@@ -649,17 +653,14 @@ public class GM : MonoBehaviour {
 			// Win by having 1 leader survive/killing off other leaders
 			else if(SurvivingLeaderCount == 1) 
 			{
-				Debug.LogWarning("Needs to check the leaders status(i.e GetComponent<UnitStatus>()");
 				for(int i=0; i<=_total_players; ++i) 
 				{
-					/*
-				if(_leader_status[i] != Status.Dead) 
-				{
-					_winner =(Player)i;
-					is_winner = true;
-					i = _leaders.Length;
-				}
-				*/
+					if(_leaders[i].GetComponent<BaseClass>().unit_status.status != Status.Dead)
+					{
+						_winner =(Player)i;
+						is_winner = true;
+						i = _leaders.Length;
+					}
 				}
 			}
 		}
@@ -749,7 +750,7 @@ public class GM : MonoBehaviour {
 			// Record keeping
 			_resource_count[(int)player] -= cost;
 			_resource_spent[(int)player] += cost;
-			++_units_obtained[(int)player]; 
+			_units_obtained[(int)player] += 1; 
 			
 			// Signal spawner and to approiate players container
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);
@@ -844,27 +845,27 @@ public class GM : MonoBehaviour {
 
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
-		Debug.LogWarning("Needs to check the leaders status(i.e GetComponent<UnitStatus>()");
-		/*
-		if(_leader_status[_current_player_turn] != Status.Resting)
+
+		// Leader still can do actions
+		if(_leaders[_current_player_turn].GetComponent<BaseClass>().unit_status.status != Status.Rest)
 		{
 			next = false;
 		}
-		*/
+
 		// Leader is still active so don't need to check other units
 		if(next)
 		{
 			// If units exist for current player, check if they are able to move
-			Debug.LogWarning("Needs to check the leaders status(i.e GetComponent<UnitStatus>()");
-			/*
-			foreach(BaseClass unit_base_class in _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>()) 
+			BaseClass[] units_base_class = _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>();
+
+			for(int i=0;i<units_base_class.Length;++i)
 			{
-				if(unit_base_class.unit_status.status != Status.Resting)
+				if(units_base_class[i].unit_status.status != Status.Rest)
 				{
-					return false;
+					next = false;
+					i    = units_base_class.Length;
 				}
 			}
-			*/
 		}
 		
 		return true;
@@ -961,7 +962,7 @@ public class GM : MonoBehaviour {
 		player_score[0] = string.Format ("Total rounds:{0}\n" +
 		                               "Time:{1}\n\n",
 		                               _round_num, CurrentTime);
-		Debug.LogWarning("Needs to check the leaders status(i.e GetComponent<UnitStatus>()");
+
 		for (int i=1; i<_total_players + 1; ++i) 
 		{
 			player_score[i] = string.Format (
@@ -971,7 +972,7 @@ public class GM : MonoBehaviour {
 				"Leader alive:{3}\n" +
 				"Units obtained:{4}\n" +
 				"Enemy units killed:{5}\n\n", 
-				i + 1, _resources_obtained[i], _resource_spent[i], "*** Leader status missing. Fill in. ***"/*_leader_status[i]*/, _units_obtained[i], -1);
+				i + 1, _resources_obtained[i], _resource_spent[i], _leaders[i].GetComponent<BaseClass>().unit_status.status, _units_obtained[i], _units_killed[i]);
 		}
 		
 		return player_score;
