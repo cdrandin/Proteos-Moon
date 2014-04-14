@@ -283,8 +283,6 @@ public class UnitController : MonoBehaviour
 
 	public void ClearFocusUnit()
 	{
-		if(_unit_focus_cc != null)
-			Debug.Log(string.Format("Distance afar: {0}", Vector3.Distance(_unit_focus_cc.gameObject.transform.position, start)));
 		_unit_focus_cc = null;
 
 		// Reset UnitController's variables to 0

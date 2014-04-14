@@ -868,7 +868,7 @@ public class GM : MonoBehaviour {
 			}
 		}
 		
-		return true;
+		return next;
 	}
 
 	// Method for allowing other player to take turn

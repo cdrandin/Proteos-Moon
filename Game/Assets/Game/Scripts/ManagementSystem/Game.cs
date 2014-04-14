@@ -14,7 +14,9 @@ public class Game : MonoBehaviour
 	public int resource_limit;
 	
 	public bool testing;
-	
+	public Terrain fow_terrain;
+	public Material fow_material;
+
 	/* 
 	 * Variables used for testing GameManager
 	 */
@@ -42,6 +44,7 @@ public class Game : MonoBehaviour
 			Debug.LogError("Cannot find WorldCamera");
 		}
 		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
+		fow_terrain.materialTemplate = fow_material;
 	}
 	
 	// Use this for initialization
@@ -75,6 +78,12 @@ public class Game : MonoBehaviour
 			if(GM.instance.IsThereAWinner())
 			{
 				_game_manager_gui.text = string.Format("The winner is {0}!", GM.instance.Winner);
+			}
+
+			if(GM.instance.IsNextPlayersTurn())
+			{
+				GM.instance.NextPlayersTurn();
+				_game_manager_gui.text = string.Format("It is now {0}'s turn", GM.instance.CurrentPlayer);
 			}
 
 			if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
