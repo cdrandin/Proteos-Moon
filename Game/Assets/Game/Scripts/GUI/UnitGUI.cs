@@ -69,7 +69,7 @@ public class UnitGUI : MonoBehaviour {
 		{
 			focusTemp = GM.instance.CurrentFocus;
 			
-			if(!isInitialize && focusTemp != null){
+			if(!isInitialize && focusTemp != null /*&& focusTemp.GetComponent<BaseClass>().unit_status.status != Status.Rest*/){
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
@@ -177,6 +177,7 @@ public class UnitGUI : MonoBehaviour {
 		
 			GUI.depth = 1;
 			mySkin.box.fontSize = mySkin.box.fontSize = Screen.height / 32;
+			//GUI.enabled = !isAction && (GetCurrentFocusStatus() == ((Status.Clean | Status.Move) | GetCurrentFocusStatus()));// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Move) < 0);// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
 				
@@ -195,7 +196,6 @@ public class UnitGUI : MonoBehaviour {
 			if(GUI.Button(new Rect(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16) , "Action")){
 				isAction = true;
 				gui_method += ActionSelectionButtons;
-				UpdateFocusObjectsStatus(Status.Action);
 				
 			}
 			
@@ -249,18 +249,21 @@ public class UnitGUI : MonoBehaviour {
 			if(GUI.Button(new Rect(0,0, Screen.width/ 8, Screen.height/ 16) , "Attack")){
 				//Expend units action
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				CombatSystem.instance.AttackButtonClicked();
 				//isAction  = false;
 				
 			}
 			if(GUI.Button(new Rect(0, Screen.height/ 15, Screen.width/ 8, Screen.height/ 16) , "Use")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				gui_method -= ActionSelectionButtons;
 				isAction = false;
 			}
 			if(GUI.Button(new Rect(0, (2 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Special")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				gui_method -= ActionSelectionButtons;
 				isAction  =false;
 			}
@@ -301,40 +304,46 @@ public class UnitGUI : MonoBehaviour {
 //			GUI.enabled = 
 		if (GUI.Button (new Rect ((1 * Screen.width)/64, (95*Screen.height)/1024 ,(7 * Screen.width)/32, (95*Screen.height)/1024), "Scout")){
 			
+				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 			}
 		if (GUI.Button (new Rect ((1 * Screen.width)/64, (2*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Braver")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);	
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 				
 			}
 		if (GUI.Button (new Rect ((1 * Screen.width)/64, (3*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Arcane")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 				
 			}
 		if (GUI.Button (new Rect ((1 * Screen.width)/64, (4*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Sniper")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 				
 			}
 		if (GUI.Button (new Rect ((1 * Screen.width)/64, (5*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Titan")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 				
 			}
 		if (GUI.Button (new Rect ((1 * Screen.width)/64, (6*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Vanguard")){
-				
+			
+				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
