@@ -2,13 +2,29 @@
 ==========  
 Previous Week's Objectives  
 -------------------------- 
-*[Ongoing] Combat System 16.0 (3.0 h)
-  > Added functions to update an event delegate that will be called when a character starts to move / or is selected
-  > Created an attack function that will update the enemy unit hp
-  > Need to implement the functions that will be called within the event in the UnitActions script
-  > Once the line above is complete, need to make the UnitGUI script work with the combat system script
-  > Ivan Espinosa
 
+*[Ongoing] Combat System 16.0 (16.5 h)  
+  > Added functions to update an event delegate that will be called when a character starts to move / or is selected  
+  > Created an attack function that will update the enemy unit hp  
+  > Combat now works. Character will deal damage due to some arbitrary values  
+  > Need to come up with a damage calculations formula  
+  > Ivan Espinosa  
+
+*[Ongoing] Unit GUI System 8.0 (12.0 h)  
+  > Created a simple GUI structure that will allow the units its actions and movements  
+  > The buttons update the Game Manager on what actions that Unit has completed  
+  > There are buttons that will only be active unless it is available to do so  
+  >   Although not currently working with the recruit system  
+  > Need to continue and refine the button layout and improve some of the functionality
+  > Ivan Espinosa  
+  
+*[Ongoing] Unit GUI System 8.0 (12.0 h)  
+  > Created a simple GUI structure that will allow the units its actions and movements  
+  > There are buttons that will only be active unless it is available to do so  
+  >   Although not currently working with the recruit system  
+  > Ivan Espinosa  
+  
+  
 2014-04-06  
 ==========  
 
