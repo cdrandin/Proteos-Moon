@@ -14,12 +14,14 @@ public class UnitGUI : MonoBehaviour {
 	private float height = 5.0f, heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	private Quaternion currentRotation;
-	private float [] shift;
+	private float shift;
 	private Transform from;
 	public GUISkin mySkin;
 	private Rect informationBox;
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
+	
+	//	public static UnitGUI instance;
 	#endregion
 
 	public GameObject focus_object 
@@ -38,6 +40,8 @@ public class UnitGUI : MonoBehaviour {
 		isInitialize = false;
 		isMoving = false;
 		smoothPos = false;
+		shift = 0;
+		WorldCamera.instance.TurnCameraControlsOn();
 		
 	}
 	
@@ -46,7 +50,7 @@ public class UnitGUI : MonoBehaviour {
 	
 		informationBox = new Rect(0,0,(3 * Screen.width)/ 8, (5 * Screen.height)/ 20) ;
 		ResetFlags();
-
+		shift = 0;
 		
 	}
 	
@@ -69,8 +73,11 @@ public class UnitGUI : MonoBehaviour {
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
+				if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)		
+					shift = Screen.height/ 16;
 				this.gui_method += UnitInformationBox;
 				this.gui_method += BaseSelectionButtons;
+				
 				
 			}
 			if(isMoving){
@@ -109,8 +116,9 @@ public class UnitGUI : MonoBehaviour {
 	
 	private void CheckButtonsPressedToRemoveGUI(){
 	
-		if( Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed() ){
-		
+		if( WorldCamera.instance.IsCameraOnControlsOn()  && (Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed()) ){
+			
+			print ("Stop movement");
 			RemoveGUI();
 
 			ResetFlags();
@@ -168,35 +176,39 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 4  ,  (3 * Screen.height)/ 4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
 		
 			GUI.depth = 1;
-			GUI.enabled = !isAction;
+			mySkin.box.fontSize = mySkin.box.fontSize = Screen.height / 32;
+			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Move) < 0);// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
-				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Move;
 				
+				UpdateFocusObjectsStatus(Status.Move);
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 				WorldCamera.instance.transform.eulerAngles = Vector3.zero;
 				WorldCamera.instance.MainCamera = CurrentMainCamera();
+				WorldCamera.instance.TurnCameraControlsOff();
 
 				gui_method += MovementEndButton;
 				smoothPos = true;
 				isMoving = true;
 				isAction = true;
 			}
+			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Action) < 0);
 			if(GUI.Button(new Rect(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16) , "Action")){
 				isAction = true;
 				gui_method += ActionSelectionButtons;
+				UpdateFocusObjectsStatus(Status.Action);
 				
 			}
 			
-			GUI.enabled = proteus && !isAction;	
+			GUI.enabled = proteus && !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Gather) < 0);	
 			if(GUI.Button(new Rect(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16) , "Gather")){
 				//TODO: Gather code
 				GM.instance.AddResourcesToCurrentPlayer(50);
-//				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Gathering;
+				UpdateFocusObjectsStatus(Status.Gather);
 				
 			}
 			GUI.enabled = !isAction;
 			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16) , "Rest")){
-				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Rest;
+				focus_object.GetComponent<BaseClass>().unit_status.status = Status.Rest;
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
@@ -220,6 +232,7 @@ public class UnitGUI : MonoBehaviour {
 				isMoving = false;
 				smoothPos = true;
 				WorldCamera.instance.ResetCamera();
+				WorldCamera.instance.TurnCameraControlsOn();
 				gui_method -= MovementEndButton;
 				isAction  = false;
 			}
@@ -228,15 +241,15 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void ActionSelectionButtons(){
 	
-		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  (29 * Screen.height)/ 40 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
-
-			
+		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  ((29 * Screen.height)/ 40) - shift , (3 * Screen.width)/8, ((3*Screen.height) / 10)+ shift ) );
+		
 			
 			GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject);
 			GUI.depth = 2;
 			if(GUI.Button(new Rect(0,0, Screen.width/ 8, Screen.height/ 16) , "Attack")){
 				//Expend units action
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
+				
 				CombatSystem.instance.AttackButtonClicked();
 				//isAction  = false;
 				
@@ -254,7 +267,19 @@ public class UnitGUI : MonoBehaviour {
 			
 			GUI.enabled = true;
 			GUI.depth = 2;
-			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Back")){
+			
+			if(shift > 0){
+				if(GUI.Button(new Rect(0, (3 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Recruit")){
+					
+					gui_method -= ActionSelectionButtons;
+					gui_method -= BaseSelectionButtons;
+					gui_method += RecruitMenuButtons;
+					isAction = false;
+				}
+				
+			}
+			
+			if(GUI.Button(new Rect(0, ((3 * Screen.height)/ 15) + shift, Screen.width/ 8, Screen.height/ 16) , "Back")){
 				
 				if(CombatSystem.instance.CheckIfAttacking()){
 				
@@ -267,10 +292,79 @@ public class UnitGUI : MonoBehaviour {
 			}
 		GUI.EndGroup();
 	}
+	
+	public void RecruitMenuButtons(){
+	
+		GUI.BeginGroup(new Rect( (24 * Screen.width)/ 32  ,  (10 * Screen.height)/ 40 , (2 * Screen.width)/8, 3* Screen.height/ 4 ));
+			mySkin.box.fontSize = Screen.height / 32;
+			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );
+//			GUI.enabled = 
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (95*Screen.height)/1024 ,(7 * Screen.width)/32, (95*Screen.height)/1024), "Scout")){
+			
+				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+			}
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (2*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Braver")){
+				
+				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+				
+			}
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (3*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Arcane")){
+				
+				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+				
+			}
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (4*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Sniper")){
+				
+				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+				
+			}
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (5*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Titan")){
+				
+				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+				
+			}
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (6*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Vanguard")){
+				
+				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+				
+			}
+		if (GUI.Button (new Rect ((1 * Screen.width)/16, (660*Screen.height) /1024,(1 * Screen.width)/8, (95*Screen.height)/1024), "Back")){
+				
+				isAction = true;
+				gui_method -= RecruitMenuButtons;
+				gui_method += BaseSelectionButtons;
+				gui_method += ActionSelectionButtons;
+			}
+		
+		GUI.EndGroup();
+	}
 	#endregion
 	
 	
 	#region Helper Functions
+	
+	private Status GetCurrentFocusStatus(){
+	
+		return focusObject.GetComponent<BaseClass>().unit_status.status;
+	}
+	private void UpdateFocusObjectsStatus(Status newStatus){
+	
+		Status oldStatus = focusObject.GetComponent<BaseClass>().unit_status.status;
+		focusObject.GetComponent<BaseClass>().unit_status.status = (oldStatus | newStatus);
+	}
+	
 	public bool NearProcite(){
 	
 		if (procite_locations.Length != 0 ){
