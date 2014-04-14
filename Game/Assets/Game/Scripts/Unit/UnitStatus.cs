@@ -56,4 +56,9 @@ public class UnitStatus
 		get { return _unit_type ; }
 		set { _unit_type = value; }
 	}
+
+	public void Clean()
+	{
+		this._status = Status.Clean;
+	}
 }
