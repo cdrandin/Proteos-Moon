@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 /*
  * This class will allow the user to change the camera position of their units
  * 
@@ -15,7 +15,6 @@ public class TargetTransition : MonoBehaviour {
 
 	#region class variables
 
-	private GameObject[] friendlyUnits; // need to recreate so it can be used as a list
 	private Vector3 distanceToUnit; //this will be the value of where the camera should be
 
 	private Vector3 newPosition;
@@ -32,10 +31,12 @@ public class TargetTransition : MonoBehaviour {
 
 	// Use this for initialization
 
-	void Start () {}
+	void Start () {
+		
+	}
 
 	void Awake (){
-		friendlyUnits = GM.instance.GetUnitsFromPlayer(GM.instance.CurrentPlayer);
+		//friendlyUnits = GM.instance.GetUnitsFromPlayer(GM.instance.CurrentPlayer);
 		unitIndex = 0;
 //		MainCamera = CameraController.transform.FindChild ("Main Camera").gameObject;
 	}
@@ -43,8 +44,8 @@ public class TargetTransition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (WorldCamera.instance.IsCameraOnControlsOn()) {
-
+		if (WorldCamera.instance.IsCameraOnControlsOn() && GM.instance.IsOn) {
+			
 			int previousUnitIndex = unitIndex;
 			bool dirty = HandleUnitSwitching();
 			ClampIndexValue();
@@ -56,7 +57,8 @@ public class TargetTransition : MonoBehaviour {
 				distanceToUnit = GetVectorDistanceFromUnit(previousUnitIndex);
 
 				//Find the new position
-				newPosition = friendlyUnits [unitIndex].transform.position + distanceToUnit;
+				//GM.instance.controll
+				newPosition = GetCurrentList() [unitIndex].transform.position + distanceToUnit;
 				interpolate = true;
 			}
 
@@ -73,11 +75,14 @@ public class TargetTransition : MonoBehaviour {
 
 	}
 
-
+	public GameObject[] GetCurrentList(){
+		return GM.instance.GetUnitsFromPlayer(GM.instance.CurrentPlayer);
+	}
+	
 	#region Helper Functions
 	public GameObject GetFocusedTarget(){
 	
-		return friendlyUnits[unitIndex];
+		return GetCurrentList()[unitIndex];
 	
 	}
 
@@ -116,9 +121,9 @@ public class TargetTransition : MonoBehaviour {
 
 		if (unitIndex <= -1) {
 			
-			unitIndex = friendlyUnits.Length - 1;
+			unitIndex = GetCurrentList().Length - 1;
 			
-		} else if (unitIndex > friendlyUnits.Length - 1) {
+		} else if (unitIndex > GetCurrentList().Length - 1) {
 			
 			unitIndex = 0;
 		}					
@@ -129,12 +134,12 @@ public class TargetTransition : MonoBehaviour {
 
 		//If the user changes the distance of the camera, but stays focus on the unit
 		//keep the same vector distance.
-		if (friendlyUnits [previousUnitIndex].transform.position == WorldCamera.instance.MainCamera.transform.position) {
-			return WorldCamera.instance.transform.position - friendlyUnits [previousUnitIndex].transform.position;
+		if (GetCurrentList() [previousUnitIndex].transform.position == WorldCamera.instance.MainCamera.transform.position) {
+			return WorldCamera.instance.transform.position - GetCurrentList() [previousUnitIndex].transform.position;
 		}
 		//If not then use the default vector distance
 		else {
-			return new Vector3(30, 30, -30);
+			return new Vector3(5, 5, -5);
 		}
 	}
 
@@ -143,7 +148,7 @@ public class TargetTransition : MonoBehaviour {
 
 		WorldCamera.instance.transform.position = Vector3.Lerp (WorldCamera.instance.transform.position, newPosition, Time.deltaTime * smooth);
 
-		newRot =  Quaternion.FromToRotation( WorldCamera.instance.MainCamera.transform.forward , friendlyUnits [unitIndex].transform.position - newPosition );
+		newRot =  Quaternion.FromToRotation( WorldCamera.instance.MainCamera.transform.forward , GetCurrentList() [unitIndex].transform.position - newPosition );
 		WorldCamera.instance.MainCamera.transform.Rotate(new Vector3(newRot.eulerAngles.x , 0 , 0));
 		WorldCamera.instance.transform.Rotate(new Vector3(0, newRot.eulerAngles.y, 0));
 

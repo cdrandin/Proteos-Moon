@@ -115,7 +115,7 @@ public class WorldCamera : MonoBehaviour {
 		HandleMouseRotation ();
 
 		ApplyScroll ();
-		if(CheckIfUserCameraInput() && cameraOn){
+		if(cameraOn && CheckIfUserCameraInput()){
 			
 			Vector3 desiredTranslation = GetDesiredTranslation();
 			if(!isDesiredPositionOverBoundaries(desiredTranslation))
@@ -368,9 +368,13 @@ public class WorldCamera : MonoBehaviour {
 
 	public bool IsCameraOnControlsOn( ){return cameraOn;}
 
-	public void TurnCameraControlsOff(){ cameraOn = false;}
+	public void TurnCameraControlsOff(){ 
+	print("Turned off");
+	cameraOn = false;}
 
-	public void TurnCameraControlsOn(){ cameraOn = true;}
+	public void TurnCameraControlsOn(){ 
+		print("Turned on");
+	cameraOn = true;}
 	
 	public void ChangeCamera()
 	{
