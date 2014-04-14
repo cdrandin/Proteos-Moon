@@ -154,7 +154,7 @@ public class CombatSystem : MonoBehaviour{
 			if(enemyList[index].GetComponent<BaseClass>().vital.HP.current == 0)
 			{
 				enemyList[index].GetComponent<BaseClass>().unit_status.status = Status.Dead;
-				GM.instance.UnitIsDead(enemyList[index]);
+				GM.instance.UnitDied(enemyList[index]);
 			}
 
 			ResetCombatSystem();
