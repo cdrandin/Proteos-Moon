@@ -23,7 +23,7 @@ using System.Collections.Generic;
  */
 
 // Player turn enum
-public enum Player
+public enum Player : byte
 {
 		Player1 = 0,
 		Player2,
@@ -946,6 +946,23 @@ public class GM : MonoBehaviour {
 	{
 		_unit_controller.GetUnitControllerFocus().GetComponent<UnitController>().SetIsControllable(v);
 	}
+
+	/// <summary>
+	/// When a unit has died, the GameManager will record it, handle other functionality and dispose of the unit
+	/// </summary>
+	/// <param name="unit">Unit.</param>
+	public void UnitIsDead(GameObject unit)
+	{
+		if(unit.GetComponent<BaseClass>().unit_status.status != Status.Dead)
+		{
+			Debug.LogWarning(string.Format("{0} is not dead!", unit));
+			return;
+		}
+
+		_units_killed[_current_player_turn] += 1;
+		PoolingSystem.instance.Destroy(unit);
+	}
+
 	#endregion
 
 	#region Record keeping
