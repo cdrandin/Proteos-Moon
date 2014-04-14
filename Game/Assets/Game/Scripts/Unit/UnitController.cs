@@ -82,7 +82,7 @@ public class UnitController : MonoBehaviour
 		// Forward is the +Z axis
 		_move_direction  	= Vector3.zero; //transform.TransformDirection(Vector3.forward);
 		//HACK _is_jumping      = false;
-		_is_controllable 	= true;
+		_is_controllable 	= false;
 		_vertical_speed  	= 0.0f;
 		_air_jump_count  	= 0;
 		_travel_distance 	= 0.0f;
@@ -210,6 +210,17 @@ public class UnitController : MonoBehaviour
 	public void SetIsControllable(bool v)
 	{
 		_is_controllable = v;
+
+		if(v)
+		{
+			// Set distance projector to focus unit
+			_distance_proj.SetProjectionOn(_unit_focus_cc.gameObject);
+		}
+		else
+		{
+			// Set distance projector to unfocus
+			_distance_proj.SetProjectionOff();
+		}
 	}
 
 	public float GetMaxDistance()
@@ -268,11 +279,9 @@ public class UnitController : MonoBehaviour
 			// Setup UnitController's variables with selected unit's movement info
 			Setup();
 
-			// Set distance projector to focus unit
-			_distance_proj.SetProjectionOn(unit);
-
 			// Assume we got what we need now.
 			_unit_focus_cc.detectCollisions = false;
+			_is_controllable = false;
 			start = _unit_focus_cc.gameObject.transform.position;
 		}
 		else

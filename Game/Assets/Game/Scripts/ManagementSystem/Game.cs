@@ -90,23 +90,27 @@ public class Game : MonoBehaviour
 			{
 				// Reset timer for display the resource text
 				timer = 0;
-				Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if(Physics.Raycast(ray, out hit, 100))
+				if(GM.instance.CurrentFocus == null)
 				{
-					// Get correct, unit
-					string tag = hit.transform.tag;
-					
-					if(tag == "Unit" || tag == "Leader")
+					Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+					if(Physics.Raycast(ray, out hit, 100))
 					{
-						GameObject obj = hit.transform.gameObject;
-						GM.instance.SetUnitControllerActiveOn(ref obj);
-					}
-					else
-					{
-						GM.instance.SetUnitControllerActiveOff();
+						// Get correct, unit
+						string tag = hit.transform.tag;
+						
+						if(tag == "Unit" || tag == "Leader")
+						{
+							GameObject obj = hit.transform.gameObject;
+							GM.instance.SetUnitControllerActiveOn(ref obj);
+						}
+						else
+						{
+							GM.instance.SetUnitControllerActiveOff();
+						}
 					}
 				}
+
 			}
 
 			if(testing)
