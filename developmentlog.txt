@@ -2,113 +2,29 @@
 ==========  
 Previous Week's Objectives  
 -------------------------- 
-* [Ongoing] Combat System 16.0 (16.5 h)  
+
+*[Ongoing] Combat System 16.0 (16.5 h)  
   > Added functions to update an event delegate that will be called when a character starts to move / or is selected  
   > Created an attack function that will update the enemy unit hp  
   > Combat now works. Character will deal damage due to some arbitrary values  
-  > Combat System is a singleton that can be called by any class  
-  > When the unit starts attacking the camera will focus on enemy units and will pan between each one  
-  >   Interpolation has not been setup yet  
   > Need to come up with a damage calculations formula  
   > Ivan Espinosa  
 
-* [Ongoing] Unit GUI System 8.0 (12.0 h)  
+*[Ongoing] Unit GUI System 8.0 (12.0 h)  
   > Created a simple GUI structure that will allow the units its actions and movements  
   > The buttons update the Game Manager on what actions that Unit has completed  
   > There are buttons that will only be active unless it is available to do so  
   >   Although not currently working with the recruit system  
-  > Need to continue and refine the button layout and improve some of the functionality  
+  > Need to continue and refine the button layout and improve some of the functionality
   > Ivan Espinosa  
   
-* [Ongoing] Unit Switching with Camera 2.0 (2.0 h)  
-  > Had to update previous code to make it work with our current Game Management System   
-  > The unit will switch only when the camera is activated   
-  > Looks a little weird, will modify after other high priority stuff is completed  
+*[Ongoing] Unit GUI System 8.0 (12.0 h)  
+  > Created a simple GUI structure that will allow the units its actions and movements  
+  > There are buttons that will only be active unless it is available to do so  
+  >   Although not currently working with the recruit system  
   > Ivan Espinosa  
-
-* [Completed] World Camera Class Update 1.0 (1.0 h)
-  > World Camera class is now a singleton class  
-  > Provided more functionality that can be staticly used by other classes  
-  > There is now a smoothlookat function, and a function to turn the camera movement on or off  
-  > Ivan Espinosa  
-
-* [Ongoing] Make the game playable over the network rather than locally  20.0 h  (20.0 h)
-> Merge the use of a Photon Player into the Game Manager  
-> Game waits til player starts game, other player can join but still can't control other camera  
-> A few more variables need to be reset  
-> Turn switching and waiting are on hold until player can control camera  
-> Mark Martene  
-
-* [Completed] Plan out unit specific abilities and their interaction with the environment 8.0 h  (3.0 h)
-  > Planned out who can do what and how they can do.  
-  > Decided how much "exhaust" it will use up.  
-  > Decided how these abilities will tie in with the units background  
-  > Mark Martene, Ivan Espinosa  
-
-* [Ongoing] Continue adding to the Battle Map 5.0 h (0.0 h)  
-> Add in the revised assets into the scene according to the map plan  
-> Add in the railroad tracks and platforms  
-> Paint the terrain  
-> Test for any ways the character could fall off the map  
-> Mark Martene  
-
-* [Complete\Minor fixes] Finalize some core functionality with the game 20.0 h (8.0 h)  
-  > Getting combat and gamemanager to sync proper information  
-  > Still need some work with updating proper info and confirming state of the units  
-  > Main focus to test Gathering resources and basic combat  
-  > Christopher Randin and Ivan Espinosa  
-
-* [Completed] Polished Pooling System (8.0 h)  
-  > Works great now and has been tested  
-  > Has option to be put in anonymous hierarchy created by the system or not  
-  > Has one slight issue where it only handles object that needs to be created into  
-  >	scene. Does not work well when objects are in the scene from the start.  
-  > Might get improved to allow storing of unknown object when objects is destroy  
-  >	using the pooling system  
-  > Christopher Randin  
-
-* [Unfinished] Start implementing unit specific abilities 20.0 h (2.0 h)  
-  > Quickly discuss the basic abilities we may have  
-  > Try to devise a method to make this easily integratable into our already built system  
-  > Keep abilities simple for now to get functionality there and integrated.  
-  > Christopher Randin and Ivan Espinosa  
-
-This Week's Objectives  
----------------------   
-
-* World Camera Fix 1.0 h  
-  > Need to fix the movement of the camera  
-  > Position is not being translated when specific keys are being pressed  
-  > Ivan Espinosa  
-
-* Meet Up with Artist 2.0 h  
-  > Have to speed up the rigging process  
-  > Need character to moves for basic animations  
-  > Ivan Espinosa, Mark Martene, Chris Randin  
-
-* Unit GUI Polish 6.0 h  
-  > Fix some of the arrangements of the GUI layout  
-  > Ivan Espinosa  
-
-* Fog of War fix 4.0 h  
-  > Need to find a way that will allow each player to not see what the other player sees  
-  > At the moment, each player can see what the other player can see  
-  > Ivan Espinosa  
-
-* Integrate functionality for the GameManager and Photon 20.0 h  
-  > Help with facilitating how the GameManager and Photon to work synchronously  
-  > Might need to do some research and clever thinking to get a single instance of the GM
-  > 	to be running on a single room  
-  > Christopher Randin and Mark Martene  
-
-* Added features to units and stability improvement with follow of game 20.0 h
-  > There are some issue with the how the game works out and how the rules are  
-  >	played out.  
-  > Get the init of the game instantiate at run time rather being in the scene to begin with  
-  > This allows decoupling of dependency on start and get objects that are needed to  
-  >	begin with (maybe)  
-  > Christopher Randin  
-
+  
+  
 2014-04-06  
 ==========  
 
