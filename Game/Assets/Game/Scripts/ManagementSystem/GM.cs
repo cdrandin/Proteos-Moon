@@ -960,7 +960,11 @@ public class GM : MonoBehaviour {
 		}
 
 		_units_killed[_current_player_turn] += 1;
-		PoolingSystem.instance.Destroy(unit);
+
+		unit.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 90));
+
+		// Currently, doesn't work since unit is not part of the pooling system initially
+		//PoolingSystem.instance.Destroy(unit);
 	}
 
 	#endregion
