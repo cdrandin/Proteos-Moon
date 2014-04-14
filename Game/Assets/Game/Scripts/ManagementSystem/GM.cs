@@ -868,7 +868,7 @@ public class GM : MonoBehaviour {
 			}
 		}
 		
-		return true;
+		return next;
 	}
 
 	// Method for allowing other player to take turn
@@ -883,7 +883,13 @@ public class GM : MonoBehaviour {
 		
 		// Unfocus current unit
 		SetUnitControllerActiveOff();
-		
+
+		GameObject[] units = GetUnitsFromPlayer(CurrentPlayer);
+		foreach(GameObject unit in units)
+		{
+			unit.GetComponent<BaseClass>().unit_status.Clean();
+		}
+
 		// Reset unit controller travel distance
 		_unit_controller.travel_distance  = 0.0f;
 		

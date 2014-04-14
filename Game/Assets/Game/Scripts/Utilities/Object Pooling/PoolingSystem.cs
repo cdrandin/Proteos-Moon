@@ -233,8 +233,15 @@ public class PoolingSystem : MonoBehaviour
 			}
 		}
 
-		o.transform.position = position;
-		o.transform.rotation = rotation;
+		if(o == null)
+		{
+			Debug.LogError("Instantiate object was not created.");
+		}
+		else
+		{
+			o.transform.position = position;
+			o.transform.rotation = rotation;
+		}
 
 		return o;
 	}

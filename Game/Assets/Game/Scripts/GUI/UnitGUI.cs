@@ -182,6 +182,7 @@ public class UnitGUI : MonoBehaviour {
 			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
 				
 				UpdateFocusObjectsStatus(Status.Move);
+			    GM.instance.SetFocusController(true);
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 				WorldCamera.instance.transform.eulerAngles = Vector3.zero;
 				WorldCamera.instance.MainCamera = CurrentMainCamera();
@@ -228,6 +229,7 @@ public class UnitGUI : MonoBehaviour {
 		
 			GUI.depth = 2;
 			if(GUI.Button(new Rect(0,0,  Screen.width/ 8, Screen.height/ 16) , "End Movement")){
+				GM.instance.SetFocusController(false);
 				GM.instance.SetUnitControllerActiveOff();
 				isMoving = false;
 				smoothPos = true;
