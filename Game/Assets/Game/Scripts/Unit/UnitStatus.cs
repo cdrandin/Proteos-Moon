@@ -20,7 +20,7 @@ public enum UnitType
 }
 
 [System.Serializable]
-public enum Status
+public enum Status : byte
 {
 	Clean,  // Has not moved, all actions avaliable
 	Move,   // Unit is moving

@@ -151,6 +151,12 @@ public class CombatSystem : MonoBehaviour{
 			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
 			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
 			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);
+			if(enemyList[index].GetComponent<BaseClass>().vital.HP.current == 0)
+			{
+				enemyList[index].GetComponent<BaseClass>().unit_status.status = Status.Dead;
+				GM.instance.UnitIsDead(enemyList[index]);
+			}
+
 			ResetCombatSystem();
 		}
 	}
