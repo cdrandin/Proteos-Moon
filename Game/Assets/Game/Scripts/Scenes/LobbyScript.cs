@@ -178,7 +178,7 @@ public class LobbyScript : MonoBehaviour
 
 	private void StartGame()
 	{
-		Application.LoadLevel("StartGame");
+		Application.LoadLevel("GameManager_Full_Test");
 	}
 
 	private void EndGame()
