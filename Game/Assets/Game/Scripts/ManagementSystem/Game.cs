@@ -72,6 +72,11 @@ public class Game : MonoBehaviour
 	{
 		if(GM.instance.IsOn)
 		{
+			if(GM.instance.IsThereAWinner())
+			{
+				_game_manager_gui.text = string.Format("The winner is {0}!", GM.instance.Winner);
+			}
+
 			if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
 			{
 				// Reset timer for display the resource text
@@ -94,10 +99,7 @@ public class Game : MonoBehaviour
 					}
 				}
 			}
-			if(GM.instance.IsThereAWinner())
-			{
-				_game_manager_gui.text = string.Format("The winner is {0}!", GM.instance.Winner);
-			}
+
 			if(testing)
 			{
 				timer += Time.deltaTime;
