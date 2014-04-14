@@ -30,8 +30,8 @@ public class DistanceProjection : MonoBehaviour
 	private float _new_ortho_size;
 
 	// Value. Based on ratio of, _travel_distance formula += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
-	// When _travel_distance is 1 "unit" the ortho_size should be ~12.25
-	private const float _ratio = 12.25f;
+	// When _travel_distance is 1 "unit" the ortho_size should be 
+	private const float _ratio = 2.55f;
 
 	// Array of projectors
 	public Projector[] projectors;
@@ -104,14 +104,11 @@ public class DistanceProjection : MonoBehaviour
 		this.transform.position   = new_position;
 
 		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _movement.current_distance*_ratio,
-		                              1.0f,
+		                              0.4f,
 		                              _distance*_ratio);
 
-		// Bad artifact when texture reaches size 1.0 <
-		if(_new_ortho_size <= 1.0f)
-		{
+		if(_new_ortho_size <= 0.4f)
 			_new_ortho_size = 0.0f;
-		}
 
 		foreach(Projector p in projectors)
 		{

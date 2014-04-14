@@ -25,6 +25,10 @@ public class BaseClass : MonoBehaviour
 	[SerializeField]
 	private float _attack_range;
 
+	[SerializeField]
+	private float _gather_range;
+
+
 	public BaseStat base_stat
 	{
 		get { return _base_stat; }
@@ -48,5 +52,25 @@ public class BaseClass : MonoBehaviour
 	public float attack_range
 	{
 		get { return _attack_range; }
+	}
+
+	public float gather_range
+	{
+		get { return _gather_range; }
+	}
+
+	void OnDrawGizmosSelected()
+	{
+		// Gather range
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(this.transform.position, _gather_range - 0.01f);
+
+		// Attack range
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(this.transform.position, _attack_range + 0.01f);
+
+		// Movement range
+		Gizmos.color = Color.blue;
+		Gizmos.DrawWireSphere(this.transform.position, _movement.max_distance * _movement.speed);
 	}
 }

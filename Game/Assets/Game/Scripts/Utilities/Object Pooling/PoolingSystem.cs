@@ -10,6 +10,10 @@ public class PoolingSystem : MonoBehaviour
 	// Root of the object to start putting objects into as a container
 	private Transform _root;
 
+	public bool objects_in_hierarchy;
+
+	// Pooled Object class
+	//
 	private class Pooled_Object
 	{
 		// Main object to copy and pool
@@ -21,13 +25,19 @@ public class PoolingSystem : MonoBehaviour
 		// Root for the pooled objects for the specified object
 		private GameObject _pool_root;
 
-		// Pooled Object class
-		//
 		public Pooled_Object(GameObject obj)
 		{
 			_main      = obj;
 			_pool      = new List<GameObject>();
-			_pool_root = new GameObject(string.Format("pooled object: {0}", _main.name));
+
+			// Add in our little tag to keep track
+			obj.AddComponent<PoolID>();
+			obj.GetComponent<PoolID>().GenerateID(obj);
+
+			if(PoolingSystem.instance.objects_in_hierarchy)
+			{
+				_pool_root = new GameObject(string.Format("pooled object: {0}", _main.name));
+			}
 		}
 			
 		/// <summary>
@@ -48,7 +58,10 @@ public class PoolingSystem : MonoBehaviour
 					// stop for loop. Way to prevent branch with break or return
 					i   = _pool.Count; 
 					obj.SetActive(true);
-					obj.transform.parent = _pool_root.transform;
+					if(PoolingSystem.instance.objects_in_hierarchy)
+					{
+						obj.transform.parent = _pool_root.transform;
+					}
 				}
 			}
 
@@ -57,7 +70,11 @@ public class PoolingSystem : MonoBehaviour
 			{
 				obj = Instantiate(_main, Vector3.zero, Quaternion.identity) as GameObject;
 				obj.SetActive(true);
-				obj.transform.parent = _pool_root.transform;
+				if(PoolingSystem.instance.objects_in_hierarchy)
+				{
+					obj.transform.parent = _pool_root.transform;
+				}
+
 				_pool.Add (obj);
 			}
 		
@@ -107,7 +124,7 @@ public class PoolingSystem : MonoBehaviour
 		/// <value>The pool_root.</value>
 		public GameObject pool_root
 		{
-			get { return _pool_root; }
+			get { return (PoolingSystem.instance.objects_in_hierarchy)? _pool_root : null; }
 		}
 	}
 	//
@@ -120,7 +137,7 @@ public class PoolingSystem : MonoBehaviour
 	{
 		_instance = this;
 		_objects  = new List<Pooled_Object>();
-		_root     = this.transform;
+		_root     = (objects_in_hierarchy)? this.transform : null;
 	}
 
 	/// <summary>
@@ -145,12 +162,13 @@ public class PoolingSystem : MonoBehaviour
 		// Cahced already, search for the correct pool
 		if(obj.GetComponent<PoolID>() != null)
 		{
-			foreach(Pooled_Object po in _objects)
+			for(int i=0;i<_objects.Count;++i)
 			{
 				// The obejct to get is already in pool
-				if(po.main_obj.GetComponent<PoolID>().id == obj.GetComponent<PoolID>().id)
+				if(_objects[i].main_obj.GetComponent<PoolID>().id == obj.GetComponent<PoolID>().id)
 				{
-					o = po.GetObject();
+					o  = _objects[i].GetObject();
+					i  = _objects.Count;
 				}
 			}
 		}
@@ -158,19 +176,65 @@ public class PoolingSystem : MonoBehaviour
 		// No cache of the object
 		else
 		{
-			// Add in our little tag to keep track
-			obj.AddComponent<PoolID>();
-			obj.GetComponent<PoolID>().GenerateID(obj);
-
 			// Add object into our list of pool
 			_objects.Add(new Pooled_Object(obj));
 
 			// Count - 1, because Add puts object to the end
 			o = _objects[_objects.Count-1].GetObject();
 
-			// Root the pooled objects into a true root object for the entire pooling system
-			_objects[_objects.Count-1].pool_root.transform.parent = _root.transform;
+			if(objects_in_hierarchy)
+			{
+				// Root the pooled objects into a true root object for the entire pooling system
+				_objects[_objects.Count-1].pool_root.transform.parent = _root.transform;
+			}
 		}
+
+		return o;
+	}
+
+	/// <summary>
+	/// Pretend to instantiate the specified object, put it in a pool. Takes a position and rotation. If the object is not in the existing cache pool
+	/// put it in and reuse. If the object already exist, reuse the exisiting pool objects. If there is no more objects
+	/// in the pool, expanded the pool to add more.
+	/// </summary>
+	/// <param name="obj">Object.</param>
+	/// <param name="position">Position.</param>
+	/// <param name="rotation">Rotation.</param>
+	public GameObject Instantiate(GameObject obj, Vector3 position, Quaternion rotation)
+	{
+		GameObject o = null;
+		// Cahced already, search for the correct pool
+		if(obj.GetComponent<PoolID>() != null)
+		{
+			for(int i=0;i<_objects.Count;++i)
+			{
+				// The obejct to get is already in pool
+				if(_objects[i].main_obj.GetComponent<PoolID>().id == obj.GetComponent<PoolID>().id)
+				{
+					o  = _objects[i].GetObject();
+					i  = _objects.Count;
+				}
+			}
+		}
+		
+		// No cache of the object
+		else
+		{
+			// Add object into our list of pool
+			_objects.Add(new Pooled_Object(obj));
+			
+			// Count - 1, because Add puts object to the end
+			o = _objects[_objects.Count-1].GetObject();
+			
+			if(objects_in_hierarchy)
+			{
+				// Root the pooled objects into a true root object for the entire pooling system
+				_objects[_objects.Count-1].pool_root.transform.parent = _root.transform;
+			}
+		}
+
+		o.transform.position = position;
+		o.transform.rotation = rotation;
 
 		return o;
 	}
@@ -181,10 +245,19 @@ public class PoolingSystem : MonoBehaviour
 	/// <param name="obj">Object.</param>
 	public void Destroy(GameObject obj)
 	{
-		foreach(Pooled_Object po in _objects)
+		// Object is in our pool
+		if(obj.GetComponent<PoolID>() != null)
 		{
-			po.ReturnObject(obj);
+			for(int i=0;i<_objects.Count;++i)
+			{
+				if(_objects[i].main_obj.GetComponent<PoolID>().id == obj.GetComponent<PoolID>().id)
+				{
+					_objects[i].ReturnObject(obj);
+				}
+			}
 		}
+		else
+			Debug.LogWarning(string.Format("{0} does not belong in the pool system since it was not Instantiated by the pooling system"));
 	}
 
 	// This ensures objects that we are caching don't get polluted with our tag script, so destroy on exit
