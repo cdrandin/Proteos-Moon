@@ -192,6 +192,14 @@ public class PoolingSystem : MonoBehaviour
 		return o;
 	}
 
+	/// <summary>
+	/// Pretend to instantiate the specified object, put it in a pool. Takes a position and rotation. If the object is not in the existing cache pool
+	/// put it in and reuse. If the object already exist, reuse the exisiting pool objects. If there is no more objects
+	/// in the pool, expanded the pool to add more.
+	/// </summary>
+	/// <param name="obj">Object.</param>
+	/// <param name="position">Position.</param>
+	/// <param name="rotation">Rotation.</param>
 	public GameObject Instantiate(GameObject obj, Vector3 position, Quaternion rotation)
 	{
 		GameObject o = null;
