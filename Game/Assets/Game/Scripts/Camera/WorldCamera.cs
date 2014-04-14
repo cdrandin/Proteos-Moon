@@ -369,11 +369,11 @@ public class WorldCamera : MonoBehaviour {
 	public bool IsCameraOnControlsOn( ){return cameraOn;}
 
 	public void TurnCameraControlsOff(){ 
-	print("Turned off");
+
 	cameraOn = false;}
 
 	public void TurnCameraControlsOn(){ 
-		print("Turned on");
+
 	cameraOn = true;}
 	
 	public void ChangeCamera()
