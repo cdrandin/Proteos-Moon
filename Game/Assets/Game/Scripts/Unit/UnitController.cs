@@ -210,8 +210,7 @@ public class UnitController : MonoBehaviour
 	public void SetIsControllable(bool v)
 	{
 		_is_controllable = v;
-
-		if(v)
+		if(_is_controllable)
 		{
 			// Set distance projector to focus unit
 			_distance_proj.SetProjectionOn(_unit_focus_cc.gameObject);
@@ -281,8 +280,9 @@ public class UnitController : MonoBehaviour
 
 			// Assume we got what we need now.
 			_unit_focus_cc.detectCollisions = false;
-			_is_controllable = false;
 			start = _unit_focus_cc.gameObject.transform.position;
+
+			//SetIsControllable(true);
 		}
 		else
 		{
@@ -302,15 +302,18 @@ public class UnitController : MonoBehaviour
 
 	}
 
-	public GameObject GetUnitControllerFocus()
+	public GameObject UnitControllerFocus
 	{
-		if(_unit_focus_cc != null)
+		get 
 		{
-			return _unit_focus_cc.gameObject;
-		}
-		else
-		{
-			return null;
+			if(_unit_focus_cc != null)
+			{
+				return _unit_focus_cc.gameObject;
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 
@@ -328,7 +331,7 @@ public class UnitController : MonoBehaviour
 		}
 		else
 		{
-		fall_speed          = _unit_focus_movement.fall_speed;
+			fall_speed          = _unit_focus_movement.fall_speed;
 		}
 
 		air_jumps 			= _unit_focus_movement.air_jumps;

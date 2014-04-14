@@ -67,7 +67,7 @@ public class DistanceProjection : MonoBehaviour
 		}
 		if(_focus != null)
 		{
-			UpdateProjection();
+			//UpdateProjection();
 		}
 	}
 	 

@@ -106,7 +106,7 @@ public class Game : MonoBehaviour
 						}
 						else
 						{
-							GM.instance.SetUnitControllerActiveOff();
+							//GM.instance.SetUnitControllerActiveOff();
 						}
 					}
 				}

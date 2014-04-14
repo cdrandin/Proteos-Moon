@@ -378,7 +378,7 @@ public class GM : MonoBehaviour {
 		{
 			if(_instance == null)
 			{
-				_instance = new GameObject("GM~TEST").AddComponent<GM>();
+				_instance = new GameObject("GameManager").AddComponent<GM>();
 			}
 			
 			return _instance; 
@@ -496,7 +496,7 @@ public class GM : MonoBehaviour {
 	/// <returns>The current focus.</returns>
 	public GameObject CurrentFocus
 	{
-		get { return _unit_controller.GetUnitControllerFocus(); }
+		get { return _unit_controller.UnitControllerFocus; }
 	}
 
 	/// <summary>
@@ -950,7 +950,8 @@ public class GM : MonoBehaviour {
 	/// <param name="v">If set to <c>true</c> v.</param>
 	public void SetFocusController (bool v)
 	{
-		_unit_controller.GetUnitControllerFocus().GetComponent<UnitController>().SetIsControllable(v);
+		// Get the unit controler object to allow if to move
+		_unit_controller.GetComponent<UnitController>().SetIsControllable(true);
 	}
 
 	/// <summary>
