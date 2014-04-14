@@ -951,7 +951,7 @@ public class GM : MonoBehaviour {
 	/// When a unit has died, the GameManager will record it, handle other functionality and dispose of the unit
 	/// </summary>
 	/// <param name="unit">Unit.</param>
-	public void UnitIsDead(GameObject unit)
+	public void UnitDied(GameObject unit)
 	{
 		if(unit.GetComponent<BaseClass>().unit_status.status != Status.Dead)
 		{
