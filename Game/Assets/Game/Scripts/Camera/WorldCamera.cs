@@ -49,6 +49,7 @@ public class WorldCamera : MonoBehaviour {
 	private float mouseY;
 
 	private bool VerticalRotationEnabled = true;
+	private bool cameraOn = true;
 
 	//These values are in degrees
 	private float VerticalRoationMin = 0f;
@@ -114,7 +115,7 @@ public class WorldCamera : MonoBehaviour {
 		HandleMouseRotation ();
 
 		ApplyScroll ();
-		if(CheckIfUserCameraInput()){
+		if(CheckIfUserCameraInput() && cameraOn){
 			
 			Vector3 desiredTranslation = GetDesiredTranslation();
 			if(!isDesiredPositionOverBoundaries(desiredTranslation))
@@ -365,6 +366,12 @@ public class WorldCamera : MonoBehaviour {
 	}
 	#endregion
 
+	public bool IsCameraOnControlsOn( ){return cameraOn;}
+
+	public void TurnCameraControlsOff(){ cameraOn = false;}
+
+	public void TurnCameraControlsOn(){ cameraOn = true;}
+	
 	public void ChangeCamera()
 	{
 		string camera_name = "";

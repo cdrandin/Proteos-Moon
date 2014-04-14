@@ -168,9 +168,9 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 4  ,  (3 * Screen.height)/ 4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
 		
 			GUI.depth = 1;
-			GUI.enabled = !isAction;
+			GUI.enabled = !isAction && (focusObject.GetComponent<BaseClass>().unit_status.status.CompareTo(Status.Clean | Status.Move) < 0);// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
-				focusObject.GetComponent<BaseClass>().unit_status.status = Status.Move;
+			focusObject.GetComponent<BaseClass>().unit_status.status = (focusObject.GetComponent<BaseClass>().unit_status.status | Status.Move);
 				
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);			
 				WorldCamera.instance.transform.eulerAngles = Vector3.zero;
@@ -181,6 +181,7 @@ public class UnitGUI : MonoBehaviour {
 				isMoving = true;
 				isAction = true;
 			}
+			GUI.enabled = !isAction;
 			if(GUI.Button(new Rect(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16) , "Action")){
 				isAction = true;
 				gui_method += ActionSelectionButtons;
@@ -271,6 +272,12 @@ public class UnitGUI : MonoBehaviour {
 	
 	
 	#region Helper Functions
+	
+	private Status GetCurrentFocusStatus(){
+	
+		return focusObject.GetComponent<BaseClass>().unit_status.status;
+	}
+	
 	public bool NearProcite(){
 	
 		if (procite_locations.Length != 0 ){
