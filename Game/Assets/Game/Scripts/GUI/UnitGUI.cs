@@ -232,7 +232,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 2;
 			if(GUI.Button(new Rect(0,0,  Screen.width/ 8, Screen.height/ 16) , "End Movement")){
 				GM.instance.SetUnitControllerActiveOff();
-				GM.instance.SetFocusController(false);
+				//GM.instance.SetFocusController(false);
 			
 				isMoving = false;
 				smoothPos = true;
