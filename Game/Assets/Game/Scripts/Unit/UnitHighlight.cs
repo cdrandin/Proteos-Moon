@@ -15,45 +15,46 @@ public class UnitHighlight : MonoBehaviour {
 	
 	void OnMouseOver() {
 	
+		TraverseOutline(this.gameObject);
 	
-		foreach(Component child in this.transform)
-		{
-			print (child);
-			Renderer child_render = child.GetComponent<Renderer>();
-			if(child_render != null)
-			{
-				child_render.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
-				print ("Hovered over");
-			}
-		}
-		/*
-		foreach (var r in renderers)
-		{
-			// Do something with the renderer here...
-			r.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse"); // like disable it for example. 
-			print ("Hovered over");
-		}
-		*/
-		//renderer.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+
 	}
 	
 	void OnMouseExit()
 	{
-		foreach(Transform child in this.transform)
-		{
-			Renderer child_render = child.GetComponent<Renderer>();
-            if(child_render != null)
-            {
-						child_render.material.shader = Shader.Find("Diffuse");
-			}
+	
+		TraverseDiffuse(this.gameObject);
+		
+	}
+	void TraverseOutline(GameObject obj)
+	{
+		Renderer obj_renderer = obj.GetComponent<Renderer>() ;
+		
+		if(obj_renderer != null){
+		
+			obj_renderer.material.color = Color.yellow;
 		}
-		/*
-		Renderer[] renderers = GetComponentsInChildren<Renderer>();
-		foreach (var r in renderers)
+		
+		foreach (Transform child in obj.transform)
 		{
-			renderer.material.shader = Shader.Find("Diffuse"); 
-			print ("Mouse exit");
+			TraverseOutline(child.gameObject);
 		}
-		*/
+		
+	}
+	
+	void TraverseDiffuse(GameObject obj)
+	{
+		Renderer obj_renderer = obj.GetComponent<Renderer>() ;
+		
+		if(obj_renderer != null){
+			
+			obj_renderer.material.color = Color.white;
+		}
+		
+		foreach (Transform child in obj.transform)
+		{
+			TraverseDiffuse(child.gameObject);
+		}
+		
 	}
 }
