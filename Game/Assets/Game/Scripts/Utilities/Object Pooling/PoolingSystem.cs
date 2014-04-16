@@ -139,7 +139,7 @@ public class PoolingSystem : MonoBehaviour
 		_objects  = new List<Pooled_Object>();
 		_root     = (objects_in_hierarchy)? this.transform : null;
 	}
-
+	
 	/// <summary>
 	/// Gets the static instance of this script, only one instance.
 	/// </summary>
@@ -155,7 +155,7 @@ public class PoolingSystem : MonoBehaviour
 	/// in the pool, expanded the pool to add more.
 	/// </summary>
 	/// <param name="obj">Object.</param>
-	public GameObject Instantiate(GameObject obj)
+	public GameObject PS_Instantiate(GameObject obj)
 	{
 		GameObject o = null;
 
@@ -192,56 +192,12 @@ public class PoolingSystem : MonoBehaviour
 		return o;
 	}
 
-	/// <summary>
-	/// Pretend to instantiate the specified object, put it in a pool. Takes a position and rotation. If the object is not in the existing cache pool
-	/// put it in and reuse. If the object already exist, reuse the exisiting pool objects. If there is no more objects
-	/// in the pool, expanded the pool to add more.
-	/// </summary>
-	/// <param name="obj">Object.</param>
-	/// <param name="position">Position.</param>
-	/// <param name="rotation">Rotation.</param>
-	public GameObject Instantiate(GameObject obj, Vector3 position, Quaternion rotation)
+	public GameObject PS_Instantiate(GameObject obj, Vector3 position, Quaternion rotation)
 	{
-		GameObject o = null;
-		// Cahced already, search for the correct pool
-		if(obj.GetComponent<PoolID>() != null)
-		{
-			for(int i=0;i<_objects.Count;++i)
-			{
-				// The obejct to get is already in pool
-				if(_objects[i].main_obj.GetComponent<PoolID>().id == obj.GetComponent<PoolID>().id)
-				{
-					o  = _objects[i].GetObject();
-					i  = _objects.Count;
-				}
-			}
-		}
-		
-		// No cache of the object
-		else
-		{
-			// Add object into our list of pool
-			_objects.Add(new Pooled_Object(obj));
-			
-			// Count - 1, because Add puts object to the end
-			o = _objects[_objects.Count-1].GetObject();
-			
-			if(objects_in_hierarchy)
-			{
-				// Root the pooled objects into a true root object for the entire pooling system
-				_objects[_objects.Count-1].pool_root.transform.parent = _root.transform;
-			}
-		}
+		GameObject o = this.PS_Instantiate(obj);
 
-		if(o == null)
-		{
-			Debug.LogError("Instantiate object was not created.");
-		}
-		else
-		{
-			o.transform.position = position;
-			o.transform.rotation = rotation;
-		}
+		o.transform.position = position;
+		o.transform.rotation = rotation;
 
 		return o;
 	}
@@ -250,7 +206,7 @@ public class PoolingSystem : MonoBehaviour
 	/// Destroy the specified object by removing the reference of the passed object, disabling the major component
 	/// </summary>
 	/// <param name="obj">Object.</param>
-	public void Destroy(GameObject obj)
+	public void PS_Destroy(GameObject obj)
 	{
 		// Object is in our pool
 		if(obj.GetComponent<PoolID>() != null)
@@ -260,6 +216,7 @@ public class PoolingSystem : MonoBehaviour
 				if(_objects[i].main_obj.GetComponent<PoolID>().id == obj.GetComponent<PoolID>().id)
 				{
 					_objects[i].ReturnObject(obj);
+					i = _objects.Count;
 				}
 			}
 		}
