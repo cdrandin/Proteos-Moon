@@ -40,7 +40,7 @@ public class GM : MonoBehaviour {
 	private bool 				_game_init;
 	
 	// Keep track of player turn order and number of players
-	private int  			_player_turn_order;
+	private Player[]  			_player_turn_order;
 	private int 				_current_player_turn;
 	private int 				_total_players;
 
