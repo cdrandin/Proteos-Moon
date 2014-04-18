@@ -37,31 +37,31 @@ public class GM : MonoBehaviour {
 	private static GM _instance;
 
 	// Determine whether the GameManager is active or not
-	private bool _game_init;
+	private bool 				_game_init;
 	
 	// Keep track of player turn order and number of players
-	private Player[] _player_turn_order;
-	private int _current_player_turn;
-	private int _total_players;
+	private int  			_player_turn_order;
+	private int 				_current_player_turn;
+	private int 				_total_players;
 
 	// References to script that are needed for the GameManager to keep track of
 	private UnitCost            _unit_cost;
 	private RecruitSystem       _recruit_system;
 	private UnitController      _unit_controller;
-	private WorldCamera _world_camera;
+	private WorldCamera 		_world_camera;
 	
 	// Winning conditions
 	//
 	// Current amount of resource for each player
-	private int[] _resource_count;
-	private int   _max_resource;
+	private int[] 				_resource_count;
+	private int   				_max_resource;
 
 	// Keep track of each player's unit accordingly
-	private GameObject[] _leaders;
+	private GameObject[] 		_leaders;
 	
 	// Reference to containers, units will be rooted to them
 	// The gameobject will contain the objects of that player's units and leader as its children nodes
-	private GameObject[] _player_container;
+	private GameObject[] 		_player_container;
 
 	// Who has won, starts off as Player.NONE
 	private Player _winner;
