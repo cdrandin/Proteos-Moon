@@ -30,7 +30,7 @@ public class UnitHighlight : MonoBehaviour {
 		Renderer[] renderers = GetComponentsInChildren<Renderer>();
 		foreach (var r in renderers)
 		{
-			renderer.material.shader = Shader.Find("Diffuse"); 
+			r.material.shader = Shader.Find("Diffuse"); 
 		}
 		
 	}

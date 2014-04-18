@@ -32,8 +32,8 @@ public enum Player : byte
 		NONE
 }
 
-public class GM : MonoBehaviour {
-
+public class GM : MonoBehaviour 
+{
 	private static GM _instance;
 
 	// Determine whether the GameManager is active or not
@@ -313,6 +313,9 @@ public class GM : MonoBehaviour {
 		_player_container	= null;
 		_units_obtained		= null;
 		_units_killed  		= null;
+		_recruit_system     = null;
+		_unit_controller    = null;
+		_world_camera       = null;
 	}
 
 	// Reset variables that are required to keep track of info during the game
@@ -337,7 +340,7 @@ public class GM : MonoBehaviour {
 	private void ResetRecordings()
 	{
 		// Reset round number
-		_round_num = 0;
+		_round_num = 1;
 		
 		// Reset 
 		//_timer = 0.0f;
@@ -358,6 +361,7 @@ public class GM : MonoBehaviour {
 	{
 		for(int i=0;i<_leaders.Length;++i)
 		{
+			_leaders[i].GetComponent<BaseClass>().unit_status.status = Status.Clean;
 		}
 	}
 
