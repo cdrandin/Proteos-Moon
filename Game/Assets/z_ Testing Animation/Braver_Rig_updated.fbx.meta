@@ -1,0 +1,1098 @@
+fileFormatVersion: 2
+guid: 89f8c8eaebb488f45a5f7c859807055c
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Braver_Chest
+    100002: Braver_EffectorHead
+    100004: Braver_EffectorLFinger0
+    100006: Braver_EffectorLFinger1
+    100008: Braver_EffectorLFinger2
+    100010: Braver_EffectorLFinger3
+    100012: Braver_EffectorLFinger4
+    100014: Braver_EffectorLToe
+    100016: Braver_EffectorRFinger0
+    100018: Braver_EffectorRFinger1
+    100020: Braver_EffectorRFinger2
+    100022: Braver_EffectorRFinger3
+    100024: Braver_EffectorRFinger4
+    100026: Braver_EffectorRToe
+    100028: Braver_geo
+    100030: Braver_Head
+    100032: Braver_Hip
+    100034: Braver_LBraver_Clavicle
+    100036: Braver_LFinger0
+    100038: Braver_LFinger01
+    100040: Braver_LFinger02
+    100042: Braver_LFinger1
+    100044: Braver_LFinger11
+    100046: Braver_LFinger12
+    100048: Braver_LFinger2
+    100050: Braver_LFinger21
+    100052: Braver_LFinger22
+    100054: Braver_LFinger3
+    100056: Braver_LFinger31
+    100058: Braver_LFinger32
+    100060: Braver_LFinger4
+    100062: Braver_LFinger41
+    100064: Braver_LFinger42
+    100066: Braver_LFoot
+    100068: Braver_LForearm
+    100070: Braver_LHand
+    100072: Braver_LowerSpine
+    100074: Braver_LShin
+    100076: Braver_LShoulder
+    100078: Braver_LThigh
+    100080: Braver_LToe
+    100082: Braver_MiddleSpine
+    100084: Braver_Neck
+    100086: Braver_RClavicle
+    100088: Braver_RFinger0
+    100090: Braver_RFinger01
+    100092: Braver_RFinger02
+    100094: Braver_RFinger1
+    100096: Braver_RFinger11
+    100098: Braver_RFinger12
+    100100: Braver_RFinger2
+    100102: Braver_RFinger21
+    100104: Braver_RFinger22
+    100106: Braver_RFinger3
+    100108: Braver_RFinger31
+    100110: Braver_RFinger32
+    100112: Braver_RFinger4
+    100114: Braver_RFinger41
+    100116: Braver_RFinger42
+    100118: Braver_RFoot
+    100120: Braver_RForearm
+    100122: Braver_RHand
+    100124: //RootNode
+    100126: Braver_RShin
+    100128: Braver_RShoulder
+    100130: Braver_RThigh
+    100132: Braver_RToe
+    400000: Braver_Chest
+    400002: Braver_EffectorHead
+    400004: Braver_EffectorLFinger0
+    400006: Braver_EffectorLFinger1
+    400008: Braver_EffectorLFinger2
+    400010: Braver_EffectorLFinger3
+    400012: Braver_EffectorLFinger4
+    400014: Braver_EffectorLToe
+    400016: Braver_EffectorRFinger0
+    400018: Braver_EffectorRFinger1
+    400020: Braver_EffectorRFinger2
+    400022: Braver_EffectorRFinger3
+    400024: Braver_EffectorRFinger4
+    400026: Braver_EffectorRToe
+    400028: Braver_geo
+    400030: Braver_Head
+    400032: Braver_Hip
+    400034: Braver_LBraver_Clavicle
+    400036: Braver_LFinger0
+    400038: Braver_LFinger01
+    400040: Braver_LFinger02
+    400042: Braver_LFinger1
+    400044: Braver_LFinger11
+    400046: Braver_LFinger12
+    400048: Braver_LFinger2
+    400050: Braver_LFinger21
+    400052: Braver_LFinger22
+    400054: Braver_LFinger3
+    400056: Braver_LFinger31
+    400058: Braver_LFinger32
+    400060: Braver_LFinger4
+    400062: Braver_LFinger41
+    400064: Braver_LFinger42
+    400066: Braver_LFoot
+    400068: Braver_LForearm
+    400070: Braver_LHand
+    400072: Braver_LowerSpine
+    400074: Braver_LShin
+    400076: Braver_LShoulder
+    400078: Braver_LThigh
+    400080: Braver_LToe
+    400082: Braver_MiddleSpine
+    400084: Braver_Neck
+    400086: Braver_RClavicle
+    400088: Braver_RFinger0
+    400090: Braver_RFinger01
+    400092: Braver_RFinger02
+    400094: Braver_RFinger1
+    400096: Braver_RFinger11
+    400098: Braver_RFinger12
+    400100: Braver_RFinger2
+    400102: Braver_RFinger21
+    400104: Braver_RFinger22
+    400106: Braver_RFinger3
+    400108: Braver_RFinger31
+    400110: Braver_RFinger32
+    400112: Braver_RFinger4
+    400114: Braver_RFinger41
+    400116: Braver_RFinger42
+    400118: Braver_RFoot
+    400120: Braver_RForearm
+    400122: Braver_RHand
+    400124: //RootNode
+    400126: Braver_RShin
+    400128: Braver_RShoulder
+    400130: Braver_RThigh
+    400132: Braver_RToe
+    4300000: Braver_geo
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Braver_geo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 218
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Braver_geo
+        weight: 0
+      - path: Braver_Hip
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger0
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger0/Braver_LFinger01
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger0/Braver_LFinger01/Braver_LFinger02
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger0/Braver_LFinger01/Braver_LFinger02/Braver_EffectorLFinger0
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger1
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger1/Braver_LFinger11
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger1/Braver_LFinger11/Braver_LFinger12
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger1/Braver_LFinger11/Braver_LFinger12/Braver_EffectorLFinger1
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger2
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger2/Braver_LFinger21
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger2/Braver_LFinger21/Braver_LFinger22
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger2/Braver_LFinger21/Braver_LFinger22/Braver_EffectorLFinger2
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger3
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger3/Braver_LFinger31
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger3/Braver_LFinger31/Braver_LFinger32
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger3/Braver_LFinger31/Braver_LFinger32/Braver_EffectorLFinger3
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger4
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger4/Braver_LFinger41
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger4/Braver_LFinger41/Braver_LFinger42
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_LBraver_Clavicle/Braver_LShoulder/Braver_LForearm/Braver_LHand/Braver_LFinger4/Braver_LFinger41/Braver_LFinger42/Braver_EffectorLFinger4
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_Neck
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_Neck/Braver_Head
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_Neck/Braver_Head/Braver_EffectorHead
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger0
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger0/Braver_RFinger01
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger0/Braver_RFinger01/Braver_RFinger02
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger0/Braver_RFinger01/Braver_RFinger02/Braver_EffectorRFinger0
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger1
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger1/Braver_RFinger11
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger1/Braver_RFinger11/Braver_RFinger12
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger1/Braver_RFinger11/Braver_RFinger12/Braver_EffectorRFinger1
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger2
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger2/Braver_RFinger21
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger2/Braver_RFinger21/Braver_RFinger22
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger2/Braver_RFinger21/Braver_RFinger22/Braver_EffectorRFinger2
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger3
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger3/Braver_RFinger31
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger3/Braver_RFinger31/Braver_RFinger32
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger3/Braver_RFinger31/Braver_RFinger32/Braver_EffectorRFinger3
+        weight: 0
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger4
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger4/Braver_RFinger41
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger4/Braver_RFinger41/Braver_RFinger42
+        weight: 1
+      - path: Braver_Hip/Braver_LowerSpine/Braver_MiddleSpine/Braver_Chest/Braver_RClavicle/Braver_RShoulder/Braver_RForearm/Braver_RHand/Braver_RFinger4/Braver_RFinger41/Braver_RFinger42/Braver_EffectorRFinger4
+        weight: 0
+      - path: Braver_Hip/Braver_LThigh
+        weight: 1
+      - path: Braver_Hip/Braver_LThigh/Braver_LShin
+        weight: 1
+      - path: Braver_Hip/Braver_LThigh/Braver_LShin/Braver_LFoot
+        weight: 1
+      - path: Braver_Hip/Braver_LThigh/Braver_LShin/Braver_LFoot/Braver_LToe
+        weight: 1
+      - path: Braver_Hip/Braver_LThigh/Braver_LShin/Braver_LFoot/Braver_LToe/Braver_EffectorLToe
+        weight: 0
+      - path: Braver_Hip/Braver_RThigh
+        weight: 1
+      - path: Braver_Hip/Braver_RThigh/Braver_RShin
+        weight: 1
+      - path: Braver_Hip/Braver_RThigh/Braver_RShin/Braver_RFoot
+        weight: 1
+      - path: Braver_Hip/Braver_RThigh/Braver_RShin/Braver_RFoot/Braver_RToe
+        weight: 1
+      - path: Braver_Hip/Braver_RThigh/Braver_RShin/Braver_RFoot/Braver_RToe/Braver_EffectorRToe
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .100000001
+    meshCompression: 1
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: Braver_Hip
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LThigh
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: -60, y: -60, z: -90}
+        max: {x: 60, y: 60, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RThigh
+      humanName: RightUpperLeg
+      limit:
+        min: {x: -60, y: -60, z: -90}
+        max: {x: 60, y: 60, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LShin
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: -90, y: 0, z: -80}
+        max: {x: 90, y: 0, z: 80}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RShin
+      humanName: RightLowerLeg
+      limit:
+        min: {x: -90, y: 0, z: -80}
+        max: {x: 90, y: 0, z: 80}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: -30, z: -50}
+        max: {x: 0, y: 30, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: -30, z: -50}
+        max: {x: 0, y: 30, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LowerSpine
+      humanName: Spine
+      limit:
+        min: {x: -40, y: -40, z: -40}
+        max: {x: 40, y: 40, z: 40}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_MiddleSpine
+      humanName: Chest
+      limit:
+        min: {x: -40, y: -40, z: -40}
+        max: {x: 40, y: 40, z: 40}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_Neck
+      humanName: Neck
+      limit:
+        min: {x: -40, y: -40, z: -40}
+        max: {x: 40, y: 40, z: 40}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_Head
+      humanName: Head
+      limit:
+        min: {x: -40, y: -40, z: -40}
+        max: {x: 40, y: 40, z: 40}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LBraver_Clavicle
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: -15, z: -15}
+        max: {x: 0, y: 15, z: 30}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RClavicle
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: -15, z: -15}
+        max: {x: 0, y: 15, z: 30}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LShoulder
+      humanName: LeftUpperArm
+      limit:
+        min: {x: -90, y: -100, z: -60}
+        max: {x: 90, y: 100, z: 100}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RShoulder
+      humanName: RightUpperArm
+      limit:
+        min: {x: -90, y: -100, z: -60}
+        max: {x: 90, y: 100, z: 100}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LForearm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: -90, y: 0, z: -80}
+        max: {x: 90, y: 0, z: 80}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RForearm
+      humanName: RightLowerArm
+      limit:
+        min: {x: -90, y: 0, z: -80}
+        max: {x: 90, y: 0, z: 80}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: -40, z: -80}
+        max: {x: 0, y: 40, z: 80}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: -40, z: -80}
+        max: {x: 0, y: 40, z: 80}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LToe
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: -50}
+        max: {x: 0, y: 0, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RToe
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: -50}
+        max: {x: 0, y: 0, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: -25, z: -20}
+        max: {x: 0, y: 25, z: 20}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger11
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -40}
+        max: {x: 0, y: 0, z: 35}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger12
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: -40}
+        max: {x: 0, y: 0, z: 35}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger0
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: -20, z: -50}
+        max: {x: 0, y: 20, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger01
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger02
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger2
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: -7.5, z: -50}
+        max: {x: 0, y: 7.5, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger21
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger22
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger3
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: -7.5, z: -50}
+        max: {x: 0, y: 7.5, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger31
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger32
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger4
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: -20, z: -50}
+        max: {x: 0, y: 20, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger41
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_LFinger42
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: -25, z: -20}
+        max: {x: 0, y: 25, z: 20}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger11
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -40}
+        max: {x: 0, y: 0, z: 35}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger12
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: -40}
+        max: {x: 0, y: 0, z: 35}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger0
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: -20, z: -50}
+        max: {x: 0, y: 20, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger01
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger02
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger2
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: -7.5, z: -50}
+        max: {x: 0, y: 7.5, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger21
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger22
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger3
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: -7.5, z: -50}
+        max: {x: 0, y: 7.5, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger31
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger32
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger4
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: -20, z: -50}
+        max: {x: 0, y: 20, z: 50}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger41
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Braver_RFinger42
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: -45}
+        max: {x: 0, y: 0, z: 45}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Braver_Rig_updated(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_geo
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_Hip
+      position: {x: 2.70210198e-23, y: .630784452, z: -5.17476062e-09}
+      rotation: {x: .433823556, y: -.558387935, z: -.433823556, w: .558387995}
+      scale: {x: 1, y: .999999821, z: 1}
+      transformModified: 1
+    - name: Braver_LowerSpine
+      position: {x: -.0623981319, y: 1.10576996e-08, z: -3.18092197e-09}
+      rotation: {x: -.433823556, y: .558387935, z: .433823556, w: .558387995}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_MiddleSpine
+      position: {x: -2.83995916e-09, y: .0551758297, z: .00288269739}
+      rotation: {x: 2.77555756e-17, y: -1.39014928e-16, z: -2.77258153e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_Chest
+      position: {x: -2.79303669e-09, y: .0682734624, z: -.0151969567}
+      rotation: {x: .495350868, y: -.504607856, z: -.495349348, w: .504606366}
+      scale: {x: .99999994, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LBraver_Clavicle
+      position: {x: -.0810002908, y: .0225933809, z: .0294911992}
+      rotation: {x: -.547209859, y: .474417239, z: .441981077, w: .529284894}
+      scale: {x: .999999881, y: .999999642, z: .999999762}
+      transformModified: 1
+    - name: Braver_LShoulder
+      position: {x: -.0985059291, y: 5.77059325e-08, z: -7.70813013e-09}
+      rotation: {x: .00226552854, y: -.028758347, z: .0820347965, w: .996211886}
+      scale: {x: .99999994, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LForearm
+      position: {x: -.144543782, y: -3.96631883e-08, z: -6.70210554e-09}
+      rotation: {x: -2.1421771e-09, y: .00013624072, z: -.00380466017, w: .999992788}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: Braver_LHand
+      position: {x: -.149573371, y: 6.16992253e-08, z: -2.31703678e-09}
+      rotation: {x: -.00326677598, y: .171624914, z: -.0147455204, w: .985046566}
+      scale: {x: .99999994, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger0
+      position: {x: -.0349079482, y: -.00850998051, z: .00686619198}
+      rotation: {x: .155604169, y: -.0533794127, z: .0564923361, w: .984757125}
+      scale: {x: .999999821, y: 1.00000012, z: .999999881}
+      transformModified: 1
+    - name: Braver_LFinger01
+      position: {x: -.0413329229, y: 5.04508471e-08, z: -1.6134468e-08}
+      rotation: {x: -.221007809, y: -.0317731388, z: -.00647619134, w: .974732816}
+      scale: {x: 1, y: .999999881, z: 1.00000024}
+      transformModified: 1
+    - name: Braver_LFinger02
+      position: {x: -.0149854412, y: -1.2178613e-07, z: -5.75827874e-09}
+      rotation: {x: -.0427169688, y: -.0182818156, z: .0348206833, w: .998312831}
+      scale: {x: 1, y: .999999762, z: .999999821}
+      transformModified: 1
+    - name: Braver_EffectorLFinger0
+      position: {x: -.0145418299, y: -1.04783942e-08, z: 8.54134541e-09}
+      rotation: {x: -.0289017782, y: -.0602660999, z: -.431448638, w: .899658084}
+      scale: {x: .99999994, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_LFinger1
+      position: {x: -.0787704363, y: 5.30201305e-08, z: -3.85074159e-08}
+      rotation: {x: -.00167190447, y: .234919295, z: .00285999198, w: .972009242}
+      scale: {x: .999999881, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_LFinger11
+      position: {x: -.0227809362, y: -8.97699159e-09, z: 7.8083886e-09}
+      rotation: {x: 5.32859667e-05, y: -4.96469219e-14, z: -3.74418378e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger12
+      position: {x: -.0189997833, y: 2.83185342e-09, z: -1.100583e-08}
+      rotation: {x: -9.86643936e-05, y: -1.42461021e-12, z: 1.40187319e-12, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorLFinger1
+      position: {x: -.0245971642, y: -4.10672968e-10, z: 8.85397355e-09}
+      rotation: {x: 4.53711982e-05, y: 1.12633785e-12, z: -1.88254967e-12, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger2
+      position: {x: -.0750042722, y: .000761752948, z: -.0139264232}
+      rotation: {x: .00284773158, y: -.167495996, z: .0167590603, w: .985726237}
+      scale: {x: .999999881, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_LFinger21
+      position: {x: -.0244982131, y: 2.59847588e-09, z: -2.08781259e-09}
+      rotation: {x: -3.58412078e-09, y: 2.6617597e-14, z: -2.47789663e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger22
+      position: {x: -.0202069972, y: -4.22575486e-09, z: -4.97140951e-09}
+      rotation: {x: -3.58412078e-09, y: 2.6617597e-14, z: -2.47789663e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorLFinger2
+      position: {x: -.0279870778, y: -2.91299838e-08, z: -2.56964866e-10}
+      rotation: {x: -3.58412078e-09, y: 2.6617597e-14, z: -2.47789663e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger3
+      position: {x: -.0706760436, y: .000748475723, z: -.0283777993}
+      rotation: {x: .00284773158, y: -.167495996, z: .0167590603, w: .985726237}
+      scale: {x: .999999881, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_LFinger31
+      position: {x: -.0224358309, y: -1.16112613e-08, z: 1.75154824e-09}
+      rotation: {x: -3.58406416e-09, y: -3.74977793e-14, z: -8.57144352e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger32
+      position: {x: -.0201081689, y: 7.95432076e-09, z: 8.78386808e-10}
+      rotation: {x: -3.58406416e-09, y: -3.74977793e-14, z: -8.57144352e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorLFinger3
+      position: {x: -.0273478925, y: -3.26061347e-08, z: -8.23307478e-10}
+      rotation: {x: -3.58406416e-09, y: -3.74977793e-14, z: -8.57144352e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger4
+      position: {x: -.0643146113, y: .00105110405, z: -.0445919447}
+      rotation: {x: .00284773158, y: -.167495996, z: .0167590603, w: .985726237}
+      scale: {x: .999999881, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_LFinger41
+      position: {x: -.0188801885, y: 5.69264502e-09, z: 2.17411178e-09}
+      rotation: {x: -3.58408458e-09, y: -2.59514615e-14, z: -1.4432032e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LFinger42
+      position: {x: -.0200839173, y: -3.93718702e-09, z: -1.08750509e-09}
+      rotation: {x: -3.58408458e-09, y: -2.59514615e-14, z: -1.4432032e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorLFinger4
+      position: {x: -.0219180528, y: -2.39267202e-08, z: -2.82528734e-09}
+      rotation: {x: -3.58408458e-09, y: -2.59514615e-14, z: -1.4432032e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_Neck
+      position: {x: -.129622459, y: -1.24768622e-08, z: -1.25181576e-09}
+      rotation: {x: 4.63011975e-06, y: -1.31231297e-06, z: .989660621, w: .143428877}
+      scale: {x: 1.00000024, y: 1.00000036, z: 1}
+      transformModified: 1
+    - name: Braver_Head
+      position: {x: .0666010529, y: -2.14557645e-06, z: -1.23205416e-06}
+      rotation: {x: .42834118, y: .562607527, z: -.428343296, w: .562599897}
+      scale: {x: 1.00000012, y: .999999881, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorHead
+      position: {x: -2.93290782e-07, y: .0910471305, z: .00271813734}
+      rotation: {x: 4.81735825e-08, y: -5.72222001e-15, z: -6.2324536e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RClavicle
+      position: {x: -.0810009614, y: .0225932132, z: -.0294913743}
+      rotation: {x: .474415869, y: .54720825, z: -.529286504, w: .441982448}
+      scale: {x: .99999994, y: .999999762, z: 1}
+      transformModified: 1
+    - name: Braver_RShoulder
+      position: {x: .0985059366, y: 4.40535132e-07, z: 7.35947703e-09}
+      rotation: {x: .00226554088, y: -.0287583768, z: .0820348337, w: .996211946}
+      scale: {x: 1, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: Braver_RForearm
+      position: {x: .144543394, y: 4.66824048e-07, z: -2.74363599e-09}
+      rotation: {x: -4.43550192e-08, y: .000136286733, z: -.00380465086, w: .999992788}
+      scale: {x: 1.00000012, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_RHand
+      position: {x: .14957349, y: -2.4387532e-07, z: 5.5132845e-09}
+      rotation: {x: -.00326671777, y: .171624869, z: -.0147455037, w: .985046566}
+      scale: {x: 1.00000036, y: .999999762, z: .999999702}
+      transformModified: 1
+    - name: Braver_RFinger0
+      position: {x: .0349084102, y: .00850930903, z: -.0068661361}
+      rotation: {x: .155604094, y: -.0533844046, z: .0564861931, w: .984757245}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_RFinger01
+      position: {x: .0413325652, y: 3.46420251e-07, z: -4.20435299e-07}
+      rotation: {x: -.221005425, y: -.0317585133, z: -.00645386009, w: .974734008}
+      scale: {x: 1, y: 1.00000012, z: 1.00000048}
+      transformModified: 1
+    - name: Braver_RFinger02
+      position: {x: .0149863036, y: -4.01650965e-07, z: 1.64565549e-07}
+      rotation: {x: -.0427163988, y: -.0182807744, z: .0348025896, w: .998313546}
+      scale: {x: 1.00000012, y: .999999762, z: .999999702}
+      transformModified: 1
+    - name: Braver_EffectorRFinger0
+      position: {x: .0145412749, y: 7.0701752e-08, z: -1.09903509e-08}
+      rotation: {x: -.0289017987, y: -.0602661036, z: -.43144846, w: .899658203}
+      scale: {x: .999999642, y: 1.0000006, z: 1.00000024}
+      transformModified: 1
+    - name: Braver_RFinger1
+      position: {x: .0787701532, y: -3.65884404e-07, z: -8.52690079e-08}
+      rotation: {x: -.0016718905, y: .234919399, z: .00285953307, w: .972009182}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000048}
+      transformModified: 1
+    - name: Braver_RFinger11
+      position: {x: .0227810312, y: 2.15335785e-08, z: -6.50197185e-09}
+      rotation: {x: 5.33043967e-05, y: -3.96544403e-14, z: -3.65595873e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger12
+      position: {x: .0189999994, y: 3.90753124e-10, z: 8.73505002e-09}
+      rotation: {x: -9.86459636e-05, y: 1.33534275e-12, z: -2.14189192e-12, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorRFinger1
+      position: {x: .02459695, y: -6.15218676e-09, z: -7.85036391e-09}
+      rotation: {x: 4.53379107e-05, y: -1.21201367e-12, z: 1.14252683e-12, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger2
+      position: {x: .0750041828, y: -.000761848118, z: .0139263896}
+      rotation: {x: .00284768478, y: -.167495996, z: .0167590305, w: .985726178}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000048}
+      transformModified: 1
+    - name: Braver_RFinger21
+      position: {x: .0244979989, y: -3.20907212e-09, z: 7.24422078e-09}
+      rotation: {x: 1.48491575e-08, y: 3.66373632e-14, z: -2.38990929e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger22
+      position: {x: .0202079993, y: -8.79299744e-09, z: -4.25114743e-09}
+      rotation: {x: -1.79209747e-09, y: 1.29289841e-08, z: -1.66414971e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorRFinger2
+      position: {x: .0279870015, y: -3.69630548e-09, z: -5.87785332e-09}
+      rotation: {x: -1.79209925e-09, y: -1.29289113e-08, z: 1.66410157e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger3
+      position: {x: .0706760809, y: -.000748967286, z: .0283778049}
+      rotation: {x: .00284768478, y: -.167495996, z: .0167590305, w: .985726178}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000048}
+      transformModified: 1
+    - name: Braver_RFinger31
+      position: {x: .0224360228, y: 2.96199332e-09, z: 3.99914146e-09}
+      rotation: {x: 1.48492152e-08, y: -2.75890405e-14, z: -7.68949113e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger32
+      position: {x: .0201079752, y: 2.09470592e-08, z: -6.75649137e-09}
+      rotation: {x: -1.7920404e-09, y: 1.29289202e-08, z: -1.66413336e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorRFinger3
+      position: {x: .0273479912, y: -1.32980986e-08, z: -1.2682263e-09}
+      rotation: {x: -1.79204218e-09, y: -1.29289752e-08, z: 1.66411791e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger4
+      position: {x: .064314656, y: -.00105140987, z: .0445919298}
+      rotation: {x: .00284768478, y: -.167495996, z: .0167590305, w: .985726178}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000048}
+      transformModified: 1
+    - name: Braver_RFinger41
+      position: {x: .0188800432, y: 2.17324327e-08, z: -4.95014074e-09}
+      rotation: {x: 1.48491939e-08, y: -1.59872099e-14, z: -1.35504279e-13, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFinger42
+      position: {x: .0200839676, y: 3.79088594e-10, z: 2.29320385e-09}
+      rotation: {x: -1.79206128e-09, y: 1.29289317e-08, z: -1.66413923e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_EffectorRFinger4
+      position: {x: .0219180174, y: -6.6014465e-09, z: -1.26350208e-09}
+      rotation: {x: -1.79206305e-09, y: -1.29289637e-08, z: 1.66411205e-08, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_LThigh
+      position: {x: -.0177511908, y: -.000973557704, z: .0689823255}
+      rotation: {x: .0853776783, y: .990021765, z: .110605486, w: .018275572}
+      scale: {x: .99999994, y: 1.00000012, z: .99999994}
+      transformModified: 1
+    - name: Braver_LShin
+      position: {x: -.299190223, y: -1.37275533e-08, z: 1.2396919e-08}
+      rotation: {x: -.991728306, y: -.0625086203, z: .00165687478, w: .112093583}
+      scale: {x: 1, y: .999999702, z: .999999702}
+      transformModified: 1
+    - name: Braver_LFoot
+      position: {x: -.27358982, y: 1.48295021e-08, z: -2.25578489e-09}
+      rotation: {x: .895000994, y: .446064204, z: -2.71536692e-07, w: 6.2604505e-07}
+      scale: {x: 1, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_LToe
+      position: {x: -.0826112553, y: 3.93461868e-08, z: -2.7657403e-09}
+      rotation: {x: -1.05267794e-08, y: -3.59362171e-12, z: -.340189576, w: .94035697}
+      scale: {x: 1.00000036, y: 1.00000024, z: 1.00000036}
+      transformModified: 1
+    - name: Braver_EffectorLToe
+      position: {x: -.0845732912, y: -3.74837157e-08, z: -1.67587384e-08}
+      rotation: {x: -2.5868756e-08, y: -.707106829, z: -1.03100861e-09, w: .707106829}
+      scale: {x: .999999881, y: 1, z: .999999881}
+      transformModified: 1
+    - name: Braver_RThigh
+      position: {x: -.0177509021, y: -.000973627903, z: -.068982318}
+      rotation: {x: .990021765, y: -.0853776857, z: -.0182755105, w: .110605426}
+      scale: {x: 1.00000024, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_RShin
+      position: {x: .299189419, y: -1.26279929e-07, z: 4.085177e-08}
+      rotation: {x: -.991728306, y: -.0625086203, z: .00165687478, w: .112093583}
+      scale: {x: 1.00000012, y: 1, z: 1}
+      transformModified: 1
+    - name: Braver_RFoot
+      position: {x: .273590356, y: -3.62663819e-08, z: 5.76306058e-10}
+      rotation: {x: -.446064115, y: .895000994, z: -6.02802686e-07, w: -2.34832783e-07}
+      scale: {x: 1, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: Braver_RToe
+      position: {x: -.0826112852, y: 2.6829321e-08, z: 5.66755354e-09}
+      rotation: {x: 4.21305977e-08, y: -4.49250914e-11, z: .94035691, w: .340189636}
+      scale: {x: 1.00000024, y: 1, z: 1.00000048}
+      transformModified: 1
+    - name: Braver_EffectorRToe
+      position: {x: .0845730826, y: 1.26764244e-09, z: 2.35356423e-09}
+      rotation: {x: -2.35265869e-08, y: -.707106829, z: 4.98046715e-10, w: .707106829}
+      scale: {x: .999999881, y: .999999762, z: .999999881}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: Braver_Hip
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  userData: 
