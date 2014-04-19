@@ -56,13 +56,13 @@ public class WorldCamera : MonoBehaviour {
 	private float VerticalRoationMax = 65f;
 
 	public Terrain WorldTerrain;
-	public float WorldTerrainPadding = 25f;
+	public float WorldTerrainPadding = 5f;
 
 	[HideInInspector] public float cameraHeight; //Only for scrolling or zooming
 	[HideInInspector] public float cameraY; //this will change relative to terrain
-	private float maxCameraHeight = 10f;
+	private float maxCameraHeight = 20f;
 	public LayerMask TerrainOnly;
-	private float minDistanceToObject = 40f;
+	private float minDistanceToObject = 5f;
 
 	private bool _local;
 	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
@@ -90,8 +90,11 @@ public class WorldCamera : MonoBehaviour {
 
 		//Declare camera limits
 		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
+		
 		cameraLimits.RightLimit  = WorldTerrain.terrainData.size.x - WorldTerrainPadding;
+
 		cameraLimits.TopLimit    = WorldTerrain.terrainData.size.z - WorldTerrainPadding;
+		
 		cameraLimits.BottomLimit = WorldTerrain.transform.position.z + WorldTerrainPadding;
 		
 		//Declare Mouse Scroll Limits
@@ -121,13 +124,15 @@ public class WorldCamera : MonoBehaviour {
 			if(!isDesiredPositionOverBoundaries(desiredTranslation))
 			{
 				Vector3 desiredPosition = transform.position + desiredTranslation;
-
+				
 				UpdateCameraY(desiredPosition);
 
 				this.transform.Translate(desiredTranslation);
+			}else{
+			
+				
 			}
 		}
-
 		ApplyCameraY();
 	}
 
@@ -220,18 +225,18 @@ public class WorldCamera : MonoBehaviour {
 	public void UpdateCameraY(Vector3 desiredPosition){
 
 		RaycastHit hit;
-		float deadZone = 0.1f;
-
+		float deadZone = 0.0001f;
+		
 		if(Physics.Raycast(desiredPosition, Vector3.down, out hit, Mathf.Infinity)){
-
+			
 			float newHeight = cameraHeight + hit.point.y;
+			
 			float heightDifference = newHeight - cameraY;
-
+			
 			if(heightDifference > -deadZone && heightDifference < deadZone) return;
 
 			if(newHeight > maxCameraHeight || newHeight < MinCameraHeight()) return;
 			
-
 			cameraY = newHeight;
 
 		}
@@ -241,12 +246,12 @@ public class WorldCamera : MonoBehaviour {
 
 	//Apply the camera Y to a smooth damp, and update camera Y position
 	public void ApplyCameraY(){
-
+		
 		if (cameraY == transform.position.y || cameraY == 0)
 			return;
 
 		//smooth damp
-		float smoothTime = 0.2f;
+		float smoothTime = 0.1f;
 		float yVelocity = 0.0f;
 
 		float newPoisitionY = Mathf.SmoothDamp (transform.position.y, cameraY, ref yVelocity, smoothTime);
@@ -289,7 +294,7 @@ public class WorldCamera : MonoBehaviour {
 	//Works out the cameras desired location depending on the players input
 	public Vector3 GetDesiredTranslation()
 	{
-		float moveSpeed = 0f;
+		float moveSpeed = 60f;
 		Vector3 desiredTranslation = new Vector3 ();
 		
 		if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))

@@ -53,11 +53,9 @@ public class UnitHighlight : MonoBehaviour {
 		
 		foreach (Transform child in obj.transform)
 		{
-<<<<<<< HEAD
+
 			TraverseDiffuse(child.gameObject);
-=======
-			r.material.shader = Shader.Find("Diffuse"); 
->>>>>>> f1afd1278d89b2553e6307bda81dc5a6fbcd3670
+
 		}
 		
 	}
