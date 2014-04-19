@@ -17,10 +17,6 @@ public class UnitController : MonoBehaviour
 	[SerializeField]
 	private float speed;
 
-	// Keep track how far the unit has traveled
-	[SerializeField]
-	private float _travel_distance;
-
 	// How far the unit should be able to travel
 	// Close to ~ in meters perse.
 	[SerializeField]
@@ -81,12 +77,7 @@ public class UnitController : MonoBehaviour
 	{
 		// Forward is the +Z axis
 		_move_direction  	= Vector3.zero; //transform.TransformDirection(Vector3.forward);
-		//HACK _is_jumping      = false;
-		_is_controllable 	= false;
-		_vertical_speed  	= 0.0f;
-		_air_jump_count  	= 0;
-		_travel_distance 	= 0.0f;
-		max_travel_distance = 0.0f;
+		ShutDown();
 
 		ClearFocusUnit();
 	}
@@ -97,12 +88,9 @@ public class UnitController : MonoBehaviour
 		// Controller is found, then use UnitController
 		if(_unit_focus_cc != null)
 		{
-			if (!_is_controllable || ( enforce_distance && (_travel_distance >= max_travel_distance)))
+			Vector3 dif = _unit_focus_cc.transform.position - start;
+			if (!_is_controllable || ( enforce_distance && (dif.sqrMagnitude >= max_travel_distance * max_travel_distance * speed * speed)))
 			{
-				//
-				// MAY CAUSE PROBLEMS IN THE FUTURE !!!
-				//
-				// kill all inputs if not controllable.
 				Input.ResetInputAxes();
 			}
 
@@ -118,14 +106,6 @@ public class UnitController : MonoBehaviour
 			// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
 			Vector3 movement = _move_direction * speed + new Vector3(0, _vertical_speed, 0);
 			movement *= Time.deltaTime;
-
-			// Just adding some numbers to get distance traveled
-			if(IsMoving())
-			{
-				_travel_distance += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
-			}
-
-			//movement = transform.TransformDirection(movement);
 
 			_unit_focus_cc.Move(movement);
 		}
@@ -229,13 +209,7 @@ public class UnitController : MonoBehaviour
 
 	public float travel_distance
 	{
-		get { return _travel_distance; }
-		set { _travel_distance = value; }
-	}
-
-	public void ResetDistanceTraveled()
-	{
-		_travel_distance = 0.0f;
+		get { return Vector3.Distance(transform.position, start); }
 	}
 
 	public void SetFocusOnUnit(ref GameObject unit)
@@ -341,7 +315,6 @@ public class UnitController : MonoBehaviour
 	{
 		_unit_focus_movement = null;
 
-		_travel_distance 	= 0;
 		max_travel_distance = 0;
 		speed               = 0;
 		can_jump            = false; 

@@ -894,9 +894,6 @@ public class GM : MonoBehaviour
 			unit.GetComponent<BaseClass>().unit_status.Clean();
 		}
 
-		// Reset unit controller travel distance
-		_unit_controller.travel_distance  = 0.0f;
-		
 		// Next player's turn
 		_current_player_turn =(_current_player_turn + 1) % _total_players;
 
