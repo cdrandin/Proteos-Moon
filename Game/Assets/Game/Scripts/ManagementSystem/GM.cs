@@ -162,6 +162,8 @@ public class GM : MonoBehaviour
 
 		_game_init = true;
 		_game_gui.InitGUIState();
+
+		UpdateFogPerUnit();
 	}
 
 	// Allocate memory blocks for things needed in the game
@@ -474,7 +476,6 @@ public class GM : MonoBehaviour
 	/// <param name="player">Player.</param>
 	public GameObject[] GetUnitsFromPlayer(Player player)
 	{
-
 		BaseClass[] base_class = _player_container[(int)player].GetComponentsInChildren<BaseClass>();
 		GameObject[] units = new GameObject[base_class.Length];
 		for(int i=0;i<units.Length;++i)
@@ -549,7 +550,7 @@ public class GM : MonoBehaviour
 		
 		foreach(BaseClass unit in units_bc)
 		{
-			if(Vector3.Distance(unit.transform.position, target.transform.position) < distance)
+			if((unit.transform.position - target.transform.position).sqrMagnitude < distance * distance)
 			{
 				units.Add(unit.gameObject);
 			}
@@ -884,7 +885,8 @@ public class GM : MonoBehaviour
 	public void NextPlayersTurn()
 	{
 		// Enable Fog of War for other player's perspective
-		
+		UpdateFogPerUnit();
+
 		// Unfocus current unit
 		SetUnitControllerActiveOff();
 
@@ -973,6 +975,32 @@ public class GM : MonoBehaviour
 
 		// Currently, doesn't work since unit is not part of the pooling system initially
 		//PoolingSystem.instance.Destroy(unit);
+	}
+
+	void UpdateFogPerUnit()
+	{
+		// With current player unit, enable FoW for them
+		foreach(GameObject unit in GetUnitsFromPlayer((Player) _current_player_turn))
+		{
+			unit.GetComponent<FOWRevealer>().isActive = true;
+		}
+
+		// All other players, disabled FoW
+		for(int i=0;i<_total_players;++i)
+		{
+			if(i == _current_player_turn)
+			{
+				// ignore
+			}
+			else
+			{
+				foreach(GameObject unit in GetUnitsFromPlayer((Player) i))
+				{
+					unit.GetComponent<FOWRevealer>().isActive = false;
+					// Possibly hide units here, not sure how it will work over a network
+				}
+			}
+		}
 	}
 
 	#endregion
