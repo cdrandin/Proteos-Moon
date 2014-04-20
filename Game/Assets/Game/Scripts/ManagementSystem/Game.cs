@@ -10,11 +10,13 @@ using System.Collections;
 [RequireComponent (typeof(RecruitSystem))]
 public class Game : MonoBehaviour
 {
+	public GameObject load_game_objects;
+
 	public int num_of_players;
 	public int resource_limit;
 	
 	public bool testing;
-	public Terrain fow_terrain;
+	private Terrain fow_terrain;
 	public Material fow_material;
 
 	/* 
@@ -38,13 +40,8 @@ public class Game : MonoBehaviour
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
 		_game_manager_gui.text = "";
-		wcm = GameObject.Find("WorldCamera").GetComponent<WorldCamera>();
-		if(wcm == null)
-		{
-			Debug.LogError("Cannot find WorldCamera");
-		}
+	
 		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
-		fow_terrain.materialTemplate = fow_material;
 	}
 	
 	// Use this for initialization
@@ -57,7 +54,7 @@ public class Game : MonoBehaviour
 			recruit_gui_on = true;
 			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 			_game_manager_gui.fontSize = 16;
-			
+			//FindWorldCamera();
 			waitingTime = 5.0f;
 			timer = 0.0f;
 			
@@ -86,32 +83,36 @@ public class Game : MonoBehaviour
 				_game_manager_gui.text = string.Format("It is now {0}'s turn", GM.instance.CurrentPlayer);
 			}
 
-			if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
+			if(wcm != null)
 			{
-				// Reset timer for display the resource text
-				timer = 0;
-				if(GM.instance.CurrentFocus == null)
+				if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
 				{
-					Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
-					RaycastHit hit;
-					if(Physics.Raycast(ray, out hit, 100))
+					// Reset timer for display the resource text
+					timer = 0;
+					if(GM.instance.CurrentFocus == null)
 					{
-						// Get correct, unit
-						string tag = hit.transform.tag;
-						
-						if(tag == "Unit" || tag == "Leader")
+						Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+						RaycastHit hit;
+						if(Physics.Raycast(ray, out hit, 100))
 						{
-							GameObject obj = hit.transform.gameObject;
-							GM.instance.SetUnitControllerActiveOn(ref obj);
-						}
-						else
-						{
-							//GM.instance.SetUnitControllerActiveOff();
+							// Get correct, unit
+							string tag = hit.transform.tag;
+							
+							if(tag == "Unit" || tag == "Leader")
+							{
+								GameObject obj = hit.transform.gameObject;
+								GM.instance.SetUnitControllerActiveOn(ref obj);
+							}
+							else
+							{
+								//GM.instance.SetUnitControllerActiveOff();
+							}
 						}
 					}
+					
 				}
-
 			}
+
 
 			if(testing)
 			{
@@ -145,12 +146,27 @@ public class Game : MonoBehaviour
 			{
 				return;
 			}
-			
+
+			if(GameObject.FindGameObjectsWithTag("Game_Init").Length > 0)
+			{
+				Debug.LogWarning("A game init is already in the scene. Using that one.");
+			}
+			else 
+			{
+				Instantiate(load_game_objects, Vector3.zero, Quaternion.identity);
+			}
+
 			this.gui_method += GUI_menu;
 			init = true;
 			_game_manager_gui.text = "Game Manager enabled";
 			
 			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+
+			FindWorldCamera();
+			wcm.ChangeCamera();
+
+			fow_terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Terrain>();
+			fow_terrain.materialTemplate = fow_material;
 		}
 		
 		else if(MakeButton(0, 100, "End GameManager"))
@@ -321,7 +337,16 @@ public class Game : MonoBehaviour
 	{
 		//this.gui_method += GUI_init;
 	}
-	
+
+	void FindWorldCamera ()
+	{
+		wcm = GameObject.Find("WorldCamera").GetComponent<WorldCamera>();
+		if(wcm == null)
+		{
+			Debug.LogError("Cannot find WorldCamera");
+		}
+	}
+
 	public void ResetGUIState()
 	{
 		init = false;
@@ -330,7 +355,11 @@ public class Game : MonoBehaviour
 		this.gui_method -= GUI_recruit;
 		recruit_gui_on = true;
 	}
-	
+
+	void OnDisable()
+	{
+		this.enabled = true;
+	}
 	
 	void Reset ()
 	{

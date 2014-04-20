@@ -41,7 +41,8 @@ public class UnitGUI : MonoBehaviour {
 		isMoving = false;
 		smoothPos = false;
 		shift = 0;
-		WorldCamera.instance.TurnCameraControlsOn();
+		if(WorldCamera.instance != null)
+			WorldCamera.instance.TurnCameraControlsOn();
 		
 	}
 	
@@ -118,7 +119,6 @@ public class UnitGUI : MonoBehaviour {
 	
 		if( WorldCamera.instance.IsCameraOnControlsOn()  && (Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed()) ){
 			
-			print ("Stop movement");
 			RemoveGUI();
 
 			ResetFlags();
@@ -459,5 +459,10 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	#endregion
+
+	void OnDisable()
+	{
+		this.enabled = true;
+	}
 }
 
