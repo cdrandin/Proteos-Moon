@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TitleGUI : MonoBehaviour {
-	//public GUISkin custom_skin = null;
+	public GUISkin custom_skin = null;
 	private int button_width = 150;
 	private int button_height = 50;
 	private int half_button_width;
@@ -30,7 +30,7 @@ public class TitleGUI : MonoBehaviour {
 		}
 	}
 	public void OnGUI(){
-		//GUI.skin = custom_skin;
+		GUI.skin = custom_skin;
 		if(!button_clicked){
 			if(GUI.Button(new Rect(half_screen_width - half_button_width, half_screen_height - 2 * button_height, button_width, button_height), "Begin Story")){
 				button_clicked = true;
