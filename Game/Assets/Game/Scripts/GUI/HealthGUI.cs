@@ -19,6 +19,9 @@ public class HealthGUI : MonoBehaviour
 	// How often to display new health bar
 	public float refresh_time;
 
+	public float x_render_offset = 0.3f;
+	public float y_render_offset = 0.3f;
+
 	// List of targets
 	[SerializeField]
 	private List<GameObject> _targets;
@@ -54,12 +57,18 @@ public class HealthGUI : MonoBehaviour
 	// Use to offset the position of the GUI bar from the start
 	private Vector3 _base_pos;
 
+	private float gui_width_offset = -55.78f;
+
+	private Rect screen_rect_w_offsets;
+
 	// Use this for initialization
 	void Start () 
 	{
 		_ratio    = remaining_health.GetComponent<GUITexture>().pixelInset.height/remaining_health.GetComponent<GUITexture>().pixelInset.width;
 		_timer    = refresh_time;
 		_base_pos = remaining_health.transform.position;
+
+		screen_rect_w_offsets = new Rect(0.0f - x_render_offset, 0.0f - y_render_offset, Screen.width + x_render_offset, Screen.height + y_render_offset);
 	}
 
 	// Update is called once per frame
@@ -76,6 +85,7 @@ public class HealthGUI : MonoBehaviour
 			TurnOn(); // called once
 
 			_timer += Time.deltaTime;
+
 			// Update health bar info based on the refresh rate
 			if(_timer >= refresh_time)
 			{
@@ -84,7 +94,12 @@ public class HealthGUI : MonoBehaviour
 
 				foreach(GameObject unit in GM.instance.GetAllUnitsNearPlayer(GM.instance.CurrentFocusCamera.gameObject, rendering_distance))
 				{
-					AddTarget(unit);
+					Vector3 unit_screen_pos = GM.instance.CurrentFocusCamera.WorldToViewportPoint(unit.transform.position);
+
+					if(screen_rect_w_offsets.Contains(new Vector2(unit_screen_pos.x, unit_screen_pos.y)))
+					{
+						AddTarget(unit);
+					}
 				}
 				_timer = 0;
 			}
@@ -92,11 +107,9 @@ public class HealthGUI : MonoBehaviour
 			// Display the GUITexutres
 			for(int i=0;i<_targets.Count;++i)
 			{
-				DisplayGUITexture(_targets_gui[i].GetComponent<GUITexture>(), _targets[i].transform);
+				DisplayGUITexture(_targets_gui[i].GetComponent<GUITexture>(), _targets[i].transform, _targets_hp_length[i]);
 			}
-		}
-
-	}
+		}	}
 
 	// Add target to list also with a GUITexture associated with it
 	void AddTarget(GameObject obj)
@@ -110,13 +123,6 @@ public class HealthGUI : MonoBehaviour
 
 		Vital vital = obj.GetComponent<BaseClass>().vital;
 		_targets_hp_length.Add((vital.HP.current/vital.HP.max)*100.0f);
-
-		/*
-		// copy health_remaining GUITexute into gui_t's GUITexture
-		_targets_gui[_targets_gui.Count-1].guiTexture.texture    = remaining_health.guiTexture.texture;
-		_targets_gui[_targets_gui.Count-1].guiTexture.color      = remaining_health.guiTexture.color;
-		_targets_gui[_targets_gui.Count-1].guiTexture.pixelInset = remaining_health.guiTexture.pixelInset;
-		*/
 	}
 
 	void TurnOn()
@@ -158,20 +164,22 @@ public class HealthGUI : MonoBehaviour
 		_targets_hp_length.Clear();
 	}
 
-	void DisplayGUITexture(GUITexture cur_texture, Transform focus)
+	void DisplayGUITexture(GUITexture cur_texture, Transform focus, float ratio)
 	{
-		RescaleGUITexture(cur_texture, focus);
+		RescaleGUITexture(cur_texture, focus, ratio);
 		RepositionGUITexture(cur_texture, focus);
 	}
 
-	void RescaleGUITexture(GUITexture cur_texture, Transform focus)
+	void RescaleGUITexture(GUITexture cur_texture, Transform focus, float ratio)
 	{
 		_distance = (_current_camera.transform.position - focus.transform.position).magnitude;
-		
+
+		float gui_distance = Mathf.Clamp(((1/_distance)*distance_factor)*ratio - ((1/_distance)*distance_factor), 0, ((1/_distance)*distance_factor));
+
 		cur_texture.pixelInset = new Rect(remaining_health.GetComponent<GUITexture>().pixelInset.x,
 		                                  remaining_health.GetComponent<GUITexture>().pixelInset.y,
-		                                               (1/_distance)*distance_factor,
-		                                               _ratio*(1/_distance)*distance_factor);
+		                                  gui_width_offset + ratio,
+		                                  _ratio*(1/_distance)*distance_factor);
 	}
 	
 	void RepositionGUITexture(GUITexture cur_texture, Transform focus)
