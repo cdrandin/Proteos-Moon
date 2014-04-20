@@ -83,10 +83,10 @@ public class WorldCamera : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;	
+		_local = true; // simply bool to show local host
 	}
 	
 	void Start () {
-		_local = true; // simply bool to show local host
 
 		//Declare camera limits
 		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
@@ -114,7 +114,6 @@ public class WorldCamera : MonoBehaviour {
 	void Update (){}
 
 	void LateUpdate () {
-
 		HandleMouseRotation ();
 
 		ApplyScroll ();
@@ -394,7 +393,6 @@ public class WorldCamera : MonoBehaviour {
 			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
 		}
 
-
 		// Local stuff, same computer
 		if(_local)
 		{
@@ -482,6 +480,11 @@ public class WorldCamera : MonoBehaviour {
 		
 		this.transform.LookAt(new Vector3(0,target.position.y, 0 ) );
 		MainCamera.transform.LookAt(new Vector3(target.position.x, 0, 0) );
+	}
+
+	public void SetMainCamera ( GameObject focus )
+	{
+		MainCamera = focus;
 	}
 	
 //	rotation = Quaternion.LookRotation(target.position - transform.position);

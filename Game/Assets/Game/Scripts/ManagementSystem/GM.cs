@@ -222,7 +222,7 @@ public class GM : MonoBehaviour
 		// Number of allocated leaders and number of leaders found should be the same, else a leader is missing
 		if(_leaders.Length != _all_leaders.Length) 
 		{
-			Debug.LogError(string.Format("A leader is missing!! Should be a total of {0} leaders currently there is {1}.", _total_players, _all_leaders.Length));
+			Debug.LogError(string.Format("An issue with the count of leaders!!! Should be a total of {0} leaders currently there is {1}.", _total_players, _all_leaders.Length));
 			ForceQuit();
 			return;
 		}
@@ -884,9 +884,6 @@ public class GM : MonoBehaviour
 	/// </summary>
 	public void NextPlayersTurn()
 	{
-		// Enable Fog of War for other player's perspective
-		UpdateFogPerUnit();
-
 		// Unfocus current unit
 		SetUnitControllerActiveOff();
 
@@ -904,7 +901,10 @@ public class GM : MonoBehaviour
 		{
 			_round_num += 1;
 		}
-		
+
+		// Enable Fog of War for other player's perspective
+		UpdateFogPerUnit();
+
 		// Change camera accoring to player
 		_world_camera.ChangeCamera();
 	}
