@@ -16,7 +16,7 @@ public class TitleGUI : MonoBehaviour {
 	public bool reset_playerprefs = false;
 	public MonoBehaviour componentToEnable;
 
-	public void Awake(){
+	public void Start(){
 		half_button_width = button_width / 2;
 		half_screen_width = Screen.width / 2;
 		half_screen_height = Screen.height / 2;
@@ -37,12 +37,12 @@ public class TitleGUI : MonoBehaviour {
 				which_button_clicked = BEGIN;
 				//Application.LoadLevel("BattleMap");
 			}
-			if(GUI.Button(new Rect(half_screen_width - half_button_width, half_screen_height - 2 * button_height + 60, button_width, button_height), "Options")){
+			if(GUI.Button(new Rect(half_screen_width - half_button_width, half_screen_height - 40, button_width, button_height), "Options")){
 				button_clicked = true;
 				which_button_clicked = OPTIONS;
 				//Application.LoadLevel("Options");
 			}
-			if(GUI.Button(new Rect(half_screen_width - half_button_width, half_screen_height - 2 * button_height + 120, button_width, button_height), "Multiplayer")){
+			if(GUI.Button(new Rect(half_screen_width - half_button_width, half_screen_height + 20, button_width, button_height), "Multiplayer")){
 				button_clicked = true;
 				which_button_clicked = MULTIPLAYER;
 				//Application.LoadLevel("Login");
