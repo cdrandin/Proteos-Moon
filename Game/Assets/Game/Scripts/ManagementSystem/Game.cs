@@ -225,7 +225,7 @@ public class Game : MonoBehaviour
 				                                       (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)).ToString(),
 				                                       GM.instance.MaxResourceLimit.ToString());
 			}
-			
+			/*
 			else if(MakeButton(half, 260, "Recruit Menu"))
 			{
 				if(recruit_gui_on)
@@ -241,6 +241,7 @@ public class Game : MonoBehaviour
 				
 				recruit_gui_on = !recruit_gui_on;
 			}
+			*/
 		}
 	}
 	

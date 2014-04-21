@@ -20,7 +20,9 @@ public class UnitGUI : MonoBehaviour {
 	private Rect informationBox;
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
-	
+
+	private RecruitSystem _rs;
+
 	//	public static UnitGUI instance;
 	#endregion
 
@@ -60,7 +62,7 @@ public class UnitGUI : MonoBehaviour {
 		//worldCamera = GameObject.Find("WorldCamera");
 		
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
-		
+		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
 	}
 	
 	
@@ -307,14 +309,14 @@ public class UnitGUI : MonoBehaviour {
 			mySkin.box.fontSize = Screen.height / 32;
 			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );
 //			GUI.enabled = 
-		if (GUI.Button (new Rect ((1 * Screen.width)/64, (95*Screen.height)/1024 ,(7 * Screen.width)/32, (95*Screen.height)/1024), "Scout")){
-			
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (95*Screen.height)/1024 ,(7 * Screen.width)/32, (95*Screen.height)/1024), string.Format("Scout  {0}", _rs.unit_cost.scout))){
+
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 			}
-		if (GUI.Button (new Rect ((1 * Screen.width)/64, (2*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Braver")){
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (2*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), string.Format("Braver  {0}", _rs.unit_cost.braver))){
 			
 				UpdateFocusObjectsStatus(Status.Action);	
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
@@ -322,7 +324,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (GUI.Button (new Rect ((1 * Screen.width)/64, (3*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Arcane")){
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (3*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), string.Format("Arcane  {0}", _rs.unit_cost.arcane))){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
@@ -330,7 +332,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (GUI.Button (new Rect ((1 * Screen.width)/64, (4*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Sniper")){
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (4*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), string.Format("Sniper  {0}", _rs.unit_cost.sniper))){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
@@ -338,7 +340,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (GUI.Button (new Rect ((1 * Screen.width)/64, (5*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Titan")){
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (5*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), string.Format("Titan  {0}", _rs.unit_cost.titan))){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
@@ -346,7 +348,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (GUI.Button (new Rect ((1 * Screen.width)/64, (6*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), "Vanguard")){
+		if (GUI.Button (new Rect ((1 * Screen.width)/64, (6*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024), string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd))){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);

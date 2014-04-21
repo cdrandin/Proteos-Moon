@@ -89,7 +89,6 @@ public class HealthGUI : MonoBehaviour
 			// Update health bar info based on the refresh rate
 			if(_timer >= refresh_time)
 			{
-				Debug.Log("Refreshing");
 				Reset();
 
 				foreach(GameObject unit in GM.instance.GetAllUnitsNearPlayer(GM.instance.CurrentFocusCamera.gameObject, rendering_distance))
@@ -173,8 +172,6 @@ public class HealthGUI : MonoBehaviour
 	void RescaleGUITexture(GUITexture cur_texture, Transform focus, float ratio)
 	{
 		_distance = (_current_camera.transform.position - focus.transform.position).magnitude;
-
-		float gui_distance = Mathf.Clamp(((1/_distance)*distance_factor)*ratio - ((1/_distance)*distance_factor), 0, ((1/_distance)*distance_factor));
 
 		cur_texture.pixelInset = new Rect(remaining_health.GetComponent<GUITexture>().pixelInset.x,
 		                                  remaining_health.GetComponent<GUITexture>().pixelInset.y,
