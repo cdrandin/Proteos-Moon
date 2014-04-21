@@ -62,6 +62,15 @@ public class Game : MonoBehaviour
 		}
 		else
 		{
+			if(GameObject.FindGameObjectsWithTag("Game_Init").Length > 0)
+			{
+				Debug.LogWarning("A game init is already in the scene. Using that one.");
+			}
+			else 
+			{
+				Instantiate(load_game_objects, Vector3.zero, Quaternion.identity);
+			}
+
 			//this.gui_method += GUI_menu; 
 			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 		}
@@ -147,13 +156,14 @@ public class Game : MonoBehaviour
 				return;
 			}
 
-			if(GameObject.FindGameObjectsWithTag("Game_Init").Length > 0)
+			GameObject game = GameObject.FindGameObjectWithTag("Game_Init");
+			if(game != null)
 			{
 				Debug.LogWarning("A game init is already in the scene. Using that one.");
 			}
 			else 
 			{
-				Instantiate(load_game_objects, Vector3.zero, Quaternion.identity);
+				game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
 			}
 
 			this.gui_method += GUI_menu;
@@ -165,7 +175,8 @@ public class Game : MonoBehaviour
 			FindWorldCamera();
 			wcm.ChangeCamera();
 
-			fow_terrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<Terrain>();
+			// Turn on gui fog of war
+			fow_terrain = game.GetComponentInChildren<Terrain>();
 			fow_terrain.materialTemplate = fow_material;
 		}
 		
