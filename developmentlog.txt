@@ -2,6 +2,37 @@
 ==========  
 Previous Week's Objectives  
 -------------------------- 
+* [Complete] World Camera Fix 1.0 h  (3.0h)
+  > Was able to fix camera problem  
+  > Issue was that when we scaled the terrain to lower-levels, the camera was outside of the boundaries  
+  > Movement and mouse scroll works  
+  > Ivan Espinosa  
+
+* [Complete] Meet Up with Artist 2.0 h (6.0 h) 
+  > Showed artist work that we have completed  
+  > Can get all low-level rigs for each character model complete by Thursday  
+    > Low-level meaning that the weight of the vertices does not have to be accurate  
+  > Once basic rigging is complete we can apply animations to each model  
+  > Ivan Espinosa, Mark Martene, Chris Randin  
+
+* [Ongoing] Unit GUI Polish 6.0 h (2.0 h)  
+  > Discussed that proportions was too large  
+  > We acquired portraits for each units for the GUI system  
+  > Discussed new art layout for the GUI   
+  > Ivan Espinosa  
+
+* Fog of War fix 4.0 h  ...?  
+  > Players now do not see each others units  
+  > Chris Randin  
+
+This Week's Objectives  
+---------------------   
+  
+
+2014-04-13  
+==========  
+Previous Week's Objectives  
+-------------------------- 
 * [Ongoing] Combat System 16.0 (16.5 h)  
   > Added functions to update an event delegate that will be called when a character starts to move / or is selected  
   > Created an attack function that will update the enemy unit hp  
