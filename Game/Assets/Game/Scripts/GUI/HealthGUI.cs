@@ -45,8 +45,6 @@ public class HealthGUI : MonoBehaviour
 
 	public float distance_factor = 1000.0f;
 
-	private Camera _current_camera;
-
 	// Where to parent out GUIs
 	private GameObject _root;
 
@@ -74,12 +72,6 @@ public class HealthGUI : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
-		{
-			GameObject obj = GameObject.Find("Altier_Seita");
-			obj.GetComponent<BaseClass>().vital.HP.current -= (obj.GetComponent<BaseClass>().vital.HP.max * 0.1f);
-		}
-
 		if(GM.instance.IsOn)
 		{
 			TurnOn(); // called once
@@ -129,7 +121,6 @@ public class HealthGUI : MonoBehaviour
 		if(gui_on)
 			return;
 
-		_current_camera = GM.instance.CurrentFocusCamera;
 		_root           = this.gameObject;
 		gui_on 			= true;
 		_timer  		= refresh_time;
@@ -147,7 +138,6 @@ public class HealthGUI : MonoBehaviour
 		if(!gui_on)
 			return;
 
-		_current_camera = null;
 		Reset();
 		gui_on = false;
 	}
@@ -171,7 +161,7 @@ public class HealthGUI : MonoBehaviour
 
 	void RescaleGUITexture(GUITexture cur_texture, Transform focus, float ratio)
 	{
-		_distance = (_current_camera.transform.position - focus.transform.position).magnitude;
+		_distance = (GM.instance.CurrentFocusCamera.transform.position - focus.transform.position).magnitude;
 
 		cur_texture.pixelInset = new Rect(remaining_health.GetComponent<GUITexture>().pixelInset.x,
 		                                  remaining_health.GetComponent<GUITexture>().pixelInset.y,
@@ -181,14 +171,14 @@ public class HealthGUI : MonoBehaviour
 	
 	void RepositionGUITexture(GUITexture cur_texture, Transform focus)
 	{
-		Vector3 relativePosition = _current_camera.transform.InverseTransformPoint(focus.position);
+		Vector3 relativePosition = GM.instance.CurrentFocusCamera.transform.InverseTransformPoint(focus.position);
 		relativePosition.z =  Mathf.Max(relativePosition.z, 1.0f);
 		
 		Transform gui_transform;
 		
 		gui_transform = cur_texture.transform;
 		
-		gui_transform.position = _current_camera.WorldToViewportPoint(_current_camera.transform.TransformPoint(relativePosition + offset));
+		gui_transform.position = GM.instance.CurrentFocusCamera.WorldToViewportPoint(GM.instance.CurrentFocusCamera.transform.TransformPoint(relativePosition + offset));
 		gui_transform.position = new Vector3(Mathf.Clamp(gui_transform.position.x, clampBorderSize, 1.0f - clampBorderSize),
 		                                     Mathf.Clamp(gui_transform.position.y, clampBorderSize, 1.0f - clampBorderSize),
 		                                     gui_transform.position.z);
