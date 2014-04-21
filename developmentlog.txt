@@ -2,6 +2,7 @@
 ==========  
 Previous Week's Objectives  
 -------------------------- 
+
 * [Complete] World Camera Fix 1.0 h  (3.0h)
   > Was able to fix camera problem  
   > Issue was that when we scaled the terrain to lower-levels, the camera was outside of the boundaries  
@@ -22,7 +23,7 @@ Previous Week's Objectives
   > Ivan Espinosa  
 
 * [Completed] Fog of War fix 4.0 h (1.0 h)    
-  > Players now do not see each others units
+  > Players now do not see each others units  
   > Each player is triggered their respective FoW revealer  
   > Chris Randin  
 
@@ -30,7 +31,7 @@ Previous Week's Objectives
   > Each unit that is currently being rendered onto the screen  
   > 	and is within a certain range will get there health displayed  
   >		above them.  
-  > Might need some minor tweeking for feel of how it works  
+  > Might need some minor tweaking for feel of how it works  
   > Christopher Randin  
 
 * [Completed] Game change to handle setting up world 3.0 h (3.0 h)  
@@ -41,11 +42,11 @@ Previous Week's Objectives
   > Christopher Randin  
 
 * [Completed] Worked with animations 4.0 h (4.0h)  
-  > Figuring out how to get the current model, rigs and animations to work  
+  > Figuring out how to get the current model, rigs and animations to work   
   > Ended up having artist combined model and rig together, in which Unit  
   > 	help visualize the bone structure of it all  
-  > Currently, animation works once or can be looped. Will need to play with
-  > 	Unity's mechanim system to tell the model when to play an animation
+  > Currently, animation works once or can be looped. Will need to play with  
+  > 	Unity's mechanim system to tell the model when to play an animation  
   > Christopher Randin
 
 * [In-progress] Game flow 6.0 h (2.0 h)  
@@ -55,6 +56,20 @@ Previous Week's Objectives
   > 	turn  
   > Selecting Leaders is something to put in now as it is focused around  
   > 	picking a leader for the game  
+  > Christopher Randin  
+
+* Integrate functionality for the GameManager and Photon 20.0 h (24.0 h) 
+  > Fixed UI bugs  
+  > Rewrote a lot of code in game manager and game to replace the current local
+  > players  
+  > Christopher Randin and Mark Martene  
+
+* Added features to units and stability improvement with follow of game 20.0 h (20.0 h)
+  > There are some issue with the how the game works out and how the rules are  
+  >	played out.  
+  > Get the init of the game instantiate at run time rather being in the scene to begin with  
+  > This allows decoupling of dependency on start and get objects that are needed to  
+  >	begin with (maybe)  
   > Christopher Randin  
 
 This Week's Objectives  
@@ -73,7 +88,7 @@ This Week's Objectives
 * Add animations 6.0 h
   > Add the animations to all of the characters  
   > Update any stored prefabs  
-  > Update scripts to use the appropiate animations  
+  > Update scripts to use the appropriate animations  
   > Ivan Espinosa and Chris Randin
 
 * Help with networking and interfacing through the GM 6.0 h  
@@ -87,6 +102,16 @@ This Week's Objectives
   > 	happen.  
   > Christopher Randin  
 
+* Create Waiting area and Leader Selection Scene for when two players join a room 8.0 h
+  > Do not load the game until both players have joined a room  
+  > Display Leader profiles as buttons so the player can select which leader  
+  > Load game once both leaders are selected  
+  > Mark Martene  
+
+* Fix any noticeable bugs during gameplay 6.0 h
+  > Go through the game and write down any bug or change that needs to be made  
+  > Fix the script or let the person who wrote the script know about it  
+  > Mark Martene
 
 2014-04-13  
 ==========  
