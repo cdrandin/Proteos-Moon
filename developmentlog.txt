@@ -58,13 +58,13 @@ Previous Week's Objectives
   > 	picking a leader for the game  
   > Christopher Randin  
 
-* Integrate functionality for the GameManager and Photon 20.0 h (24.0 h) 
+* [In-Progress] Integrate functionality for the GameManager and Photon 20.0 h (24.0 h) 
   > Fixed UI bugs  
   > Rewrote a lot of code in game manager and game to replace the current local
   > players  
   > Christopher Randin and Mark Martene  
 
-* Added features to units and stability improvement with follow of game 20.0 h (20.0 h)
+* [Completed] Added features to units and stability improvement with follow of game 20.0 h (20.0 h)
   > There are some issue with the how the game works out and how the rules are  
   >	played out.  
   > Get the init of the game instantiate at run time rather being in the scene to begin with  
