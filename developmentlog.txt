@@ -1,4 +1,4 @@
-2014-04-13  
+2014-04-20    
 ==========  
 Previous Week's Objectives  
 -------------------------- 
@@ -21,9 +21,41 @@ Previous Week's Objectives
   > Discussed new art layout for the GUI   
   > Ivan Espinosa  
 
-* Fog of War fix 4.0 h  ...?  
-  > Players now do not see each others units  
+* [Completed] Fog of War fix 4.0 h (1.0 h)    
+  > Players now do not see each others units
+  > Each player is triggered their respective FoW revealer  
   > Chris Randin  
+
+* [Completed] Health GUI per unit 4.0 h (2.0 h)  
+  > Each unit that is currently being rendered onto the screen  
+  > 	and is within a certain range will get there health displayed  
+  >		above them.  
+  > Might need some minor tweeking for feel of how it works  
+  > Christopher Randin  
+
+* [Completed] Game change to handle setting up world 3.0 h (3.0 h)  
+  > Game doesn't start up right away. It will create everything when it needs to  
+  > Might want to make this work through GameManager or a decoupled Game script  
+  > This was meant to keep things already in the scene when the game started  
+  > Help with networking components  
+  > Christopher Randin  
+
+* [Completed] Worked with animations 4.0 h (4.0h)  
+  > Figuring out how to get the current model, rigs and animations to work  
+  > Ended up having artist combined model and rig together, in which Unit  
+  > 	help visualize the bone structure of it all  
+  > Currently, animation works once or can be looped. Will need to play with
+  > 	Unity's mechanim system to tell the model when to play an animation
+  > Christopher Randin
+
+* [In-progress] Game flow 6.0 h (2.0 h)  
+  > Still need work to get the flow of the game working out nicely.  
+  > Some GUI stuff needs to be finalized.  
+  > May need some sort of visual transition to signify another player's  
+  > 	turn  
+  > Selecting Leaders is something to put in now as it is focused around  
+  > 	picking a leader for the game  
+  > Christopher Randin  
 
 This Week's Objectives  
 ---------------------   
@@ -43,6 +75,18 @@ This Week's Objectives
   > Update any stored prefabs  
   > Update scripts to use the appropiate animations  
   > Ivan Espinosa and Chris Randin
+
+* Help with networking and interfacing through the GM 6.0 h  
+  > Start getting this up working on a LAN  
+  > Christopher Randin and Mark Martene  
+
+* Unit/Leader abilities 20.0 h  
+  > Try to get up each unit individual and unique ability to work out  
+  > 	in the game as well as provide visual representation of it  
+  > Also, need to put in some particles for when triggers or abilities  
+  > 	happen.  
+  > Christopher Randin  
+
 
 2014-04-13  
 ==========  
