@@ -796,7 +796,7 @@ ModelImporter:
       scale: {x: 1.00000012, y: 1.00000012, z: 1}
       transformModified: 1
     - name: Braver_LHand
-      position: {x: -.149573371, y: 6.16992253e-08, z: -2.31703678e-09}
+      position: {x: -.149573371, y: 6.16992253e-08, z: -2.31703701e-09}
       rotation: {x: -.00326677598, y: .171624914, z: -.0147455204, w: .985046566}
       scale: {x: .99999994, y: 1, z: 1}
       transformModified: 1
@@ -806,7 +806,7 @@ ModelImporter:
       scale: {x: .999999821, y: 1.00000012, z: .999999881}
       transformModified: 1
     - name: Braver_LFinger01
-      position: {x: -.0413329229, y: 5.04508471e-08, z: -1.6134468e-08}
+      position: {x: -.0413329266, y: 5.04508471e-08, z: -1.6134468e-08}
       rotation: {x: -.221007809, y: -.0317731388, z: -.00647619134, w: .974732816}
       scale: {x: 1, y: .999999881, z: 1.00000024}
       transformModified: 1
@@ -826,17 +826,17 @@ ModelImporter:
       scale: {x: .999999881, y: 1, z: 1.00000012}
       transformModified: 1
     - name: Braver_LFinger11
-      position: {x: -.0227809362, y: -8.97699159e-09, z: 7.8083886e-09}
+      position: {x: -.0227809381, y: -8.97699159e-09, z: 7.8083886e-09}
       rotation: {x: 5.32859667e-05, y: -4.96469219e-14, z: -3.74418378e-13, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Braver_LFinger12
-      position: {x: -.0189997833, y: 2.83185342e-09, z: -1.100583e-08}
+      position: {x: -.0189997833, y: 2.83185364e-09, z: -1.100583e-08}
       rotation: {x: -9.86643936e-05, y: -1.42461021e-12, z: 1.40187319e-12, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Braver_EffectorLFinger1
-      position: {x: -.0245971642, y: -4.10672968e-10, z: 8.85397355e-09}
+      position: {x: -.0245971661, y: -4.10672968e-10, z: 8.85397355e-09}
       rotation: {x: 4.53711982e-05, y: 1.12633785e-12, z: -1.88254967e-12, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -866,7 +866,7 @@ ModelImporter:
       scale: {x: .999999881, y: 1, z: 1.00000012}
       transformModified: 1
     - name: Braver_LFinger31
-      position: {x: -.0224358309, y: -1.16112613e-08, z: 1.75154824e-09}
+      position: {x: -.0224358309, y: -1.16112622e-08, z: 1.75154824e-09}
       rotation: {x: -3.58406416e-09, y: -3.74977793e-14, z: -8.57144352e-14, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -926,7 +926,7 @@ ModelImporter:
       scale: {x: 1, y: 1.00000012, z: 1}
       transformModified: 1
     - name: Braver_RForearm
-      position: {x: .144543394, y: 4.66824048e-07, z: -2.74363599e-09}
+      position: {x: .144543394, y: 4.66824048e-07, z: -2.74363621e-09}
       rotation: {x: -4.43550192e-08, y: .000136286733, z: -.00380465086, w: .999992788}
       scale: {x: 1.00000012, y: 1, z: 1.00000012}
       transformModified: 1
@@ -941,7 +941,7 @@ ModelImporter:
       scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
       transformModified: 1
     - name: Braver_RFinger01
-      position: {x: .0413325652, y: 3.46420251e-07, z: -4.20435299e-07}
+      position: {x: .041332569, y: 3.46420251e-07, z: -4.20435299e-07}
       rotation: {x: -.221005425, y: -.0317585133, z: -.00645386009, w: .974734008}
       scale: {x: 1, y: 1.00000012, z: 1.00000048}
       transformModified: 1
@@ -1016,12 +1016,12 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Braver_RFinger4
-      position: {x: .064314656, y: -.00105140987, z: .0445919298}
+      position: {x: .064314656, y: -.00105140998, z: .0445919298}
       rotation: {x: .00284768478, y: -.167495996, z: .0167590305, w: .985726178}
       scale: {x: 1.00000012, y: 1.00000024, z: 1.00000048}
       transformModified: 1
     - name: Braver_RFinger41
-      position: {x: .0188800432, y: 2.17324327e-08, z: -4.95014074e-09}
+      position: {x: .0188800432, y: 2.17324327e-08, z: -4.95014119e-09}
       rotation: {x: 1.48491939e-08, y: -1.59872099e-14, z: -1.35504279e-13, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -1041,7 +1041,7 @@ ModelImporter:
       scale: {x: .99999994, y: 1.00000012, z: .99999994}
       transformModified: 1
     - name: Braver_LShin
-      position: {x: -.299190223, y: -1.37275533e-08, z: 1.2396919e-08}
+      position: {x: -.299190253, y: -1.37275533e-08, z: 1.2396919e-08}
       rotation: {x: -.991728306, y: -.0625086203, z: .00165687478, w: .112093583}
       scale: {x: 1, y: .999999702, z: .999999702}
       transformModified: 1
