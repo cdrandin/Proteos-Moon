@@ -27,7 +27,22 @@ Previous Week's Objectives
 
 This Week's Objectives  
 ---------------------   
+
+* Find sound for the game 10.0h  
+  > Need to find sound for animations and mouse clicking  
+  > Add music to the game  
+  > Ivan Espinosa, Chris Randin, and Mark Martene   
+
+* Start preparing for GameSig Entry 6.0 h
+  > Create a rough draft of the submission paper
+  > Create a storyboard for our video submission
+  > Ivan Espinosa, Mark Martene, and Chris Randin
   
+* Add animations 6.0 h
+  > Add the animations to all of the characters  
+  > Update any stored prefabs  
+  > Update scripts to use the appropiate animations  
+  > Ivan Espinosa and Chris Randin
 
 2014-04-13  
 ==========  
