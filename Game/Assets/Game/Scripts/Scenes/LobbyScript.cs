@@ -16,7 +16,7 @@ public class LobbyScript : MonoBehaviour
 	private string room_name = "";
 	private Vector2 scroll_position;
 	//public GameObject objectToActivate;
-	
+	public string loaded_scene;
 	public void Start()
 	{
 		CustomTypes.Register();
@@ -178,7 +178,7 @@ public class LobbyScript : MonoBehaviour
 
 	private void StartGame()
 	{
-		Application.LoadLevel("GameManager_Full_Test");
+		Application.LoadLevel(loaded_scene);
 	}
 
 	private void EndGame()
