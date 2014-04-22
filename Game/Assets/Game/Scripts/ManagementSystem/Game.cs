@@ -7,12 +7,14 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(RecruitSystem))]
+[RequireComponent (typeof(RecruitSystem), typeof(LeaderObjects))]
 public class Game : MonoBehaviour
 {
 	public GameObject load_game_objects;
 
 	public int num_of_players;
+	public Leader_Names[] player_leaders;
+
 	public int resource_limit;
 	
 	public bool testing;
@@ -72,7 +74,7 @@ public class Game : MonoBehaviour
 			}
 
 			//this.gui_method += GUI_menu; 
-			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost, player_leaders);
 		}
 	}
 	
@@ -170,7 +172,7 @@ public class Game : MonoBehaviour
 			init = true;
 			_game_manager_gui.text = "Game Manager enabled";
 			
-			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost, player_leaders);
 
 			FindWorldCamera();
 			wcm.ChangeCamera();

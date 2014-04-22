@@ -20,13 +20,6 @@ public enum UnitType
 }
 
 [System.Serializable]
-public enum Leader_Names
-{
-	Altier_Seita, 
-	Captain_Mena
-}
-
-[System.Serializable]
 public enum Status : byte
 {
 	Clean,  // Has not moved, all actions avaliable
