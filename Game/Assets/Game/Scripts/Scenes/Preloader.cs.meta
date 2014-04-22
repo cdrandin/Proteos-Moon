@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 6fa396c0df780478b85e4800731f581f
+guid: 19b96086bfdd441d9b822611f59f6f00
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - skin: {fileID: 11400000, guid: 656d8475a11404d42adabcec808af507, type: 2}
-  - mena_texture: {fileID: 2800000, guid: 9b439a18fc8054368ab6be3e6792dc38, type: 3}
-  - seita_texture: {fileID: 2800000, guid: 1f8d6761d2b504626be8809af24d599e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

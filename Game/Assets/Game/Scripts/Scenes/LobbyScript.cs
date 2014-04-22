@@ -38,8 +38,8 @@ public class LobbyScript : MonoBehaviour
 	
 	public void OnApplicationQuit()
 	{
-		if(PhotonNetwork.connected)
-			PhotonNetwork.Disconnect();
+		//if(PhotonNetwork.connected)
+			//PhotonNetwork.Disconnect();
 		/*if (this.GameInstance != null && this.GameInstance.loadBalancingPeer != null)
 		{
 			this.GameInstance.Disconnect();
@@ -136,7 +136,7 @@ public class LobbyScript : MonoBehaviour
 		if (GUILayout.Button("Back To Main Menu"))
 		{
 			PhotonNetwork.LeaveRoom();
-			PhotonNetwork.Disconnect();
+			//PhotonNetwork.Disconnect();
 			Application.LoadLevel("TitleScene");
 		}
 		GUILayout.EndArea();
