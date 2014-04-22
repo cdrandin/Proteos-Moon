@@ -129,7 +129,11 @@ public class GM : MonoBehaviour
 			Debug.LogWarning("World Camera missing reference");
 		}
 
-		if(leaders)
+		if(leaders == null)
+		{
+			Debug.Log("No player leader selection provided with Leader_Names enum");
+		}
+
 		/*
 		 * HACKY
 		 */
