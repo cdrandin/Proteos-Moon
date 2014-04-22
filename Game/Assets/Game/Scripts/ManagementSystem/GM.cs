@@ -98,7 +98,7 @@ public class GM : MonoBehaviour
 	/// <param name="who_goes_first">Who_goes_first.</param>
 	/// <param name="resource_win_count">Resource_win_count.</param>
 	/// <param name="unit_cost">Unit_cost.</param>
-	public void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
+	public void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost, Leader_Names[] leaders)
 	{
 		Debug.Log("Start up GM");
 		
@@ -129,6 +129,7 @@ public class GM : MonoBehaviour
 			Debug.LogWarning("World Camera missing reference");
 		}
 
+		if(leaders)
 		/*
 		 * HACKY
 		 */
@@ -216,6 +217,9 @@ public class GM : MonoBehaviour
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
 	private void InitPlayersLeader()
 	{
+		// Associate each player with their leader
+
+
 		// Get each player's leader
 		GameObject[] _all_leaders = GameObject.FindGameObjectsWithTag("Leader"); 
 		
