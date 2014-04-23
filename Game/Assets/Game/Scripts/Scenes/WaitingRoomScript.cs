@@ -37,13 +37,16 @@ public class WaitingRoomScript : MonoBehaviour {
 	}
 
 	void MainGUI(){
+		print (Screen.width.ToString());
+		print ((Screen.width / 2 - (mena_texture.width + 100)).ToString());
+		print ((Screen.width / 2 + (mena_texture.width - 100)).ToString());
 		if(GUI.Button(new Rect(Screen.width / 2 - (mena_texture.width + 100), Screen.height / 2 - mena_texture.height, mena_texture.width, mena_texture.height), mena_texture)){
 			GUI.Label(new Rect(Screen.width / 2 - 125, 10, 250, 40), "You Chose Mena");
 			print ("You Chose Mena");
 			leader_chosen = true;
 		}
 
-		if(GUI.Button(new Rect(Screen.width / 2 + seita_texture.width, Screen.height / 2 - seita_texture.height, seita_texture.width, seita_texture.height), seita_texture)){
+		if(GUI.Button(new Rect(Screen.width / 2 + 100, Screen.height / 2 - seita_texture.height, seita_texture.width, seita_texture.height), seita_texture)){
 			GUI.Label(new Rect(Screen.width / 2 - 125, 10, 250, 40), "You Chose Seita");
 			print ("You Chose Seita");
 			leader_chosen = true;
