@@ -103,9 +103,9 @@ public class DistanceProjection : MonoBehaviour
 		new_position.y            = this.transform.position.y;
 		this.transform.position   = new_position;
 
-		_new_ortho_size = Mathf.Clamp(_distance*_ratio - _movement.current_distance*_ratio,
+		_new_ortho_size = Mathf.Clamp(_distance * _ratio - _movement.current_distance * _ratio,
 		                              0.4f,
-		                              _distance*_ratio);
+		                              _distance * _ratio);
 
 		if(_new_ortho_size <= 0.4f)
 			_new_ortho_size = 0.0f;
@@ -141,7 +141,7 @@ public class DistanceProjection : MonoBehaviour
 			p.enabled = false;
 		}
 			
-		_focus = null;
+		_focus    = null;
 		_movement = null;
 	}
 }

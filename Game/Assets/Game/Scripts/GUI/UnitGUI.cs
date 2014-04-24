@@ -185,7 +185,6 @@ public class UnitGUI : MonoBehaviour {
 				
 				UpdateFocusObjectsStatus(Status.Move);
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);	
-				Debug.Log(string.Format("Unit Controller: {0}", GM.instance.CurrentFocus));
 				GM.instance.SetFocusController(true);
 
 				WorldCamera.instance.transform.eulerAngles = Vector3.zero;

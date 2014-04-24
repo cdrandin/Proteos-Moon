@@ -66,7 +66,6 @@ public class MovementStat
 				_uc = GameObject.Find("UnitController").GetComponent<UnitController>();
 			}
 
-
 			return _uc.travel_distance;
 		}
 	}

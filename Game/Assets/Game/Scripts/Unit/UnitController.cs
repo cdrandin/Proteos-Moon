@@ -89,6 +89,7 @@ public class UnitController : MonoBehaviour
 		if(_unit_focus_cc != null)
 		{
 			Vector3 dif = _unit_focus_cc.transform.position - start;
+
 			if (!_is_controllable || ( enforce_distance && (dif.sqrMagnitude >= max_travel_distance * max_travel_distance * speed * speed)))
 			{
 				Input.ResetInputAxes();
@@ -118,8 +119,8 @@ public class UnitController : MonoBehaviour
 			return;
 		}
 
-		float v = Input.GetAxisRaw("Vertical");//Input.GetAxis("Vertical");
-		float h = Input.GetAxisRaw("Horizontal");//Input.GetAxis("Horizontal");
+		float v = Input.GetAxisRaw("Vertical");
+		float h = Input.GetAxisRaw("Horizontal");
 
 		//Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
 		Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
@@ -182,6 +183,11 @@ public class UnitController : MonoBehaviour
 		return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f  || Mathf.Abs(Input.GetAxis("Vertical")) > 0.05f;
 	}
 
+	bool IsMovingForward()
+	{
+		return Input.GetAxisRaw("Vertical") > 0;
+	}
+
 	public bool GetIsControllable()
 	{
 		return _is_controllable;
@@ -209,7 +215,7 @@ public class UnitController : MonoBehaviour
 
 	public float travel_distance
 	{
-		get { return Vector3.Distance(transform.position, start); }
+		get { return Vector3.Distance(_unit_focus_cc.transform.position, start); }
 	}
 
 	public void SetFocusOnUnit(ref GameObject unit)
