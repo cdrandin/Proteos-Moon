@@ -89,13 +89,13 @@ public class LobbyScript : MonoBehaviour
 			StartGame();
 		}
 		GUILayout.EndHorizontal();
-		GUILayout.Space(20);
+		//GUILayout.Space(20);
 		
 		if (GUILayout.Button("Refresh"))
 		{
 			PhotonNetwork.GetRoomList();
 		}
-		GUILayout.Space(20);
+		//GUILayout.Space(20);
 		
 		scroll_position = GUILayout.BeginScrollView(scroll_position, false, false);
 		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {

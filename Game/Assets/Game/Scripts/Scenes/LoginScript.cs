@@ -4,29 +4,29 @@ using Random = UnityEngine.Random;
 
 public class LoginScript : MonoBehaviour
 {
-	public Vector2 GuiSize = new Vector2(350, 400);
-	private string player_name = "";
+	public Vector2 guiSize = new Vector2(350, 200);
+	private string playerName = "";
 	private Rect guiCenteredRect;
 	//public Texture tex;
-	public GUISkin lobby_skin;
+	public GUISkin loginSkin;
 	public MonoBehaviour componentToEnable;
-	public string logintext = "Please Log In";
+	private string loginText = "Please Log In";
 	private char[] arr = new char[] { '\n', ' ' };
 	
 	
 	public void Awake()
 	{
-		this.guiCenteredRect = new Rect(Screen.width/2-GuiSize.x/2, Screen.height/2-GuiSize.y/4, GuiSize.x, GuiSize.y);
+		this.guiCenteredRect = new Rect(Screen.width/2-guiSize.x/2, Screen.height/2-100, guiSize.x, guiSize.y);
 		
 		if (this.componentToEnable == null || this.componentToEnable.enabled)
 		{
 			Debug.LogError("To use the Login, the ComponentToEnable should be defined in inspector and disabled initially.");
 		}
-		player_name = PlayerPrefs.GetString("playername");
-		if (string.IsNullOrEmpty(player_name))
+		playerName = PlayerPrefs.GetString("playername");
+		if (string.IsNullOrEmpty(playerName))
 		{
 			PhotonNetwork.playerName = "Guest" + Random.Range(1, 9999);
-			player_name = PhotonNetwork.playerName;
+			playerName = PhotonNetwork.playerName;
 		}
 	}
 	
@@ -35,7 +35,7 @@ public class LoginScript : MonoBehaviour
 		// Enter-Key handling:
 		if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return))
 		{
-			if (!string.IsNullOrEmpty(player_name))
+			if (!string.IsNullOrEmpty(playerName))
 			{
 				this.ConnectToLobby();
 				return;
@@ -44,16 +44,16 @@ public class LoginScript : MonoBehaviour
 		GUI.skin.label.wordWrap = true;
 		GUILayout.BeginArea(guiCenteredRect);
 		//GUILayout.Box(tex);
-		GUI.skin = lobby_skin;
-		GUILayout.Box(this.logintext);
+		GUI.skin = loginSkin;
+		GUILayout.Box(this.loginText);
 		
 		GUILayout.BeginHorizontal();
 		GUI.SetNextControlName("NameInput");
-		player_name = GUILayout.TextField(player_name, 20);
+		playerName = GUILayout.TextField(playerName, 20);
 		GUILayout.EndHorizontal();
-		player_name = player_name.TrimStart(arr);
-		player_name = player_name.TrimEnd(arr);
-		PhotonNetwork.playerName = player_name;
+		playerName = playerName.TrimStart(arr);
+		playerName = playerName.TrimEnd(arr);
+		PhotonNetwork.playerName = playerName;
 		/*if (GUI.changed)
 		{
 			// Save name
@@ -75,7 +75,7 @@ public class LoginScript : MonoBehaviour
 	
 	private void ConnectToLobby()
 	{
-		PhotonNetwork.playerName = player_name;
+		PhotonNetwork.playerName = playerName;
 		PlayerPrefs.SetString ("playername", PhotonNetwork.playerName);
 		this.componentToEnable.enabled = true;
 		this.enabled = false;
