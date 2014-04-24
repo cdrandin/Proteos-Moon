@@ -71,6 +71,7 @@ public class WorldCamera : MonoBehaviour {
 	private float height = 5.0f;
 	private float heightDamping = 2.0f;
 	private float rotationDamping = 3.0f;
+	public float DistanceFromPlayer = 5.0f;
 	
 	private float wantedRotationAngle;
 	private float wantedHeight;
@@ -131,8 +132,9 @@ public class WorldCamera : MonoBehaviour {
 			
 				
 			}
+			ApplyCameraY();
 		}
-		ApplyCameraY();
+
 	}
 
 	
@@ -293,7 +295,7 @@ public class WorldCamera : MonoBehaviour {
 	//Works out the cameras desired location depending on the players input
 	public Vector3 GetDesiredTranslation()
 	{
-		float moveSpeed = 60f;
+		float moveSpeed = 10f;
 		Vector3 desiredTranslation = new Vector3 ();
 		
 		if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
@@ -451,11 +453,12 @@ public class WorldCamera : MonoBehaviour {
 		WorldCamera.instance.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
 		WorldCamera.instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
 	}
-	
-	public void SmoothFollow(ref Transform target){
+	/*
+	public void SmoothFollow(GameObject target){
 
-		wantedRotationAngle = target.eulerAngles.y;
-		wantedHeight = target.position.y + height;
+		target.transform.position =  new Vector3 (target.transform.position.x, target.transform.position.y + target.GetComponent<CharacterController>().height, target.transform.position.z);
+		wantedRotationAngle = target.transform.eulerAngles.y;
+		wantedHeight = target.transform.position.y + height;
 		
 		currentRotationAngle = transform.eulerAngles.y;
 		currentHeight = transform.position.y;
@@ -471,8 +474,8 @@ public class WorldCamera : MonoBehaviour {
 		
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
-		this.transform.position = target.position;
-		this.transform.position -= currentRotation * Vector3.forward * 10;
+		this.transform.position = target.transform.position;
+		this.transform.position -= currentRotation * Vector3.forward * DistanceFromPlayer;
 		
 		// Set the height of the camera
 		this.transform.position = new Vector3 (transform.position.x, currentHeight, transform.position.z);
@@ -481,7 +484,7 @@ public class WorldCamera : MonoBehaviour {
 		this.transform.LookAt(new Vector3(0,target.position.y, 0 ) );
 		MainCamera.transform.LookAt(new Vector3(target.position.x, 0, 0) );
 	}
-
+*/
 	public void SetMainCamera ( GameObject focus )
 	{
 		MainCamera = focus;

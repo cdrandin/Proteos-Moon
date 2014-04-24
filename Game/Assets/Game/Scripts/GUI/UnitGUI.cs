@@ -11,7 +11,8 @@ public class UnitGUI : MonoBehaviour {
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
 	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction;
-	private float height = 5.0f, heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
+	public float height = 3.0f, DistancefromPlayer = 3.0f;
+	private float heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	private Quaternion currentRotation;
 	private float shift;
@@ -50,7 +51,8 @@ public class UnitGUI : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake(){
-	
+		height = 3.0f;
+		DistancefromPlayer = 3.5f;
 		informationBox = new Rect(0,0,(3 * Screen.width)/ 8, (5 * Screen.height)/ 20) ;
 		ResetFlags();
 		shift = 0;
@@ -106,7 +108,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	void LateUpdate(){
 		if(isMoving && focusObject != null){
-			SmoothFollow(focusObject.transform);
+			SmoothFollow(focusObject);
 			
 		}
 		if(CombatSystem.instance.CheckIfAttacking()){
@@ -403,11 +405,13 @@ public class UnitGUI : MonoBehaviour {
 		return GUI.Button(new Rect(left,top+0, 150,50), name);
 	}
 		
-	public void SmoothFollow(Transform target){
-		
+	public void SmoothFollow(GameObject target){
+
+		Vector3 focus =  new Vector3 (target.transform.position.x, target.transform.position.y + target.GetComponent<CapsuleCollider>().height, target.transform.position.z);
+
 		//print (target.localPosition);
-		wantedRotationAngle = target.eulerAngles.y;
-		wantedHeight = target.position.y + height;
+		wantedRotationAngle = target.transform.eulerAngles.y;
+		wantedHeight = target.transform.position.y + height;
 		
 		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
 		currentHeight = WorldCamera.instance.transform.position.y;
@@ -423,8 +427,8 @@ public class UnitGUI : MonoBehaviour {
 		
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
-		Vector3 worldCameraPosition =  target.position;
-		worldCameraPosition -= currentRotation * target.forward * 10;	
+		Vector3 worldCameraPosition =  target.transform.position;
+		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
 		// Set the height of the camera
 		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
@@ -449,7 +453,7 @@ public class UnitGUI : MonoBehaviour {
 		//	mainCamera.transform.LookAt(target);
 			
 		}
-		WorldCamera.instance.MainCamera.transform.LookAt(target);
+		WorldCamera.instance.MainCamera.transform.LookAt(focus);
 		
 		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
 		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);
