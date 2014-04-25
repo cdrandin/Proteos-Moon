@@ -464,10 +464,5 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	#endregion
-
-	void OnDisable()
-	{
-		this.enabled = true;
-	}
 }
 

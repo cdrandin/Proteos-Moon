@@ -30,6 +30,8 @@ public class UnitCost
 
 public class RecruitSystem : MonoBehaviour 
 {
+	public GameObject summoning_particle;
+
 	// Prefabs of the objects to summon
 	public GameObject arcane;
 	public GameObject braver;
@@ -47,12 +49,19 @@ public class RecruitSystem : MonoBehaviour
 	public UnitCost unit_cost;
 	
 	private float _interval;
-	
+
+	private bool _ready_to_summon; // Use when to exactly summon a unit, used for placing a unit to spawn at location
+	private GameObject _obj_to_summon;
+	private ParticleSystem _ps;
+
 	// Use this for initialization
 	void Awake()
 	{
-		_interval = 360.0f/steps;
+		_interval        = 360.0f/steps;
 		++steps; // Just works for now
+		_ready_to_summon = false;
+		_obj_to_summon   = null;
+		_ps              = null;
 
 		if(summoning_radius <= 0)
 		{
@@ -87,6 +96,45 @@ public class RecruitSystem : MonoBehaviour
 		if(this.vangaurd == null)
 		{
 			Debug.LogWarning("Missing Vangaurd GameObject reference");
+		}
+	}
+
+	void Update ()
+	{
+		// Read to spawn unit. Display circle of where they can summon.
+		if(GM.instance.IsOn && _ready_to_summon)
+		{
+			if (Input.GetMouseButtonDown(0)) 
+			{
+				RaycastHit hit;
+				Ray ray = GM.instance.CurrentFocusCamera.ScreenPointToRay(Input.mousePosition);
+
+				if (Physics.Raycast(ray, out hit))
+				{
+					// Difference between leader and where user clicks
+					Vector3 dif = GM.instance.GetPlayerLeader(GM.instance.CurrentPlayer).transform.position - hit.point;
+
+					if(dif.sqrMagnitude < summoning_radius*summoning_radius)
+					{
+						// Make unit visble now
+						_obj_to_summon.SetActive(true);
+						_obj_to_summon.transform.position = hit.point;
+						_ready_to_summon = false;
+
+						// Create summon particle
+						_ps = PoolingSystem.instance.PS_Instantiate(summoning_particle, hit.point, Quaternion.identity).GetComponent<ParticleSystem>();
+					}
+				}
+			}
+		}
+
+		// Return particle to pool when done
+		if(_ps)
+		{
+			if(_ps.IsAlive())
+			{
+				PoolingSystem.instance.PS_Destroy(_ps.gameObject);
+			}
 		}
 	}
 
@@ -134,7 +182,9 @@ public class RecruitSystem : MonoBehaviour
 			// Spawn behind leader
 			//GameObject obj = GameObject.Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation) as GameObject;
 			GameObject obj = PoolingSystem.instance.PS_Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation);
-
+			_ready_to_summon = true;
+			_obj_to_summon = obj;
+			obj.SetActive(false);
 			obj.name = unit.name;
 
 			return obj;
@@ -143,36 +193,8 @@ public class RecruitSystem : MonoBehaviour
 		{
 			return null;
 		}
-
-		/*// Summon in a ring of units around Leader
-		foreach(Vector3 location in SpawnLocations(position))
-		{
-			GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-			obj.transform.position = location;
-			obj.transform.rotation = Quaternion.identity;
-			obj.name = name;
-		}
-		*/
 	}
 
-	// Possible locations for a unit to be spawned. Later implement filter that checks if tht spot is filled, then it 
-	//   is not a possile spawn location.
-	Vector3[] SpawnLocations(Vector3 origin)
-	{
-		Vector3[] locations = new Vector3[steps];
-
-		// Traverse through each step
-		for(int i=0;i<steps;++i)
-		{
-			// Equation of circle
-			// All that is carred for ix X-Z position
-			locations[i] = new Vector3(summoning_radius * Mathf.Cos(i*_interval) + origin.x, 
-			                           origin.y, 
-			                           summoning_radius * Mathf.Sin(i*_interval) + origin.z);
-		}
-
-		return locations;
-	}
 
 	void Reset ()
 	{

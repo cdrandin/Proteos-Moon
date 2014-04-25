@@ -369,11 +369,6 @@ public class Game : MonoBehaviour
 		this.gui_method -= GUI_recruit;
 		recruit_gui_on = true;
 	}
-
-	void OnDisable()
-	{
-		this.enabled = true;
-	}
 	
 	void Reset ()
 	{

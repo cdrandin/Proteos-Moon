@@ -23,7 +23,6 @@ public class LeaderObjects : MonoBehaviour
 		get { return _instance; }
 	}
 
-
 	public GameObject Altier_Seita
 	{
 		get { return altier_seita; }
