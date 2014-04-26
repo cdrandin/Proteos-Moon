@@ -187,7 +187,6 @@ public class RecruitSystem : MonoBehaviour
 		if(unit != null)
 		{
 			// Spawn behind leader
-			//GameObject obj = GameObject.Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation) as GameObject;
 			GameObject obj = PoolingSystem.instance.PS_Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation);
 			_ready_to_summon = true;
 			_obj_to_summon = obj;
