@@ -2,7 +2,14 @@ fileFormatVersion: 2
 guid: 79127b232a64147479e167794dd388eb
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - summoning_particle: {fileID: 100010, guid: 51769c00968e6f242adc34959ddfe0b3, type: 2}
+  - arcane: {fileID: 100000, guid: be88c325c32661441945cbfe20f2818a, type: 2}
+  - braver: {fileID: 100000, guid: d9f07247f964ad941af3498582318bfe, type: 2}
+  - scout: {fileID: 100000, guid: d2e6bc785045224408d45fd3d21203bc, type: 2}
+  - sniper: {fileID: 100000, guid: 2e69d2b90b73b664b944aa21962252c3, type: 2}
+  - titan: {fileID: 100000, guid: c8f696a9df2228c4e91cda9d50b1a6b6, type: 2}
+  - vangaurd: {fileID: 100000, guid: e18f1d8d8cd3aa743a3241eaf2f97b69, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

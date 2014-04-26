@@ -52,7 +52,8 @@ public class RecruitSystem : MonoBehaviour
 
 	private bool _ready_to_summon; // Use when to exactly summon a unit, used for placing a unit to spawn at location
 	private GameObject _obj_to_summon;
-	private ParticleSystem _ps;
+	private GameObject _particle;
+	private float _timer;
 
 	// Use this for initialization
 	void Awake()
@@ -61,7 +62,8 @@ public class RecruitSystem : MonoBehaviour
 		++steps; // Just works for now
 		_ready_to_summon = false;
 		_obj_to_summon   = null;
-		_ps              = null;
+		_particle        = null;
+		_timer           = 0.0f;
 
 		if(summoning_radius <= 0)
 		{
@@ -122,18 +124,23 @@ public class RecruitSystem : MonoBehaviour
 						_ready_to_summon = false;
 
 						// Create summon particle
-						_ps = PoolingSystem.instance.PS_Instantiate(summoning_particle, hit.point, Quaternion.identity).GetComponent<ParticleSystem>();
+						_particle = PoolingSystem.instance.PS_Instantiate(summoning_particle, hit.point, Quaternion.identity);
+						_timer = 0;
 					}
 				}
 			}
 		}
-
 		// Return particle to pool when done
-		if(_ps)
+		if(_particle != null)
 		{
-			if(_ps.IsAlive())
+			_timer += Time.deltaTime;
+			
+			// Update health bar info based on the refresh rate
+			if(_timer >= 1.0f)
 			{
-				PoolingSystem.instance.PS_Destroy(_ps.gameObject);
+				PoolingSystem.instance.PS_Destroy(_particle);
+				_particle = null;
+				_timer = 0;
 			}
 		}
 	}

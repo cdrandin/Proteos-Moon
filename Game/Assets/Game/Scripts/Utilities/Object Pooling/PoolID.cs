@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PoolID : MonoBehaviour {
-	private int _id;
+	[SerializeField]private int _id;
 	private bool _init;
 
 	public int id
@@ -18,7 +18,7 @@ public class PoolID : MonoBehaviour {
 	public void GenerateID(GameObject obj)
 	{
 		if(_init) return; // called only once
-		_id = obj.GetInstanceID();
+		_id = obj.transform.GetInstanceID();
 		_init = true;
 	}
 }
