@@ -136,7 +136,7 @@ public class RecruitSystem : MonoBehaviour
 			_timer += Time.deltaTime;
 			
 			// Update health bar info based on the refresh rate
-			if(_timer >= 1.0f)
+			if(_timer >= 1.5f)
 			{
 				PoolingSystem.instance.PS_Destroy(_particle);
 				_particle = null;
