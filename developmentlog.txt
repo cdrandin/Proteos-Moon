@@ -1,70 +1,71 @@
-2014-04-27  
-=========  
-Previous Week's Objectives  
---------------------------  
+2014-04-27
+=========
+Previous Week's Objectives
+--------------------------
 
-* [Completed/may need more maybe] Find sound for the game 10.0h ( 3.0 h )  
-  > Need to find sound for animations and mouse clicking  
-  > Add music to the game  
-  > Ivan Espinosa, Chris Randin, and Mark Martene  
+* [Completed/may need more maybe] Find sound for the game 10.0h ( 3.0 h )
+  > Need to find sound for animations and mouse clicking
+  > Add music to the game
+  > Ivan Espinosa, Chris Randin, and Mark Martene
 
-* [] Start preparing for GameSig Entry 6.0 h  
-  > Create a rough draft of the submission paper  
-  > Create a storyboard for our video submission  
-  > Ivan Espinosa, Mark Martene, and Chris Randin  
+* [] Start preparing for GameSig Entry 6.0 h
+  > Create a rough draft of the submission paper
+  > Create a storyboard for our video submission
+  > Ivan Espinosa, Mark Martene, and Chris Randin
 
-* [Unfinished] Add animations 6.0 h ( 2.0 h)  
-  > Small complication when the models were using an outdated   
-  > 	model for texture mapping.  
-  > Animations for the most part should work correctly.  
-  > We just need to send signals to control animation states.  
-  > Ivan Espinosa and Chris Randin  
+* [Unfinished] Add animations 6.0 h ( 2.0 h)
+  > Small complication when the models were using an outdated
+  >     model for texture mapping.
+  > Animations for the most part should work correctly.
+  > We just need to send signals to control animation states.
+  > Ivan Espinosa and Chris Randin
 
-* [] Help with networking and interfacing through the GM 6.0 h  
-  > Start getting this up working on a LAN  
-  > Christopher Randin and Mark Martene  
+* [] Help with networking and interfacing through the GM 6.0 h
+  > Start getting this up working on a LAN
+  > Christopher Randin and Mark Martene
 
-* [Unfinished] Unit/Leader abilities 20.0 h (3.0h)  
-  > Minor discussion of what abilities we had in mind. 
-  > Want to start using the exhuast mechanic into the game.  
-  > Try to get up each unit individual and unique ability to work out  
-  >     in the game as well as provide visual representation of it  
-  > Also, need to put in some particles for when triggers or abilities  
-  >     happen.  
-  > Christopher Randin  
-
-* [Completed] Fixed distance proejction 2.0 h (2.0 h)  
-  > There was a bug in which the radius of the projection was 
-  > 	always 0. That got fixed.
+* [Unfinished] Unit/Leader abilities 20.0 h (3.0h)
+  > Minor discussion of what abilities we had in mind.
+  > Want to start using the exhuast mechanic into the game.
+  > Try to get up each unit individual and unique ability to work out
+  >     in the game as well as provide visual representation of it
+  > Also, need to put in some particles for when triggers or abilities
+  >     happen.
   > Christopher Randin
 
-* [Completed] Added particles and user drop unit to unit recruiting 6.0 h (6.0 h)  
-  > There was a slight complication with summong particles using the   
-  > 	pooling system. Fixed that issue.  
-  > Particles starts up on summon. Decays and gets pooled away after 1 s.  
-  > Also the player can now summon their unit within a certain radius.  
-  > Currently, there needs to be a marker for this.  
-  > Christopher Randin  
-  
-* [] Create Waiting area and Leader Selection Scene for when two players join a room 8.0 h  
-  > Do not load the game until both players have joined a room  
-  > Display Leader profiles as buttons so the player can select which leader  
-  > Load game once both leaders are selected  
-  > Mark Martene  
+* [Completed] Fixed distance proejction 2.0 h (2.0 h)
+  > There was a bug in which the radius of the projection was
+  >     always 0. That got fixed.
+  > Christopher Randin
 
-* [] Fix any noticeable bugs during gameplay 6.0 h  
-  > Go through the game and write down any bug or change that needs to be made  
-  > Fix the script or let the person who wrote the script know about it  
-  > Mark Martene  
-												
-This Week's Objectives  
----------------------  
+* [Completed] Added particles and user drop unit to unit recruiting 6.0 h (6.0 h)
+  > There was a slight complication with summong particles using the
+  >     pooling system. Fixed that issue.
+  > Particles starts up on summon. Decays and gets pooled away after 1 s.
+  > Also the player can now summon their unit within a certain radius.
+  > Currently, there needs to be a marker for this.
+  > Christopher Randin
 
-* Video submition and one page summary (30.0 h)  
-  > Start making multiple takes on gameplay and in game footage  
-  > Create script to be played over the viewing of the video  
-  > Also, start cracking down on making a one page summary of the game  
-  > Christopher Randin, Ivan Espinosa, Mark Martene  
+* [] Create Waiting area and Leader Selection Scene for when two players join a room 8.0 h
+  > Do not load the game until both players have joined a room
+  > Display Leader profiles as buttons so the player can select which leader
+  > Load game once both leaders are selected
+  > Mark Martene
+
+* [] Fix any noticeable bugs during gameplay 6.0 h
+  > Go through the game and write down any bug or change that needs to be made
+  > Fix the script or let the person who wrote the script know about it
+  > Mark Martene
+
+This Week's Objectives
+---------------------
+
+* Video submition and one page summary (30.0 h)
+  > Start making multiple takes on gameplay and in game footage
+  > Create script to be played over the viewing of the video
+  > Also, start cracking down on making a one page summary of the game
+  > Christopher Randin, Ivan Espinosa, Mark Martene
+
 
 2014-04-20    
 ==========  
@@ -86,6 +87,74 @@ Previous Week's Objectives
 
 * [Ongoing] Unit GUI Polish 6.0 h (2.0 h)  
   > Discussed that proportions was too large  
+  > We acquired portraits for each units for the GUI system  
+  > Discussed new art layout for the GUI   
+  > Ivan Espinosa  
+
+* [Completed] Fog of War fix 4.0 h (1.0 h)    
+  > Players now do not see each others units  
+  > Each player is triggered their respective FoW revealer  
+  > Chris Randin  
+
+* [Completed] Health GUI per unit 4.0 h (2.0 h)  
+  > Each unit that is currently being rendered onto the screen  
+  > 	and is within a certain range will get there health displayed  
+  >		above them.  
+  > Might need some minor tweaking for feel of how it works  
+  > Christopher Randin  
+
+* [Completed] Game change to handle setting up world 3.0 h (3.0 h)  
+  > Game doesn't start up right away. It will create everything when it needs to  
+  > Might want to make this work through GameManager or a decoupled Game script  
+  > This was meant to keep things already in the scene when the game started  
+  > Help with networking components  
+  > Christopher Randin  
+
+* [Completed] Worked with animations 4.0 h (4.0h)  
+  > Figuring out how to get the current model, rigs and animations to work   
+  > Ended up having artist combined model and rig together, in which Unit  
+  > 	help visualize the bone structure of it all  
+  > Currently, animation works once or can be looped. Will need to play with  
+  > 	Unity's mechanim system to tell the model when to play an animation  
+  > Christopher Randin
+
+* [In-progress] Game flow 6.0 h (2.0 h)  
+  > Still need work to get the flow of the game working out nicely.  
+  > Some GUI stuff needs to be finalized.  
+  > May need some sort of visual transition to signify another player's  
+  > 	turn  
+  > Selecting Leaders is something to put in now as it is focused around  
+  > 	picking a leader for the game  
+  > Christopher Randin  
+
+* [In-Progress] Integrate functionality for the GameManager and Photon 20.0 h (24.0 h) 
+  > Fixed UI bugs  
+  > Rewrote a lot of code in game manager and game to replace the current local
+  > players  
+  > Christopher Randin and Mark Martene  
+
+* [Completed] Added features to units and stability improvement with follow of game 20.0 h (20.0 h)
+  > There are some issue with the how the game works out and how the rules are  
+  >	played out.  
+  > Get the init of the game instantiate at run time rather being in the scene to begin with  
+  > This allows decoupling of dependency on start and get objects that are needed to  
+  >	begin with (maybe)  
+  > Christopher Randin  
+
+This Week's Objectives  
+---------------------   
+
+* Find sound for the game 10.0h  
+  > Need to find sound for animations and mouse clicking  
+  > Add music to the game  
+  > Ivan Espinosa, Chris Randin, and Mark Martene   
+
+* Start preparing for GameSig Entry 6.0 h
+  > Create a rough draft of the submission paper
+  > Create a storyboard for our video submission
+  > Ivan Espinosa, Mark Martene, and Chris Randin
+  
+* Add animations 6.0 h
   > We acquired portraits for each units for the GUI system  
   > Discussed new art layout for the GUI   
   > Ivan Espinosa  
@@ -1441,74 +1510,6 @@ Previous Week's Objectives
         - Simple story/theme
         - Game mode: Versus
         - 1 Map(maybe 2 depending on time)
-        - Dynamic environment with each unit(grappel to trees, break trees/wall)
-   > Christopher Randin, Ivan Espinosa and Mark Martene
-
-* [Ongoing] Setting up the start-up requirements and small features 2.0h (2.0h)
-   > Waiting for more info as to how the game was going to play out
-   > Though about possible improvement over square tile, idealize over tile projection(automatically constructs visual aspect of tile depending on the construction of the environment) vs. tile placement(easier, but a lot of manual work to reposition if map changes)
-   > Construct basis class for hierarchical structure of unit derivation.
-   > Christopher Randin and Ivan Espinosa
-
-This Week's Objectives
--------------------
-
-* Communicate with Artists in person 2.0 h
-   > Encourage them for motivation to work on the game
-   > Discuss art that will need to get done for the next
-   > Ask the main following questions:
-        - When is their availability
-        - What is the best way to contact them
-        - How much time can they put into the game
-   > Ivan Espinosa and Mark Martene
-
-* Come Up with Additional Race 2.0 h
-   > Find the opposing race of our human race
-   > Have concept artists start to work on additional race
-   > Chris Randin, Ivan Espinosa and Mark Martene
-
-* Devise a method for creating tile for the map 6.0 h
-   > Finalize idea of manual place(static and easy) vs projection(dynamic and not-so-easy)
-   > Implement idea, look up resource for improvement and data structure design
-   > Christopher Randin and Ivan Espinosa
-
-* Document what intractable objects will be in the environment 3.0 h
-   > Write-up report as to how to make the world dynamic
-   > No programming expected, till units are finalize in concept and code
-   > Christopher Randin, Ivan Espinosa and Mark Martene
-
-* Construct class hierarchy 2.0 h
-   > Create base class to inherit from, also provide virtual future to unify objects
-   > Create basic class for each unit, think of individual traits for each unit
-   > Mark Martene
-
-* Construct an easy to use camera pane system 4.0 h
-   > Be able to move the camera when moving cursor to edge of the screen thus moving the camera, in their respectful direction.
-   > Allow, mouse to focus on valid units, thus lock the camera towards that unit and reach only to its valid movement spaces.
-   > Ivan Espinosa and Mark Martene
-
-
-2014-01-26
-==========
-
-This Week's Objectives
----------------------
-
-* Show up to class 3.0 h
-   > Listen to Shafae's lecture about how to organize ourselves and using Git to make over independent work flow cohesive.
-   > Christopher Randin, Ivan Espinosa and Mark Martene
-
-This Week's Objectives
--------------------
-
-* Setting up repo and SSH 1.0 h
-   > SSH established for all of us.
-   > Read the first 3 chapters of the GitPro book
-   > Christopher Randin, Ivan Espinosa and Mark Martene
-
-
-* Add Unity source code 1.0 h
-   > Push a Unity Project into git
    > Add .gitignore file to the rep for space efficiency
 * Need to know what files to ignore
    > Christopher Randin
