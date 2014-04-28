@@ -20,6 +20,27 @@ Previous Week's Objectives
   > We just need to send signals to control animation states.
   > Ivan Espinosa and Chris Randin
 
+* [Ongoing] Discussions with Artist 3.0 h (15.0 h)  
+  > Had to fix/discuss issues with the way files were being imported through Unity  
+  > The character models that we were importing with rigs had no UV attached it. Turned out rigger used wrong character model file to rig  
+  > The rigs are not currently refined in for the animations  
+  >    They still lack controls that will allow the animators functionality to adjust the animations  
+  > Ivan Espinosa, and Mark Martene
+  
+* [Ongoing] UI Interface Update 3.0 (3.0)  
+  > Discussed with artists about new UI layout  
+  > Issue with current layout was that it covers most of the screen  
+  > Reposition the characters on the top right corner of the screen  
+  > Instead of the words representing the actions, we will now have icons  
+  > Those icons will represent basic actions like move, gather, etc.  
+  > Ivan Espinosa
+
+* [Ongoing] Camera Update 3.0 (3.0)
+  > When character is selected we want the camera to be focus on the unit like in third person games  
+  > Originally hard-coded, but calculated a way to have the camera adjust depending on the height of the character  
+  > Going to fix the camera from rotating around the y-axis, when character is moving
+  > Ivan Espinosa  
+  
 * [] Help with networking and interfacing through the GM 6.0 h
   > Start getting this up working on a LAN
   > Christopher Randin and Mark Martene
@@ -66,6 +87,7 @@ This Week's Objectives
   > Also, start cracking down on making a one page summary of the game
   > Christopher Randin, Ivan Espinosa, Mark Martene
 
+* 
 
 2014-04-20    
 ==========  
