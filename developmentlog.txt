@@ -1,50 +1,70 @@
-2014-04-27
-=========
-Previous Week's Objectives
---------------------------
+2014-04-27  
+=========  
+Previous Week's Objectives  
+--------------------------  
 
-* [] Find sound for the game 10.0h
-  > Need to find sound for animations and mouse clicking
-  > Add music to the game
-  > Ivan Espinosa, Chris Randin, and Mark Martene
+* [Completed/may need more maybe] Find sound for the game 10.0h ( 3.0 h )  
+  > Need to find sound for animations and mouse clicking  
+  > Add music to the game  
+  > Ivan Espinosa, Chris Randin, and Mark Martene  
 
-* [] Start preparing for GameSig Entry 6.0 h
-  > Create a rough draft of the submission paper
-  > Create a storyboard for our video submission
-  > Ivan Espinosa, Mark Martene, and Chris Randin
+* [] Start preparing for GameSig Entry 6.0 h  
+  > Create a rough draft of the submission paper  
+  > Create a storyboard for our video submission  
+  > Ivan Espinosa, Mark Martene, and Chris Randin  
 
-* [] Add animations 6.0 h
-  > Add the animations to all of the characters
-  > Update any stored prefabs
-  > Update scripts to use the appropriate animations
-  > Ivan Espinosa and Chris Randin
+* [Unfinished] Add animations 6.0 h ( 2.0 h)  
+  > Small complication when the models were using an outdated   
+  > 	model for texture mapping.  
+  > Animations for the most part should work correctly.  
+  > We just need to send signals to control animation states.  
+  > Ivan Espinosa and Chris Randin  
 
-* [] Help with networking and interfacing through the GM 6.0 h
-  > Start getting this up working on a LAN
-  > Christopher Randin and Mark Martene
+* [] Help with networking and interfacing through the GM 6.0 h  
+  > Start getting this up working on a LAN  
+  > Christopher Randin and Mark Martene  
 
-* [] Unit/Leader abilities 20.0 h
-  > Try to get up each unit individual and unique ability to work out
-  >     in the game as well as provide visual representation of it
-  > Also, need to put in some particles for when triggers or abilities
-  >     happen.
+* [Unfinished] Unit/Leader abilities 20.0 h (3.0h)  
+  > Minor discussion of what abilities we had in mind. 
+  > Want to start using the exhuast mechanic into the game.  
+  > Try to get up each unit individual and unique ability to work out  
+  >     in the game as well as provide visual representation of it  
+  > Also, need to put in some particles for when triggers or abilities  
+  >     happen.  
+  > Christopher Randin  
+
+* [Completed] Fixed distance proejction 2.0 h (2.0 h)  
+  > There was a bug in which the radius of the projection was 
+  > 	always 0. That got fixed.
   > Christopher Randin
 
-* [] Create Waiting area and Leader Selection Scene for when two players join a room 8.0 h
-  > Do not load the game until both players have joined a room
-  > Display Leader profiles as buttons so the player can select which leader
-  > Load game once both leaders are selected
-  > Mark Martene
+* [Completed] Added particles and user drop unit to unit recruiting 6.0 h (6.0 h)  
+  > There was a slight complication with summong particles using the   
+  > 	pooling system. Fixed that issue.  
+  > Particles starts up on summon. Decays and gets pooled away after 1 s.  
+  > Also the player can now summon their unit within a certain radius.  
+  > Currently, there needs to be a marker for this.  
+  > Christopher Randin  
+  
+* [] Create Waiting area and Leader Selection Scene for when two players join a room 8.0 h  
+  > Do not load the game until both players have joined a room  
+  > Display Leader profiles as buttons so the player can select which leader  
+  > Load game once both leaders are selected  
+  > Mark Martene  
 
-* [] Fix any noticeable bugs during gameplay 6.0 h
-  > Go through the game and write down any bug or change that needs to be made
-  > Fix the script or let the person who wrote the script know about it
-  > Mark Martene
+* [] Fix any noticeable bugs during gameplay 6.0 h  
+  > Go through the game and write down any bug or change that needs to be made  
+  > Fix the script or let the person who wrote the script know about it  
+  > Mark Martene  
 												
-This Week's Objectives
----------------------
+This Week's Objectives  
+---------------------  
 
-
+* Video submition and one page summary (30.0 h)  
+  > Start making multiple takes on gameplay and in game footage  
+  > Create script to be played over the viewing of the video  
+  > Also, start cracking down on making a one page summary of the game  
+  > Christopher Randin, Ivan Espinosa, Mark Martene  
 
 2014-04-20    
 ==========  
