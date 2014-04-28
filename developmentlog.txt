@@ -26,20 +26,20 @@ Previous Week's Objectives
 
 * [Unfinished] Unit/Leader abilities 20.0 h (3.0h)  
   > Minor discussion of what abilities we had in mind. 
-  > Want to start using the exhuast mechanic into the game.  
+  > Want to start using the exhaust mechanic into the game.  
   > Try to get up each unit individual and unique ability to work out  
   >     in the game as well as provide visual representation of it  
   > Also, need to put in some particles for when triggers or abilities  
   >     happen.  
   > Christopher Randin  
 
-* [Completed] Fixed distance proejction 2.0 h (2.0 h)  
+* [Completed] Fixed distance projection 2.0 h (2.0 h)  
   > There was a bug in which the radius of the projection was 
   > 	always 0. That got fixed.
   > Christopher Randin
 
 * [Completed] Added particles and user drop unit to unit recruiting 6.0 h (6.0 h)  
-  > There was a slight complication with summong particles using the   
+  > There was a slight complication with summoning particles using the   
   > 	pooling system. Fixed that issue.  
   > Particles starts up on summon. Decays and gets pooled away after 1 s.  
   > Also the player can now summon their unit within a certain radius.  
@@ -60,7 +60,7 @@ Previous Week's Objectives
 This Week's Objectives  
 ---------------------  
 
-* Video submition and one page summary (30.0 h)  
+* Video submission and one page summary (30.0 h)  
   > Start making multiple takes on gameplay and in game footage  
   > Create script to be played over the viewing of the video  
   > Also, start cracking down on making a one page summary of the game  
