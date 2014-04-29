@@ -49,6 +49,14 @@ ModelImporter:
     4300010: Wheel_02
     4300012: Wheel_03
     4300014: Wheel_04
+    6400000: Back_Hub
+    6400002: Front_Hub
+    6400004: MCart_Lever
+    6400006: Minecart
+    6400008: Wheel_01
+    6400010: Wheel_02
+    6400012: Wheel_03
+    6400014: Wheel_04
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -68,9 +76,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
-    meshCompression: 0
-    addColliders: 0
+    globalScale: 3
+    meshCompression: 1
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

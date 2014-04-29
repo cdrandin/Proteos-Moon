@@ -19,6 +19,8 @@ ModelImporter:
     3300002: Bridge_Control_Pin
     4300000: Bridge_Control_Pin
     4300002: Bridge_Control_Arc
+    6400000: Bridge_Control_Arc
+    6400002: Bridge_Control_Pin
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -38,9 +40,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
-    meshCompression: 0
-    addColliders: 0
+    globalScale: 3
+    meshCompression: 1
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

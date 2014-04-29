@@ -244,7 +244,7 @@ public class GM : MonoBehaviour
 
 			// The appropiate leader should be picked now.
 			// Give it to the respective player
-			leader = Instantiate(leader, spawn_loc.position, spawn_loc.rotation) as GameObject;
+			leader = PhotonNetwork.Instantiate(leader.name, spawn_loc.position, spawn_loc.rotation, 0) as GameObject;
 			leader.transform.parent = _player_container[i].transform; // put it in the player's container in the scene
 		}
 
