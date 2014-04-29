@@ -18,12 +18,12 @@ public class UnitGUI : MonoBehaviour {
 	private float shift;
 	private Transform from;
 	public GUISkin mySkin;
-	private Rect informationBox;
+	private Rect informationBox, UnitInfoLocation;
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
-
 	private RecruitSystem _rs;
 
+	private GUIStyle action_style, move_style, gather_style, rest_style, summ_style;
 	//	public static UnitGUI instance;
 	#endregion
 
@@ -47,15 +47,24 @@ public class UnitGUI : MonoBehaviour {
 		if(WorldCamera.instance != null)
 			WorldCamera.instance.TurnCameraControlsOn();
 		
+		
+		
 	}
 	
 	// Use this for initialization
 	void Awake(){
 		height = 3.0f;
 		DistancefromPlayer = 3.5f;
-		informationBox = new Rect(0,0,(3 * Screen.width)/ 8, (5 * Screen.height)/ 20) ;
+		
+		UnitInfoLocation = new Rect( (45 * Screen.width)/64 , 0 , (19 * Screen.width)/64, (4*Screen.height/ 12) );
+		informationBox = new Rect(0,0, UnitInfoLocation.width , UnitInfoLocation.height) ;
 		ResetFlags();
 		shift = 0;
+		action_style = mySkin.GetStyle("action");
+		move_style = mySkin.GetStyle("move");
+		rest_style = mySkin.GetStyle("rest");
+		gather_style = mySkin.GetStyle("gather");
+		summ_style = mySkin.GetStyle("summon");
 		
 	}
 	
@@ -151,7 +160,7 @@ public class UnitGUI : MonoBehaviour {
 
 	public void UnitInformationBox(){
 	
-		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 8  ,  (3 * Screen.height)/	4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
+		GUI.BeginGroup(UnitInfoLocation);
 		
 			GUI.depth = 1	;
 			isInitialize = true;
@@ -183,7 +192,7 @@ public class UnitGUI : MonoBehaviour {
 			mySkin.box.fontSize = mySkin.box.fontSize = Screen.height / 32;
 			//GUI.enabled = !isAction && (GetCurrentFocusStatus() == ((Status.Clean | Status.Move) | GetCurrentFocusStatus()));// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Move) < 0);// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
-			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move")){
+			if(GUI.Button(new Rect(0,0, (1 * Screen.width)/ 8, Screen.height/ 16) , "Move",move_style)){
 				
 				UpdateFocusObjectsStatus(Status.Move);
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);	
@@ -198,22 +207,24 @@ public class UnitGUI : MonoBehaviour {
 				isMoving = true;
 				isAction = true;
 			}
+			
 			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Action) < 0);
-			if(GUI.Button(new Rect(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16) , "Action")){
+			
+			if(GUI.Button(new Rect(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16) , "Action", action_style)){
 				isAction = true;
 				gui_method += ActionSelectionButtons;
 				
 			}
 			
 			GUI.enabled = proteus && !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Gather) < 0);	
-			if(GUI.Button(new Rect(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16) , "Gather")){
+			if(GUI.Button(new Rect(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16) , "Gather",gather_style)){
 				//TODO: Gather code
 				GM.instance.AddResourcesToCurrentPlayer(50);
 				UpdateFocusObjectsStatus(Status.Gather);
 				
 			}
 			GUI.enabled = !isAction;
-			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16) , "Rest")){
+			if(GUI.Button(new Rect(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16) , "Rest",rest_style)){
 				focus_object.GetComponent<BaseClass>().unit_status.status = Status.Rest;
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
@@ -233,7 +244,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  (29 * Screen.height)/ 40 , (3 * Screen.width)/8, (3 * Screen.height)/ 10 ));
 		
 			GUI.depth = 2;
-			if(GUI.Button(new Rect(0,0,  Screen.width/ 8, Screen.height/ 16) , "End Movement")){
+			if(GUI.Button(new Rect(0,0,  Screen.width/ 8, Screen.height/ 16) , "End Movement",move_style)){
 				GM.instance.SetUnitControllerActiveOff();
 				//GM.instance.SetFocusController(false);
 			
@@ -254,7 +265,7 @@ public class UnitGUI : MonoBehaviour {
 			
 		GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Action) < 0);
 			GUI.depth = 2;
-			if(GUI.Button(new Rect(0,0, Screen.width/ 8, Screen.height/ 16) , "Attack")){
+			if(GUI.Button(new Rect(0,0, Screen.width/ 8, Screen.height/ 16) , "Attack",action_style)){
 				//Expend units action
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
 			
@@ -280,7 +291,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 2;
 			
 			if(shift > 0){
-				if(GUI.Button(new Rect(0, (3 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Recruit")){
+				if(GUI.Button(new Rect(0, (3 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16) , "Recruit",summ_style)){
 					
 					gui_method -= ActionSelectionButtons;
 					gui_method -= BaseSelectionButtons;
