@@ -166,7 +166,6 @@ public class GM : MonoBehaviour
 		StartTimer();
 
 		_game_init = true;
-		_game_gui.InitGUIState();
 
 		UpdateFogPerUnit();
 	}

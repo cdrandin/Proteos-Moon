@@ -26,8 +26,7 @@ public class Game : MonoBehaviour
 	 */
 	private delegate void GUIMethod();
 	private GUIMethod gui_method;
-	
-	private bool recruit_gui_on;
+
 	private GUIText _game_manager_gui;
 	
 	private UnitCost _unit_cost;
@@ -53,7 +52,6 @@ public class Game : MonoBehaviour
 		{
 			this.gui_method += GUI_init;
 			_game_manager_gui.enabled = true;
-			recruit_gui_on = true;
 			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 			_game_manager_gui.fontSize = 16;
 			//FindWorldCamera();
@@ -64,17 +62,25 @@ public class Game : MonoBehaviour
 		}
 		else
 		{
-			if(GameObject.FindGameObjectsWithTag("Game_Init").Length > 0)
+			GameObject game = GameObject.FindGameObjectWithTag("Game_Init");
+			if(game != null)
 			{
 				Debug.LogWarning("A game init is already in the scene. Using that one.");
 			}
 			else 
 			{
-				Instantiate(load_game_objects, Vector3.zero, Quaternion.identity);
+				game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
 			}
 
 			//this.gui_method += GUI_menu; 
 			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost, player_leaders);
+			
+			FindWorldCamera();
+			wcm.ChangeCamera();
+			
+			// Turn on gui fog of war
+			fow_terrain = game.GetComponentInChildren<Terrain>();
+			fow_terrain.materialTemplate = fow_material;
 		}
 	}
 	
@@ -190,11 +196,6 @@ public class Game : MonoBehaviour
 			}
 			
 			this.gui_method -= GUI_menu;
-			if(!recruit_gui_on)
-			{
-				this.gui_method -= GUI_recruit;
-				recruit_gui_on = !recruit_gui_on;
-			}
 			init = false;
 			_game_manager_gui.text = "Game Manager disabled";
 			
@@ -204,15 +205,13 @@ public class Game : MonoBehaviour
 	
 	void GUI_menu()
 	{
-		float half = 0; //Screen.width/2;
+		float half = 0;
 		
 		if(GM.instance.IsOn)
 		{
 			if(MakeButton(half, 150, "Next player's turn"))
 			{
 				GM.instance.NextPlayersTurn();
-				this.gui_method -= GUI_recruit;
-				recruit_gui_on = !recruit_gui_on;
 				
 				_game_manager_gui.text = string.Format("Next player's turn\n" + 
 				                                       "Current player: {0}\n",
@@ -238,102 +237,6 @@ public class Game : MonoBehaviour
 				                                       (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)).ToString(),
 				                                       GM.instance.MaxResourceLimit.ToString());
 			}
-			/*
-			else if(MakeButton(half, 260, "Recruit Menu"))
-			{
-				if(recruit_gui_on)
-				{
-					this.gui_method += GUI_recruit;
-					_game_manager_gui.text = "Recruit Menu opened";
-				}
-				else
-				{	
-					this.gui_method -= GUI_recruit;
-					_game_manager_gui.text = "Recruit Menu closed";
-				}
-				
-				recruit_gui_on = !recruit_gui_on;
-			}
-			*/
-		}
-	}
-	
-	void GUI_recruit()
-	{
-		float half = 0;//Screen.width/2;
-		string recruit_text = "Recently purchased";
-		string recruit_fail = "Could not purchase";
-		
-		if(MakeButton(half /*+ half/3*/, 280, string.Format("Arcane Cost: {0}", _unit_cost.arcane)))
-		{
-			if(GM.instance.RecruitUnit(GM.instance.CurrentPlayer, UnitType.Arcane))
-			{
-				_game_manager_gui.text = string.Format("{0} Arcane", recruit_text);
-			}
-			else
-			{
-				_game_manager_gui.text = string.Format("{0} Arcane", recruit_fail);
-			}
-		}
-		
-		else if(MakeButton(half /*+ half/3*/, 300, string.Format("Braver Cost: {0}", _unit_cost.braver)))
-		{
-			if(GM.instance.RecruitUnit(GM.instance.CurrentPlayer, UnitType.Braver))
-			{
-				_game_manager_gui.text = string.Format("{0} Braver", recruit_text);
-			}
-			else
-			{
-				_game_manager_gui.text = string.Format("{0} Braver", recruit_fail);
-			}
-		}
-		
-		else if(MakeButton(half /*+ half/3*/, 320, string.Format("Scout Cost: {0}", _unit_cost.scout)))
-		{
-			if(GM.instance.RecruitUnit(GM.instance.CurrentPlayer, UnitType.Scout))
-			{
-				_game_manager_gui.text = string.Format("{0} Scout", recruit_text);
-			}
-			else
-			{
-				_game_manager_gui.text = string.Format("{0} Scout", recruit_fail);
-			}
-		}
-		
-		else if(MakeButton(half /*+ half/3*/, 340, string.Format("Sniper Cost: {0}", _unit_cost.sniper)))
-		{
-			if(GM.instance.RecruitUnit(GM.instance.CurrentPlayer, UnitType.Sniper))
-			{
-				_game_manager_gui.text = string.Format("{0} Sniper", recruit_text);
-			}
-			else
-			{
-				_game_manager_gui.text = string.Format("{0} Sniper", recruit_fail);
-			}
-		}
-		
-		else if(MakeButton(half /*+ half/3*/, 360, string.Format("Titan Cost: {0}", _unit_cost.titan)))
-		{
-			if(GM.instance.RecruitUnit(GM.instance.CurrentPlayer, UnitType.Titan))
-			{
-				_game_manager_gui.text = string.Format("{0} Titan", recruit_text);
-			}
-			else
-			{
-				_game_manager_gui.text = string.Format("{0} Titan", recruit_fail);
-			}
-		}
-		
-		else if(MakeButton(half /*+ half/3*/, 380, string.Format("Vangaurd Cost: {0}", _unit_cost.vangaurd)))
-		{
-			if(GM.instance.RecruitUnit(GM.instance.CurrentPlayer, UnitType.Vangaurd))
-			{
-				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_text);
-			}
-			else
-			{
-				_game_manager_gui.text = string.Format("{0} Vanguard", recruit_fail);
-			}
 		}
 	}
 	
@@ -345,11 +248,6 @@ public class Game : MonoBehaviour
 	int RandomFirstPlayer(int number_of_players)
 	{
 		return Random.Range(1,number_of_players+1);
-	}
-	
-	public void InitGUIState()
-	{
-		//this.gui_method += GUI_init;
 	}
 
 	void FindWorldCamera ()
@@ -366,8 +264,6 @@ public class Game : MonoBehaviour
 		init = false;
 		this.gui_method -= GUI_init;
 		this.gui_method -= GUI_menu;
-		this.gui_method -= GUI_recruit;
-		recruit_gui_on = true;
 	}
 	
 	void Reset ()
