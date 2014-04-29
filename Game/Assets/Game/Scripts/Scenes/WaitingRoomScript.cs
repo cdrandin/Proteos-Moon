@@ -4,6 +4,7 @@ using System.Collections;
 public class WaitingRoomScript : MonoBehaviour {
 	
 	public GUISkin skin;
+	public bool forceStart = false;
 	public Texture2D mena_texture;
 	public Texture2D seita_texture;
 	private bool leader_chosen = false;
@@ -25,9 +26,9 @@ public class WaitingRoomScript : MonoBehaviour {
 			return;
 		}
 
-		if (PhotonNetwork.playerList.Length <= 1)
+		if (PhotonNetwork.playerList.Length <= 1 && !forceStart)
 			WaitingForOtherPlayer();
-		else if (PhotonNetwork.playerList.Length == 2 && !leader_chosen)
+		else if ((PhotonNetwork.playerList.Length == 2 && !leader_chosen) || (forceStart && !leader_chosen))
 			MainGUI();
 		else
 			LoadingGUI();
