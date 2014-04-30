@@ -9,11 +9,12 @@ public class WaitingRoomScript : MonoBehaviour {
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
 	public GameObject mena, seita, otherMena, otherSeita;
-	public GUIStyle header, loading, question;
+	public GUIStyle header, loading, question, portrait;
 	public PhotonView menaPV, seitaPV;
 	private bool leader_chosen = false;
 	private bool gameReady = false;
 	private bool animatinglabels = false;
+	private bool leaderClicked = false;
 	private float labelHeight;
 	private float startTime;
 	private float timer;
@@ -25,6 +26,7 @@ public class WaitingRoomScript : MonoBehaviour {
 		header = skin.FindStyle("Header");
 		loading = skin.FindStyle("Loading");
 		question = skin.FindStyle("Question");
+		portrait = skin.FindStyle ("Portrait");
 		startTime = 0.0f;
 		counter = 0;
 		leftSpawn = GameObject.Find("Left Spawn");
@@ -90,14 +92,20 @@ public class WaitingRoomScript : MonoBehaviour {
 
 	void MainGUI(){
 		GUI.Label(new Rect(100, 30, Screen.width - 200, 50), "Choose Your Leader", header);
-		GUI.Label(new Rect(Screen.width / 2 - (mena_texture.width + 100), Screen.height / 2 + 50, mena_texture.width, 50), PhotonNetwork.playerName, loading);
+		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 + 50, 256, 50), PhotonNetwork.playerName, loading);
 		GUI.Label(new Rect(Screen.width / 2 - 25, Screen.height / 2 + 55, 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
-			GUI.Label(new Rect(Screen.width / 2 + 100, Screen.height / 2 + 50, seita_texture.width, 50), PhotonNetwork.otherPlayers[0].name, loading);
-		GUI.Box(new Rect(Screen.width / 2 - (mena_texture.width + 100), Screen.height / 2 - mena_texture.height, mena_texture.width, mena_texture.height), "?", question);
-		GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - seita_texture.height, seita_texture.width, seita_texture.height), "?", question);
-		if(GUI.Button(new Rect(Screen.width / 2 - (mena_texture.width + 100), Screen.height / 2 + 100, mena_texture.width / 2, mena_texture.height / 2), mena_texture)){
+			GUI.Label(new Rect(Screen.width / 2 + 100, Screen.height / 2 + 50, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
+		if (!leaderClicked){
+			GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
+		}
+		else{
+			GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
+		}
+		GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - 256, 256, 256), "?", question);
+		if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 100, 256 / 2, 256 / 2), mena_texture, portrait)){
 			//AnimateLabels();
+			leaderClicked = true;
 			animatinglabels = true;
 			if (PhotonNetwork.inRoom){
 				proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
@@ -110,8 +118,9 @@ public class WaitingRoomScript : MonoBehaviour {
 			leader_chosen = true;
 		}
 		
-		if(GUI.Button(new Rect((Screen.width / 2 - (seita_texture.width + 100)) + (seita_texture.width / 2), Screen.height / 2  + 100, seita_texture.width / 2, seita_texture.height / 2), seita_texture)){
+		if(GUI.Button(new Rect((Screen.width / 2 - (256 + 95)) + (256 / 2), Screen.height / 2  + 100, 256 / 2, 256 / 2), seita_texture, portrait)){
 			//AnimateLabels();
+			leaderClicked = true;
 			animatinglabels = true;
 			if (PhotonNetwork.inRoom){
 				proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
@@ -122,13 +131,16 @@ public class WaitingRoomScript : MonoBehaviour {
 			//print ("You Chose Seita");
 			leader_chosen = true;
 		}
+		if (leaderClicked){
+			print ("leader clicked");
+		}
 	}
 
 	void ReadyGUI(){
-		GUI.Label(new Rect(Screen.width / 2 - (mena_texture.width + 100), 30, mena_texture.width, 50), PhotonNetwork.playerName, loading);
+		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), 30, 256, 50), PhotonNetwork.playerName, loading);
 		GUI.Label(new Rect(Screen.width / 2 - 25, 35, 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
-			GUI.Label(new Rect(Screen.width / 2 + 100, 30, seita_texture.width, 50), PhotonNetwork.otherPlayers[0].name, loading);
+			GUI.Label(new Rect(Screen.width / 2 + 100, 30, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
 		WaitingForOtherPlayer();
 	}
 
@@ -140,10 +152,10 @@ public class WaitingRoomScript : MonoBehaviour {
 
 	void AnimateLabels(){
 		labelHeight = Mathf.Lerp((Screen.height / 2 + 50), 35, (Time.time - startTime) / 3);
-		GUI.Label(new Rect(Screen.width / 2 - (mena_texture.width + 100), labelHeight, mena_texture.width, 50), PhotonNetwork.playerName, loading);
+		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), labelHeight, 256, 50), PhotonNetwork.playerName, loading);
 		GUI.Label(new Rect(Screen.width / 2 - 25, (labelHeight+5), 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
-			GUI.Label(new Rect(Screen.width / 2 + 100, labelHeight, seita_texture.width, 50), PhotonNetwork.otherPlayers[0].name, loading);
+			GUI.Label(new Rect(Screen.width / 2 + 100, labelHeight, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
