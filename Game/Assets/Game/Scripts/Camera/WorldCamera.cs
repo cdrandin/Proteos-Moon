@@ -115,26 +115,24 @@ public class WorldCamera : MonoBehaviour {
 	void Update (){}
 
 	void LateUpdate () {
-		HandleMouseRotation ();
-
-		ApplyScroll ();
-		if(cameraOn && CheckIfUserCameraInput()){
+		if(cameraOn ){
+			HandleMouseRotation ();
+	
+			ApplyScroll ();
 			
-			Vector3 desiredTranslation = GetDesiredTranslation();
-			if(!isDesiredPositionOverBoundaries(desiredTranslation))
-			{
-				Vector3 desiredPosition = transform.position + desiredTranslation;
-				
-				UpdateCameraY(desiredPosition);
-
-				this.transform.Translate(desiredTranslation);
-			}else{
-			
-				
+			if(CheckIfUserCameraInput()){
+				Vector3 desiredTranslation = GetDesiredTranslation();
+				if(!isDesiredPositionOverBoundaries( desiredTranslation )){
+					
+					Vector3 desiredPosition = transform.position + desiredTranslation;
+					
+					UpdateCameraY(desiredPosition);
+	
+					this.transform.Translate(desiredTranslation);
+				}
+				ApplyCameraY();
 			}
-			ApplyCameraY();
 		}
-
 	}
 
 	

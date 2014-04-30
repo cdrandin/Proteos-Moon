@@ -167,9 +167,7 @@ public class UnitGUI : MonoBehaviour {
 			ResetFlags();
 			
 		}
-	}
-	
-	
+	}	
 	
 	private void RemoveGUI(){
 
