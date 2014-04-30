@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+
 
 [ExecuteInEditMode] // Make water live-update even when not in play mode
 public class Water : MonoBehaviour
@@ -17,9 +17,9 @@ public class Water : MonoBehaviour
 	
 	public LayerMask m_ReflectLayers = -1;
 	public LayerMask m_RefractLayers = -1;
-
-	private Dictionary<Camera, Camera> m_ReflectionCameras = new Dictionary<Camera, Camera>(); // Camera -> Camera table
-	private Dictionary<Camera, Camera> m_RefractionCameras = new Dictionary<Camera, Camera>(); // Camera -> Camera table
+		
+	private Hashtable m_ReflectionCameras = new Hashtable(); // Camera -> Camera table
+	private Hashtable m_RefractionCameras = new Hashtable(); // Camera -> Camera table
 	
 	private RenderTexture m_ReflectionTexture = null;
 	private RenderTexture m_RefractionTexture = null;
@@ -159,11 +159,11 @@ public class Water : MonoBehaviour
 			DestroyImmediate( m_RefractionTexture );
 			m_RefractionTexture = null;
 		}
-		foreach (KeyValuePair<Camera, Camera> kvp in m_ReflectionCameras)
-        	DestroyImmediate( (kvp.Value).gameObject );
+		foreach( DictionaryEntry kvp in m_ReflectionCameras )
+        	DestroyImmediate( ((Camera)kvp.Value).gameObject );
         m_ReflectionCameras.Clear();
-		foreach (KeyValuePair<Camera, Camera> kvp in m_RefractionCameras)
-        	DestroyImmediate( (kvp.Value).gameObject );
+		foreach( DictionaryEntry kvp in m_RefractionCameras )
+        	DestroyImmediate( ((Camera)kvp.Value).gameObject );
         m_RefractionCameras.Clear();
 	}
 	
@@ -259,8 +259,8 @@ public class Water : MonoBehaviour
 			}
 			
 			// Camera for reflection
-			m_ReflectionCameras.TryGetValue(currentCamera, out reflectionCamera);
-			if (!reflectionCamera) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
+			reflectionCamera = m_ReflectionCameras[currentCamera] as Camera;
+			if( !reflectionCamera ) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
 			{
 				GameObject go = new GameObject( "Water Refl Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(), typeof(Camera), typeof(Skybox) );
 				reflectionCamera = go.camera;
@@ -288,8 +288,8 @@ public class Water : MonoBehaviour
 			}
 			
 			// Camera for refraction
-			m_RefractionCameras.TryGetValue(currentCamera, out refractionCamera);
-			if (!refractionCamera) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
+			refractionCamera = m_RefractionCameras[currentCamera] as Camera;
+			if( !refractionCamera ) // catch both not-in-dictionary and in-dictionary-but-deleted-GO
 			{
 				GameObject go = new GameObject( "Water Refr Camera id" + GetInstanceID() + " for " + currentCamera.GetInstanceID(), typeof(Camera), typeof(Skybox) );
 				refractionCamera = go.camera;

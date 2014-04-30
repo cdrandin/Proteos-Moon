@@ -1,4 +1,4 @@
-Shader "FX/Water" { 
+Shader "FX/Water" {
 Properties {
 	_WaveScale ("Wave scale", Range (0.02,0.15)) = 0.063
 	_ReflDistort ("Reflection distort", Range (0,1.5)) = 0.44
@@ -20,13 +20,13 @@ Properties {
 // Fragment program cards
 
 
-Subshader { 
+Subshader {
 	Tags { "WaterMode"="Refractive" "RenderType"="Opaque" }
 	Pass {
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
-#pragma fragmentoption ARB_precision_hint_fastest 
+#pragma fragmentoption ARB_precision_hint_fastest
 #pragma multi_compile WATER_REFRACTIVE WATER_REFLECTIVE WATER_SIMPLE
 
 #if defined (WATER_REFLECTIVE) || defined (WATER_REFRACTIVE)
@@ -73,20 +73,20 @@ v2f vert(appdata v)
 {
 	v2f o;
 	o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-	
+
 	// scroll bump waves
 	float4 temp;
 	temp.xyzw = v.vertex.xzxz * _WaveScale4 / unity_Scale.w + _WaveOffset;
 	o.bumpuv0 = temp.xy;
 	o.bumpuv1 = temp.wz;
-	
+
 	// object space view direction (will normalize per pixel)
 	o.viewDir.xzy = ObjSpaceViewDir(v.vertex);
-	
+
 	#if defined(HAS_REFLECTION) || defined(HAS_REFRACTION)
 	o.ref = ComputeScreenPos(o.pos);
 	#endif
-	
+
 	return o;
 }
 
@@ -109,17 +109,17 @@ sampler2D _BumpMap;
 half4 frag( v2f i ) : COLOR
 {
 	i.viewDir = normalize(i.viewDir);
-	
+
 	// combine two scrolling bumpmaps into one
 	half3 bump1 = UnpackNormal(tex2D( _BumpMap, i.bumpuv0 )).rgb;
 	half3 bump2 = UnpackNormal(tex2D( _BumpMap, i.bumpuv1 )).rgb;
 	half3 bump = (bump1 + bump2) * 0.5;
-	
+
 	// fresnel factor
 	half fresnelFac = dot( i.viewDir, bump );
-	
+
 	// perturb reflection/refraction UVs by bumpmap, and lookup colors
-	
+
 	#if HAS_REFLECTION
 	float4 uv1 = i.ref; uv1.xy += bump * _ReflDistort;
 	half4 refl = tex2Dproj( _ReflectionTex, UNITY_PROJ_COORD(uv1) );
@@ -128,27 +128,27 @@ half4 frag( v2f i ) : COLOR
 	float4 uv2 = i.ref; uv2.xy -= bump * _RefrDistort;
 	half4 refr = tex2Dproj( _RefractionTex, UNITY_PROJ_COORD(uv2) ) * _RefrColor;
 	#endif
-	
-	// final color is between refracted and reflected based on fresnel	
+
+	// final color is between refracted and reflected based on fresnel
 	half4 color;
-	
+
 	#if defined(WATER_REFRACTIVE)
-	half fresnel = UNITY_SAMPLE_1CHANNEL( _Fresnel, float2(fresnelFac,fresnelFac) );
+	half fresnel = tex2D( _Fresnel, float2(fresnelFac,fresnelFac) ).a;
 	color = lerp( refr, refl, fresnel );
 	#endif
-	
+
 	#if defined(WATER_REFLECTIVE)
 	half4 water = tex2D( _ReflectiveColor, float2(fresnelFac,fresnelFac) );
 	color.rgb = lerp( water.rgb, refl.rgb, water.a );
 	color.a = refl.a * water.a;
 	#endif
-	
+
 	#if defined(WATER_SIMPLE)
 	half4 water = tex2D( _ReflectiveColor, float2(fresnelFac,fresnelFac) );
 	color.rgb = lerp( water.rgb, _HorizonColor.rgb, water.a );
 	color.a = _HorizonColor.a;
 	#endif
-	
+
 	return color;
 }
 ENDCG
