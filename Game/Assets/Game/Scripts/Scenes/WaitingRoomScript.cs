@@ -18,7 +18,7 @@ public class WaitingRoomScript : MonoBehaviour {
 	private float startTime;
 	private float timer;
 	public int counter;
-	public GameObject leftSpawn, rightSpawn, particle;
+	public GameObject leftSpawn, rightSpawn;
 	// Use this for initialization
 	void Start () {
 		proteusChat = this.GetComponent<ProteusChat>();
