@@ -150,7 +150,7 @@ public class UnitGUI : MonoBehaviour {
 			SmoothFollow(focusObject);
 			
 		}
-		if(CombatSystem.instance.CheckIfAttacking()){
+		if(focusObject != null && CombatSystem.instance.CheckIfAttacking()){
 			
 			CombatSystem.instance.CombatLookAt(focusObject);;
 			
