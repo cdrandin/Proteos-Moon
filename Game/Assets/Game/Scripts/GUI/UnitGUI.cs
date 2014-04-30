@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class UnitGUI : MonoBehaviour {
 
 
@@ -22,6 +23,8 @@ public class UnitGUI : MonoBehaviour {
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	
+	public GameObject Portraits;
+	
 	public Texture2D highlight, clicked;
 	
 	private RecruitSystem _rs;
@@ -31,7 +34,7 @@ public class UnitGUI : MonoBehaviour {
 	
 		action, move, gather, summon, rest, move_cancel, item,
 		special, attack, arcane, braver, back, gigan, sniper, 
-		vanguard, scout
+		vanguard, scout, blue_box
 	 
 	 }
 	//	public static UnitGUI instance;
@@ -71,7 +74,7 @@ public class UnitGUI : MonoBehaviour {
 		mySkin.button.onActive.background = CombineTextures(normal, clicked);
 		mySkin.button.onHover.background = CombineTextures(normal, highlight);
 		
-		for(int i = 0; i < mySkin.customStyles.Length; ++i){
+		for(int i = 0; i < (int)Style.blue_box ; ++i){
 		
 			normal = mySkin.customStyles[i].normal.background;
 			
@@ -194,8 +197,9 @@ public class UnitGUI : MonoBehaviour {
 		
 			GUI.depth = 1	;
 			isInitialize = true;
-			GUI.Box( informationBox, "");//focusObject.GetComponent<BaseClass>().unit_status.unit_type.ToString() );
-				
+			GUI.Box( informationBox, "");
+			CharacterPortrait();
+			
 			string currentHealth = focusObject.GetComponent<BaseClass>().vital.HP.current.ToString();
 			string maxHealth = focusObject.GetComponent<BaseClass>().vital.HP.max.ToString();
 			
@@ -213,6 +217,56 @@ public class UnitGUI : MonoBehaviour {
 	
 	}
 	
+	public void CharacterPortrait(){
+		
+//		GameObject.
+		
+		GUITexture portrait_texture = null;
+		
+		switch(focus_object.GetComponent<BaseClass>().unit_status.unit_type){
+		
+		case UnitType.Arcane:
+			portrait_texture = Portraits.transform.Find("Arcane").gameObject.guiTexture;
+			break;		
+		case UnitType.Braver:
+			portrait_texture = Portraits.transform.Find("Braver").gameObject.guiTexture;
+			break;
+		case UnitType.Scout:
+			portrait_texture = Portraits.transform.Find("Scout").gameObject.guiTexture;
+			break;		
+		case UnitType.Titan:
+			portrait_texture = Portraits.transform.Find("Gigan").gameObject.guiTexture;
+			break;
+		case UnitType.Sniper:
+			portrait_texture = Portraits.transform.Find("Sniper").gameObject.guiTexture;
+			break;		
+		case UnitType.Vangaurd:
+			portrait_texture = Portraits.transform.Find("Vanguard").gameObject.guiTexture;
+			break;
+		
+		case UnitType.Leader:
+		
+			if(GM.instance.GetPlayerLeader(GM.instance.CurrentPlayer).name == "Altier_Seita"){
+			
+				portrait_texture = Portraits.transform.Find("Seita").gameObject.guiTexture;
+				
+			}
+			else{
+			
+				portrait_texture = Portraits.transform.Find("Seita").gameObject.guiTexture;
+				
+			}
+			break;
+		}
+		
+//		Texture2D character_img = GameObject.Find(
+		GUI.Box( new Rect(16,16, ( 4 * informationBox.height / 12), informationBox.height/2 ), 
+				portrait_texture.guiTexture.texture, 
+				mySkin.FindStyle("blue_box"));//new GUIContent((Texture2D)EditorGUIUtility.Load( "SeitaP.png" )) , mySkin.FindStyle("blue_box")); 
+		
+		
+		
+	}
 	public void BaseSelectionButtons(){
 	
 		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 4  ,  (3 * Screen.height)/ 4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
@@ -302,6 +356,7 @@ public class UnitGUI : MonoBehaviour {
 				GM.instance.SetUnitControllerActiveOff();
 				//GM.instance.SetFocusController(false);
 			
+				
 				isMoving = false;
 				smoothPos = true;
 				WorldCamera.instance.ResetCamera();
@@ -311,13 +366,18 @@ public class UnitGUI : MonoBehaviour {
 			}
 		GUI.EndGroup();
 	}
+
+	public void HealthBar(){
 	
+		
+	}	
+
 
 	public void ActionSelectionButtons(){
 	
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  ((29 * Screen.height)/ 40) - shift , (3 * Screen.width)/8, ((3*Screen.height) / 10)+ shift ) );
 		
-			
+		GUI.depth = 2;
 		GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Action) < 0);
 			GUI.depth = 2;
 			if(MakeButton(0,0, Screen.width/ 8, Screen.height/ 16 , "Attack", Style.attack)){
