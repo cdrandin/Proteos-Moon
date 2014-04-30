@@ -23,7 +23,7 @@ public class UnitGUI : MonoBehaviour {
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	
-	public GameObject Portraits;
+	public GameObject Portraits, Bars;
 	
 	public Texture2D highlight, clicked;
 	
@@ -93,7 +93,7 @@ public class UnitGUI : MonoBehaviour {
 		height = 3.0f;
 		DistancefromPlayer = 3.5f;
 		
-		UnitInfoLocation = new Rect( (45 * Screen.width)/64 , 0 , (19 * Screen.width)/64, (4*Screen.height/ 12) );
+		UnitInfoLocation = new Rect( Screen.width - (64*Screen.height/ 108) , 0 , (64*Screen.height/ 108), (4*Screen.height/ 12) );
 		informationBox = new Rect(0,0, UnitInfoLocation.width , UnitInfoLocation.height) ;
 		ResetFlags();
 		shift = 0;
@@ -198,74 +198,105 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 1	;
 			isInitialize = true;
 			GUI.Box( informationBox, "");
-			CharacterPortrait();
-			
-			string currentHealth = focusObject.GetComponent<BaseClass>().vital.HP.current.ToString();
-			string maxHealth = focusObject.GetComponent<BaseClass>().vital.HP.max.ToString();
-			
-			string healthLabel = "HP\t" + currentHealth + " / " + maxHealth ;
-	
-			string currentExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.current.ToString();
-			string maxExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.max.ToString();
-			
-			string exhaustLabel = "Exhaust\t" + currentExhaust + " / " + maxExhaust;
-							
-			GUI.Label( new Rect( informationBox.width / 2 - 60, informationBox.height/2 - 40, 100, 30) , healthLabel );
-			GUI.Label( new Rect( informationBox.width / 2 - 60, informationBox.height/2 - 10, 200, 30) , exhaustLabel );
+			CharacterPortrait(informationBox);
+			HealthExhaustBars(informationBox);
+
 		
 		GUI.EndGroup();
 	
 	}
 	
-	public void CharacterPortrait(){
+	public void HealthExhaustBars(Rect info_box){
+	
+		float currentHealth = focusObject.GetComponent<BaseClass>().vital.HP.current;
+		float maxHealth = focusObject.GetComponent<BaseClass>().vital.HP.max;
 		
-//		GameObject.
+		string healthLabel = "HP";// + currentHealth.ToString() + " / " + maxHealth.ToString() ;
 		
+		float currentExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.current;
+		float maxExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.max;
+		
+		string exhaustLabel = "Exhaust";// + currentExhaust.ToString() + " / " + maxExhaust.ToString();
+		
+		
+		Rect label_pos = new Rect( ( 28 * info_box.height / 60) + 16 + (5*info_box.width)/ 128 , 16+(5*info_box.width)/ 128 , 3*info_box.width / 5 , (5*info_box.width)/ 128 );
+		Rect texture_pos = label_pos;
+		texture_pos.y += texture_pos.height;
+		
+		mySkin.label.fontSize = (int)(texture_pos.height );
+		mySkin.label.alignment = TextAnchor.LowerLeft;
+		
+		
+				
+		GUI.DrawTexture( texture_pos, Bars.transform.Find("Empty").guiTexture.texture );
+		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), Bars.transform.Find("Health").guiTexture.texture );
+		GUI.Label( label_pos , healthLabel );
+		texture_pos.y += 2*texture_pos.height;
+		label_pos.y += 2.1f*texture_pos.height;
+		
+		GUI.DrawTexture( texture_pos, Bars.transform.Find("Empty").guiTexture.texture ) ;
+		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentExhaust * texture_pos.width) / maxExhaust, texture_pos.height ), Bars.transform.Find("Exhaust").guiTexture.texture );
+		GUI.Label( label_pos , exhaustLabel );
+	}
+	
+	public void CharacterPortrait(Rect info_box){
+			
 		GUITexture portrait_texture = null;
-		
+		string char_name = "";
 		switch(focus_object.GetComponent<BaseClass>().unit_status.unit_type){
 		
 		case UnitType.Arcane:
 			portrait_texture = Portraits.transform.Find("Arcane").gameObject.guiTexture;
+			char_name = "Arcane";
 			break;		
 		case UnitType.Braver:
 			portrait_texture = Portraits.transform.Find("Braver").gameObject.guiTexture;
+			char_name = "Braver";
 			break;
 		case UnitType.Scout:
 			portrait_texture = Portraits.transform.Find("Scout").gameObject.guiTexture;
+			char_name = "Scout";
 			break;		
 		case UnitType.Titan:
 			portrait_texture = Portraits.transform.Find("Gigan").gameObject.guiTexture;
+			char_name = "Gigan";
 			break;
 		case UnitType.Sniper:
 			portrait_texture = Portraits.transform.Find("Sniper").gameObject.guiTexture;
+			char_name = "Sniper";
 			break;		
 		case UnitType.Vangaurd:
 			portrait_texture = Portraits.transform.Find("Vanguard").gameObject.guiTexture;
+			char_name = "Vanguard";
 			break;
 		
 		case UnitType.Leader:
-		
-			if(GM.instance.GetPlayerLeader(GM.instance.CurrentPlayer).name == "Altier_Seita"){
+			
+			if(GM.instance.GetPlayerLeader(GM.instance.CurrentPlayer).name == "Altier_Seita(Clone)"){
 			
 				portrait_texture = Portraits.transform.Find("Seita").gameObject.guiTexture;
+				char_name = "Seita";
 				
 			}
 			else{
 			
-				portrait_texture = Portraits.transform.Find("Seita").gameObject.guiTexture;
+				portrait_texture = Portraits.transform.Find("Mena").gameObject.guiTexture;
+				char_name = "Mena";
 				
 			}
 			break;
 		}
+		Rect box_pos = new Rect(16,16, ( 28 * info_box.height / 60), 7*info_box.height/10 );
+
+		GUI.Box( box_pos, portrait_texture.guiTexture.texture, mySkin.FindStyle("blue_box"));
 		
-//		Texture2D character_img = GameObject.Find(
-		GUI.Box( new Rect(16,16, ( 4 * informationBox.height / 12), informationBox.height/2 ), 
-				portrait_texture.guiTexture.texture, 
-				mySkin.FindStyle("blue_box"));//new GUIContent((Texture2D)EditorGUIUtility.Load( "SeitaP.png" )) , mySkin.FindStyle("blue_box")); 
+		box_pos.y += 1.05f*box_pos.height;
+		box_pos.height = (5*info_box.width)/ 64 ;
 		
+		mySkin.label.alignment = TextAnchor.LowerCenter;
+		mySkin.label.fontSize = (int)( box_pos.height) ;
 		
-		
+		GUI.Label(box_pos, char_name);
 	}
 	public void BaseSelectionButtons(){
 	
@@ -275,7 +306,7 @@ public class UnitGUI : MonoBehaviour {
 			mySkin.box.fontSize = mySkin.box.fontSize = Screen.height / 32;
 			//GUI.enabled = !isAction && (GetCurrentFocusStatus() == ((Status.Clean | Status.Move) | GetCurrentFocusStatus()));// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Move) < 0);// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
-			if(MakeButton(0,0, (1 * Screen.width)/ 8, Screen.height/ 16 , "Move", Style.move)){
+			if(MakeButton(0,0,"Move", Style.move)){
 				
 				UpdateFocusObjectsStatus(Status.Move);
 				GM.instance.SetUnitControllerActiveOn(ref focusObject);	
@@ -293,21 +324,21 @@ public class UnitGUI : MonoBehaviour {
 			
 			GUI.enabled = !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Action) < 0);
 			
-			if(MakeButton(0, Screen.height/ 16, Screen.width/ 8, Screen.height/ 16 , "Action", Style.action)){
+			if(MakeButton(0, Screen.height/ 16, "Action", Style.action)){
 				isAction = true;
 				gui_method += ActionSelectionButtons;
 				
 			}
 			
 			GUI.enabled = proteus && !isAction && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Gather) < 0);	
-			if(MakeButton(0, Screen.height/ 8, Screen.width/ 8, Screen.height/ 16 , "Gather", Style.gather)){
+			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
 				//TODO: Gather code
 				GM.instance.AddResourcesToCurrentPlayer(50);
 				UpdateFocusObjectsStatus(Status.Gather);
 				
 			}
 			GUI.enabled = !isAction;
-			if(MakeButton(0, (3 * Screen.height)/ 16, Screen.width/ 8, Screen.height/ 16 , "Rest", Style.rest)){
+			if(MakeButton(0, (3 * Screen.height)/ 16, "Rest", Style.rest)){
 				focus_object.GetComponent<BaseClass>().unit_status.status = Status.Rest;
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
@@ -352,7 +383,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  (29 * Screen.height)/ 40 , (3 * Screen.width)/8, (3 * Screen.height)/ 10 ));
 		
 			GUI.depth = 2;
-			if( MakeButton(0,0,  Screen.width/ 8, Screen.height/ 16 , "End Movement", Style.move_cancel) ){
+			if( MakeButton(0,0, "End Movement", Style.move_cancel) ){
 				GM.instance.SetUnitControllerActiveOff();
 				//GM.instance.SetFocusController(false);
 			
@@ -367,10 +398,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.EndGroup();
 	}
 
-	public void HealthBar(){
-	
-		
-	}	
+
 
 
 	public void ActionSelectionButtons(){
@@ -380,7 +408,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.depth = 2;
 		GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && (GetCurrentFocusStatus().CompareTo(Status.Clean | Status.Action) < 0);
 			GUI.depth = 2;
-			if(MakeButton(0,0, Screen.width/ 8, Screen.height/ 16 , "Attack", Style.attack)){
+			if(MakeButton(0,0, "Attack", Style.attack)){
 				//Expend units action
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
 			
@@ -389,13 +417,13 @@ public class UnitGUI : MonoBehaviour {
 				//isAction  = false;
 				
 			}
-			if(MakeButton(0, Screen.height/ 15, Screen.width/ 8, Screen.height/ 16 , "Use", Style.item)){
+			if(MakeButton(0, Screen.height/ 15 , "Use", Style.item)){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				gui_method -= ActionSelectionButtons;
 				isAction = false;
 			}
-			if(MakeButton(0, (2 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16 , "Special", Style.special)){
+			if(MakeButton(0, (2 * Screen.height)/ 15, "Special", Style.special)){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				gui_method -= ActionSelectionButtons;
@@ -406,7 +434,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 2;
 			
 			if(shift > 0){
-				if(MakeButton(0, (3 * Screen.height)/ 15, Screen.width/ 8, Screen.height/ 16 , "Recruit",Style.summon)){
+				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
 					
 					gui_method -= ActionSelectionButtons;
 					gui_method -= BaseSelectionButtons;
@@ -416,7 +444,7 @@ public class UnitGUI : MonoBehaviour {
 				
 			}
 			
-			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, Screen.width/ 8, Screen.height/ 16 , "Back", Style.back)){
+			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
 				
 				if(CombatSystem.instance.CheckIfAttacking()){
 				
@@ -436,14 +464,14 @@ public class UnitGUI : MonoBehaviour {
 			mySkin.box.fontSize = Screen.height / 32;
 			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );
 //			GUI.enabled = 
-		if (MakeButton((1 * Screen.width)/64, (95*Screen.height)/1024 ,(7 * Screen.width)/32, (95*Screen.height)/1024, string.Format("Scout  {0}", _rs.unit_cost.scout), Style.scout)){
+		if (MakeButton((1 * Screen.width)/64, (95*Screen.height)/1024 ,string.Format("Scout  {0}", _rs.unit_cost.scout), Style.scout)){
 
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 			}
-		if (MakeButton((1 * Screen.width)/64, (2*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024, string.Format("Braver  {0}", _rs.unit_cost.braver), Style.braver)){
+		if (MakeButton((1 * Screen.width)/64, (2*95*Screen.height) /1024,string.Format("Braver  {0}", _rs.unit_cost.braver), Style.braver)){
 			
 				UpdateFocusObjectsStatus(Status.Action);	
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
@@ -451,7 +479,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (MakeButton((1 * Screen.width)/64, (3*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024, string.Format("Arcane  {0}", _rs.unit_cost.arcane), Style.arcane)){
+		if (MakeButton((1 * Screen.width)/64, (3*95*Screen.height) /1024, string.Format("Arcane  {0}", _rs.unit_cost.arcane), Style.arcane)){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
@@ -459,7 +487,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (MakeButton((1 * Screen.width)/64, (4*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024, string.Format("Sniper  {0}", _rs.unit_cost.sniper), Style.sniper)){
+		if (MakeButton((1 * Screen.width)/64, (4*95*Screen.height) /1024,string.Format("Sniper  {0}", _rs.unit_cost.sniper), Style.sniper)){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
@@ -467,7 +495,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (MakeButton((1 * Screen.width)/64, (5*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024, string.Format("Gigan  {0}", _rs.unit_cost.titan), Style.gigan)){
+		if (MakeButton((1 * Screen.width)/64, (5*95*Screen.height) /1024,string.Format("Gigan  {0}", _rs.unit_cost.titan), Style.gigan)){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
@@ -475,7 +503,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,(7 * Screen.width)/32, (95*Screen.height)/1024, string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
+		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
 			
 				UpdateFocusObjectsStatus(Status.Action);
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);
@@ -483,7 +511,7 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += BaseSelectionButtons;
 				
 			}
-		if (MakeButton((1 * Screen.width)/16, (660*Screen.height) /1024,(1 * Screen.width)/8, (95*Screen.height)/1024, "Back", Style.back)){
+		if (MakeButton((1 * Screen.width)/16, (660*Screen.height) /1024, "Back", Style.back)){
 				
 				isAction = true;
 				gui_method -= RecruitMenuButtons;
@@ -529,9 +557,9 @@ public class UnitGUI : MonoBehaviour {
 			return false;
 	}
 
-	private bool MakeButton(float left, float top, float width, float height, string buttonName, Style index){
-		
-		return GUI.Button(new Rect(left, top, width, height), buttonName, mySkin.customStyles[(int)index]);
+	private bool MakeButton(float left, float top, string buttonName, Style index){
+		float height = Screen.height / 16;
+		return GUI.Button(new Rect(left, top, 64* height / 15, height), buttonName, mySkin.customStyles[(int)index]);
 		
 	}
 	private bool MakeButton(Rect box, string buttonName, Style index){
