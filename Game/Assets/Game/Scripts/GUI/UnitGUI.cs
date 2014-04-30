@@ -14,7 +14,7 @@ public class UnitGUI : MonoBehaviour {
 	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction;
 	public float height = 3.0f, DistancefromPlayer = 3.0f;
 	private float heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
-	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
+	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight, distanceScale;
 	private Quaternion currentRotation;
 	private float shift;
 	private Transform from;
@@ -62,6 +62,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		
 		
+		
 	}
 	
 	void UpdateSkinLayout(){
@@ -98,6 +99,8 @@ public class UnitGUI : MonoBehaviour {
 		ResetFlags();
 		shift = 0;
 		UpdateSkinLayout();
+		
+		distanceScale = Mathf.Cos (0.523598776f);
 		
 	}
 	
@@ -585,12 +588,14 @@ public class UnitGUI : MonoBehaviour {
 
 	public void SmoothFollow(GameObject target){
 
-		Vector3 focus =  new Vector3 (target.transform.position.x, target.transform.position.y + target.GetComponent<CapsuleCollider>().height, target.transform.position.z);
 		
-		//print (target.localPosition);
+		Vector3 focus =  target.transform.position;
+		
+		focus.y += target.GetComponent<CapsuleCollider>().height * target.transform.localScale.y;
+		
 		wantedRotationAngle = target.transform.eulerAngles.y;
 		wantedHeight = focus.y + height;
-		print (wantedHeight);
+		
 		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
 		currentHeight = WorldCamera.instance.transform.position.y;
 		
@@ -606,6 +611,9 @@ public class UnitGUI : MonoBehaviour {
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
 		Vector3 worldCameraPosition =  target.transform.position;
+		
+		DistancefromPlayer = wantedHeight / distanceScale;
+		
 		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
 		// Set the height of the camera
