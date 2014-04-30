@@ -23,7 +23,7 @@ public class UnitGUI : MonoBehaviour {
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	
-	public GameObject Portraits, Bars;
+	public GameObject Portraits, Bars, Icons;
 	
 	public Texture2D highlight, clicked;
 	
@@ -92,8 +92,8 @@ public class UnitGUI : MonoBehaviour {
 	void Awake(){
 		height = 3.0f;
 		DistancefromPlayer = 3.5f;
-		
-		UnitInfoLocation = new Rect( Screen.width - (64*Screen.height/ 108) , 0 , (64*Screen.height/ 108), (4*Screen.height/ 12) );
+		float pheight = (4*Screen.height/ 24);
+		UnitInfoLocation = new Rect( Screen.width - (5* pheight / 2) , 0 , 5* pheight / 2 , pheight );
 		informationBox = new Rect(0,0, UnitInfoLocation.width , UnitInfoLocation.height) ;
 		ResetFlags();
 		shift = 0;
@@ -217,16 +217,13 @@ public class UnitGUI : MonoBehaviour {
 		float maxExhaust = focusObject.GetComponent<BaseClass>().vital.Exhaust.max;
 		
 		string exhaustLabel = "Exhaust";// + currentExhaust.ToString() + " / " + maxExhaust.ToString();
-		
-		
-		Rect label_pos = new Rect( ( 28 * info_box.height / 60) + 16 + (5*info_box.width)/ 128 , 16+(5*info_box.width)/ 128 , 3*info_box.width / 5 , (5*info_box.width)/ 128 );
+									//(3*info_box.width / 5 + 16) * 1.1f
+		Rect label_pos = new Rect( ((4*( info_box.height - 32 ) / 6) * 1.1f) + 16 , 0.05f*info_box.height + 16 + (5*info_box.width)/ 64  , 3*info_box.width / 5 , (5*info_box.width)/ 128 );
 		Rect texture_pos = label_pos;
 		texture_pos.y += texture_pos.height;
 		
 		mySkin.label.fontSize = (int)(texture_pos.height );
 		mySkin.label.alignment = TextAnchor.LowerLeft;
-		
-		
 				
 		GUI.DrawTexture( texture_pos, Bars.transform.Find("Empty").guiTexture.texture );
 		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), Bars.transform.Find("Health").guiTexture.texture );
@@ -242,32 +239,39 @@ public class UnitGUI : MonoBehaviour {
 	public void CharacterPortrait(Rect info_box){
 			
 		GUITexture portrait_texture = null;
+		GUITexture icon_texture = null;
 		string char_name = "";
 		switch(focus_object.GetComponent<BaseClass>().unit_status.unit_type){
 		
 		case UnitType.Arcane:
 			portrait_texture = Portraits.transform.Find("Arcane").gameObject.guiTexture;
-			char_name = "Arcane";
+			icon_texture = Icons.transform.Find("Arcane").gameObject.guiTexture;
+			char_name = "Unit: Arcane";
 			break;		
 		case UnitType.Braver:
 			portrait_texture = Portraits.transform.Find("Braver").gameObject.guiTexture;
-			char_name = "Braver";
+			icon_texture = Icons.transform.Find("Braver").gameObject.guiTexture;
+			char_name = "Unit: Braver";
 			break;
 		case UnitType.Scout:
 			portrait_texture = Portraits.transform.Find("Scout").gameObject.guiTexture;
-			char_name = "Scout";
+			icon_texture = Icons.transform.Find("Scout").gameObject.guiTexture;
+			char_name = "Unit: Scout";
 			break;		
 		case UnitType.Titan:
 			portrait_texture = Portraits.transform.Find("Gigan").gameObject.guiTexture;
-			char_name = "Gigan";
+			icon_texture = Icons.transform.Find("Gigan").gameObject.guiTexture;
+			char_name = "Unit: Gigan";
 			break;
 		case UnitType.Sniper:
 			portrait_texture = Portraits.transform.Find("Sniper").gameObject.guiTexture;
-			char_name = "Sniper";
+			icon_texture = Icons.transform.Find("Sniper").gameObject.guiTexture;
+			char_name = "Unit: Sniper";
 			break;		
 		case UnitType.Vangaurd:
 			portrait_texture = Portraits.transform.Find("Vanguard").gameObject.guiTexture;
-			char_name = "Vanguard";
+			icon_texture = Icons.transform.Find("Vanguard").gameObject.guiTexture;
+			char_name = "Unit: Vanguard";
 			break;
 		
 		case UnitType.Leader:
@@ -275,28 +279,40 @@ public class UnitGUI : MonoBehaviour {
 			if(GM.instance.GetPlayerLeader(GM.instance.CurrentPlayer).name == "Altier_Seita(Clone)"){
 			
 				portrait_texture = Portraits.transform.Find("Seita").gameObject.guiTexture;
-				char_name = "Seita";
+				icon_texture = Icons.transform.Find("Braver").gameObject.guiTexture;
+				char_name = "Leader: Seita";
 				
 			}
 			else{
 			
 				portrait_texture = Portraits.transform.Find("Mena").gameObject.guiTexture;
-				char_name = "Mena";
+				icon_texture = Icons.transform.Find("Sniper").gameObject.guiTexture;
+				char_name = "Leader: Mena";
 				
 			}
 			break;
 		}
-		Rect box_pos = new Rect(16,16, ( 28 * info_box.height / 60), 7*info_box.height/10 );
-
-		GUI.Box( box_pos, portrait_texture.guiTexture.texture, mySkin.FindStyle("blue_box"));
+		float pheight  = info_box.height - 32 ;
+		Rect box_pos = new Rect(16,16, 4*pheight / 6, pheight );
 		
-		box_pos.y += 1.05f*box_pos.height;
+		float pLeftOverWidth = info_box.width - 4*pheight / 6 - 32;
+		float icon_left_offset =  (pLeftOverWidth / 2) -  ( pheight / 2) + 16 + box_pos.width ;		
+
+		//icon_texture.renderer.material.color = Color.blue	;	
+		GUI.Box( box_pos, portrait_texture.guiTexture.texture, mySkin.FindStyle("blue_box"));
+		GUI.DrawTexture( new Rect(icon_left_offset, 16, pheight, pheight) , icon_texture.texture);
+		
+		
+		box_pos.x += 1.1f*box_pos.width;
+		box_pos.y += 0.05f*info_box.height;
+		box_pos.width = 3*info_box.width / 5;
 		box_pos.height = (5*info_box.width)/ 64 ;
 		
-		mySkin.label.alignment = TextAnchor.LowerCenter;
+		//mySkin.label.alignment = TextAnchor.LowerCenter;
 		mySkin.label.fontSize = (int)( box_pos.height) ;
 		
 		GUI.Label(box_pos, char_name);
+		
 	}
 	public void BaseSelectionButtons(){
 	
@@ -570,11 +586,11 @@ public class UnitGUI : MonoBehaviour {
 	public void SmoothFollow(GameObject target){
 
 		Vector3 focus =  new Vector3 (target.transform.position.x, target.transform.position.y + target.GetComponent<CapsuleCollider>().height, target.transform.position.z);
-
+		
 		//print (target.localPosition);
 		wantedRotationAngle = target.transform.eulerAngles.y;
-		wantedHeight = target.transform.position.y + height;
-		
+		wantedHeight = focus.y + height;
+		print (wantedHeight);
 		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
 		currentHeight = WorldCamera.instance.transform.position.y;
 		
