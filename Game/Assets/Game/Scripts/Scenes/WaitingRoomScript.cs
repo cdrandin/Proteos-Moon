@@ -40,7 +40,8 @@ public class WaitingRoomScript : MonoBehaviour {
 
 	void MainGUI(){
 		GUI.Label(new Rect(Screen.width / 2 - (mena_texture.width), Screen.height / 2 + 50, 250, 40), PhotonNetwork.playerName);
-		GUI.Label(new Rect(Screen.width / 2 + 200, Screen.height / 2 + 50, 250, 40), PhotonNetwork.otherPlayers[0].name);
+		if (PhotonNetwork.otherPlayers != null)
+			GUI.Label(new Rect(Screen.width / 2 + 200, Screen.height / 2 + 50, 250, 40), PhotonNetwork.otherPlayers[0].name);
 
 		if(GUI.Button(new Rect(Screen.width / 2 - (mena_texture.width + 100), Screen.height / 2 - mena_texture.height, mena_texture.width, mena_texture.height), mena_texture)){
 			proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
