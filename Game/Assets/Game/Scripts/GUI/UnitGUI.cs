@@ -591,7 +591,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		Vector3 focus =  target.transform.position;
 		
-		focus.y += target.GetComponent<CapsuleCollider>().height * target.transform.localScale.y;
+		focus.y += (0.85f) * target.GetComponent<CapsuleCollider>().height * target.transform.localScale.y;
 		
 		wantedRotationAngle = target.transform.eulerAngles.y;
 		wantedHeight = focus.y + height;
