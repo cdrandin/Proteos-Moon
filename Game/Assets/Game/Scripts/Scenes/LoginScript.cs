@@ -17,7 +17,7 @@ public class LoginScript : MonoBehaviour
 	public void Awake()
 	{
 		this.guiCenteredRect = new Rect(Screen.width/2-guiSize.x/2, Screen.height/2-100, guiSize.x, guiSize.y);
-		
+		playerName = "";
 		if (this.componentToEnable == null || this.componentToEnable.enabled)
 		{
 			Debug.LogError("To use the Login, the ComponentToEnable should be defined in inspector and disabled initially.");
@@ -44,7 +44,7 @@ public class LoginScript : MonoBehaviour
 		GUI.skin.label.wordWrap = true;
 		GUILayout.BeginArea(guiCenteredRect);
 		//GUILayout.Box(tex);
-		GUI.skin = loginSkin;
+		//GUI.skin = loginSkin;
 		GUILayout.Box(this.loginText);
 		
 		GUILayout.BeginHorizontal();

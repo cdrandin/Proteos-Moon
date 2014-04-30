@@ -148,6 +148,9 @@ public class ProteusChat : Photon.MonoBehaviour
 		else if (newLine == "Connected"){
 			this.messages.Add(senderName + " has been reconnected");
 		}
+		else if (newLine == "Ready"){
+			this.messages.Add(senderName + " is ready");
+		}
 
 	}
 
