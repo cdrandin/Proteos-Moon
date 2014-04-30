@@ -118,7 +118,7 @@ public class ProteusChat : Photon.MonoBehaviour
             }
         }
 
-        this.messages.Add(senderName +": " + newLine);
+        this.messages.Add(senderName + ": " + newLine);
     }
 
 	[RPC]
