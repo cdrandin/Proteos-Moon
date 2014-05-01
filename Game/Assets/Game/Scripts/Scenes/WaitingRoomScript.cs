@@ -9,12 +9,12 @@ public class WaitingRoomScript : MonoBehaviour {
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
 	public GameObject mena, seita, otherMena, otherSeita;
-	public GUIStyle header, loading, question, portrait;
+	public GUIStyle header, loading, question, portrait, readyButton;
 	public PhotonView menaPV, seitaPV;
 	private bool leader_chosen = false;
 	private bool gameReady = false;
 	private bool animatinglabels = false;
-	private bool leaderClicked = false;
+	private int leaderClicked = 0;
 	private float labelHeight;
 	private float startTime;
 	private float timer;
@@ -27,6 +27,7 @@ public class WaitingRoomScript : MonoBehaviour {
 		loading = skin.FindStyle("Loading");
 		question = skin.FindStyle("Question");
 		portrait = skin.FindStyle ("Portrait");
+		readyButton = skin.FindStyle("ReadyButton");
 		startTime = 0.0f;
 		counter = 0;
 		leftSpawn = GameObject.Find("Left Spawn");
@@ -96,43 +97,48 @@ public class WaitingRoomScript : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width / 2 - 25, Screen.height / 2 + 55, 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
 			GUI.Label(new Rect(Screen.width / 2 + 100, Screen.height / 2 + 50, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
-		if (!leaderClicked){
-			GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
-		}
-		else{
+		if (leaderClicked == 0){
 			GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
 		}
 		GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - 256, 256, 256), "?", question);
 		if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 100, 256 / 2, 256 / 2), mena_texture, portrait)){
 			//AnimateLabels();
-			leaderClicked = true;
-			animatinglabels = true;
-			if (PhotonNetwork.inRoom){
-				proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
-				menaPV.RPC ("ActivateOtherPlayer", PhotonTargets.Others, "Mena");
-				PhotonNetwork.Instantiate("RuneOfMagic", leftSpawn.transform.position, Quaternion.identity, 0);
-			}
-			
-			mena.SetActive(true);
-			//print ("You Chose Mena");
-			leader_chosen = true;
+			leaderClicked = 1;
+
 		}
 		
 		if(GUI.Button(new Rect((Screen.width / 2 - (256 + 95)) + (256 / 2), Screen.height / 2  + 100, 256 / 2, 256 / 2), seita_texture, portrait)){
 			//AnimateLabels();
-			leaderClicked = true;
-			animatinglabels = true;
-			if (PhotonNetwork.inRoom){
-				proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
-				seitaPV.RPC ("ActivateOtherPlayer", PhotonTargets.Others, "Seita");
-				PhotonNetwork.Instantiate("RuneOfMagic", leftSpawn.transform.position, Quaternion.identity, 0);
-			}
-			seita.SetActive(true);
-			//print ("You Chose Seita");
-			leader_chosen = true;
+			leaderClicked = 2;
+
 		}
-		if (leaderClicked){
-			print ("leader clicked");
+		if (leaderClicked != 0){
+			if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 240, 128, 50), "Ready?", readyButton)){
+				animatinglabels = true;
+				if (PhotonNetwork.inRoom){
+					proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
+					if (leaderClicked == 1){
+						menaPV.RPC("ActivateOtherPlayer", PhotonTargets.Others, "Mena");
+					}
+					else if (leaderClicked == 2){
+						seitaPV.RPC ("ActivateOtherPlayer", PhotonTargets.Others, "Seita");
+					}
+					PhotonNetwork.Instantiate("RuneOfMagic", leftSpawn.transform.position, Quaternion.identity, 0);
+				}
+				if (leaderClicked == 1){
+					mena.SetActive(true);
+				}
+				else if (leaderClicked == 2){
+					seita.SetActive(true);
+				}
+				leader_chosen = true;
+			}
+			if (leaderClicked == 1){
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "MENA", question);
+			}
+			if (leaderClicked == 2){
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "SEITA", question);
+			}
 		}
 	}
 
