@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class MovementScript : Photon.MonoBehaviour {
-	public int speed = 5;
+	public int speed = 10;
 	public int gravity = 5;
 	private CharacterController cc;
 	//private GameObject other_player;
