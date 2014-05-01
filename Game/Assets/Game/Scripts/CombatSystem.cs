@@ -11,51 +11,109 @@ public class CombatSystem : MonoBehaviour{
 	
 	public delegate void ProjectorEvent();
 	public static event ProjectorEvent TurnOnProjector;
+
+	private delegate void GUIMethod();
+	private GUIMethod gui_method = null;
 	
 	private static Player currentPlayer = Player.NONE;
 	
 	public static CombatSystem instance;
-	
+	private Rect EnemyUnitBoxLoc, EnemyUnitBox;
 	private int index = 0;
 	private List<GameObject> enemyList;
 	
-	private bool attacking = false;
+	private bool attacking = false, showGUI = false, isLabelOn = false;
+	
+	
+	private float alpha;
 	
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight, height = 10.0f, heightDamping = 0.5f , rotationDamping = 0.5f;
 	private Quaternion currentRotation;
 	#endregion
 	
 	// Update is called once per frame
-	public void Update () {	}
+	public void Update () {
+		
+		if( isLabelOn ){
+			FadeInOut ();
+		}
+
+	}
+	public void FixedUpdate(){
 	
+	}
 	public bool CheckIfAttacking(){
 		return attacking;
 	}
 	
 	public void Start () {
-		instance = this;	
+		instance = this;
+		
 	}
 	
 	public void CheckIfChangingTarget(){
 		
 		if( Input.GetKeyDown(KeyCode.LeftArrow) ) {
-		
+
+
 			if(index + 1 > enemyList.Count)
 				index = 0;
 			else if ( index + 1 < enemyList.Count)
 				++index;
 				
+			gui_method -= UnitEnemyBox;
+			gui_method += UnitEnemyBox;
+				
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow) ) {
-			
+
 			if(index - 1 < 0)
 				index = 0;
 			else if (index - 1 > 0)
 				--index;
 			
+			gui_method -= UnitEnemyBox;
+			gui_method += UnitEnemyBox;
+			
 		}	
 	}
 
+	void OnGUI(){
+		
+		
+		GUI.skin = UnitGUI.UnitGUISkin();
+		if(this.gui_method != null ){
+			
+			this.gui_method();
+		}
+	
+	}
+	
+	public void FlashLabel(){
+	
+		//GUIContent color = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
+		//GUIStyle newStyle = new GUIStyle(GUI.skin.label);
+		GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
+		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 16), "Press Space to Attack");
+		//print ("Stuff");		
+	}
+	
+	public void FadeInOut(){
+	
+		if( showGUI ){	
+			alpha = Mathf.Lerp(alpha,0.0f ,Time.time*0.01f);
+			if (Mathf.Abs (alpha - 0 ) < 0.0001){
+				showGUI = !showGUI;
+			}
+		}
+		else{
+			alpha = Mathf.Lerp(alpha , 1.0f ,Time.time*0.01f);
+			if (Mathf.Abs (alpha - 1 ) < 0.0001f){
+				showGUI = !showGUI;
+			}
+		}
+	}
+		
 	
 	public void UpdateWithinRangeDelegate(){
  		
@@ -71,15 +129,43 @@ public class CombatSystem : MonoBehaviour{
 		
 	}
 	
-	public void ResetCombatSystem(){
+	public static void ResetCombatSystem(){
 	
-		index = 0;
-		enemyList.Clear();
-		attacking = false;
+		CombatSystem.instance.gui_method -= CombatSystem.instance.UnitEnemyBox;
+		CombatSystem.instance.index = 0;
+		CombatSystem.instance.enemyList.Clear();
+		CombatSystem.instance.attacking = false;
+		CombatSystem.instance.isLabelOn = false;
+		CombatSystem.instance.gui_method -= CombatSystem.instance.FlashLabel;
+	}
+	
+	
+	public void UnitEnemyBox(){
+	
+	
+		if( enemyList.Count != 0){
+			
+			EnemyUnitBoxLoc = UnitGUI.UnitBoxLocation()	;
+			EnemyUnitBoxLoc.y += EnemyUnitBox.height;
+			EnemyUnitBox = new Rect( 0, 0, EnemyUnitBoxLoc.width, EnemyUnitBoxLoc.height);
+			
+			GUI.BeginGroup(EnemyUnitBoxLoc);
+			
+			GUI.depth = 1	;
+			GUI.Box( EnemyUnitBox, "");
+			GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b, 1.0f  );
+			UnitGUI.CharacterPortrait(EnemyUnitBox, enemyList[index], UnitGUI.UnitGUISkin().FindStyle("red_box") , GM.instance.GetPlayer( (((int)GM.instance.CurrentPlayer) + 1) % 2 ));
+			UnitGUI.HealthExhaustBars(EnemyUnitBox, enemyList[index]);
+			
+			
+			GUI.EndGroup();
+		}
 	}
 	
 	public void AttackButtonClicked(){
-	
+		isLabelOn = true;
+		gui_method += FlashLabel;
+		gui_method += UnitEnemyBox;
 		attacking = true;
 	}
 	
@@ -91,7 +177,6 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
 	public void GetNearbyAttackableUnits(GameObject focusUnit){
-	
 		
 		enemyList = GM.instance.GetEnemyUnitsNearPlayer(focusUnit, focusUnit.GetComponent<BaseClass>().attack_range);
 	}
@@ -102,14 +187,15 @@ public class CombatSystem : MonoBehaviour{
 		TurnOnProjector();
 	}
 	
-	
-
 	public void CombatLookAt(GameObject focus){
 	
 //		MainCamera.transform.LookAt();
-	
-		//print (target.localPosition);
+		if(gui_method == null){
+			
+			gui_method += UnitEnemyBox;
+		}
 		
+		//print (target.localPosition);
 		wantedRotationAngle = enemyList[index].transform.eulerAngles.y;
 		//print (wantedRotationAngle);
 		wantedHeight = enemyList[index].transform.position.y + height;
@@ -139,31 +225,33 @@ public class CombatSystem : MonoBehaviour{
 		WorldCamera.instance.MainCamera.transform.LookAt(enemyList[index].transform);
 	}
 	
-	
 	public void Attack(GameObject focusUnit){
 	
-		if(Input.GetKeyDown(KeyCode.Return) ) {	
+		if(Input.GetKeyDown(KeyCode.Space) ) {	
+			isLabelOn = false;
+			gui_method -= FlashLabel;
 
 			//TODO: Figure out how damage is dealt		
-			WaitForAttackAnimation(5);
-					
 			//HACK: default calculations are set
-			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
-			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
+			
+			StartCoroutine(WaitForAttackAnimation( 5.0f, focusUnit ) );
+			
 			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);
+			
 			if(enemyList[index].GetComponent<BaseClass>().vital.HP.current == 0)
 			{
 				enemyList[index].GetComponent<BaseClass>().unit_status.status = Status.Dead;
 				GM.instance.UnitDied(enemyList[index]);
 			}
-
 			ResetCombatSystem();
 		}
 	}
 
-	private IEnumerator WaitForAttackAnimation(float timeInSeconds){
-	
+	private IEnumerator WaitForAttackAnimation(float timeInSeconds, GameObject focusUnit){
+		enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
+		enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
 		yield return new WaitForSeconds(timeInSeconds);
+		gui_method -= UnitEnemyBox;
 	}
 
 	private void AddDelegates(){

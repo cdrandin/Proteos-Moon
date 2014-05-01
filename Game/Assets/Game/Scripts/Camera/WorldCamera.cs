@@ -303,22 +303,18 @@ public class WorldCamera : MonoBehaviour {
 		
 		
 		//move via keyboard and via mouse
-		if(Input.GetKey(KeyCode.W) || Input.mousePosition.y > (Screen.height - mouseScrollLimits.TopLimit))
+		if (Input.GetKey (KeyCode.W))
 			desiredTranslation += Vector3.forward * moveSpeed;
 		
-		if (Input.GetKey (KeyCode.S) || Input.mousePosition.y < mouseScrollLimits.BottomLimit)
+		if (Input.GetKey (KeyCode.S))
 			desiredTranslation += Vector3.back * moveSpeed;
 		
-		
-		if (Input.GetKey (KeyCode.A) || Input.mousePosition.x < mouseScrollLimits.LeftLimit)
+		if (Input.GetKey (KeyCode.A))
 			desiredTranslation += Vector3.left * moveSpeed;
 		
-		
-		if (Input.GetKey (KeyCode.D) || Input.mousePosition.x > (Screen.width - mouseScrollLimits.RightLimit))
+		if (Input.GetKey (KeyCode.D))
 			desiredTranslation += Vector3.right * moveSpeed;
 
-
-		
 		return desiredTranslation;
 	}
 	
