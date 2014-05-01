@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WaitingRoomScript : MonoBehaviour {
+[RequireComponent(typeof(PhotonView))]
+public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	public GUISkin skin;
 	public bool forceStart = false;
 	public Texture2D mena_texture;
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
-	public GameObject mena, seita, otherMena, otherSeita;
+	public GameObject mena, seita;
 	public GUIStyle header, loading, question, portrait, readyButton;
-	public PhotonView menaPV, seitaPV;
 	private bool leader_chosen = false;
-	private bool gameReady = false;
+	public bool gameReady = false;
 	private bool animatinglabels = false;
 	private int leaderClicked = 0;
 	private float labelHeight;
 	private float startTime;
 	private float timer;
 	public int counter;
-	public GameObject leftSpawn, rightSpawn;
+	public GameObject leftSpawn, rightSpawn, magic;
 	// Use this for initialization
 	void Start () {
 		proteusChat = this.GetComponent<ProteusChat>();
@@ -30,8 +30,8 @@ public class WaitingRoomScript : MonoBehaviour {
 		readyButton = skin.FindStyle("ReadyButton");
 		startTime = 0.0f;
 		counter = 0;
-		leftSpawn = GameObject.Find("Left Spawn");
-		rightSpawn = GameObject.Find("Right Spawn");
+		//leftSpawn = GameObject.Find("Left Spawn");
+		//rightSpawn = GameObject.Find("Right Spawn");
 		//menaPV = GameObject.Find("Captain_Mena_R").GetPhotonView();
 		//seitaPV = GameObject.Find("Altier_Seita_R").GetPhotonView();
 	}
@@ -77,13 +77,13 @@ public class WaitingRoomScript : MonoBehaviour {
 
 	void WaitingForOtherPlayer(){
 		switch (counter){
-		case 0: GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 250, 50), "Waiting For Other Player...", loading);
+		case 0: GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 256, 50), "Waiting For Other Player...", loading);
 			break;
-		case 1:	GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 250, 50), "   Waiting For Other Player", loading);
+		case 1:	GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 256, 50), "Waiting For Other Player", loading);
 			break;
-		case 2:	GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 250, 50), "  Waiting For Other Player.", loading);
+		case 2:	GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 256, 50), "Waiting For Other Player.", loading);
 			break;
-		case 3:	GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 250, 50), " Waiting For Other Player..", loading);
+		case 3:	GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 256, 50), "Waiting For Other Player..", loading);
 			break;
 		default:
 			Debug.LogError("The counter in WaitingForOtherPlayer went out of bounds");
@@ -102,31 +102,23 @@ public class WaitingRoomScript : MonoBehaviour {
 		}
 		GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - 256, 256, 256), "?", question);
 		if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 100, 256 / 2, 256 / 2), mena_texture, portrait)){
-			//AnimateLabels();
 			leaderClicked = 1;
-
 		}
 		
 		if(GUI.Button(new Rect((Screen.width / 2 - (256 + 95)) + (256 / 2), Screen.height / 2  + 100, 256 / 2, 256 / 2), seita_texture, portrait)){
-			//AnimateLabels();
 			leaderClicked = 2;
-
 		}
 		if (leaderClicked != 0){
 			if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 240, 128, 50), "Ready?", readyButton)){
 				animatinglabels = true;
 				if (PhotonNetwork.inRoom){
 					proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
-					if (leaderClicked == 1){
-						menaPV.RPC("ActivateOtherPlayer", PhotonTargets.Others, "Mena");
-					}
-					else if (leaderClicked == 2){
-						seitaPV.RPC ("ActivateOtherPlayer", PhotonTargets.Others, "Seita");
-					}
-					PhotonNetwork.Instantiate("RuneOfMagic", leftSpawn.transform.position, Quaternion.identity, 0);
+					this.photonView.RPC("ActivateOtherPlayer", PhotonTargets.Others);
 				}
+				Instantiate(magic, leftSpawn.transform.position, Quaternion.identity);
 				if (leaderClicked == 1){
 					mena.SetActive(true);
+
 				}
 				else if (leaderClicked == 2){
 					seita.SetActive(true);
@@ -147,38 +139,33 @@ public class WaitingRoomScript : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width / 2 - 25, 35, 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
 			GUI.Label(new Rect(Screen.width / 2 + 100, 30, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
+
 		WaitingForOtherPlayer();
 	}
 
 	void LoadingGUI()
 	{
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
-		//Application.LoadLevel(Application.loadedLevel + 1);
+		Application.LoadLevel(Application.loadedLevel + 1);
 	}
 
 	void AnimateLabels(){
-		labelHeight = Mathf.Lerp((Screen.height / 2 + 50), 35, (Time.time - startTime) / 3);
+		labelHeight = Mathf.Lerp((Screen.height / 2 + 50), 35, (Time.time - startTime) / 3.5f);
 		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), labelHeight, 256, 50), PhotonNetwork.playerName, loading);
 		GUI.Label(new Rect(Screen.width / 2 - 25, (labelHeight+5), 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
 			GUI.Label(new Rect(Screen.width / 2 + 100, labelHeight, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
 	}
 
-	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+	/*void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if (stream.isWriting){
 			stream.SendNext(otherMena);
 			stream.SendNext(otherSeita);
 		}
-	}
+	}*/
 	
 	[RPC]
-	void ActivateOtherPlayer(string character, PhotonMessageInfo mi){
-		GameObject spawn = GameObject.Find("Right Spawn");
-		if (character == "Mena")
-			otherMena.transform.position = spawn.transform.position;
-		else if (character == "Seita")
-			otherSeita.transform.position = spawn.transform.position;
-		else
-			Debug.LogError("Error sending leader info");
+	void ActivateOtherPlayer(PhotonMessageInfo mi){
+		gameReady = true;
 	}
 }
