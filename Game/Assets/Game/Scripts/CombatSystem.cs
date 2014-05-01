@@ -22,7 +22,7 @@ public class CombatSystem : MonoBehaviour{
 	private int index = 0;
 	private List<GameObject> enemyList;
 	
-	private bool attacking = false, showGUI = false;
+	private bool attacking = false, showGUI = false, isLabelOn = false;
 	
 	
 	private float alpha;
@@ -32,8 +32,16 @@ public class CombatSystem : MonoBehaviour{
 	#endregion
 	
 	// Update is called once per frame
-	public void Update () {}
+	public void Update () {
+		
+		if( isLabelOn ){
+			FadeInOut ();
+		}
+
+	}
+	public void FixedUpdate(){
 	
+	}
 	public bool CheckIfAttacking(){
 		return attacking;
 	}
@@ -83,25 +91,24 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void FlashLabel(){
 	
+		//GUIContent color = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
+		//GUIStyle newStyle = new GUIStyle(GUI.skin.label);
 		GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
 		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 16), "Press Space to Attack");
-		print ("Stuff");
-		
-		FadeInOut ();
-		
+		//print ("Stuff");		
 	}
 	
 	public void FadeInOut(){
 	
 		if( showGUI ){	
-			alpha = Mathf.Lerp(alpha,0.0f ,Time.time*0.5f);
-			if (Mathf.Abs (alpha - 0 ) < 0.001){
+			alpha = Mathf.Lerp(alpha,0.0f ,Time.time*0.01f);
+			if (Mathf.Abs (alpha - 0 ) < 0.0001){
 				showGUI = !showGUI;
 			}
 		}
 		else{
-			alpha = Mathf.Lerp(alpha , 1.0f ,Time.time*0.5f);
-			if (Mathf.Abs (alpha - 1 ) < 0.001f){
+			alpha = Mathf.Lerp(alpha , 1.0f ,Time.time*0.01f);
+			if (Mathf.Abs (alpha - 1 ) < 0.0001f){
 				showGUI = !showGUI;
 			}
 		}
@@ -128,6 +135,7 @@ public class CombatSystem : MonoBehaviour{
 		CombatSystem.instance.index = 0;
 		CombatSystem.instance.enemyList.Clear();
 		CombatSystem.instance.attacking = false;
+		CombatSystem.instance.isLabelOn = false;
 		CombatSystem.instance.gui_method -= CombatSystem.instance.FlashLabel;
 	}
 	
@@ -136,7 +144,7 @@ public class CombatSystem : MonoBehaviour{
 	
 	
 		if( enemyList.Count != 0){
-		
+			
 			EnemyUnitBoxLoc = UnitGUI.UnitBoxLocation()	;
 			EnemyUnitBoxLoc.y += EnemyUnitBox.height;
 			EnemyUnitBox = new Rect( 0, 0, EnemyUnitBoxLoc.width, EnemyUnitBoxLoc.height);
@@ -145,6 +153,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			GUI.depth = 1	;
 			GUI.Box( EnemyUnitBox, "");
+			GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b, 1.0f  );
 			UnitGUI.CharacterPortrait(EnemyUnitBox, enemyList[index], UnitGUI.UnitGUISkin().FindStyle("red_box") , GM.instance.GetPlayer( (((int)GM.instance.CurrentPlayer) + 1) % 2 ));
 			UnitGUI.HealthExhaustBars(EnemyUnitBox, enemyList[index]);
 			
@@ -154,7 +163,7 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
 	public void AttackButtonClicked(){
-		
+		isLabelOn = true;
 		gui_method += FlashLabel;
 		gui_method += UnitEnemyBox;
 		attacking = true;
@@ -219,7 +228,7 @@ public class CombatSystem : MonoBehaviour{
 	public void Attack(GameObject focusUnit){
 	
 		if(Input.GetKeyDown(KeyCode.Space) ) {	
-
+			isLabelOn = false;
 			gui_method -= FlashLabel;
 
 			//TODO: Figure out how damage is dealt		
@@ -229,9 +238,6 @@ public class CombatSystem : MonoBehaviour{
 			
 			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);
 			
-
-			
-
 			if(enemyList[index].GetComponent<BaseClass>().vital.HP.current == 0)
 			{
 				enemyList[index].GetComponent<BaseClass>().unit_status.status = Status.Dead;
