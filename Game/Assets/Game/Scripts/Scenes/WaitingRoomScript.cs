@@ -19,6 +19,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private float startTime;
 	private float delayTime = 0.0f;
 	private bool letsDoThis = false;
+	private bool once = true;
 	private GameObject leader, otherLeader;
 	private string menaSpecialText, seitaSpecialText;
 	public int counter;
@@ -87,9 +88,6 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		}
 		else if ((PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady) || (forceStart && leader_chosen && !gameReady)){
 			ReadyGUI();
-			if (gameReady){
-				otherLeader = PhotonNetwork.Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, rightSpawn.transform.rotation, 0) as GameObject;
-			}
 		}
 		else
 			LoadingGUI();
@@ -178,6 +176,10 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 
 	void LoadingGUI()
 	{
+		if (once){
+			otherLeader = PhotonNetwork.Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, rightSpawn.transform.rotation, 0) as GameObject;
+			once = false;
+		}
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
 		if (letsDoThis){
 			Destroy(leader);
