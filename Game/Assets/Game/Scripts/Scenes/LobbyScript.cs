@@ -16,7 +16,7 @@ public class LobbyScript : MonoBehaviour
 	private string room_name = "";
 	private Vector2 scroll_position;
 	//public GameObject objectToActivate;
-	public string loaded_scene;
+	//public string loaded_scene;
 	public void Start()
 	{
 		CustomTypes.Register();
@@ -88,7 +88,7 @@ public class LobbyScript : MonoBehaviour
 		if (GUILayout.Button("Create New Game"))
 		{
 			PhotonNetwork.CreateRoom(room_name);
-			StartGame();
+			//PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 		}
 		GUILayout.EndHorizontal();
 		//GUILayout.Space(20);
@@ -106,7 +106,7 @@ public class LobbyScript : MonoBehaviour
 			//GUI.skin = lobby_skin;
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
-				StartGame();
+				//PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
 		GUILayout.EndScrollView();
@@ -151,7 +151,7 @@ public class LobbyScript : MonoBehaviour
 
 	void OnJoinedRoom()	
 	{ 
-		StartGame ();
+		PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 	}
 	
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer)	
@@ -162,11 +162,6 @@ public class LobbyScript : MonoBehaviour
 			
 			// close the room
 		//}
-	}
-
-	private void StartGame()
-	{
-		PhotonNetwork.LoadLevel(loaded_scene);
 	}
 
 	/*private void EndGame()
