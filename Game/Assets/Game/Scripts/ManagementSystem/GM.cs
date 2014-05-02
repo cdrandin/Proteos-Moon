@@ -57,7 +57,7 @@ public class GM : MonoBehaviour
 	private int   				_max_resource;
 
 	// Keep track of each player's unit accordingly
-	private GameObject[] 		_leaders;
+	//HACK private GameObject[] 		_leaders;
 	
 	// Reference to containers, units will be rooted to them
 	// The gameobject will contain the objects of that player's units and leader as its children nodes
@@ -83,6 +83,15 @@ public class GM : MonoBehaviour
 	/*
 	 * 
 	 */
+
+
+
+	//HACK 
+	public GameObject __leader;
+
+
+
+
 
 	public void Awake()
 	{
@@ -183,7 +192,7 @@ public class GM : MonoBehaviour
 		_resources_obtained = new int[_total_players];
 		
 		// Allocate correct number of leaders
-		_leaders 			= new GameObject[_total_players];
+		//HACK _leaders 			= new GameObject[_total_players];
 		
 		// Allocate correct number of player containers for their units/leaders
 		_player_container 	= new GameObject[_total_players];
@@ -223,19 +232,19 @@ public class GM : MonoBehaviour
 		GameObject[] spawn_locations = GameObject.FindGameObjectsWithTag("Leader_Spawn");
 		int id = PhotonNetwork.player.ID;
 
-		GameObject leader = null;
+		__leader = null;
 
 		// Find leaders
 		if(leaders[id-1] == Leader_Names.Altier_Seita)
 		{
-			leader = LeaderObjects.instance.Altier_Seita;
+			__leader = LeaderObjects.instance.Altier_Seita;
 		}
 		else if(leaders[id-1] == Leader_Names.Captain_Mena)
 		{
-			leader = LeaderObjects.instance.Captain_Mena;
+			__leader = LeaderObjects.instance.Captain_Mena;
 		}
 
-		if(leader == null)
+		if(__leader == null)
 		{
 			Debug.LogError("Leader failed to be instantiated!");
 			ForceQuit();
@@ -244,13 +253,13 @@ public class GM : MonoBehaviour
 		// The appropiate leader should be picked now.
 		// Give it to the respective player
 		if (PhotonNetwork.inRoom)
-			leader = PhotonNetwork.Instantiate(leader.name, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation, 0) as GameObject;
+			__leader = PhotonNetwork.Instantiate(__leader.name, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation, 0) as GameObject;
 		else
-			leader = Instantiate(leader, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation) as GameObject;
+			__leader = Instantiate(__leader, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation) as GameObject;
 
 		// So at this point. The local player's leader has been created
 
-		leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
+		__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
 
 		/*
 		// Get each player's leader
@@ -267,20 +276,20 @@ public class GM : MonoBehaviour
 
 		// Distinguish which leader belongs to which player
 			// Make sure there is a player container prepared already.
-			if(leader.transform.parent == null)
+			if(__leader.transform.parent == null)
 			{
-				Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", leader.name));
+				Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 			}
 			
 			// Assign leaders to correct player container
-			if(leader.transform.parent.tag == "Player1")
+			/*if(leader.transform.parent.tag == "Player1")
 			{
 				_leaders[0] = leader;
 			}
 			else if(leader.transform.parent.tag == "Player2")
 			{
 				_leaders[1] = leader;
-			}
+			}/*
 			else if(leader.transform.parent.tag == "Player3")
 			{
 				_leaders[2] = leader;
@@ -288,10 +297,10 @@ public class GM : MonoBehaviour
 			else if(leader.transform.parent.tag == "Player4")
 			{
 				_leaders[3] = leader;
-			}
+			}*/
 			else
 			{
-				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", leader.transform.tag));
+				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", __leader.transform.tag));
 			}
 	}
 
@@ -346,7 +355,7 @@ public class GM : MonoBehaviour
 		_resource_count    	= null;
 		_resource_spent    	= null;
 		_resources_obtained = null;
-		_leaders			= null;
+		//HACK _leaders			= null;
 		_player_container	= null;
 		_units_obtained		= null;
 		_units_killed  		= null;
@@ -396,10 +405,10 @@ public class GM : MonoBehaviour
 	// All leaders are alive
 	private void ResetLeaders()
 	{
-		for(int i=0;i<_leaders.Length;++i)
+		/*HACK for(int i=0;i<_leaders.Length;++i)
 		{
 			_leaders[i].GetComponent<BaseClass>().unit_status.Clean();
-		}
+		}*/
 	}
 
 	private void StartTimer()
@@ -659,13 +668,13 @@ public class GM : MonoBehaviour
 		get
 		{
 			int alive = 0;
-			foreach(GameObject leader in _leaders)
-			{
-				if(!leader.GetComponent<BaseClass>().unit_status.status.Dead)
-				{
-					alive += 1;
-				}
-			}
+//HACK			foreach(GameObject leader in _leaders)
+//			{
+//				if(!leader.GetComponent<BaseClass>().unit_status.status.Dead)
+//				{
+//					alive += 1;
+//				}
+//			}
 
 			return alive;
 		}
@@ -691,7 +700,7 @@ public class GM : MonoBehaviour
 			}
 			
 			// Win by having 1 leader survive/killing off other leaders
-			else if(SurvivingLeaderCount == 1) 
+			/*HACK else if(SurvivingLeaderCount == 1) 
 			{
 				for(int i=0; i<=_total_players; ++i) 
 				{
@@ -702,7 +711,7 @@ public class GM : MonoBehaviour
 						i = _leaders.Length;
 					}
 				}
-			}
+			}*/
 		}
 
 		return is_winner;
@@ -882,15 +891,16 @@ public class GM : MonoBehaviour
 	public bool IsNextPlayersTurn()
 	{
 		bool next = true;
+		return Input.GetKeyDown(KeyCode.Space);
 
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
 
 		// Leader still can do actions
-		if(!_leaders[_current_player_turn].GetComponent<BaseClass>().unit_status.status.Rest)
+		/*HACK if(!_leaders[_current_player_turn].GetComponent<BaseClass>().unit_status.status.Rest)
 		{
 			next = false;
-		}
+		}*/
 
 		// Leader is still active so don't need to check other units
 		if(next)
@@ -979,7 +989,7 @@ public class GM : MonoBehaviour
 	/// <param name="player">Player.</param>
 	public GameObject GetPlayerLeader(Player player)
 	{
-		return _leaders[(int)player];
+		return __leader;
 	}
 
 	/// <summary>
@@ -1055,7 +1065,7 @@ public class GM : MonoBehaviour
 		                               "Time:{1}\n\n",
 		                               _round_num, CurrentTime);
 
-		for (int i=1; i<_total_players + 1; ++i) 
+		/*HACK for (int i=1; i<_total_players + 1; ++i) 
 		{
 			player_score[i] = string.Format (
 				"Player{0} Score:\n" +
@@ -1065,7 +1075,7 @@ public class GM : MonoBehaviour
 				"Units obtained:{4}\n" +
 				"Enemy units killed:{5}\n\n", 
 				i + 1, _resources_obtained[i], _resource_spent[i], _leaders[i].GetComponent<BaseClass>().unit_status.status, _units_obtained[i], _units_killed[i]);
-		}
+		}*/
 		
 		return player_score;
 	}
