@@ -88,7 +88,7 @@ public class ProteusChat : Photon.MonoBehaviour
         GUILayout.FlexibleSpace();
         for (int i = 0; i <= messages.Count - 1; i++)
         {
-            GUILayout.Label(messages[i], chatStyle);
+            GUILayout.Label(messages[i]);
         }
         GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();
