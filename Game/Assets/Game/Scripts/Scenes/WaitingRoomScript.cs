@@ -17,7 +17,8 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private int leaderClicked = 0;
 	private float labelHeight;
 	private float startTime;
-	private float timer;
+	private float delayTime = 0.0f;
+	private bool letsDoThis = false;
 	private string menaSpecialText, seitaSpecialText;
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
@@ -57,6 +58,12 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				counter = 0;
 			else
 				counter++;
+		}
+		if (PhotonNetwork.playerList.Length == 2 && leader_chosen && gameReady){
+			delayTime += Time.deltaTime;
+			if (delayTime >= 3.0f){
+				letsDoThis = true;
+			}
 		}
 	}
 	
@@ -166,7 +173,10 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	void LoadingGUI()
 	{
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
-		PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
+		if (letsDoThis){
+			PhotonNetwork.DestroyAll();
+			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
+		}
 	}
 
 	void AnimateLabels(){
