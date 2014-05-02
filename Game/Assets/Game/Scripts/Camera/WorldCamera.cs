@@ -113,6 +113,22 @@ public class WorldCamera : MonoBehaviour {
 		
 	}
 	
+	void LeaderFocus(GameObject leader){
+	
+	
+		this.transform.position = GM.instance.Photon_Leader.transform.position;
+		
+		this.transform.position -= GM.instance.Photon_Leader.transform.forward * 
+								   GM.instance.Photon_Leader.transform.localScale.y * 
+								   GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2;
+		this.transform.position = new Vector3(this.transform.position.x, 
+		                                      this.transform.position.y +( GM.instance.Photon_Leader.transform.localScale.y *  GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2) 
+		                                      ,this.transform.position.z );
+		
+		
+		
+	}
+	
 	void InitializeMainCamera(){
 	
 		MainCamera = GameObject.Find ("Main Camera");
