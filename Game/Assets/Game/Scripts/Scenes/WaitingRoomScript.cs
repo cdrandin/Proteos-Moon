@@ -19,6 +19,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private float startTime;
 	private float delayTime = 0.0f;
 	private bool letsDoThis = false;
+	private GameObject leader;
 	private string menaSpecialText, seitaSpecialText;
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
@@ -147,11 +148,11 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				Instantiate(magic, leftSpawn.transform.position, Quaternion.identity);
 				if (leaderClicked == 1){
 					//mena.SetActive(true);
-					Instantiate(mena, leftSpawn.transform.position, Quaternion.identity);
+					leader = Instantiate(mena, leftSpawn.transform.position, Quaternion.identity) as GameObject;
 				}
 				else if (leaderClicked == 2){
 					//seita.SetActive(true);
-					Instantiate(seita, leftSpawn.transform.position, Quaternion.identity);
+					leader = Instantiate(seita, leftSpawn.transform.position, Quaternion.identity) as GameObject;
 				}
 				leader_chosen = true;
 			}
@@ -179,6 +180,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	{
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
 		if (letsDoThis){
+			Destroy(leader);
 			if (PhotonNetwork.isMasterClient){
 				PhotonNetwork.DestroyAll();
 			}
