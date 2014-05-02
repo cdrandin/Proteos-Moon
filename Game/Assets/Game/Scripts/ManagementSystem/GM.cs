@@ -247,7 +247,7 @@ public class GM : MonoBehaviour
 
 		Debug.Log(spawn_locations.Length);
 		Debug.Log(id-1);
-		Debug.Log(spawn_locations[id-1].transform.position);
+		Debug.Log(spawn_locations[id-1].name);
 
 		// The appropiate leader should be picked now.
 		// Give it to the respective player
