@@ -181,7 +181,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			                          rightSpawn.transform.position, rightSpawn.transform.rotation) as GameObject;
 			once = false;
 		}
-		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
+		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
 		if (letsDoThis){
 			Destroy(leader);
 			Destroy(otherLeader);
