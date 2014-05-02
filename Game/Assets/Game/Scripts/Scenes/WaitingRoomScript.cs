@@ -201,13 +201,6 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			GUI.Label(new Rect(Screen.width / 2 + 100, labelHeight, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
 	}
 	
-	/*void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-		if (stream.isWriting){
-			stream.SendNext(otherMena);
-			stream.SendNext(otherSeita);
-		}
-	}*/
-	
 	[RPC]
 	void ActivateOtherPlayer(PhotonMessageInfo mi)
 	{
