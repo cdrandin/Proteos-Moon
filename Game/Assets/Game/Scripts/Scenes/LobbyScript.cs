@@ -80,7 +80,9 @@ public class LobbyScript : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
-			PhotonNetwork.JoinRandomRoom();
+			if(PhotonNetwork.JoinRandomRoom()){
+				PhotonNetwork.CreateRoom(null);
+			}
 			StartGame();
 		}
 		if (GUILayout.Button("Create New Game"))
@@ -99,9 +101,9 @@ public class LobbyScript : MonoBehaviour
 		
 		scroll_position = GUILayout.BeginScrollView(scroll_position, false, false);
 		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {
-			GUI.skin = lobby_skin_alternate;
+			//GUI.skin = lobby_skin_alternate;
 			GUILayout.Box(game.name + " " + game.playerCount + "/2");
-			GUI.skin = lobby_skin;
+			//GUI.skin = lobby_skin;
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
 				StartGame();
@@ -137,7 +139,7 @@ public class LobbyScript : MonoBehaviour
 		{
 			PhotonNetwork.LeaveRoom();
 			//PhotonNetwork.Disconnect();
-			Application.LoadLevel("TitleScene");
+			PhotonNetwork.LoadLevel("TitleScene");
 		}
 		GUILayout.EndArea();
 	}
@@ -178,7 +180,7 @@ public class LobbyScript : MonoBehaviour
 
 	private void StartGame()
 	{
-		Application.LoadLevel(loaded_scene);
+		PhotonNetwork.LoadLevel(loaded_scene);
 	}
 
 	private void EndGame()
