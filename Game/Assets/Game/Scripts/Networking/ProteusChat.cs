@@ -12,16 +12,19 @@ public class ProteusChat : Photon.MonoBehaviour
     private string inputLine = "";
 	private char[] arr = new char[] { '\r', '\n', ' ' };
 	private Vector2 scrollPos = new Vector2(Mathf.Infinity, Mathf.Infinity);
-
+	public GUISkin skin;
+	private GUIStyle chatStyle;
     public static readonly string ChatRPC = "Chat";
 	public static readonly string GameChatRPC = "GameChat";
 
     public void Start()
     {
+		chatStyle = GUI.skin.FindStyle("Chat");
         if (this.AlignBottom)
         {
             this.GuiRect.y = Screen.height - this.GuiRect.height;
         }
+
     }
 	public void OnJoinedRoom(){
 		//this.inputLine = PhotonNetwork.playerName + " joined the room";
@@ -84,7 +87,7 @@ public class ProteusChat : Photon.MonoBehaviour
         GUILayout.FlexibleSpace();
         for (int i = 0; i <= messages.Count - 1; i++)
         {
-            GUILayout.Label(messages[i]);
+            GUILayout.Label(messages[i], chatStyle);
         }
         GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();
