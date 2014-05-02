@@ -220,37 +220,39 @@ public class GM : MonoBehaviour
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
 	private void InitPlayersLeader(Leader_Names[] leaders)
 	{
-		// Associate each player with their leader
-		for(int i=0;i<_total_players;++i)
+		GameObject[] spawn_locations = GameObject.FindGameObjectsWithTag("Leader_Spawn");
+		int id = PhotonNetwork.player.ID;
+
+		GameObject leader = null;
+
+		// Find leaders
+		if(leaders[id-1] == Leader_Names.Altier_Seita)
 		{
-			Transform spawn_loc = _player_container[i].transform.GetChild(0).transform; // should be getting "_leader_spawn"
-			GameObject leader = null;
-
-			// Find leaders
-			if(leaders[i] == Leader_Names.Altier_Seita)
-			{
-				leader = LeaderObjects.instance.Altier_Seita;
-			}
-			else if(leaders[i] == Leader_Names.Captain_Mena)
-			{
-				leader = LeaderObjects.instance.Captain_Mena;
-			}
-
-			if(leader == null)
-			{
-				Debug.LogError("Leader failed to be instantiated!");
-				ForceQuit();
-			}
-
-			// The appropiate leader should be picked now.
-			// Give it to the respective player
-			if (PhotonNetwork.inRoom)
-				leader = PhotonNetwork.Instantiate(leader.name, spawn_loc.position, spawn_loc.rotation, 0) as GameObject;
-			else
-				leader = Instantiate(leader, spawn_loc.position, spawn_loc.rotation) as GameObject;
-			leader.transform.parent = _player_container[i].transform; // put it in the player's container in the scene
+			leader = LeaderObjects.instance.Altier_Seita;
+		}
+		else if(leaders[id-1] == Leader_Names.Captain_Mena)
+		{
+			leader = LeaderObjects.instance.Captain_Mena;
 		}
 
+		if(leader == null)
+		{
+			Debug.LogError("Leader failed to be instantiated!");
+			ForceQuit();
+		}
+
+		// The appropiate leader should be picked now.
+		// Give it to the respective player
+		if (PhotonNetwork.inRoom)
+			leader = PhotonNetwork.Instantiate(leader.name, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation, 0) as GameObject;
+		else
+			leader = Instantiate(leader, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation) as GameObject;
+
+		// So at this point. The local player's leader has been created
+
+		leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
+
+		/*
 		// Get each player's leader
 		GameObject[] _all_leaders = GameObject.FindGameObjectsWithTag("Leader"); 
 		
@@ -261,10 +263,9 @@ public class GM : MonoBehaviour
 			ForceQuit();
 			return;
 		}
-		
+		*/
+
 		// Distinguish which leader belongs to which player
-		foreach(GameObject leader in _all_leaders) 
-		{
 			// Make sure there is a player container prepared already.
 			if(leader.transform.parent == null)
 			{
@@ -292,7 +293,6 @@ public class GM : MonoBehaviour
 			{
 				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", leader.transform.tag));
 			}
-		}
 	}
 
 	// Currently, shuffles player's turn order
