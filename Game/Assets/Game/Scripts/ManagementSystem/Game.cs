@@ -51,7 +51,7 @@ public class Game : Photon.MonoBehaviour
 	{
 		if(testing)
 		{
-			this.gui_method += GUI_init;
+			this.gui_method += GUI_menu;
 			_game_manager_gui.enabled = true;
 			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
 			_game_manager_gui.fontSize = 16;
@@ -172,54 +172,6 @@ public class Game : Photon.MonoBehaviour
 		}
 	}
 	
-	void GUI_init()
-	{
-		if(MakeButton(0,80,"Start GameManager"))
-		{
-			if(init)
-			{
-				return;
-			}
-
-			GameObject game = GameObject.FindGameObjectWithTag("Game_Init");
-			if(game != null)
-			{
-				Debug.LogWarning("A game init is already in the scene. Using that one.");
-			}
-			else 
-			{
-				game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
-			}
-
-			this.gui_method += GUI_menu;
-			init = true;
-			_game_manager_gui.text = "Game Manager enabled";
-			
-			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
-
-			FindWorldCamera();
-			wcm.ChangeCamera();
-
-			// Turn on gui fog of war
-			fow_terrain = game.GetComponentInChildren<Terrain>();
-			fow_terrain.materialTemplate = fow_material;
-		}
-		
-		else if(MakeButton(0, 100, "End GameManager"))
-		{
-			if(!init)
-			{
-				return;
-			}
-			
-			this.gui_method -= GUI_menu;
-			init = false;
-			_game_manager_gui.text = "Game Manager disabled";
-			
-			GM.instance.ResetGameState();
-		}
-	}
-	
 	void GUI_menu()
 	{
 		float half = 0;
@@ -274,13 +226,6 @@ public class Game : Photon.MonoBehaviour
 		{
 			Debug.LogError("Cannot find WorldCamera");
 		}
-	}
-
-	public void ResetGUIState()
-	{
-		init = false;
-		this.gui_method -= GUI_init;
-		this.gui_method -= GUI_menu;
 	}
 	
 	void Reset ()
