@@ -236,7 +236,7 @@ public class GM : MonoBehaviour
 
 		if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
 			__leader = LeaderObjects.instance.Altier_Seita;
-		else if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
+		else if (PhotonNetwork.player.customProperties["Leader"] == "Captain_Mena")
 			__leader = LeaderObjects.instance.Captain_Mena;
 
 		if(__leader == null)
@@ -246,6 +246,9 @@ public class GM : MonoBehaviour
 		}
 
 		Debug.Log(spawn_locations.Length);
+		Debug.Log(id-1);
+		Debug.Log(spawn_locations[id-1].transform.position);
+
 		// The appropiate leader should be picked now.
 		// Give it to the respective player
 		if (PhotonNetwork.inRoom)
