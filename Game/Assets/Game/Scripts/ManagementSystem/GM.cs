@@ -399,7 +399,7 @@ public class GM : MonoBehaviour
 	{
 		get 
 		{ 
-			Debug.Log(string.Format("Photon Leader: {0}"< __leader));
+			Debug.Log(string.Format("Photon Leader: {0}", __leader));
 			return __leader; 
 		}
 	}
