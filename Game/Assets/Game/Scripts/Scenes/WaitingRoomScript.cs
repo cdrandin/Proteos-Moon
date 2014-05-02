@@ -22,6 +22,8 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
 
+	private string _selected_leader;
+
 	// Use this for initialization
 	void Start () {
 		proteusChat = this.GetComponent<ProteusChat>();
@@ -124,6 +126,11 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				animatinglabels = true;
 				if (PhotonNetwork.inRoom){
 					proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
+
+					ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
+					player_props.Add("Leader", _selected_leader);
+					PhotonNetwork.player.SetCustomProperties(player_props);
+
 					this.photonView.RPC("ActivateOtherPlayer", PhotonTargets.Others);
 				}
 				Instantiate(magic, leftSpawn.transform.position, Quaternion.identity);
@@ -138,9 +145,11 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			}
 			if (leaderClicked == 1){
 				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), menaSpecialText, leaderInfo);
+				_selected_leader = "Captain_Mena";
 			}
 			if (leaderClicked == 2){
 				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), seitaSpecialText, leaderInfo);
+				_selected_leader = "Altier_Seita";
 			}
 		}
 	}
@@ -176,7 +185,8 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	}*/
 	
 	[RPC]
-	void ActivateOtherPlayer(PhotonMessageInfo mi){
+	void ActivateOtherPlayer(PhotonMessageInfo mi)
+	{
 		gameReady = true;
 	}
 }
