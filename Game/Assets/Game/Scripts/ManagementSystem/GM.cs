@@ -158,7 +158,7 @@ public class GM : MonoBehaviour
 		InitPlayerContainers();
 		InitPlayersLeader(leaders);
 		
-		ResetGameState();
+		//ResetGameState();
 		
 		// Set camera
 		_world_camera.ChangeCamera();
