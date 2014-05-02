@@ -201,9 +201,14 @@ public class RecruitSystem : MonoBehaviour
 		}
 	}
 
-
 	void Reset ()
 	{
 		unit_cost = new UnitCost(100, 80, 50, 120, 200, 300);
+	}
+
+	void OnDrawGizmosSelected() 
+	{
+		Gizmos.color = Color.white;
+		Gizmos.DrawWireSphere(GameObject.Find("_leader_spawn").transform.position, summoning_radius);
 	}
 }
