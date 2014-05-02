@@ -19,7 +19,7 @@ public class ProteusChat : Photon.MonoBehaviour
 
     public void Start()
     {
-		chatStyle = GUI.skin.FindStyle("Chat");
+		chatStyle = skin.FindStyle("Chat");
         if (this.AlignBottom)
         {
             this.GuiRect.y = Screen.height - this.GuiRect.height;
