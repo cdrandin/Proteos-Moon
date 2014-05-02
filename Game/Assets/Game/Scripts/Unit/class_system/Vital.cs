@@ -23,21 +23,7 @@ public class Vital
 
 	[SerializeField]
 	private FloatStats _exhaust;
-
-	/*
-	public Vital(float max_hp, float max_exhaust)
-	{
-		_health_point.current = max_hp;
-		_exhaust.current      = max_exhaust;
-	}
-
-	public Vital(FloatStats hp, FloatStats exhaust)
-	{
-		this._health_point = hp;
-		this._exhaust      = exhaust;
-	}
-	*/
-
+	
 	// Setters and Getters
 	public FloatStats HP
 	{
@@ -81,5 +67,10 @@ public class Vital
 		}
 
 		set { _exhaust = value; }
+	}
+
+	public bool IsDead()
+	{
+		return (_health_point.current == 0)?true:false;
 	}
 }

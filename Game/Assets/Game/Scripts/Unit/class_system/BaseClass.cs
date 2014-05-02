@@ -59,6 +59,14 @@ public class BaseClass : MonoBehaviour
 		get { return _gather_range; }
 	}
 
+	void FixedUpdate()
+	{
+		if(_vital.IsDead())
+		{
+			Debug.Log(string.Format("{0} is DEAD!", gameObject.name));
+		}
+	}
+
 	void OnDrawGizmosSelected()
 	{
 		// Gather range
