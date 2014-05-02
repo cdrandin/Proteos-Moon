@@ -209,6 +209,6 @@ public class RecruitSystem : MonoBehaviour
 	void OnDrawGizmosSelected() 
 	{
 		Gizmos.color = Color.white;
-		Gizmos.DrawWireSphere(GameObject.Find("_leader_spawn").transform.position, summoning_radius);
+		Gizmos.DrawWireSphere(GameObject.Find(string.Format("_leader_spawn{0}", PhotonNetwork.player.ID)).transform.position, summoning_radius);
 	}
 }

@@ -308,7 +308,7 @@ public class GM : MonoBehaviour
 		
 		while(i<_total_players) 
 		{
-			int t = Random.Range(0, _total_players);
+			int t = Random.Range(0, _total_players+1);
 			if(!tmp.Contains(t)) 
 			{
 				tmp.Add(t);
