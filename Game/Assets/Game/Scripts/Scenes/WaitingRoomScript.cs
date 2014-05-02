@@ -177,13 +177,13 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	void LoadingGUI()
 	{
 		if (once){
-			otherLeader = PhotonNetwork.Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, rightSpawn.transform.rotation, 0) as GameObject;
+			otherLeader = Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, rightSpawn.transform.rotation) as GameObject;
 			once = false;
 		}
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
 		if (letsDoThis){
 			Destroy(leader);
-			PhotonNetwork.Destroy(otherLeader);
+			Destroy(otherLeader);
 			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 		}
 	}
