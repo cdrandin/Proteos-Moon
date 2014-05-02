@@ -174,7 +174,9 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	{
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
 		if (letsDoThis){
-			PhotonNetwork.DestroyAll();
+			if (PhotonNetwork.isMasterClient){
+				PhotonNetwork.DestroyAll();
+			}
 			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 		}
 	}
