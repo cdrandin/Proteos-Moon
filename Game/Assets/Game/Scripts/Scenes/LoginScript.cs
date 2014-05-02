@@ -48,6 +48,15 @@ public class LoginScript : MonoBehaviour
 		GUI.SetNextControlName("NameInput");
 		playerName = GUILayout.TextField(playerName, 20);
 		GUILayout.EndHorizontal();
+		GUILayout.BeginHorizontal();
+		if (GUILayout.Button("Connect")){
+			this.ConnectToLobby();
+		}
+		GUI.FocusControl("NameInput");
+		if (GUILayout.Button ("Back To Main Menu")){
+			Application.LoadLevel(0);
+		}
+		GUILayout.EndHorizontal();
 		playerName = playerName.TrimStart(arr);
 		playerName = playerName.TrimEnd(arr);
 		PhotonNetwork.playerName = playerName;
