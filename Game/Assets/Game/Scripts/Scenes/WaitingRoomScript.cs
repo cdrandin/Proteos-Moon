@@ -5,7 +5,6 @@ using System.Collections;
 public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	public GUISkin skin;
-	public bool forceStart = true;
 	public Texture2D mena_texture;
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
@@ -56,10 +55,6 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*if (Input.GetKeyDown(KeyCode.Space))
-		{
-			forceStart = !forceStart;
-		}*/
 		startTime += Time.deltaTime;
 		if (startTime >= 0.5f){
 			startTime -= 0.5f;
