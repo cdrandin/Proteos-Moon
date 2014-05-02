@@ -5,7 +5,7 @@ using System.Collections;
 public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	public GUISkin skin;
-	public bool forceStart = false;
+	public bool forceStart = true;
 	public Texture2D mena_texture;
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
@@ -29,6 +29,18 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (forceStart){
+			PhotonNetwork.offlineMode = true;
+			if (PhotonNetwork.inRoom){
+				_selected_leader = "Altier_Seita";
+				ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
+				player_props.Add("Leader", _selected_leader);
+				PhotonNetwork.player.SetCustomProperties(player_props);
+				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
+			}
+			else
+				Application.LoadLevel(Application.loadedLevel + 1);
+		}
 		proteusChat = this.GetComponent<ProteusChat>();
 		header = skin.FindStyle("Header");
 		loading = skin.FindStyle("Loading");
@@ -49,10 +61,10 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space))
+		/*if (Input.GetKeyDown(KeyCode.Space))
 		{
 			forceStart = !forceStart;
-		}
+		}*/
 		startTime += Time.deltaTime;
 		if (startTime >= 0.5f){
 			startTime -= 0.5f;
@@ -77,16 +89,16 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			return;
 		}
 		GUI.skin = skin;
-		if (PhotonNetwork.playerList.Length <= 1 && !forceStart)
+		if (PhotonNetwork.playerList.Length <= 1)
 			WaitingForOtherPlayer();
-		else if ((PhotonNetwork.playerList.Length == 2 && !leader_chosen) || (forceStart && !leader_chosen))
+		else if (PhotonNetwork.playerList.Length == 2 && !leader_chosen)
 			MainGUI();
 		else if (animatinglabels){
 			AnimateLabels();
 			if (labelHeight == 35.0f)
 				animatinglabels = false;
 		}
-		else if ((PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady) || (forceStart && leader_chosen && !gameReady)){
+		else if (PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady){
 			ReadyGUI();
 		}
 		else
@@ -177,6 +189,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	void LoadingGUI()
 	{
 		if (once){
+			Instantiate(magic, rightSpawn.transform.position, Quaternion.identity);
 			otherLeader = Instantiate((PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString() == "Altier_Seita"?seita:mena), 
 			                          rightSpawn.transform.position, rightSpawn.transform.rotation) as GameObject;
 			once = false;
