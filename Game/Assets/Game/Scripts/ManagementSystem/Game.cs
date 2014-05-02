@@ -160,7 +160,7 @@ public class Game : Photon.MonoBehaviour
 			GUILayout.Label("Players: " + PhotonNetwork.playerList.Length);
 			GUILayout.Label("Ping: " + PhotonNetwork.GetPing());
 			for(int i=1;i<6;++i)
-				GUILayout.Label (string.Format("ViewID{0}: {1}",i, PhotonView.Find(i)));
+				GUILayout.Label (string.Format("ViewID{0}: {1}",i, PhotonView.Find(i).ToString()));
 		}
 		if(this.gui_method != null)
 		{
