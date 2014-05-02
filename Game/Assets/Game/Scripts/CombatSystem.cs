@@ -136,8 +136,13 @@ public class CombatSystem : MonoBehaviour{
 		CombatSystem.instance.attacking = false;
 		CombatSystem.instance.isLabelOn = false;
 		CombatSystem.instance.gui_method -= CombatSystem.instance.FlashLabel;
+		CombatSystem.instance.StopCoroutineProcess();
 	}
 	
+	public void StopCoroutineProcess(){
+	
+		StopCoroutine("Attack");
+	}
 	
 	public void UnitEnemyBox(){
 	

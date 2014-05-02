@@ -239,16 +239,19 @@ public class UnitGUI : MonoBehaviour {
 		
 		UnitGUI.instance.mySkin.label.fontSize = (int)(texture_pos.height );
 		UnitGUI.instance.mySkin.label.alignment = TextAnchor.LowerLeft;
-				
-		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture );
-		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Health").guiTexture.texture );
+		
 		GUI.Label( label_pos , healthLabel );
+		
+		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture );
+		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Health").guiTexture.texture);
 		texture_pos.y += 2*texture_pos.height;
 		label_pos.y += 2.1f*texture_pos.height;
+
+		GUI.Label( label_pos , exhaustLabel );
 		
 		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture ) ;
-		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentExhaust * texture_pos.width) / maxExhaust, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Exhaust").guiTexture.texture );
-		GUI.Label( label_pos , exhaustLabel );
+		GUI.DrawTexture( new Rect(texture_pos.x, texture_pos.y , (currentExhaust * texture_pos.width) / maxExhaust, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Exhaust").guiTexture.texture);
+		
 	}
 	
 	public static void CharacterPortrait(Rect info_box, GameObject char_portrait, GUIStyle style, Player player){
@@ -478,7 +481,6 @@ public class UnitGUI : MonoBehaviour {
 			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
 				
 				if(CombatSystem.instance.CheckIfAttacking()){
-				
 					CombatSystem.ResetCombatSystem();
 				}	
 				else{
