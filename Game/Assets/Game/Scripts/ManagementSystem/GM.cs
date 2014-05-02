@@ -397,7 +397,11 @@ public class GM : MonoBehaviour
 	/// <value>The photon_ leader.</value>
 	public GameObject Photon_Leader
 	{
-		get { return __leader; }
+		get 
+		{ 
+			Debug.Log(string.Format("Photon Leader: {0}"< __leader));
+			return __leader; 
+		}
 	}
 	/// <summary>
 	/// Gets the transformation of the instance
