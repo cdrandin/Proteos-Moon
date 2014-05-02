@@ -144,15 +144,13 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		if (leaderClicked != 0){
 			if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 240, 128, 50), "Ready?", readyButton)){
 				animatinglabels = true;
-				if (PhotonNetwork.inRoom){
-					proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
+				proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
 					
-					ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
-					player_props.Add("Leader", _selected_leader);
-					PhotonNetwork.player.SetCustomProperties(player_props);
+				ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
+				player_props.Add("Leader", _selected_leader);
+				PhotonNetwork.player.SetCustomProperties(player_props);
 					
-					this.photonView.RPC("ActivateOtherPlayer", PhotonTargets.Others);
-				}
+				this.photonView.RPC("ActivateOtherPlayer", PhotonTargets.Others);
 				Instantiate(magic, leftSpawn.transform.position, Quaternion.identity);
 				if (leaderClicked == 1){
 					//mena.SetActive(true);
