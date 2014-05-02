@@ -389,6 +389,14 @@ public class GM : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Gets the photon_ leader.
+	/// </summary>
+	/// <value>The photon_ leader.</value>
+	public GameObject Photon_Leader
+	{
+		get { return __leader; }
+	}
+	/// <summary>
 	/// Gets the transformation of the instance
 	/// </summary>
 	/// <value>The object_instance.</value>
