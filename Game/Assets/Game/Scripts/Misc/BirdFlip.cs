@@ -39,7 +39,6 @@ public class BirdFlip : MonoBehaviour
 		{
 			// start flipping
 			bird_body.transform.Rotate(new Vector3(0,0,rotation_speed*Time.fixedDeltaTime));
-			Debug.Log(bird_body.transform.rotation.eulerAngles.z - _start_rot);
 			if(bird_body.transform.rotation.eulerAngles.z - _start_rot <= 0.0)
 			{
 				bird_body.transform.Rotate(0,
