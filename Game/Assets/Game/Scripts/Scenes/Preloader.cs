@@ -22,7 +22,7 @@ public class Preloader : Photon.MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100)+"%", loading);
+        GUI.Label(new Rect(Screen.width / 2 - 128, Screen.height / 2 - 25, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100)+"%", loading);
     }
 
 }
