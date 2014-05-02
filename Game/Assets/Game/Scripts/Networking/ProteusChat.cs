@@ -51,6 +51,7 @@ public class ProteusChat : Photon.MonoBehaviour
 
     public void OnGUI()
     {
+		GUI.skin = skin;
         if (!this.IsVisible || PhotonNetwork.connectionStateDetailed != PeerState.Joined)
         {
 			if (PhotonNetwork.connectionStateDetailed == PeerState.Joined && (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return))) {
