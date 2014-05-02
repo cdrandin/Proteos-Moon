@@ -234,15 +234,10 @@ public class GM : MonoBehaviour
 
 		__leader = null;
 
-		// Find leaders
-		if(leaders[id-1] == Leader_Names.Altier_Seita)
-		{
+		if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
 			__leader = LeaderObjects.instance.Altier_Seita;
-		}
-		else if(leaders[id-1] == Leader_Names.Captain_Mena)
-		{
+		else if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
 			__leader = LeaderObjects.instance.Captain_Mena;
-		}
 
 		if(__leader == null)
 		{
@@ -250,6 +245,7 @@ public class GM : MonoBehaviour
 			ForceQuit();
 		}
 
+		Debug.Log(spawn_locations.Length);
 		// The appropiate leader should be picked now.
 		// Give it to the respective player
 		if (PhotonNetwork.inRoom)
@@ -297,11 +293,11 @@ public class GM : MonoBehaviour
 			else if(leader.transform.parent.tag == "Player4")
 			{
 				_leaders[3] = leader;
-			}*/
+			}
 			else
 			{
 				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", __leader.transform.tag));
-			}
+			}*/
 	}
 
 	// Currently, shuffles player's turn order
