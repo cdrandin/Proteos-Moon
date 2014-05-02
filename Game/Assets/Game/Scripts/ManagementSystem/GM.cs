@@ -229,8 +229,8 @@ public class GM : MonoBehaviour
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
 	private void InitPlayersLeader(Leader_Names[] leaders)
 	{
-		GameObject[] spawn_locations = GameObject.FindGameObjectsWithTag("Leader_Spawn");
 		int id = PhotonNetwork.player.ID;
+		GameObject spawn_locations = GameObject.Find(string.Format("_leader_spawn{0}", id));
 
 		__leader = null;
 
@@ -245,16 +245,12 @@ public class GM : MonoBehaviour
 			ForceQuit();
 		}
 
-		Debug.Log(spawn_locations.Length);
-		Debug.Log(id-1);
-		Debug.Log(spawn_locations[id-1].name);
-
 		// The appropiate leader should be picked now.
 		// Give it to the respective player
 		if (PhotonNetwork.inRoom)
-			__leader = PhotonNetwork.Instantiate(__leader.name, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation, 0) as GameObject;
+			__leader = PhotonNetwork.Instantiate(__leader.name, spawn_locations.transform.position, spawn_locations.transform.rotation, 0) as GameObject;
 		else
-			__leader = Instantiate(__leader, spawn_locations[id-1].transform.position, spawn_locations[id-1].transform.rotation) as GameObject;
+			__leader = Instantiate(__leader, spawn_locations.transform.position, spawn_locations.transform.rotation) as GameObject;
 
 		// So at this point. The local player's leader has been created
 
