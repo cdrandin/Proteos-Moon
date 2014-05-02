@@ -93,6 +93,11 @@ public class Game : Photon.MonoBehaviour
 			showDebug = !showDebug;
 		if(GM.instance.IsOn)
 		{
+			if(Input.GetKeyDown(KeyCode.R))
+			{
+				GM.instance.AddResourcesToCurrentPlayer(1000);
+			}
+
 			if(GM.instance.IsThereAWinner())
 			{
 				_game_manager_gui.text = string.Format("The winner is {0}!", GM.instance.Winner);
