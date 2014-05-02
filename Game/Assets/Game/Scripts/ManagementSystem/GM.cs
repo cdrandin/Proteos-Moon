@@ -297,9 +297,6 @@ public class GM : MonoBehaviour
 	public void ResetGameManager()
 	{
 		Destroy();
-		
-		_game_gui.ResetGUIState();
-		
 		ResetGameState();
 		Deallocate();
 	}
@@ -847,7 +844,6 @@ public class GM : MonoBehaviour
 	public bool IsNextPlayersTurn()
 	{
 		bool next = true;
-		return Input.GetKeyDown(KeyCode.Space);
 
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
