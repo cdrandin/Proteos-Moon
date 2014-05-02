@@ -83,10 +83,14 @@ public class Game : Photon.MonoBehaviour
 			fow_terrain.materialTemplate = fow_material;
 		}
 	}
-	
+	//HACK
+	bool showDebug = false;
 	// Update is called once per frame
 	void Update () 
 	{
+		//HACK
+		if (Input.GetKeyDown(KeyCode.Q))
+			showDebug = !showDebug;
 		if(GM.instance.IsOn)
 		{
 			if(GM.instance.IsThereAWinner())
@@ -146,9 +150,18 @@ public class Game : Photon.MonoBehaviour
 			}
 		}
 	}
-	
+
+
 	void OnGUI()
 	{
+		if (showDebug)
+		{
+			GUILayout.Label("isMasterClient: " + PhotonNetwork.isMasterClient);
+			GUILayout.Label("Players: " + PhotonNetwork.playerList.Length);
+			GUILayout.Label("Ping: " + PhotonNetwork.GetPing());
+			for(int i=1;i<6;++i)
+				GUILayout.Label (string.Format("ViewID{0}: {1}",i, PhotonView.Find(i)));
+		}
 		if(this.gui_method != null)
 		{
 			this.gui_method();
