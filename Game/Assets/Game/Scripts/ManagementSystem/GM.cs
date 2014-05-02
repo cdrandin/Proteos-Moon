@@ -258,6 +258,9 @@ public class GM : MonoBehaviour
 			{
 				Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 			}
+
+		// Set camera focus on leader
+		WorldCamera.instance.LeaderFocus();
 	}
 
 	// Currently, shuffles player's turn order
