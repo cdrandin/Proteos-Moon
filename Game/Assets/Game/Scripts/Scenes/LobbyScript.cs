@@ -59,11 +59,14 @@ public class LobbyScript : MonoBehaviour
 		{
 			if(PhotonNetwork.JoinRandomRoom()){
 				PhotonNetwork.CreateRoom(null);
+				Application.LoadLevel(Application.loadedLevel + 1);
 			}
+			Application.LoadLevel(Application.loadedLevel + 1);
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
 			PhotonNetwork.CreateRoom(room_name);
+			Application.LoadLevel(Application.loadedLevel + 1);
 		}
 		GUILayout.EndHorizontal();
 		
@@ -77,6 +80,7 @@ public class LobbyScript : MonoBehaviour
 			GUILayout.Box(game.name + " " + game.playerCount + "/2");
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
+				Application.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
 		GUILayout.EndScrollView();
@@ -106,6 +110,6 @@ public class LobbyScript : MonoBehaviour
 	
 	void OnJoinedRoom()	
 	{ 
-		PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
+		//Application.LoadLevel(Application.loadedLevel + 1);
 	}
 }
