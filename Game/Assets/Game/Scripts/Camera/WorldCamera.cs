@@ -83,11 +83,14 @@ public class WorldCamera : MonoBehaviour {
 	
 	void Awake()
 	{
+		
 		instance = this;	
 		_local = true; // simply bool to show local host
 	}
 	
 	void Start () {
+		
+		InitializeMainCamera();
 
 		//Declare camera limits
 		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
@@ -110,6 +113,22 @@ public class WorldCamera : MonoBehaviour {
 		
 	}
 	
+	void InitializeMainCamera(){
+	
+		MainCamera = GameObject.Find ("Main Camera");
+		
+		MainCamera.GetComponent<AudioListener>().enabled = true;
+		MainCamera.GetComponent<Camera>().enabled = true;
+		
+		// Add camera from container
+		MainCamera.transform.parent = this.transform;
+		
+		//Change Transform information
+		this.transform.position = MainCamera.transform.position;
+		MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+		this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+		MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+	}
 	
 	
 	void Update (){}

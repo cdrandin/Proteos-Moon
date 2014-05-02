@@ -347,7 +347,7 @@ public class UnitGUI : MonoBehaviour {
 				GM.instance.SetFocusController(true);
 
 				WorldCamera.instance.transform.eulerAngles = Vector3.zero;
-				WorldCamera.instance.MainCamera = CurrentMainCamera();
+				//WorldCamera.instance.MainCamera = CurrentMainCamera();
 				WorldCamera.instance.TurnCameraControlsOff();
 
 				gui_method += MovementEndButton;
