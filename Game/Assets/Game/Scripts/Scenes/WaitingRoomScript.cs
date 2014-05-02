@@ -19,7 +19,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private float startTime;
 	private float delayTime = 0.0f;
 	private bool letsDoThis = false;
-	private GameObject leader;
+	private GameObject leader, otherLeader;
 	private string menaSpecialText, seitaSpecialText;
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
@@ -88,7 +88,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		else if ((PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady) || (forceStart && leader_chosen && !gameReady)){
 			ReadyGUI();
 			if (gameReady){
-				PhotonNetwork.Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, rightSpawn.transform.rotation, 0);
+				otherLeader = PhotonNetwork.Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, rightSpawn.transform.rotation, 0) as GameObject;
 			}
 		}
 		else
@@ -181,9 +181,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
 		if (letsDoThis){
 			Destroy(leader);
-			if (PhotonNetwork.isMasterClient){
-				PhotonNetwork.DestroyAll();
-			}
+			PhotonNetwork.Destroy(otherLeader);
 			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 		}
 	}
