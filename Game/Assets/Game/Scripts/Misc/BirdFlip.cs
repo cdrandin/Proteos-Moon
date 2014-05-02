@@ -19,7 +19,6 @@ public class BirdFlip : MonoBehaviour
 		_timer = 0.0f;
 		_last_rot = Quaternion.identity;
 		bird_body = this.gameObject;
-		
 		_start_rot = bird_body.transform.rotation.eulerAngles.z;
 	}
 	
