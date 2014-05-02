@@ -22,7 +22,7 @@ public class ProteusChat : Photon.MonoBehaviour
 		chatStyle = skin.FindStyle("ChatStyle");
         if (this.AlignBottom)
         {
-            this.GuiRect.y = Screen.height - this.GuiRect.height;
+            this.GuiRect.y = Screen.height - (this.GuiRect.height + 8);
         }
 
     }
@@ -88,9 +88,9 @@ public class ProteusChat : Photon.MonoBehaviour
         GUILayout.FlexibleSpace();
         for (int i = 0; i <= messages.Count - 1; i++)
         {
-			if (messages.Count != null)
-            	GUILayout.Label(messages[i]);
-			else
+			//if (messages.Count != null)
+            	//GUILayout.Label(messages[i]);
+			//else
 				GUILayout.Label(messages[i], chatStyle);
         }
         GUILayout.EndScrollView();
