@@ -398,7 +398,7 @@ public class GM : MonoBehaviour
 	{
 		for(int i=0;i<_leaders.Length;++i)
 		{
-			_leaders[i].GetComponent<BaseClass>().unit_status.status = Status.Clean;
+			_leaders[i].GetComponent<BaseClass>().unit_status.Clean();
 		}
 	}
 
@@ -661,7 +661,7 @@ public class GM : MonoBehaviour
 			int alive = 0;
 			foreach(GameObject leader in _leaders)
 			{
-				if(leader.GetComponent<BaseClass>().unit_status.status != Status.Dead)
+				if(!leader.GetComponent<BaseClass>().unit_status.status.Dead)
 				{
 					alive += 1;
 				}
@@ -695,7 +695,7 @@ public class GM : MonoBehaviour
 			{
 				for(int i=0; i<=_total_players; ++i) 
 				{
-					if(_leaders[i].GetComponent<BaseClass>().unit_status.status != Status.Dead)
+					if(!_leaders[i].GetComponent<BaseClass>().unit_status.status.Dead)
 					{
 						_winner =(Player)i;
 						is_winner = true;
@@ -887,7 +887,7 @@ public class GM : MonoBehaviour
 		// Check if leader can not longer perform action
 
 		// Leader still can do actions
-		if(_leaders[_current_player_turn].GetComponent<BaseClass>().unit_status.status != Status.Rest)
+		if(!_leaders[_current_player_turn].GetComponent<BaseClass>().unit_status.status.Rest)
 		{
 			next = false;
 		}
@@ -900,7 +900,7 @@ public class GM : MonoBehaviour
 
 			for(int i=0;i<units_base_class.Length;++i)
 			{
-				if(units_base_class[i].unit_status.status != Status.Rest)
+				if(!units_base_class[i].unit_status.status.Rest)
 				{
 					next = false;
 					i    = units_base_class.Length;
@@ -998,7 +998,7 @@ public class GM : MonoBehaviour
 	/// <param name="unit">Unit.</param>
 	public void UnitDied(GameObject unit)
 	{
-		if(unit.GetComponent<BaseClass>().unit_status.status != Status.Dead)
+		if(!unit.GetComponent<BaseClass>().unit_status.status.Dead)
 		{
 			Debug.LogWarning(string.Format("{0} is not dead!", unit));
 			return;

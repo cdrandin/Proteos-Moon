@@ -20,14 +20,14 @@ public enum UnitType
 }
 
 [System.Serializable]
-public enum Status : byte
+public struct Status
 {
-	Clean,  // Has not moved, all actions avaliable
+public bool Clean,  // Has not moved, all actions avaliable
 	Move,   // Unit is moving
 	Action, // Unit has performed an action
 	Gather, // Unit is gathering a resource
 	Rest,   // Unit has exhuasted its exhuast bar or cannot perform any more actions
-	Dead    // Unit is dead (Not sure if needed)
+	Dead ;  // Unit is dead (Not sure if needed)
 }
 
 [System.Serializable]
@@ -42,7 +42,7 @@ public class UnitStatus
 	// Use this for initialization
 	void Start () 
 	{
-		_status = Status.Clean;
+		Clean();
 	}
 
 	public Status status
@@ -59,6 +59,39 @@ public class UnitStatus
 
 	public void Clean()
 	{
-		this._status = Status.Clean;
+		this._status.Clean = true;
+		this._status.Move = false;
+		this._status.Action = false;
+		this._status.Gather = false;
+		this._status.Rest = false;
+		this._status.Dead = false;
+	}
+	
+	public void Gather(){
+	
+		this._status.Gather = true;
+	}
+	public void Move(){
+		
+		this._status.Move = true;
+	}
+	public void Action(){
+		
+		this._status.Action = true;
+	}
+	public void Rest(){
+	
+		this._status.Rest = true;
+	}
+	
+	public void Dead()
+	{
+		this._status.Clean = false;
+		this._status.Move = false;
+		this._status.Action = false;
+		this._status.Gather = false;
+		this._status.Rest = true;
+		this._status.Dead = true;
+	
 	}
 }

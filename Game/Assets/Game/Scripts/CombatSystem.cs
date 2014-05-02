@@ -54,9 +54,8 @@ public class CombatSystem : MonoBehaviour{
 	public void CheckIfChangingTarget(){
 		
 		if( Input.GetKeyDown(KeyCode.LeftArrow) ) {
-
-
-			if(index + 1 > enemyList.Count)
+			
+			if(index + 1 >= enemyList.Count)
 				index = 0;
 			else if ( index + 1 < enemyList.Count)
 				++index;
@@ -66,10 +65,10 @@ public class CombatSystem : MonoBehaviour{
 				
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow) ) {
-
+			print (index);
 			if(index - 1 < 0)
 				index = 0;
-			else if (index - 1 > 0)
+			else if (index - 1 >= 0)
 				--index;
 			
 			gui_method -= UnitEnemyBox;
@@ -225,7 +224,7 @@ public class CombatSystem : MonoBehaviour{
 		WorldCamera.instance.MainCamera.transform.LookAt(enemyList[index].transform);
 	}
 	
-	public void Attack(GameObject focusUnit){
+	public IEnumerator Attack(GameObject focusUnit){
 	
 		if(Input.GetKeyDown(KeyCode.Space) ) {	
 			isLabelOn = false;
@@ -234,25 +233,23 @@ public class CombatSystem : MonoBehaviour{
 			//TODO: Figure out how damage is dealt		
 			//HACK: default calculations are set
 			
-			StartCoroutine(WaitForAttackAnimation( 5.0f, focusUnit ) );
+			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
+			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
+			yield return new WaitForSeconds ( 5.0f );
+			gui_method -= UnitEnemyBox;
 			
 			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);
 			
 			if(enemyList[index].GetComponent<BaseClass>().vital.HP.current == 0)
 			{
-				enemyList[index].GetComponent<BaseClass>().unit_status.status = Status.Dead;
+				enemyList[index].GetComponent<BaseClass>().unit_status.Dead();
 				GM.instance.UnitDied(enemyList[index]);
 			}
 			ResetCombatSystem();
 		}
+		yield return null;
 	}
 
-	private IEnumerator WaitForAttackAnimation(float timeInSeconds, GameObject focusUnit){
-		enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
-		enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
-		yield return new WaitForSeconds(timeInSeconds);
-		gui_method -= UnitEnemyBox;
-	}
 
 	private void AddDelegates(){
 		
