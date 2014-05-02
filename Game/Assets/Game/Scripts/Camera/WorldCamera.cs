@@ -113,7 +113,7 @@ public class WorldCamera : MonoBehaviour {
 		
 	}
 	
-	void LeaderFocus(GameObject leader){
+	public void LeaderFocus(){
 	
 	
 		this.transform.position = GM.instance.Photon_Leader.transform.position;
