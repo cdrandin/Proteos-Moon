@@ -84,8 +84,12 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			if (labelHeight == 35.0f)
 				animatinglabels = false;
 		}
-		else if ((PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady) || (forceStart && leader_chosen && !gameReady))
+		else if ((PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady) || (forceStart && leader_chosen && !gameReady)){
 			ReadyGUI();
+			if (gameReady){
+				PhotonNetwork.Instantiate(PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString(), rightSpawn.transform.position, Quaternion.identity, 0);
+			}
+		}
 		else
 			LoadingGUI();
 	}
@@ -142,11 +146,12 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				}
 				Instantiate(magic, leftSpawn.transform.position, Quaternion.identity);
 				if (leaderClicked == 1){
-					mena.SetActive(true);
-
+					//mena.SetActive(true);
+					Instantiate(mena, leftSpawn.transform.position, Quaternion.identity);
 				}
 				else if (leaderClicked == 2){
-					seita.SetActive(true);
+					//seita.SetActive(true);
+					Instantiate(seita, leftSpawn.transform.position, Quaternion.identity);
 				}
 				leader_chosen = true;
 			}
