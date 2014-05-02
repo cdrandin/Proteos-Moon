@@ -14,14 +14,12 @@ public class QuickConnect : Photon.MonoBehaviour {
 				playerName = PhotonNetwork.playerName;
 			}
 			PhotonNetwork.playerName = playerName;
-			if (!PhotonNetwork.connected)
-				PhotonNetwork.ConnectUsingSettings(game_version);
+			PhotonNetwork.ConnectUsingSettings(game_version);
 		}
 	}
 	void OnJoinedLobby(){
 		if (this.enabled){
 			if(PhotonNetwork.JoinRandomRoom()){
-				print ("creating ROOm");
 				PhotonNetwork.CreateRoom(null);
 			}
 		}
@@ -36,7 +34,7 @@ public class QuickConnect : Photon.MonoBehaviour {
 				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 			}
 			else{
-				//PhotonNetwork.offlineMode = true;
+				PhotonNetwork.offlineMode = true;
 				Application.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
