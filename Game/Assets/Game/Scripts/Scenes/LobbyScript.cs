@@ -38,10 +38,6 @@ public class LobbyScript : MonoBehaviour
 		{
 			GuiInLobby();
 		}
-		else if(PhotonNetwork.connectionStateDetailed == PeerState.Joined)
-		{
-			GuiInGame();
-		}
 		else if(PhotonNetwork.connectionStateDetailed == PeerState.Disconnected || PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
 		{
 			if (GUILayout.Button("Connect"))
@@ -61,7 +57,7 @@ public class LobbyScript : MonoBehaviour
 				PhotonNetwork.CreateRoom(null);
 				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 			}
-			StartGame();
+			//StartGame();
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
@@ -87,32 +83,9 @@ public class LobbyScript : MonoBehaviour
 		
 		GUILayout.EndArea();
 	}
-	
-	private void GuiInGame()
-	{
-		/*GUILayout.BeginArea(leftToolbar);
-		
-		// we are in a room, so we can access CurrentRoom and it's Players
-		GUILayout.Label("In Room: " + PhotonNetwork.room.name);
 
-		
-		if (GUILayout.Button("Leave Room"))
-		{
-			PhotonNetwork.LeaveRoom();
-		}
-		if (GUILayout.Button("Back To Main Menu"))
-		{
-			PhotonNetwork.LeaveRoom();
-			Application.LoadLevel(0);
-		}
-		GUILayout.EndArea();*/
-	}
 	void StartGame(){
 		if(PhotonNetwork.inRoom)
 			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
-	}
-	void OnJoinedRoom()	
-	{ 
-		//Application.LoadLevel(Application.loadedLevel + 1);
 	}
 }
