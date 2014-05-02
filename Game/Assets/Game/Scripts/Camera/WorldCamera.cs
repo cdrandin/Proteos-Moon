@@ -376,7 +376,7 @@ public class WorldCamera : MonoBehaviour {
 
 	cameraOn = true;}
 
-	/*
+
 	public void ChangeCamera()
 	{
 		string camera_name = "";
@@ -440,7 +440,7 @@ public class WorldCamera : MonoBehaviour {
 			}
 		} // End of local
 	}
-	*/
+
 
 	public void ResetCamera(){
 		

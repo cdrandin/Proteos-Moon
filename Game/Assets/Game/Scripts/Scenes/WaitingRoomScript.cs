@@ -23,13 +23,13 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private string menaSpecialText, seitaSpecialText;
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
-
+	
 	private string _selected_leader;
-
+	
 	void Awake(){
 		QuickConnect qc;
 		qc = this.GetComponent<QuickConnect>();
-		if (qc.enabled){
+		if (qc.enabled == true){
 			this.enabled = false;
 		}
 	}
@@ -47,10 +47,6 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		counter = 0;
 		menaSpecialText = "\nMena personally trains the deadliest snipers day in\n and day out. \n\n\nSnipers: +10% Attack Range\nBravers: -10% Movement";
 		seitaSpecialText = "\nSeita teaches his Braver recruits to be absolutely\nfearless.\n\n\nBravers: +10% Attack Damage\nSnipers: -10% Movement";
-		//leftSpawn = GameObject.Find("Left Spawn");
-		//rightSpawn = GameObject.Find("Right Spawn");
-		//menaPV = GameObject.Find("Captain_Mena_R").GetPhotonView();
-		//seitaPV = GameObject.Find("Altier_Seita_R").GetPhotonView();
 	}
 	
 	// Update is called once per frame
@@ -75,7 +71,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		if (!Application.CanStreamedLevelBeLoaded(3) ||  !Application.CanStreamedLevelBeLoaded(2) || Application.GetStreamProgressForLevel(2) < 1 || Application.GetStreamProgressForLevel(3) < 1)
 		{
 			GUI.skin = skin; 
-			LoadingGUI();
+			PreLoadingGUI();
 			return;
 		}
 		GUI.skin = skin;
@@ -91,10 +87,22 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		else if (PhotonNetwork.playerList.Length == 2 && leader_chosen && !gameReady){
 			ReadyGUI();
 		}
-		else
+		else{
+			if (once){
+				Instantiate(magic, rightSpawn.transform.position, Quaternion.identity);
+				otherLeader = Instantiate((PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString() == "Altier_Seita"?seita:mena), 
+				                          rightSpawn.transform.position, rightSpawn.transform.rotation) as GameObject;
+				once = false;
+			}
 			LoadingGUI();
+			if (letsDoThis){
+				Destroy(leader);
+				Destroy(otherLeader);
+				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
+			}
+		}
 	}
-
+	
 	void WaitingForOtherPlayer(){
 		switch (counter){
 		case 0: GUI.Label(new Rect(Screen.width / 2 - 125, Screen.height / 2 - 25, 256, 50), "Waiting For Other Player...", loading);
@@ -110,7 +118,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			break;
 		}
 	}
-
+	
 	void MainGUI(){
 		GUI.Label(new Rect(100, 30, Screen.width - 200, 50), "Choose Your Leader", header);
 		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 + 50, 256, 50), PhotonNetwork.playerName, loading);
@@ -138,11 +146,11 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				animatinglabels = true;
 				if (PhotonNetwork.inRoom){
 					proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
-
+					
 					ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
 					player_props.Add("Leader", _selected_leader);
 					PhotonNetwork.player.SetCustomProperties(player_props);
-
+					
 					this.photonView.RPC("ActivateOtherPlayer", PhotonTargets.Others);
 				}
 				Instantiate(magic, leftSpawn.transform.position, Quaternion.identity);
@@ -166,32 +174,25 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			}
 		}
 	}
-
+	
 	void ReadyGUI(){
 		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), 30, 256, 50), PhotonNetwork.playerName, loading);
 		GUI.Label(new Rect(Screen.width / 2 - 25, 35, 50, 50), "VS", header);
 		if (PhotonNetwork.otherPlayers.Length != 0)
 			GUI.Label(new Rect(Screen.width / 2 + 100, 30, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
-
+		
 		WaitingForOtherPlayer();
 	}
-
+	
 	void LoadingGUI()
 	{
-		if (once){
-			Instantiate(magic, rightSpawn.transform.position, Quaternion.identity);
-			otherLeader = Instantiate((PhotonNetwork.otherPlayers[0].customProperties["Leader"].ToString() == "Altier_Seita"?seita:mena), 
-			                          rightSpawn.transform.position, rightSpawn.transform.rotation) as GameObject;
-			once = false;
-		}
-		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
-		if (letsDoThis){
-			Destroy(leader);
-			Destroy(otherLeader);
-			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
-		}
+		GUI.Label(new Rect(Screen.width / 2 - 128, Screen.height / 2 - 25, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(3) * 100) + "%", loading);
 	}
-
+	
+	void PreLoadingGUI(){
+		GUI.Label(new Rect(Screen.width / 2 - 128, Screen.height / 2 - 25, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
+	}
+	
 	void AnimateLabels(){
 		labelHeight = Mathf.Lerp((Screen.height / 2 + 50), 35, (Time.time - startTime) / 3.5f);
 		GUI.Label(new Rect(Screen.width / 2 - (256 + 100), labelHeight, 256, 50), PhotonNetwork.playerName, loading);
@@ -199,7 +200,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		if (PhotonNetwork.otherPlayers.Length != 0)
 			GUI.Label(new Rect(Screen.width / 2 + 100, labelHeight, 256, 50), PhotonNetwork.otherPlayers[0].name, loading);
 	}
-
+	
 	/*void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
 		if (stream.isWriting){
 			stream.SendNext(otherMena);
