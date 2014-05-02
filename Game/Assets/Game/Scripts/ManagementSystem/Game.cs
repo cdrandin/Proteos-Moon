@@ -96,6 +96,7 @@ public class Game : Photon.MonoBehaviour
 			if(Input.GetKeyDown(KeyCode.R))
 			{
 				GM.instance.AddResourcesToCurrentPlayer(1000);
+				Debug.Log(string.Format("{0} has {1} resources", GM.instance.CurrentPlayer, GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)));
 			}
 
 			if(GM.instance.IsThereAWinner())
