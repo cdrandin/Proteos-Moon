@@ -106,7 +106,7 @@ public class WorldCamera : MonoBehaviour {
 
 		cameraHeight = transform.position.y;
 		//ScrollAngle =  gameObject;//new GameObject();
-		ScrollAngle = new GameObject();
+		ScrollAngle = gameObject;
 		
 	}
 	
@@ -375,7 +375,8 @@ public class WorldCamera : MonoBehaviour {
 	public void TurnCameraControlsOn(){ 
 
 	cameraOn = true;}
-	
+
+	/*
 	public void ChangeCamera()
 	{
 		string camera_name = "";
@@ -439,7 +440,8 @@ public class WorldCamera : MonoBehaviour {
 			}
 		} // End of local
 	}
-	
+	*/
+
 	public void ResetCamera(){
 		
 		Vector3 oldWorldTransformEul = new Vector3(0.0f, WorldCamera.instance.transform.eulerAngles.y + WorldCamera.instance.MainCamera.transform.localEulerAngles.y, 0.0f);

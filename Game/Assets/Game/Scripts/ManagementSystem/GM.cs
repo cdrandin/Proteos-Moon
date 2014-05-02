@@ -165,7 +165,7 @@ public class GM : MonoBehaviour
 		//ResetGameState();
 		
 		// Set camera
-		_world_camera.ChangeCamera();
+		//_world_camera.ChangeCamera();
 		
 		StartTimer();
 
@@ -903,7 +903,7 @@ public class GM : MonoBehaviour
 		UpdateFogPerUnit();
 
 		// Change camera accoring to player
-		_world_camera.ChangeCamera();
+		//_world_camera.ChangeCamera();
 	}
 
 	/// <summary>

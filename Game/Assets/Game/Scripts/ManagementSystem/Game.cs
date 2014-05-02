@@ -76,7 +76,7 @@ public class Game : Photon.MonoBehaviour
 		GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 		
 		FindWorldCamera();
-		wcm.ChangeCamera();
+		//wcm.ChangeCamera();
 		
 		// Turn on gui fog of war
 		fow_terrain = game.GetComponentInChildren<Terrain>();
