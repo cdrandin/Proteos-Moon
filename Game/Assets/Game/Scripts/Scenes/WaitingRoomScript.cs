@@ -10,7 +10,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
 	public GameObject mena, seita;
-	public GUIStyle header, loading, question, portrait, readyButton;
+	public GUIStyle header, loading, question, portrait, readyButton, checkmark, leaderInfo;
 	private bool leader_chosen = false;
 	public bool gameReady = false;
 	private bool animatinglabels = false;
@@ -18,6 +18,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private float labelHeight;
 	private float startTime;
 	private float timer;
+	private string menaSpecialText, seitaSpecialText;
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
 	// Use this for initialization
@@ -28,8 +29,12 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		question = skin.FindStyle("Question");
 		portrait = skin.FindStyle ("Portrait");
 		readyButton = skin.FindStyle("ReadyButton");
+		checkmark = skin.FindStyle("Checkmark");
+		leaderInfo = skin.FindStyle("LeaderInfo");
 		startTime = 0.0f;
 		counter = 0;
+		menaSpecialText = "\nMena personally trains the deadliest snipers day in\n and day out. \n\n\nSnipers: +10% Attack Range\nBravers: -10% Movement";
+		seitaSpecialText = "\nSeita teaches his Braver recruits to be absolutely\nfearless.\n\n\nBravers: +10% Attack Damage\nSnipers: -10% Movement";
 		//leftSpawn = GameObject.Find("Left Spawn");
 		//rightSpawn = GameObject.Find("Right Spawn");
 		//menaPV = GameObject.Find("Captain_Mena_R").GetPhotonView();
@@ -100,7 +105,12 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		if (leaderClicked == 0){
 			GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
 		}
-		GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - 256, 256, 256), "?", question);
+		if (!gameReady){
+			GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - 256, 256, 256), "?", question);
+		}
+		else{
+			GUI.Box(new Rect(Screen.width / 2 + 100, Screen.height / 2 - 256, 256, 256), "\u2714", checkmark);
+		}
 		if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 100, 256 / 2, 256 / 2), mena_texture, portrait)){
 			leaderClicked = 1;
 		}
@@ -126,10 +136,10 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				leader_chosen = true;
 			}
 			if (leaderClicked == 1){
-				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "MENA", question);
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), menaSpecialText, leaderInfo);
 			}
 			if (leaderClicked == 2){
-				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "SEITA", question);
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), seitaSpecialText, leaderInfo);
 			}
 		}
 	}
@@ -146,7 +156,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	void LoadingGUI()
 	{
 		GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100) + "%", loading);
-		Application.LoadLevel(Application.loadedLevel + 1);
+		PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 	}
 
 	void AnimateLabels(){

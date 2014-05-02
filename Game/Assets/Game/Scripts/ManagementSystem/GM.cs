@@ -1004,9 +1004,9 @@ public class GM : MonoBehaviour
 			return;
 		}
 
-		_units_killed[_current_player_turn] += 1;
+		//_units_killed[_current_player_turn] += 1;
 
-		unit.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 90));
+		//unit.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 90));
 
 		// Currently, doesn't work since unit is not part of the pooling system initially
 		//PoolingSystem.instance.Destroy(unit);
