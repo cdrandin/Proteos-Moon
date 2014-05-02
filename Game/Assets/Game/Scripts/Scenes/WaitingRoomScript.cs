@@ -21,6 +21,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private string menaSpecialText, seitaSpecialText;
 	public int counter;
 	public GameObject leftSpawn, rightSpawn, magic;
+
 	// Use this for initialization
 	void Start () {
 		proteusChat = this.GetComponent<ProteusChat>();
