@@ -83,7 +83,7 @@ public class LobbyScript : MonoBehaviour
 			if(PhotonNetwork.JoinRandomRoom()){
 				PhotonNetwork.CreateRoom(null);
 			}
-			StartGame();
+			//StartGame();
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
@@ -151,16 +151,7 @@ public class LobbyScript : MonoBehaviour
 
 	void OnJoinedRoom()	
 	{ 
-		if (PhotonNetwork.countOfPlayers == 2) 		
-		{
-			// do something
-			
-			// remember you already instantiated your avatars!
-			
-			//instantiatedAvatars = true;
-			
-			// close the room	
-		}
+		StartGame ();
 	}
 	
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer)	
