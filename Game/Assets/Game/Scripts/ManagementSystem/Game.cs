@@ -7,16 +7,17 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(RecruitSystem), typeof(LeaderObjects))]
+[RequireComponent (typeof(RecruitSystem))]
 public class Game : Photon.MonoBehaviour
 {
 	public GameObject load_game_objects;
 
 	public int num_of_players;
-	public Leader_Names[] player_leaders;
 
 	public int resource_limit;
-	
+
+	public GameObject[] available_leaders;
+
 	public bool testing;
 	private Terrain fow_terrain;
 	public Material fow_material;
@@ -60,28 +61,26 @@ public class Game : Photon.MonoBehaviour
 			
 			init = false;
 		}
-		else
-		{
-			GameObject game = GameObject.FindGameObjectWithTag("Game_Init");
-			if(game != null)
-			{
-				Debug.LogWarning("A game init is already in the scene. Using that one.");
-			}
-			else 
-			{
-				game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
-			}
 
-			//this.gui_method += GUI_menu; 
-			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost, player_leaders);
-			
-			FindWorldCamera();
-			wcm.ChangeCamera();
-			
-			// Turn on gui fog of war
-			fow_terrain = game.GetComponentInChildren<Terrain>();
-			fow_terrain.materialTemplate = fow_material;
+		GameObject game = GameObject.FindGameObjectWithTag("Game_Init");
+		if(game != null)
+		{
+			Debug.LogWarning("A game init is already in the scene. Using that one.");
 		}
+		else 
+		{
+			game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
+		}
+
+		//this.gui_method += GUI_menu; 
+		GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
+		
+		FindWorldCamera();
+		wcm.ChangeCamera();
+		
+		// Turn on gui fog of war
+		fow_terrain = game.GetComponentInChildren<Terrain>();
+		fow_terrain.materialTemplate = fow_material;
 	}
 	//HACK
 	bool showDebug = false;
@@ -140,7 +139,6 @@ public class Game : Photon.MonoBehaviour
 				}
 			}
 
-
 			if(testing)
 			{
 				timer += Time.deltaTime;
@@ -197,7 +195,7 @@ public class Game : Photon.MonoBehaviour
 			init = true;
 			_game_manager_gui.text = "Game Manager enabled";
 			
-			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost, player_leaders);
+			GM.instance.Init(num_of_players, RandomFirstPlayer(num_of_players), resource_limit, GetComponent<RecruitSystem>().unit_cost);
 
 			FindWorldCamera();
 			wcm.ChangeCamera();
@@ -248,9 +246,9 @@ public class Game : Photon.MonoBehaviour
 							_game_manager_gui.text = string.Format("Current time: {0}", GM.instance.CurrentTime);
 			}
 			
-			else if(MakeButton(half, 210, string.Format("Add 50 resource pts")))
+			else if(MakeButton(half, 210, string.Format("Add 1000 resource pts")))
 			{
-				GM.instance.AddResourcesToCurrentPlayer(50);
+				GM.instance.AddResourcesToCurrentPlayer(1000);
 				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
 				                                       GM.instance.CurrentPlayer, 
 				                                       (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)).ToString(),
@@ -288,7 +286,7 @@ public class Game : Photon.MonoBehaviour
 	void Reset ()
 	{
 		num_of_players = 2;
-		resource_limit = 500;
+		resource_limit = 1000000;
 		testing = false;
 		_game_manager_gui.text = "";
 	}

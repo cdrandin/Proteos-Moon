@@ -107,7 +107,7 @@ public class GM : MonoBehaviour
 	/// <param name="who_goes_first">Who_goes_first.</param>
 	/// <param name="resource_win_count">Resource_win_count.</param>
 	/// <param name="unit_cost">Unit_cost.</param>
-	public void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost, Leader_Names[] leaders)
+	public void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
 	{
 		Debug.Log("Start up GM");
 		
@@ -138,11 +138,6 @@ public class GM : MonoBehaviour
 			Debug.LogWarning("World Camera missing reference");
 		}
 
-		if(leaders == null)
-		{
-			Debug.Log("No player leader selection provided with Leader_Names enum");
-		}
-
 		/*
 		 * HACKY
 		 */
@@ -165,7 +160,7 @@ public class GM : MonoBehaviour
 
 		// Get player units on the screen, for now assuming leaders are there before the game starts
 		InitPlayerContainers();
-		InitPlayersLeader(leaders);
+		InitPlayersLeader();
 		
 		//ResetGameState();
 		
@@ -227,17 +222,19 @@ public class GM : MonoBehaviour
 	}
 
 	// Keep track of each player's leader, making sure who has lost the game if their leader has died
-	private void InitPlayersLeader(Leader_Names[] leaders)
+	private void InitPlayersLeader()
 	{
 		int id = PhotonNetwork.player.ID;
 		GameObject spawn_locations = GameObject.Find(string.Format("_leader_spawn{0}", id));
 
 		__leader = null;
 
+		GameObject[] available_leaders = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().available_leaders;
+
 		if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
-			__leader = LeaderObjects.instance.Altier_Seita;
+			__leader = available_leaders[0];
 		else if (PhotonNetwork.player.customProperties["Leader"] == "Captain_Mena")
-			__leader = LeaderObjects.instance.Captain_Mena;
+			__leader = available_leaders[1];
 
 		if(__leader == null)
 		{
@@ -253,21 +250,7 @@ public class GM : MonoBehaviour
 			__leader = Instantiate(__leader, spawn_locations.transform.position, spawn_locations.transform.rotation) as GameObject;
 
 		// So at this point. The local player's leader has been created
-
 		__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
-
-		/*
-		// Get each player's leader
-		GameObject[] _all_leaders = GameObject.FindGameObjectsWithTag("Leader"); 
-		
-		// Number of allocated leaders and number of leaders found should be the same, else a leader is missing
-		if(_leaders.Length != _all_leaders.Length) 
-		{
-			Debug.LogError(string.Format("An issue with the count of leaders!!! Should be a total of {0} leaders currently there is {1}.", _total_players, _all_leaders.Length));
-			ForceQuit();
-			return;
-		}
-		*/
 
 		// Distinguish which leader belongs to which player
 			// Make sure there is a player container prepared already.
@@ -275,28 +258,6 @@ public class GM : MonoBehaviour
 			{
 				Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 			}
-			
-			// Assign leaders to correct player container
-			/*if(leader.transform.parent.tag == "Player1")
-			{
-				_leaders[0] = leader;
-			}
-			else if(leader.transform.parent.tag == "Player2")
-			{
-				_leaders[1] = leader;
-			}/*
-			else if(leader.transform.parent.tag == "Player3")
-			{
-				_leaders[2] = leader;
-			}
-			else if(leader.transform.parent.tag == "Player4")
-			{
-				_leaders[3] = leader;
-			}
-			else
-			{
-				Debug.LogError(string.Format("Unknown player tag! >> {0} <<", __leader.transform.tag));
-			}*/
 	}
 
 	// Currently, shuffles player's turn order
