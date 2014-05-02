@@ -7,13 +7,14 @@ public class LoginScript : MonoBehaviour
 	public Vector2 guiSize = new Vector2(350, 200);
 	private string playerName = "";
 	private Rect guiCenteredRect;
-	public GUISkin skin;
+	//public Texture tex;
+	public GUISkin loginSkin;
 	public MonoBehaviour componentToEnable;
 	private string loginText = "Please Log In";
 	private char[] arr = new char[] { '\n', ' ' };
 	
 	
-	void Awake()
+	public void Awake()
 	{
 		this.guiCenteredRect = new Rect(Screen.width/2-guiSize.x/2, Screen.height/2-100, guiSize.x, guiSize.y);
 		playerName = "";
@@ -29,7 +30,7 @@ public class LoginScript : MonoBehaviour
 		}
 	}
 	
-	void OnGUI()
+	public void OnGUI()
 	{
 		// Enter-Key handling:
 		if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return))
@@ -40,8 +41,10 @@ public class LoginScript : MonoBehaviour
 				return;
 			}
 		}
-		GUI.skin = skin;
+		GUI.skin.label.wordWrap = true;
 		GUILayout.BeginArea(guiCenteredRect);
+		//GUILayout.Box(tex);
+		//GUI.skin = loginSkin;
 		GUILayout.Box(this.loginText);
 		
 		GUILayout.BeginHorizontal();
@@ -56,7 +59,7 @@ public class LoginScript : MonoBehaviour
 			// Save name
 			PlayerPrefs.SetString("playername", PhotonNetwork.playerName);
 		}*/
-		/*GUILayout.BeginHorizontal();
+		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Connect"))
 		{
 			this.ConnectToLobby();
@@ -64,9 +67,9 @@ public class LoginScript : MonoBehaviour
 		GUI.FocusControl("NameInput");
 		if (GUILayout.Button("Back To Main Menu"))
 		{
-			Application.LoadLevel(0);
+			PhotonNetwork.LoadLevel("TitleScene");
 		}
-		GUILayout.EndHorizontal();*/
+		GUILayout.EndHorizontal();
 		GUILayout.EndArea();
 	}
 	

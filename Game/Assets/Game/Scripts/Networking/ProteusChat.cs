@@ -35,12 +35,27 @@ public class ProteusChat : Photon.MonoBehaviour
 
     }
 	public void OnJoinedRoom(){
+		//this.inputLine = PhotonNetwork.playerName + " joined the room";
+		//this.messages.Add(PhotonNetwork.playerName + " joined the room");
+		//this.photonView.RPC ("Chat", PhotonTargets.All, this.inputLine);
+		//this.inputLine = "";
 		this.photonView.RPC ("GameChat", PhotonTargets.All, "Joined");
+		//
+		//GUI.FocusControl("");
 	}
 
 	public void OnLeftRoom(){
-		this.photonView.RPC("GameChat", PhotonTargets.Others, "LeftRoom");
+		//this.photonView.RPC("GameChat", PhotonTargets.All, "LeftRoom");
 	}
+
+	/*public void OnPhotonPlayerDisconnected(){
+		this.photonView.RPC("GameChat", PhotonTargets.All, "Disconnected");
+	}
+
+	public void OnPhotonPlayerConnected(){
+		this.photonView.RPC("GameChat", PhotonTargets.All, "Connected");
+	}*/
+
 
     public void OnGUI()
     {
@@ -81,7 +96,10 @@ public class ProteusChat : Photon.MonoBehaviour
         GUILayout.FlexibleSpace();
         for (int i = 0; i <= messages.Count - 1; i++)
         {
-			GUILayout.Label(messages[i], chatStyle);
+			//if (messages.Count != null)
+            	//GUILayout.Label(messages[i]);
+			//else
+				GUILayout.Label(messages[i], chatStyle);
         }
         GUILayout.EndScrollView();
         GUILayout.BeginHorizontal();

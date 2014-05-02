@@ -230,12 +230,11 @@ public class GM : MonoBehaviour
 		__leader = null;
 
 		GameObject[] available_leaders = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().available_leaders;
-		if(PhotonNetwork.inRoom){
-			if (PhotonNetwork.player.customProperties["Leader"].ToString() == "Altier_Seita")
-				__leader = available_leaders[0];
-			else if (PhotonNetwork.player.customProperties["Leader"].ToString() == "Captain_Mena")
-				__leader = available_leaders[1];
-		}
+
+		if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
+			__leader = available_leaders[0];
+		else if (PhotonNetwork.player.customProperties["Leader"] == "Captain_Mena")
+			__leader = available_leaders[1];
 
 		if(__leader == null)
 		{

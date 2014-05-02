@@ -84,6 +84,7 @@ public class WorldCamera : MonoBehaviour {
 	void Awake()
 	{
 		instance = this;	
+		_local = true; // simply bool to show local host
 	}
 	
 	void Start () {
@@ -375,68 +376,71 @@ public class WorldCamera : MonoBehaviour {
 
 	cameraOn = true;}
 
-
+	/*
 	public void ChangeCamera()
 	{
 		string camera_name = "";
 
 		if(GM.instance.IsOn)
 		{
-			camera_name = "camera_player1";//HACK + ((int)GM.instance.CurrentPlayer + 1).ToString();
+			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
 		}
-		 /*else
+		 else
 		{
 			camera_name = "camera_player" + ((int)GM.instance.CurrentPlayer + 1).ToString();
-		}*/
+		}
 
 		// Local stuff, same computer
-		if(MainCamera != null)
+		if(_local)
 		{
-			// Remove camera from container
-			MainCamera.transform.parent = null;
+			if(MainCamera != null)
+			{
+				// Remove camera from container
+				MainCamera.transform.parent = null;
 
-			//saves transform in old camera
-			MainCamera.transform.position = this.transform.position;
-			MainCamera.transform.eulerAngles = new Vector3( MainCamera.transform.eulerAngles.x,  this.transform.eulerAngles.y, 0.0f);
+				//saves transform in old camera
+				MainCamera.transform.position = this.transform.position;
+				MainCamera.transform.eulerAngles = new Vector3( MainCamera.transform.eulerAngles.x,  this.transform.eulerAngles.y, 0.0f);
 
 
-			// Disable audio listener before we switch
-			MainCamera.GetComponent<AudioListener>().enabled = false;
-			MainCamera.GetComponent<Camera>().enabled = false;
-			
-			MainCamera = GameObject.Find (camera_name);
-			
-			// switch cameras then turn on this ones audio listener
-			MainCamera.GetComponent<AudioListener>().enabled = true;
-			MainCamera.GetComponent<Camera>().enabled = true;
+				// Disable audio listener before we switch
+				MainCamera.GetComponent<AudioListener>().enabled = false;
+				MainCamera.GetComponent<Camera>().enabled = false;
+				
+				MainCamera = GameObject.Find (camera_name);
+				
+				// switch cameras then turn on this ones audio listener
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
 
-			// Add camera from container
-			MainCamera.transform.parent = this.transform;
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
 
-			//Update Transformation
-			this.transform.position = MainCamera.transform.position;
-			MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
-			this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
-			MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
-		}
-		else
-		{
-			MainCamera = GameObject.Find (camera_name);
+				//Update Transformation
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+			}
+			else
+			{
+				MainCamera = GameObject.Find (camera_name);
 
-			MainCamera.GetComponent<AudioListener>().enabled = true;
-			MainCamera.GetComponent<Camera>().enabled = true;
-			
-			// Add camera from container
-			MainCamera.transform.parent = this.transform;
-			
-			//Change Transform information
-			this.transform.position = MainCamera.transform.position;
-			MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
-			this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
-			MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
-		}
+				MainCamera.GetComponent<AudioListener>().enabled = true;
+				MainCamera.GetComponent<Camera>().enabled = true;
+				
+				// Add camera from container
+				MainCamera.transform.parent = this.transform;
+				
+				//Change Transform information
+				this.transform.position = MainCamera.transform.position;
+				MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
+				this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
+				MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+			}
+		} // End of local
 	}
-
+	*/
 
 	public void ResetCamera(){
 		
