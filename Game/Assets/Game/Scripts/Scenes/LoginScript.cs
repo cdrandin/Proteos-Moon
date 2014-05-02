@@ -67,7 +67,7 @@ public class LoginScript : MonoBehaviour
 		GUI.FocusControl("NameInput");
 		if (GUILayout.Button("Back To Main Menu"))
 		{
-			Application.LoadLevel("TitleScene");
+			PhotonNetwork.LoadLevel("TitleScene");
 		}
 		GUILayout.EndHorizontal();
 		GUILayout.EndArea();

@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof(RecruitSystem), typeof(LeaderObjects))]
-public class Game : MonoBehaviour
+public class Game : Photon.MonoBehaviour
 {
 	public GameObject load_game_objects;
 
@@ -30,7 +30,7 @@ public class Game : MonoBehaviour
 	private GUIText _game_manager_gui;
 	
 	private UnitCost _unit_cost;
-	
+
 	private float waitingTime;
 	private float timer;
 	private bool init;
