@@ -843,7 +843,7 @@ public class GM : MonoBehaviour
 	/// <returns><c>true</c> if is next players turn; otherwise, <c>false</c>.</returns>
 	public bool IsNextPlayersTurn()
 	{
-		bool next = true;
+		bool next = false;
 
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
