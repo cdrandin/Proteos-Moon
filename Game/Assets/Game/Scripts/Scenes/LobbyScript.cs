@@ -144,10 +144,10 @@ public class LobbyScript : MonoBehaviour
 		GUILayout.EndArea();
 	}
 
-	void OnLeftRoom()
+	/*void OnLeftRoom()
 	{
 		EndGame();
-	}
+	}*/
 
 	void OnJoinedRoom()	
 	{ 
@@ -173,21 +173,16 @@ public class LobbyScript : MonoBehaviour
 		//}
 	}
 
-	void OnPhotonRandomJoinFailed()
-	{
-		PhotonNetwork.CreateRoom(room_name);
-	}
-
 	private void StartGame()
 	{
 		PhotonNetwork.LoadLevel(loaded_scene);
 	}
 
-	private void EndGame()
+	/*private void EndGame()
 	{
 		//this.objectToActivate.SetActive(false);
 		GM.instance.ResetGameManager();
-	}
+	}*/
 	
 	/*private string FormatRoomProps()
 	{
