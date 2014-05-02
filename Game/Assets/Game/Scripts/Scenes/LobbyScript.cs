@@ -1,22 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
-//using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Random = UnityEngine.Random;
 
 public class LobbyScript : MonoBehaviour
 {
-	//public Game GameInstance;
 	private Rect LobbyRect;  		// set in inspector to position the lobby screen
 	public Rect leftToolbar;  		// set in inspector to position the lobby screen
 	public GUIStyle network_status_style;
 	public GUISkin skin;
-	//public Texture tex;
 	public string game_version = "1.0";
 	private string room_name = "";
 	private Vector2 scroll_position;
-	//public GameObject objectToActivate;
-	//public string loaded_scene;
-	public void Start()
+	void Start()
 	{
 		CustomTypes.Register();
 		LobbyRect = new Rect(Screen.width/2 - 250, Screen.height/2 - 112, 500, 450);
@@ -33,7 +28,7 @@ public class LobbyScript : MonoBehaviour
 		}
 	}
 	
-	public void OnGUI()
+	void OnGUI()
 	{
 		GUI.skin = skin;
 		// Displays the current networking state
@@ -47,11 +42,11 @@ public class LobbyScript : MonoBehaviour
 		{
 			GuiInGame();
 		}
-		else if(PhotonNetwork.connectionStateDetailed == PeerState.Disconnected || PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
+		/*else if(PhotonNetwork.connectionStateDetailed == PeerState.Disconnected || PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
 		{
 			if (GUILayout.Button("Connect"))
 				PhotonNetwork.ConnectUsingSettings(game_version);
-		}
+		}*/
 	}
 	
 	private void GuiInLobby()
@@ -62,33 +57,26 @@ public class LobbyScript : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
-			if(!PhotonNetwork.JoinRandomRoom()){
-				print ("JoinRandom Failed, Creating Room");
+			if(PhotonNetwork.JoinRandomRoom()){
 				PhotonNetwork.CreateRoom(null);
 			}
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
 			PhotonNetwork.CreateRoom(room_name);
-			//PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 		}
 		GUILayout.EndHorizontal();
-		//GUILayout.Space(20);
 		
 		if (GUILayout.Button("Refresh"))
 		{
 			PhotonNetwork.GetRoomList();
 		}
-		//GUILayout.Space(20);
 		
 		scroll_position = GUILayout.BeginScrollView(scroll_position, false, false);
 		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {
-			//GUI.skin = lobby_skin_alternate;
 			GUILayout.Box(game.name + " " + game.playerCount + "/2");
-			//GUI.skin = lobby_skin;
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
-				//PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
 		GUILayout.EndScrollView();
@@ -98,7 +86,7 @@ public class LobbyScript : MonoBehaviour
 	
 	private void GuiInGame()
 	{
-		GUILayout.BeginArea(leftToolbar);
+		/*GUILayout.BeginArea(leftToolbar);
 		
 		// we are in a room, so we can access CurrentRoom and it's Players
 		GUILayout.Label("In Room: " + PhotonNetwork.room.name);
@@ -113,7 +101,7 @@ public class LobbyScript : MonoBehaviour
 			PhotonNetwork.LeaveRoom();
 			Application.LoadLevel(0);
 		}
-		GUILayout.EndArea();
+		GUILayout.EndArea();*/
 	}
 
 	void OnJoinedRoom()	

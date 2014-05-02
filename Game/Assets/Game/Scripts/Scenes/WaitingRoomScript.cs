@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 [RequireComponent(typeof(PhotonView))]
 public class WaitingRoomScript : Photon.MonoBehaviour {
@@ -147,7 +148,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				if (PhotonNetwork.inRoom){
 					proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
 
-					ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
+					Hashtable player_props = new Hashtable();
 					player_props.Add("Leader", _selected_leader);
 					PhotonNetwork.player.SetCustomProperties(player_props);
 

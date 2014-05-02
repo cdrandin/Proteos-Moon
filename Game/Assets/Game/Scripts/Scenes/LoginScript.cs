@@ -13,7 +13,7 @@ public class LoginScript : MonoBehaviour
 	private char[] arr = new char[] { '\n', ' ' };
 	
 	
-	public void Awake()
+	void Awake()
 	{
 		this.guiCenteredRect = new Rect(Screen.width/2-guiSize.x/2, Screen.height/2-100, guiSize.x, guiSize.y);
 		playerName = "";
@@ -29,7 +29,7 @@ public class LoginScript : MonoBehaviour
 		}
 	}
 	
-	public void OnGUI()
+	void OnGUI()
 	{
 		// Enter-Key handling:
 		if (Event.current.type == EventType.KeyDown && (Event.current.keyCode == KeyCode.KeypadEnter || Event.current.keyCode == KeyCode.Return))
@@ -56,7 +56,7 @@ public class LoginScript : MonoBehaviour
 			// Save name
 			PlayerPrefs.SetString("playername", PhotonNetwork.playerName);
 		}*/
-		GUILayout.BeginHorizontal();
+		/*GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Connect"))
 		{
 			this.ConnectToLobby();
@@ -66,7 +66,7 @@ public class LoginScript : MonoBehaviour
 		{
 			Application.LoadLevel(0);
 		}
-		GUILayout.EndHorizontal();
+		GUILayout.EndHorizontal();*/
 		GUILayout.EndArea();
 	}
 	
