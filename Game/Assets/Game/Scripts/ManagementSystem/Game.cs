@@ -69,7 +69,10 @@ public class Game : Photon.MonoBehaviour
 		}
 		else 
 		{
-			game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
+			if (PhotonNetwork.inRoom)
+				game = PhotonNetwork.InstantiateSceneObject(load_game_objects.name, Vector3.zero, Quaternion.identity, 0) as GameObject;
+			else
+				game = Instantiate(load_game_objects, Vector3.zero, Quaternion.identity) as GameObject;
 		}
 
 		//this.gui_method += GUI_menu; 
