@@ -27,20 +27,15 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 
 	private string _selected_leader;
 
+	void Awake(){
+		QuickConnect qc;
+		qc = this.GetComponent<QuickConnect>();
+		if (qc.enabled){
+			this.enabled = false;
+		}
+	}
 	// Use this for initialization
 	void Start () {
-		if (forceStart){
-			PhotonNetwork.offlineMode = true;
-			if (PhotonNetwork.inRoom){
-				_selected_leader = "Altier_Seita";
-				ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
-				player_props.Add("Leader", _selected_leader);
-				PhotonNetwork.player.SetCustomProperties(player_props);
-				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
-			}
-			else
-				Application.LoadLevel(Application.loadedLevel + 1);
-		}
 		proteusChat = this.GetComponent<ProteusChat>();
 		header = skin.FindStyle("Header");
 		loading = skin.FindStyle("Loading");
