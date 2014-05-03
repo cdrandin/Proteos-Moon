@@ -326,7 +326,7 @@ public class GM : Photon.MonoBehaviour
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
 	}
 	[RPC]
-	void SendTurnOrder(PhotonMessageInfo mi )
+	void SendTurnOrder()
 	{
 		Debug.Log("We get here");
 		for(int i=0;i<Get_Leaders.Length;++i)
