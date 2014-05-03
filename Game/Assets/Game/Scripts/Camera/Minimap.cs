@@ -59,9 +59,8 @@ public class Minimap: MonoBehaviour
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
 		transform.position = new Vector3(target.position.x, y_axis, target.position.z);
-		
-		// Set the height of the camera
-		transform.position = new Vector3 (transform.position.x, currentHeight, transform.position.z);
+
+		transform.rotation = Quaternion.Euler(transform.eulerAngles.x, target.eulerAngles.y, transform.eulerAngles.z);
 	}
 }
 
