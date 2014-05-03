@@ -42,4 +42,10 @@ public class Cursor : MonoBehaviour
 
 		GUI.Label(pos, _current);
 	}
+
+	void OnEnable()
+	{
+		Screen.showCursor = true;
+		this.enabled = false;
+	}
 }
