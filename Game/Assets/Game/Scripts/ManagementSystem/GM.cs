@@ -298,17 +298,9 @@ public class GM : Photon.MonoBehaviour
 			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 		}
 
-		ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
+		
 		
 		//turn_order = new ExitGames.Client.Photon.Hashtable();
-		for(int i=0;i < Get_Leaders.Length;++i)
-		{
-			
-			reuse_hash.Add(string.Format("Player{0}",i), 0);
-			
-		}
-		
-		PhotonNetwork.room.SetCustomProperties(reuse_hash);
 		
 		//Generate Turn Sequence
 		//If you are the host send the turn order to the other player
@@ -319,35 +311,52 @@ public class GM : Photon.MonoBehaviour
 			//	ROOM:		PhotonNetwork.room.customProperties
 
 //			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
-
+			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
 			//turn_order = new ExitGames.Client.Photon.Hashtable();
 			for(int i=0;i < Get_Leaders.Length;++i)
 			{
-				
-				reuse_hash[string.Format("Player{0}",i)] = _player_turn_order[i];
-
-				Debug.Log("Add "+ string.Format("Player{0}",i) +  " this value" + (int)_player_turn_order[i]);
+					
+				reuse_hash.Add(string.Format("Turn{0}",i),  _player_turn_order[i]);
+				Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
 			}
 				
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
-			Debug.Log((Player)PhotonNetwork.room.customProperties["Player1"]);
-			this.photonView.RPC("SendTurnOrder", PhotonTargets.All);
-			Debug.Log((Player)PhotonNetwork.room.customProperties["Player2"]);
+			Debug.Log((Player)PhotonNetwork.room.customProperties["Turn1"]);
+			//this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
+			Debug.Log((Player)PhotonNetwork.room.customProperties["Turn2"]);
 			
+		}
+		else{
+		
+			while( !PhotonNetwork.room.customProperties.ContainsKey["Turn1"] ){
+			
+				yield return null;
+			}
+			
+			
+		
 		}
 		
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
 	}
+	
+	IEnumerator UpdateTurnSequence(){
+	
+	
+	}
+	
 	[RPC]
-	void SendTurnOrder()
+	void SendTurnOrder(PhotonMessageInfo mi)
 	{
 		Debug.Log("We get here");
+//		ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
+		
 		for(int i=0;i<Get_Leaders.Length;++i)
 		{
-			Debug.Log("From sender" + (Player)PhotonNetwork.room.customProperties[string.Format("Player{0}",i)]);
+			Debug.Log("From sender" + (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)]);
 			
-			_player_turn_order[i] = (Player)PhotonNetwork.room.customProperties[string.Format("Player{0}",i)];
+			_player_turn_order[i] = (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)];
 		}
 	}
 
