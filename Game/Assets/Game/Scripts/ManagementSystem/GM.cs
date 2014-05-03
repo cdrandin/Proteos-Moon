@@ -266,12 +266,14 @@ public class GM : MonoBehaviour
 		//Debug.Log(string.Format("There are a total of {0} leaders", Get_Leaders.Length));
 	}
 
+	// Get all leaders in the room and puts them in their respective local container
 	IEnumerator SetupPlayerContainer()
 	{
 		yield return new WaitForSeconds(0.5f);
 		foreach(GameObject leader in Get_Leaders)
 		{
-			leader.transform.parent = _player_container[leader.GetPhotonView().ownerId-1].transform;
+			Debug.Log(leader.GetPhotonView().owner.ID);
+			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 		}
 	}
 
