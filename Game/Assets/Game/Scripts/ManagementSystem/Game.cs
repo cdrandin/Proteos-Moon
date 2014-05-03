@@ -87,6 +87,7 @@ public class Game : Photon.MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+
 		//HACK
 		if (Input.GetKeyDown(KeyCode.Q))
 			showDebug = !showDebug;

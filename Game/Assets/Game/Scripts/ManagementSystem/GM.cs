@@ -250,7 +250,8 @@ public class GM : MonoBehaviour
 			__leader = Instantiate(__leader, spawn_locations.transform.position, spawn_locations.transform.rotation) as GameObject;
 
 		// So at this point. The local player's leader has been created
-		__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
+		//__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
+		StartCoroutine(SetupPlayerContainer());
 
 		// Distinguish which leader belongs to which player
 		// Make sure there is a player container prepared already.
@@ -261,6 +262,17 @@ public class GM : MonoBehaviour
 
 		// Set camera focus on leader
 		WorldCamera.instance.LeaderFocus();
+
+		//Debug.Log(string.Format("There are a total of {0} leaders", Get_Leaders.Length));
+	}
+
+	IEnumerator SetupPlayerContainer()
+	{
+		yield return new WaitForSeconds(0.5f);
+		foreach(GameObject leader in Get_Leaders)
+		{
+			leader.transform.parent = _player_container[leader.GetPhotonView().ownerId-1].transform;
+		}
 	}
 
 	// Currently, shuffles player's turn order
