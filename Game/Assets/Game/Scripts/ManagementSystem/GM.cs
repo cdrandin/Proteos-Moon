@@ -72,7 +72,7 @@ public class GM : Photon.MonoBehaviour
 	private int[] _units_obtained;
 	private int[] _units_killed;
 	private  int  _round_num;
-
+	
 
 	private	ExitGames.Client.Photon.Hashtable turn_order;
 	
@@ -302,6 +302,7 @@ public class GM : Photon.MonoBehaviour
 				for(int i=0;i<PhotonNetwork.countOfPlayers;++i)
 				{
 					PhotonNetwork.player.customProperties.Add(string.Format("Player{0}",i), _player_turn_order[i]);
+					Debug.Log("Add "+ string.Format("Player{0}",i) +  " this value" + _player_turn_order[i]);
 				}
 				
 				this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
@@ -314,6 +315,8 @@ public class GM : Photon.MonoBehaviour
 	{
 		for(int i=0;i<PhotonNetwork.countOfPlayers;++i)
 		{
+			Debug.Log("From sender" + (Player)PhotonNetwork.player.customProperties[string.Format("Player{0}",i)]);
+			
 			_player_turn_order[i] = (Player)PhotonNetwork.player.customProperties[string.Format("Player{0}",i)];
 		}
 	}
