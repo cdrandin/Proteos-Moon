@@ -300,17 +300,8 @@ public class GM : Photon.MonoBehaviour
 
 		
 		
-		//turn_order = new ExitGames.Client.Photon.Hashtable();
-		for(int i=0;i < Get_Leaders.Length;++i)
-		{
-			
-			reuse_hash.Add(string.Format("Player{0}",i), 0);
-			
-		}
-		
-		PhotonNetwork.room.SetCustomProperties(reuse_hash);
 
-		Debug.Log(string.Format("I am {0}. This is room: {1}", (Player)PhotonNetwork.masterClient.ID-1), PhotonNetwork.room.name);
+		Debug.Log(string.Format("I am {0}. This is room: {1}", (Player)PhotonNetwork.masterClient.ID-1, PhotonNetwork.room.name.ToString()));
 
 		//Generate Turn Sequence
 		//If you are the host send the turn order to the other player
