@@ -91,7 +91,7 @@ public class WorldCamera : MonoBehaviour {
 	void Start () {
 		
 		InitializeMainCamera();
-
+		this.transform.localEulerAngles = Vector3.zero;
 		//Declare camera limits
 		cameraLimits.LeftLimit   = WorldTerrain.transform.position.x + WorldTerrainPadding;
 		
