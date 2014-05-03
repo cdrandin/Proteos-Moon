@@ -8,7 +8,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
-public class UnitController : MonoBehaviour
+public class UnitController : Photon.MonoBehaviour
 {
 	/*
 	 * Public methods for Unit Controller
@@ -328,6 +328,13 @@ public class UnitController : MonoBehaviour
 		fall_speed          = 0;
 		air_jumps 			= 0;
 	}
+
+	void OnPhotonSerializeView(PhotonStream stream,
+	                           PhotonMessageInfo info)
+	{
+		Debug.Log("UnitController");
+	}
+
 	/*
 	void Reset ()
 	{
