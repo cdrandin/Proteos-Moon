@@ -142,7 +142,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		
 		if(GUI.Button(new Rect((Screen.width / 2 - (256 + 95)) + (256 / 2), Screen.height / 2  + 100, 256 / 2, 256 / 2), seita_texture, portrait)){
 			leaderClicked = 2;
-			offSet = 256 / 2;
+			offSet = (256 / 2)-10;
 		}
 		if (leaderClicked != 0){
 			if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105) + offSet, Screen.height / 2 + 240, 128, 50), "Ready?", readyButton)){

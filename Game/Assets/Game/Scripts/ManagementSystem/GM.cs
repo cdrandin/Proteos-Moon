@@ -32,7 +32,7 @@ public enum Player : byte
 		NONE
 }
 
-public class GM : MonoBehaviour 
+public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
 
@@ -73,6 +73,9 @@ public class GM : MonoBehaviour
 	private int[] _units_killed;
 	private  int  _round_num;
 
+
+	private	ExitGames.Client.Photon.Hashtable turn_order;
+	
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
 	private  float _base_time;
 
@@ -172,6 +175,8 @@ public class GM : MonoBehaviour
 		_game_init = true;
 
 		UpdateFogPerUnit();
+		
+		
 	}
 
 	// Allocate memory blocks for things needed in the game
@@ -287,8 +292,30 @@ public class GM : MonoBehaviour
 				leader.GetComponent<FOWRevealer>().isActive = true;
 			}
 		}
-
+		//Generate Turn Sequence
+		//If you are the host send the turn order to the other player
+		if(PhotonNetwork.player.isMasterClient){
+		
+				GenerateTurnSequence();
+				
+				//turn_order = new ExitGames.Client.Photon.Hashtable();
+				for(int i=0;i<PhotonNetwork.countOfPlayers;++i)
+				{
+					PhotonNetwork.player.customProperties.Add(string.Format("Player{0}",i), _player_turn_order[i]);
+				}
+				
+				this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
+		}
+		
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
+	}
+	[RPC]
+	void SendTurnOrder(PhotonMessageInfo mi )
+	{
+		for(int i=0;i<PhotonNetwork.countOfPlayers;++i)
+		{
+			_player_turn_order[i] = (Player)PhotonNetwork.player.customProperties[string.Format("Player{0}",i)];
+		}
 	}
 
 	// Currently, shuffles player's turn order
@@ -416,6 +443,15 @@ public class GM : MonoBehaviour
 			}
 			
 			return _instance; 
+		}
+	}
+	
+	public Player[] TurnOrder{
+	
+	
+		get{
+		
+			return _player_turn_order;
 		}
 	}
 

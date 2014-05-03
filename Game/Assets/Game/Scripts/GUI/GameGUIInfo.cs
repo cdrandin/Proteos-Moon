@@ -21,6 +21,8 @@ public class GameGUIInfo : MonoBehaviour {
 		GUI.Label(new Rect(0,Screen.height/32, Screen.width, Screen.height/32 ), string.Format("IsNextPlayersTurn: {0}", GM.instance.IsNextPlayersTurn()));
 		GUI.Label(new Rect(0, 2*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("{0}'s Turn ", GM.instance.CurrentPlayer));
 		
+		GUI.Label(new Rect(0, 3*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("First {0} then {1} Turn ", GM.instance.TurnOrder[0], GM.instance.TurnOrder[1]));
+		
 	}
 	
 	
