@@ -144,10 +144,14 @@ public class UnitGUI : MonoBehaviour {
 			}
 			if(isMoving){
 
+				if(focusObject == null){
+					Debug.LogError("The unit focus is missing");
+				}
+				
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				
 				if (proteus != NearProcite()){
-
+					
 					proteus = NearProcite();
 					
 				}

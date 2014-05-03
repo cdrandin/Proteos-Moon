@@ -187,6 +187,8 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void CallCombatDelegates(GameObject focusUnit){
 
+		print ("This is the current focus unit: " + focusUnit);
+
 		WithinRange(focusUnit);
 		TurnOnProjector();
 	}
