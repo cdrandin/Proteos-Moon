@@ -16,7 +16,9 @@ public class TitleGUI : MonoBehaviour {
 	private bool button_clicked = false;
 	public bool reset_playerprefs = false;
 	public MonoBehaviour componentToEnable;
-
+	
+	public Texture2D clicked, highlight;
+	
 	public void Start(){
 		
 		
@@ -41,8 +43,7 @@ public class TitleGUI : MonoBehaviour {
 	public void UpdateSkin(){
 	
 		Texture2D normal = custom_skin.button.normal.background;
-		Texture2D highlight = custom_skin.button.hover.background;
-		Texture2D clicked = custom_skin.button.active.background;
+
 		
 		custom_skin.button.hover.background = UnitGUI.CombineTextures(normal, highlight);
 		custom_skin.button.active.background = UnitGUI.CombineTextures(normal, clicked);
