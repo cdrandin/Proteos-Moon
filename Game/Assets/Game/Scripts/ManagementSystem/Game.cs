@@ -106,7 +106,9 @@ public class Game : Photon.MonoBehaviour
 
 			if(GM.instance.IsNextPlayersTurn())
 			{
-				GM.instance.NextPlayersTurn();
+				this.photonView.RPC("ChangeTurn", PhotonTargets.All);
+				//GM.instance.NextPlayersTurn();
+				
 				_game_manager_gui.text = string.Format("It is now {0}'s turn", GM.instance.CurrentPlayer);
 			}
 
@@ -181,6 +183,7 @@ public class Game : Photon.MonoBehaviour
 		{
 			if(MakeButton(half, 150, "Next player's turn"))
 			{
+				//HACK
 				GM.instance.NextPlayersTurn();
 				
 				_game_manager_gui.text = string.Format("Next player's turn\n" + 
@@ -236,4 +239,11 @@ public class Game : Photon.MonoBehaviour
 		testing = false;
 		_game_manager_gui.text = "";
 	}
+
+	[RPC]
+	void ChangeTurn(PhotonMessageInfo mi)
+	{
+		//HACK
+		GM.instance.NextPlayersTurn();
+	} 
 }
