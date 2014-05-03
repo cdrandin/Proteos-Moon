@@ -272,7 +272,6 @@ public class GM : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		foreach(GameObject leader in Get_Leaders)
 		{
-			Debug.Log(leader.GetPhotonView().owner.ID);
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 		}
 	}
