@@ -91,6 +91,7 @@ public class Game : Photon.MonoBehaviour
 		//HACK
 		if (Input.GetKeyDown(KeyCode.Q))
 			showDebug = !showDebug;
+
 		if(GM.instance.IsOn)
 		{
 			if(Input.GetKeyDown(KeyCode.R))
@@ -106,8 +107,9 @@ public class Game : Photon.MonoBehaviour
 
 			if(GM.instance.IsNextPlayersTurn())
 			{
-				this.photonView.RPC("ChangeTurn", PhotonTargets.All);
-				//GM.instance.NextPlayersTurn();
+				// HACK
+				//this.photonView.RPC("ChangeTurn", PhotonTargets.All);
+				GM.instance.NextPlayersTurn();
 				
 				_game_manager_gui.text = string.Format("It is now {0}'s turn", GM.instance.CurrentPlayer);
 			}
