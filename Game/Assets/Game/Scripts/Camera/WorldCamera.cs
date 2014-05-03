@@ -60,7 +60,7 @@ public class WorldCamera : MonoBehaviour {
 
 	[HideInInspector] public float cameraHeight; //Only for scrolling or zooming
 	[HideInInspector] public float cameraY; //this will change relative to terrain
-	private float maxCameraHeight = 20f;
+	private float maxCameraHeight = 50f;
 	public LayerMask TerrainOnly;
 	private float minDistanceToObject = 5f;
 
@@ -83,7 +83,7 @@ public class WorldCamera : MonoBehaviour {
 	
 	void Awake()
 	{
-		
+		this.transform.localEulerAngles = Vector3.zero;
 		instance = this;	
 		_local = true; // simply bool to show local host
 	}
@@ -108,8 +108,9 @@ public class WorldCamera : MonoBehaviour {
 		mouseScrollLimits.BottomLimit = mouseBoundary;
 
 		cameraHeight = transform.position.y;
-		//ScrollAngle =  gameObject;//new GameObject();
-		ScrollAngle = gameObject;
+		ScrollAngle =  new GameObject("ScrollAngle");
+		ScrollAngle.transform.parent = gameObject.transform;
+		//ScrollAngle = gameObject;
 		
 	}
 	
@@ -140,7 +141,7 @@ public class WorldCamera : MonoBehaviour {
 		MainCamera.transform.parent = this.transform;
 		
 		//Change Transform information
-		this.transform.position = MainCamera.transform.position;
+		this.transform.position = new Vector3( MainCamera.transform.position.x, Mathf.Clamp(MainCamera.transform.position.y, minDistanceToObject+1, maxCameraHeight - 1), MainCamera.transform.position.z);
 		MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
 		this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
 		MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
