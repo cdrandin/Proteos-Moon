@@ -301,18 +301,25 @@ public class GM : Photon.MonoBehaviour
 		}
 		//Generate Turn Sequence
 		//If you are the host send the turn order to the other player
-		if(PhotonNetwork.player.isMasterClient){
-		
-				GenerateTurnSequence();
+		if(PhotonNetwork.player.isMasterClient)
+		{
+			GenerateTurnSequence();
+
+			//	ROOM:		PhotonNetwork.room.customProperties
+
+			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.player.customProperties;
+
+			//turn_order = new ExitGames.Client.Photon.Hashtable();
+			for(int i=0;i < Get_Leaders.Length;++i)
+			{
+				reuse_hash.Add(string.Format("Player{0}",i), _player_turn_order[i]);
+
+				Debug.Log("Add "+ string.Format("Player{0}",i) +  " this value" + (int)_player_turn_order[i]);
+			}
 				
-				//turn_order = new ExitGames.Client.Photon.Hashtable();
-				for(int i=0;i < Get_Leaders.Length;++i)
-				{
-					PhotonNetwork.player.customProperties.Add(string.Format("Player{0}",i), _player_turn_order[i]);
-					Debug.Log("Add "+ string.Format("Player{0}",i) +  " this value" + (int)_player_turn_order[i]);
-				}
-				
-				this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
+			PhotonNetwork.player.SetCustomProperties(reuse_hash);
+
+			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
 		}
 		
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
