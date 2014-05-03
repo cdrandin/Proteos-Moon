@@ -269,9 +269,10 @@ public class GM : MonoBehaviour
 	// Get all leaders in the room and puts them in their respective local container
 	IEnumerator SetupPlayerContainer()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(1.0f);
 		foreach(GameObject leader in Get_Leaders)
 		{
+			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 		}
 	}
