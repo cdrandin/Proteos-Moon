@@ -312,6 +312,7 @@ public class GM : Photon.MonoBehaviour
 
 		Debug.Log(string.Format("I am {0}. This is room: {1}", (Player)PhotonNetwork.masterClient.ID-1), PhotonNetwork.room.name);
 
+
 		//Generate Turn Sequence
 		//If you are the host send the turn order to the other player
 		if(PhotonNetwork.player.isMasterClient)
