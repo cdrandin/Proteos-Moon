@@ -956,10 +956,12 @@ public class GM : MonoBehaviour
 		}
 
 		// Next player's turn
-		__leader.GetPhotonView().owner.customProperties["current_player_turn"] =((int)__leader.GetPhotonView().owner.customProperties["current_player_turn"] + 1) % _total_players;
+		//__leader.GetPhotonView().owner.customProperties["current_player_turn"] =((int)__leader.GetPhotonView().owner.customProperties["current_player_turn"] + 1) % _total_players;
+		_current_player_turn =(_current_player_turn + 1) % _total_players;
+
 
 		// Set other players _current_player_turn to the next
-		_current_player_turn = (int)__leader.GetPhotonView().owner.customProperties["current_player_turn"];
+		//_current_player_turn = (int)__leader.GetPhotonView().owner.customProperties["current_player_turn"];
 
 		// When all player's have had their turn increment round number counter
 		if(_current_player_turn == 0)
