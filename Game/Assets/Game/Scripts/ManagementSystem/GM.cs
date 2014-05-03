@@ -275,7 +275,17 @@ public class GM : MonoBehaviour
 			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
-			//if(leader.GetPhotonView().owner.ID-1 != )
+			if( GetPlayer( leader.GetPhotonView().owner.ID-1 ) != WhichPlayerAmI ){
+			
+				leader.GetComponent<FOWRenderers>().enabled = true;
+				leader.GetComponent<FOWRevealer>().enabled = false;
+				
+			}
+			else{
+				leader.GetComponent<FOWRenderers>().enabled = false;
+				leader.GetComponent<FOWRevealer>().enabled = true;
+				
+			}
 		}
 	}
 
