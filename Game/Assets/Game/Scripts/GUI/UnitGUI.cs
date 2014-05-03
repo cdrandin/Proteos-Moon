@@ -76,7 +76,7 @@ public class UnitGUI : MonoBehaviour {
 			WorldCamera.instance.TurnCameraControlsOn();
 	}
 	
-	void UpdateSkinLayout(){
+	public void UpdateSkinLayout(){
 		
 		Texture2D normal = mySkin.button.normal.background;
 		

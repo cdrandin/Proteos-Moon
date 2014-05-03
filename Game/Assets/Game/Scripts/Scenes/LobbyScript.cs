@@ -11,6 +11,7 @@ public class LobbyScript : MonoBehaviour
 	public string game_version = "1.0";
 	private string room_name = "";
 	private Vector2 scroll_position;
+	
 	void Start()
 	{
 		CustomTypes.Register();
