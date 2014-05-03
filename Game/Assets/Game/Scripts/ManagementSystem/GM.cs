@@ -274,11 +274,11 @@ public class GM : Photon.MonoBehaviour
 	// Get all leaders in the room and puts them in their respective local container
 	IEnumerator SetupPlayerContainer()
 	{
-		Debug.Log ("Photon PlayerList Length: " + PhotonNetwork.playerList.Length);
-		Debug.Log ("Our Game PlayerList Length: " + _total_players);
 		
-		while(_total_players != PhotonNetwork.playerList.Length){
 		
+		while(_total_players != Get_Leaders.Length){
+			Debug.Log ("Photon PlayerList Length: " + Get_Leaders.Length);
+			Debug.Log ("Our Game PlayerList Length: " + _total_players);
 			yield return new WaitForSeconds(0.5f);
 		}
 	
@@ -473,7 +473,6 @@ public class GM : Photon.MonoBehaviour
 	{
 		get 
 		{ 
-			Debug.Log(string.Format("Photon Leader: {0}", __leader));
 			return __leader; 
 		}
 	}
