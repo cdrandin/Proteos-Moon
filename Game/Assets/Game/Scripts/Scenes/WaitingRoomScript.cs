@@ -16,6 +16,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	private int leaderClicked = 0;
 	private float labelHeight;
 	private float startTime;
+	private float offSet = 0;
 	private float delayTime = 0.0f;
 	private bool letsDoThis = false;
 	private bool once = true;
@@ -136,13 +137,15 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		}
 		if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 100, 256 / 2, 256 / 2), mena_texture, portrait)){
 			leaderClicked = 1;
+			offSet = 0.0f;
 		}
 		
 		if(GUI.Button(new Rect((Screen.width / 2 - (256 + 95)) + (256 / 2), Screen.height / 2  + 100, 256 / 2, 256 / 2), seita_texture, portrait)){
 			leaderClicked = 2;
+			offSet = 256 / 2;
 		}
 		if (leaderClicked != 0){
-			if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105), Screen.height / 2 + 240, 128, 50), "Ready?", readyButton)){
+			if(GUI.Button(new Rect(Screen.width / 2 - (256 + 105) + offSet, Screen.height / 2 + 240, 128, 50), "Ready?", readyButton)){
 				animatinglabels = true;
 				proteusChat.photonView.RPC("GameChat", PhotonTargets.All, "Ready");
 					
