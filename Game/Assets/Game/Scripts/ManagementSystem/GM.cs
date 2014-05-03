@@ -428,6 +428,14 @@ public class GM : MonoBehaviour
 		}
 	}
 
+	public Player WhichPlayerAmI
+	{
+		get
+		{
+			return (Player)__leader.GetPhotonView().owner.ID-1;
+		}
+	}
+
 	/// <summary>
 	/// Gets the transformation of the instance
 	/// </summary>
@@ -938,6 +946,9 @@ public class GM : MonoBehaviour
 
 		// Next player's turn
 		_current_player_turn =(_current_player_turn + 1) % _total_players;
+
+		// Set other players _current_player_turn to the next
+
 
 		// When all player's have had their turn increment round number counter
 		if(_current_player_turn == 0)
