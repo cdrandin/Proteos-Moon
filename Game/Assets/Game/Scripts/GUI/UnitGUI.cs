@@ -659,7 +659,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	GameObject CurrentMainCamera(){
 		
-		return  GameObject.Find ("camera_player" + ((int)GM.instance.CurrentPlayer + 1 ).ToString() );
+		return Camera.main.gameObject;
 		
 	}
 	#endregion
