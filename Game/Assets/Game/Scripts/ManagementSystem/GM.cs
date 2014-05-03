@@ -284,7 +284,7 @@ public class GM : MonoBehaviour
 			else{
 				leader.GetComponent<FOWRenderers>().enabled = false;
 				leader.GetComponent<FOWRevealer>().enabled = true;
-				
+				leader.GetComponent<FOWRevealer>().isActive = true;
 			}
 		}
 
