@@ -251,6 +251,7 @@ public class GM : MonoBehaviour
 
 		// So at this point. The local player's leader has been created
 		__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
+		Debug.Log(string.Format("Player container {0} with id {1}   Transform: {2}", _player_container[id-1].name, id-1, _player_container[id-1].transform));
 
 		// Distinguish which leader belongs to which player
 			// Make sure there is a player container prepared already.
