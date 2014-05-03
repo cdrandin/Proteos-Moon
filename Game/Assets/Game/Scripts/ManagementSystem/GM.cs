@@ -258,13 +258,6 @@ public class GM : Photon.MonoBehaviour
 		//__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
 		StartCoroutine(SetupPlayerContainer());
 
-		// Distinguish which leader belongs to which player
-		// Make sure there is a player container prepared already.
-		if(__leader.transform.parent == null)
-		{
-			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
-		}
-
 		// Set camera focus on leader
 		WorldCamera.instance.LeaderFocus();
 
@@ -274,8 +267,6 @@ public class GM : Photon.MonoBehaviour
 	// Get all leaders in the room and puts them in their respective local container
 	IEnumerator SetupPlayerContainer()
 	{
-		
-		
 		while(_total_players != Get_Leaders.Length){
 			Debug.Log ("Photon PlayerList Length: " + Get_Leaders.Length);
 			Debug.Log ("Our Game PlayerList Length: " + _total_players);
@@ -299,6 +290,14 @@ public class GM : Photon.MonoBehaviour
 				leader.GetComponent<FOWRevealer>().isActive = true;
 			}
 		}
+
+		// Distinguish which leader belongs to which player
+		// Make sure there is a player container prepared already.
+		if(__leader.transform.parent == null)
+		{
+			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
+		}
+
 		//Generate Turn Sequence
 		//If you are the host send the turn order to the other player
 		if(PhotonNetwork.player.isMasterClient)
