@@ -274,6 +274,8 @@ public class GM : MonoBehaviour
 		{
 			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
+			
+			//if(leader.GetPhotonView().owner.ID-1 != )
 		}
 	}
 
