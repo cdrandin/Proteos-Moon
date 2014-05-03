@@ -320,7 +320,7 @@ public class GM : Photon.MonoBehaviour
 	[RPC]
 	void SendTurnOrder(PhotonMessageInfo mi )
 	{
-		for(int i=0;i<PhotonNetwork.countOfPlayers;++i)
+		for(int i=0;i<Get_Leaders.Length;++i)
 		{
 			Debug.Log("From sender" + (Player)PhotonNetwork.player.customProperties[string.Format("Player{0}",i)]);
 			
