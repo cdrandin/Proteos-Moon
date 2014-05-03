@@ -910,6 +910,12 @@ public class GM : MonoBehaviour
 		return next;
 	}
 
+	// Check with the current player using Photon to see if it is their turn
+	public bool IsItMyTurn()
+	{
+		return (_current_player_turn == __leader.GetPhotonView().owner.ID-1);
+	}
+
 	// Method for allowing other player to take turn
 	// This should enable all options for the next player in the queue
 	// Disable the player's actions when they are done with their turn
