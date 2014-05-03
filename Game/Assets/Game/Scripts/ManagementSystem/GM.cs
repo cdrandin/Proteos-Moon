@@ -880,22 +880,22 @@ public class GM : MonoBehaviour
 	/// <returns><c>true</c> if is next players turn; otherwise, <c>false</c>.</returns>
 	public bool IsNextPlayersTurn()
 	{
-		bool next = false;
+		bool next = true;
 
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
 
 		// Leader still can do actions
-		/*HACK if(!_leaders[_current_player_turn].GetComponent<BaseClass>().unit_status.status.Rest)
+		if(!__leader.GetComponent<BaseClass>().unit_status.status.Rest)
 		{
 			next = false;
-		}*/
+		}
 
 		// Leader is still active so don't need to check other units
 		if(next)
 		{
 			// If units exist for current player, check if they are able to move
-			BaseClass[] units_base_class = _player_container[_current_player_turn].GetComponentsInChildren<BaseClass>();
+			BaseClass[] units_base_class = _player_container[__leader.GetPhotonView().owner.ID-1].GetComponentsInChildren<BaseClass>();
 
 			for(int i=0;i<units_base_class.Length;++i)
 			{
