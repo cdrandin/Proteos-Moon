@@ -70,8 +70,8 @@ public class GM : MonoBehaviour
 	private int[] _resources_obtained;
 	private int[] _resource_spent;
 	private int[] _units_obtained;
-	private int[]  _units_killed;
-	private  int   _round_num;
+	private int[] _units_killed;
+	private  int  _round_num;
 
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
 	private  float _base_time;
