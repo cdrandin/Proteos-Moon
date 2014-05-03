@@ -324,7 +324,7 @@ public class GM : Photon.MonoBehaviour
 			for(int i=0;i < Get_Leaders.Length;++i)
 			{
 				
-				reuse_hash.Add(string.Format("Player{0}",i), _player_turn_order[i]);
+				reuse_hash[string.Format("Player{0}",i)] = _player_turn_order[i];
 
 				Debug.Log("Add "+ string.Format("Player{0}",i) +  " this value" + (int)_player_turn_order[i]);
 			}
