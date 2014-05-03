@@ -251,14 +251,13 @@ public class GM : MonoBehaviour
 
 		// So at this point. The local player's leader has been created
 		__leader.transform.parent = _player_container[id-1].transform; // put it in the player's container in the scene
-		Debug.Log(string.Format("Player container {0} with id {1}   Transform: {2}", _player_container[id-1].name, id-1, _player_container[id-1].transform));
 
 		// Distinguish which leader belongs to which player
-			// Make sure there is a player container prepared already.
-			if(__leader.transform.parent == null)
-			{
-				Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
-			}
+		// Make sure there is a player container prepared already.
+		if(__leader.transform.parent == null)
+		{
+			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
+		}
 
 		// Set camera focus on leader
 		WorldCamera.instance.LeaderFocus();
@@ -404,6 +403,15 @@ public class GM : MonoBehaviour
 			return __leader; 
 		}
 	}
+
+ 	public GameObject[] Get_Leaders
+	{
+		get
+		{
+			return GameObject.FindGameObjectsWithTag("Leader");
+		}
+	}
+
 	/// <summary>
 	/// Gets the transformation of the instance
 	/// </summary>
