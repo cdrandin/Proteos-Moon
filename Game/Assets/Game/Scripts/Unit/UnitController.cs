@@ -223,13 +223,6 @@ public class UnitController : Photon.MonoBehaviour
 		// -1 because enum starts at 0 for player1
 		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
 
-		// Check for player moving their own units
-		if((Player)player_num != GM.instance.CurrentPlayer)
-		{
-			Debug.LogWarning("Not your turn to move that unit");
-			return;
-		}
-
 		// Move valid unit
 		if(unit.tag == "Unit" || unit.tag == "Leader")
 		{
