@@ -327,20 +327,34 @@ public class GM : Photon.MonoBehaviour
 			//this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
 			Debug.Log((Player)PhotonNetwork.room.customProperties["Turn2"]);
 			
-	//	}
-	//	else{
-	//	
-	//		while( !PhotonNetwork.room.customProperties.ContainsKey["Turn1"] ){
-	//		
-	//			yield return null;
-	//		}
-			
-			
+		}
+		else{
+		
+			StartCoroutine(UpdateTurnSequence());
 		
 		}
 		
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
 	}
+	
+	
+	IEnumerator UpdateTurnSequence(){
+	
+		while( !PhotonNetwork.room.customProperties.ContainsKey["Turn1"] ){
+			
+			yield return null;
+		}
+		
+		
+		for(int i=0;i<Get_Leaders.Length;++i)
+		{
+			Debug.Log("From sender" + (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)]);
+			
+			_player_turn_order[i] = (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)];
+		}
+		
+	}
+	
 	[RPC]
 	void SendTurnOrder(PhotonMessageInfo mi)
 	{
