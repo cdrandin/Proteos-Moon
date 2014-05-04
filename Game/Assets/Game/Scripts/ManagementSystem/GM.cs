@@ -36,6 +36,7 @@ public enum Player : byte
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
+	private static GameObject _GM_obj;
 
 	// Determine whether the GameManager is active or not
 	private bool 				_game_init;
@@ -476,14 +477,25 @@ public class GM : Photon.MonoBehaviour
 		{
 			if(_instance == null)
 			{
-				_instance = new GameObject("GameManager").AddComponent<GM>();
-				_instance.GetComponent<PhotonView>().viewID = PhotonNetwork.AllocateViewID();
+				//_instance = new GameObject("GameManager").AddComponent<GM>();
+				_GM_obj = Instantiate(Resources.Load("GM", typeof(GameObject))) as GameObject;
+				_GM_obj.AddComponent<GM>();
+				_instance = _GM_obj.GetComponent<GM>();
 			}
-			
-			return _instance; 
+
+			return _instance;
 		}
 	}
-	
+
+	/// <summary>
+	/// Gets the GM as a GameObject
+	/// </summary>
+	/// <value>The G m_obj.</value>
+	public static GameObject GM_obj
+	{
+		get { return _GM_obj; }
+	}
+
 	public Player[] TurnOrder
 	{
 		get{
