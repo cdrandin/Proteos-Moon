@@ -7,6 +7,13 @@
 using UnityEngine;
 using System.Collections;
 
+public enum Leader
+{
+	NOT_AVAILABLE,
+	Altier_Seita,
+	Captain_Mena
+}
+
 [System.Serializable]
 public enum UnitType
 {
@@ -37,6 +44,9 @@ public class UnitStatus
 	private Status _status;
 
 	[SerializeField]
+	private Leader _leader;
+
+	[SerializeField]
 	private UnitType _unit_type;
 
 	// Use this for initialization
@@ -51,6 +61,11 @@ public class UnitStatus
 		set { _status = value; }
 	}
 
+	public Leader leader
+	{
+		get { return _leader; }
+	}
+
 	public UnitType unit_type
 	{
 		get { return _unit_type ; }
@@ -59,39 +74,42 @@ public class UnitStatus
 
 	public void Clean()
 	{
-		this._status.Clean = true;
-		this._status.Move = false;
+		this._status.Clean  = true;
+		this._status.Move   = false;
 		this._status.Action = false;
 		this._status.Gather = false;
-		this._status.Rest = false;
-		this._status.Dead = false;
+		this._status.Rest   = false;
+		this._status.Dead   = false;
 	}
 	
 	public void Gather(){
 	
 		this._status.Gather = true;
 	}
-	public void Move(){
-		
+
+	public void Move()
+	{
 		this._status.Move = true;
 	}
-	public void Action(){
-		
+
+	public void Action()
+	{
 		this._status.Action = true;
 	}
-	public void Rest(){
-	
+
+	public void Rest()
+	{
 		this._status.Rest = true;
 	}
 	
 	public void Dead()
 	{
-		this._status.Clean = false;
-		this._status.Move = false;
+		this._status.Clean  = false;
+		this._status.Move   = false;
 		this._status.Action = false;
 		this._status.Gather = false;
-		this._status.Rest = true;
-		this._status.Dead = true;
+		this._status.Rest   = true;
+		this._status.Dead   = true;
 	
 	}
 }
