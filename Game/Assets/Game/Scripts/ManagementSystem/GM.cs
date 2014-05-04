@@ -114,6 +114,7 @@ public class GM : Photon.MonoBehaviour
 	/// <param name="unit_cost">Unit_cost.</param>
 	public void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
 	{
+		
 		Debug.Log("Start up GM");
 		
 		// Valid player limit
@@ -173,7 +174,7 @@ public class GM : Photon.MonoBehaviour
 		//_world_camera.ChangeCamera();
 		
 		StartTimer();
-
+		
 		_game_init = true;
 		
 		
@@ -278,6 +279,9 @@ public class GM : Photon.MonoBehaviour
 			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
+			if(leader.GetPhotonView().isMine)
+				this.photonView.viewID = leader.GetPhotonView().viewID;
+
 			UpdateFogOfWarComponents(leader);
 			
 		}
@@ -288,9 +292,6 @@ public class GM : Photon.MonoBehaviour
 		{
 			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 		}
-
-		
-		
 
 		Debug.Log(string.Format("{0} owns this room: {1}", (Player)PhotonNetwork.masterClient.ID-1, PhotonNetwork.room.name.ToString()));
 
@@ -313,6 +314,7 @@ public class GM : Photon.MonoBehaviour
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
 			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
+			
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
