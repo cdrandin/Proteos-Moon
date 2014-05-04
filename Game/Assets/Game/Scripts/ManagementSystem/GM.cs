@@ -175,7 +175,7 @@ public class GM : Photon.MonoBehaviour
 
 		_game_init = true;
 
-		//UpdateFogPerUnit();
+		UpdateFogPerUnit();
 		
 		
 	}
@@ -1062,7 +1062,7 @@ public class GM : Photon.MonoBehaviour
 		}
 		
 		// Enable Fog of War for other player's perspective
-		//UpdateFogPerUnit();
+		UpdateFogPerUnit();
 
 		// Change camera accoring to player
 		//_world_camera.ChangeCamera();
