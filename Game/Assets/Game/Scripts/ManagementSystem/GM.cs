@@ -174,7 +174,7 @@ public class GM : Photon.MonoBehaviour
 
 		_game_init = true;
 
-		UpdateFogPerUnit();
+		//UpdateFogPerUnit();
 		
 		
 	}
@@ -1044,8 +1044,10 @@ public class GM : Photon.MonoBehaviour
 		{
 			_current_player_turn = turn;
 		}
-
-		_current_player_turn =(_current_player_turn + 1) % _total_players;
+		
+		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
+		
+		//_current_player_turn =(_current_player_turn + 1) % _total_players;
 		PhotonNetwork.room.customProperties["CurrentTurn"] = _current_player_turn;
 		turn = (int)PhotonNetwork.room.customProperties["CurrentTurn"];
 		
@@ -1057,12 +1059,21 @@ public class GM : Photon.MonoBehaviour
 		{
 			_round_num += 1;
 		}
-
+		
 		// Enable Fog of War for other player's perspective
-		UpdateFogPerUnit();
+		//UpdateFogPerUnit();
 
 		// Change camera accoring to player
 		//_world_camera.ChangeCamera();
+	}
+
+	[RPC]
+	void ChangeTurn(){
+		int turn = (int)PhotonNetwork.room.customProperties["CurrentTurn"];
+		Debug.Log(string.Format("Previous turn: {0}", (Player)turn));
+		_current_player_turn =(_current_player_turn + 1) % _total_players;
+		Debug.Log(string.Format("Current turn: {0}", (Player)turn));
+		
 	}
 
 	/// <summary>
