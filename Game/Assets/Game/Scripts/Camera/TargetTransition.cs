@@ -142,7 +142,7 @@ public class TargetTransition : MonoBehaviour {
 		//If not then use the default vector distance
 		else {
 			float temp = WorldCamera.instance.MinCameraHeight() + 1;
-			return new Vector3(temp, temp, temp);
+			return new Vector3(temp, temp, -temp);
 		}
 	}
 
