@@ -300,14 +300,14 @@ public class UnitGUI : MonoBehaviour {
 		
 		case UnitType.Leader:
 			
-			if(GM.instance.CurrentFocus.name == "Altier_Seita(Clone)"){
+			if(char_portrait.GetComponent<BaseClass>().unit_status.leader == Leader.Altier_Seita){
 			
 				portrait_texture = UnitGUI.instance.Portraits.transform.Find("Seita").gameObject.guiTexture;
 				icon_texture = UnitGUI.instance.Icons.transform.Find("Braver").gameObject.guiTexture;
 				char_name = "Leader: Seita";
 				
 			}
-			else{
+			else if (char_portrait.GetComponent<BaseClass>().unit_status.leader == Leader.Captain_Mena){
 			
 				portrait_texture = UnitGUI.instance.Portraits.transform.Find("Mena").gameObject.guiTexture;
 				icon_texture = UnitGUI.instance.Icons.transform.Find("Sniper").gameObject.guiTexture;
