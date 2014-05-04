@@ -32,6 +32,7 @@ public enum Player : byte
 		NONE
 }
 
+[RequireComponent(typeof(PhotonView))]
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
