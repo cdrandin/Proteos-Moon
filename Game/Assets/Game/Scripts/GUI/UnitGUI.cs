@@ -139,7 +139,7 @@ public class UnitGUI : MonoBehaviour {
 					shift = Screen.height/ 16;
 				this.gui_method += UnitInformationBox;
 	
-				if (GM.instance.IsItMyTurn())
+				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine )
 					this.gui_method += BaseSelectionButtons;
 				
 				
