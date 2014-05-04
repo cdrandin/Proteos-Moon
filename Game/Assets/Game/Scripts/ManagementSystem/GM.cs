@@ -976,7 +976,7 @@ public class GM : Photon.MonoBehaviour
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	[RPC]
-	void AddUnitToCurrentPlayersContainer(UnitType unit_type){
+	void AddUnitToCurrentPlayersContainer(UnitType unit_type, PhotonMessageInfo mi){
 		// Signal spawner and to approiate players container
 		GameObject unit = _recruit_system.SpawnUnit(unit_type);
 		unit.transform.parent = _player_container[_current_player_turn].transform;
