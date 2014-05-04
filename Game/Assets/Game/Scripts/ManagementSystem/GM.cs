@@ -490,7 +490,7 @@ public class GM : Photon.MonoBehaviour
 	/// <value>The G m_obj.</value>
 	public static GameObject GM_obj
 	{
-		get { return _GM_obj; }
+		get { return(GM.instance.IsOn)?_GM_obj:null; }
 	}
 
 	public Player[] TurnOrder
