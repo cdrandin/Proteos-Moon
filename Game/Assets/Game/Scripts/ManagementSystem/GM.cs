@@ -311,7 +311,7 @@ public class GM : Photon.MonoBehaviour
 			
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
-			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others)
+			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
