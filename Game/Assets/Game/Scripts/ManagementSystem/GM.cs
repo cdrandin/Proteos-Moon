@@ -7,7 +7,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using PhotonHashTable = ExitGames.Client.Photon.Hashtable;
 
 /* GameManager - keeps track of the game state and control
  * Controlling the game 
@@ -37,7 +36,6 @@ public enum Player : byte
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
-	private static GameObject _GM_obj;
 
 	// Determine whether the GameManager is active or not
 	private bool 				_game_init;
@@ -77,7 +75,7 @@ public class GM : Photon.MonoBehaviour
 	private  int  _round_num;
 	
 
-	private	PhotonHashTable turn_order;
+	private	ExitGames.Client.Photon.Hashtable turn_order;
 	
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
 	private  float _base_time;
@@ -115,7 +113,6 @@ public class GM : Photon.MonoBehaviour
 	/// <param name="unit_cost">Unit_cost.</param>
 	public void Init(int num_of_players, int who_goes_first, int resource_win_count, UnitCost unit_cost)
 	{
-		
 		Debug.Log("Start up GM");
 		
 		// Valid player limit
@@ -175,7 +172,7 @@ public class GM : Photon.MonoBehaviour
 		//_world_camera.ChangeCamera();
 		
 		StartTimer();
-		
+
 		_game_init = true;
 		
 		
@@ -281,6 +278,7 @@ public class GM : Photon.MonoBehaviour
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
 			UpdateFogOfWarComponents(leader);
+			
 		}
 
 		// Distinguish which leader belongs to which player
@@ -290,6 +288,9 @@ public class GM : Photon.MonoBehaviour
 			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 		}
 
+		
+		
+
 		Debug.Log(string.Format("{0} owns this room: {1}", (Player)PhotonNetwork.masterClient.ID-1, PhotonNetwork.room.name.ToString()));
 
 		//Generate Turn Sequence
@@ -298,7 +299,7 @@ public class GM : Photon.MonoBehaviour
 		{
 			GenerateTurnSequence();
 
-			PhotonHashTable reuse_hash = PhotonNetwork.room.customProperties;
+			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
 
 			for(int i=0;i < Get_Leaders.Length;++i)
 			{
@@ -306,6 +307,7 @@ public class GM : Photon.MonoBehaviour
 				reuse_hash.Add(string.Format("Turn{0}",i),  _player_turn_order[i]);
 				Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
 			}
+				
 			
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
@@ -474,25 +476,14 @@ public class GM : Photon.MonoBehaviour
 		{
 			if(_instance == null)
 			{
-				//_instance = new GameObject("GameManager").AddComponent<GM>();
-				_GM_obj = PhotonNetwork.Instantiate("GM", Vector3.zero, Quaternion.identity, 0) as GameObject;
-				_GM_obj.AddComponent<GM>();
-				_instance = _GM_obj.GetComponent<GM>();
+				_instance = new GameObject("GameManager").AddComponent<GM>();
+				_instance.GetComponent<PhotonView>().viewID = PhotonNetwork.AllocateViewID();
 			}
 			
 			return _instance; 
 		}
 	}
-
-	/// <summary>
-	/// Gets the GM obj as a Gameobject
-	/// </summary>
-	/// <value>The G m_obj.</value>
-	public static GameObject GM_obj
-	{
-		get { return(GM.instance.IsOn)?_GM_obj:null; }
-	}
-
+	
 	public Player[] TurnOrder
 	{
 		get{
@@ -895,9 +886,11 @@ public class GM : Photon.MonoBehaviour
 			_resource_spent[(int)player] += cost;
 			_units_obtained[(int)player] += 1; 
 			
-
+			// Signal spawner and to approiate players container
+			GameObject unit = _recruit_system.SpawnUnit(unit_type);
+			
 			// Put unit into appropriate player's container
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit);
 			
 			sucessful_recruit = true;
 		} 
@@ -954,10 +947,13 @@ public class GM : Photon.MonoBehaviour
 			_resource_spent[_current_player_turn] += cost;
 			_units_obtained[_current_player_turn]  += 1; 
 			
+			// Signal spawner and to approiate players container
+			GameObject unit = _recruit_system.SpawnUnit(unit_type);
+			
 			// Put unit into appropriate player's container
 			//AddUnitToCurrentPlayersContainer(unit);
 			
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit);
 			
 			sucessful_recruit = true;
 		} 
@@ -970,11 +966,8 @@ public class GM : Photon.MonoBehaviour
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	[RPC]
-	void AddUnitToCurrentPlayersContainer(UnitType unit_type, PhotonMessageInfo mi){
-		Debug.Log( mi.sender + " " + unit_type);
-			
-		// Signal spawner and to approiate players container
-		GameObject unit = _recruit_system.SpawnUnit(unit_type);
+	void AddUnitToCurrentPlayersContainer(GameObject unit){
+	
 		unit.transform.parent = _player_container[_current_player_turn].transform;
 		UpdateFogOfWarComponents(unit);
 	}
