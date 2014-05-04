@@ -94,7 +94,7 @@ public class GM : Photon.MonoBehaviour
 	//HACK 
 	private GameObject __leader;
 
-
+	PhotonHashTable room_properties = new PhotonHashTable();
 
 
 
@@ -324,12 +324,6 @@ public class GM : Photon.MonoBehaviour
 	void SendTurnOrder(Player[] playerTurnOrder, PhotonMessageInfo mi)
 	{
 		_player_turn_order = playerTurnOrder;
-		//PhotonHashTable reuse_hash = PhotonNetwork.room.customProperties;
-
-		//HACK MARK HACK
-		//reuse_hash.Add("TurnOrder",  _player_turn_order);	
-		
-		//PhotonNetwork.room.SetCustomProperties(reuse_hash);
 	}
 	
 	/// <summary>
@@ -1043,9 +1037,9 @@ public class GM : Photon.MonoBehaviour
 		
 		
 		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
-		
 		//_current_player_turn =(_current_player_turn + 1) % _total_players;
-		PhotonNetwork.room.SetCustomProperties["CurrentTurn"] = _current_player_turn;
+		room_properties.Add("CurrentTurn", _current_player_turn);
+		PhotonNetwork.room.SetCustomProperties(room_properties);
 		
 
 		// When all player's have had their turn increment round number counter
