@@ -962,7 +962,7 @@ public class GM : Photon.MonoBehaviour
 	/// <param name="unit">Unit.</param>
 	[RPC]
 	void AddUnitToCurrentPlayersContainer(UnitType unit_type, PhotonMessageInfo mi){
-		Debug.Log( mi.sender.name + " "+ mi.photonView.owner.name + " " + unit_type);
+		Debug.Log( mi.sender + " " + unit_type);
 			
 		// Signal spawner and to approiate players container
 		GameObject unit = _recruit_system.SpawnUnit(unit_type);
