@@ -32,11 +32,12 @@ public enum Player : byte
 		NONE
 }
 
-[RequireComponent(typeof(PhotonView))]
+//[RequireComponent(typeof(PhotonView))]
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
 	private static GameObject _GM_obj;
+	private PhotonView _photon_view;
 
 	// Determine whether the GameManager is active or not
 	private bool 				_game_init;
@@ -478,9 +479,13 @@ public class GM : Photon.MonoBehaviour
 			if(_instance == null)
 			{
 				//_instance = new GameObject("GameManager").AddComponent<GM>();
-				_GM_obj = Instantiate(Resources.Load("GM", typeof(GameObject))) as GameObject;
-				_GM_obj.AddComponent<GM>();
+				_GM_obj = PhotonNetwork.Instantiate("GM", Vector3.zero, Quaternion.identity, 0) as GameObject;
+
 				_instance = _GM_obj.GetComponent<GM>();
+				if(_instance == null)
+					_instance = _GM_obj.AddComponent<GM>();
+
+				GM.instance.SetPhotonView();
 			}
 
 			return _instance;
@@ -514,6 +519,20 @@ public class GM : Photon.MonoBehaviour
 		{ 
 			return __leader; 
 		}
+	}
+
+	/// <summary>
+	/// Gets the photon view for the GM
+	/// </summary>
+	/// <value>The photon view.</value>
+	public PhotonView PhotonView
+	{
+		get { return _photon_view; }
+	}
+
+	public void SetPhotonView()
+	{
+		_photon_view = _GM_obj.GetPhotonView();
 	}
 
  	public GameObject[] Get_Leaders
