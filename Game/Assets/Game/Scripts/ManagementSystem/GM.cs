@@ -340,7 +340,7 @@ public class GM : Photon.MonoBehaviour
 	
 	IEnumerator UpdateTurnSequence(){
 	
-		while( !PhotonNetwork.room.customProperties.ContainsKey["Turn1"] ){
+		while( !PhotonNetwork.room.customProperties.ContainsKey("Turn1") ){
 			
 			yield return null;
 		}
