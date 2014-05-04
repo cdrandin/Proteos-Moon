@@ -11,7 +11,7 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
-	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction;
+	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction,isRecruiting;
 	public float height = 3.0f, DistancefromPlayer = 3.0f;
 	private float heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight, distanceScale;
@@ -62,6 +62,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	private void ResetFlags(){
 		//set objects to null
+		isRecruiting = false;
 		focusObject = null;
 		focusTemp = null;
 		proteus = false;
@@ -445,7 +446,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  ((29 * Screen.height)/ 40) - shift , (3 * Screen.width)/8, ((3*Screen.height) / 10)+ shift ) );
 		
 		GUI.depth = 2;
-		GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && !(GetCurrentFocusStatus().Action);
+		GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && !(GetCurrentFocusStatus().Action) && !isRecruiting;
 			GUI.depth = 2;
 			if(MakeButton(0,0, "Attack", Style.attack)){
 				//Expend units action
@@ -479,6 +480,7 @@ public class UnitGUI : MonoBehaviour {
 					gui_method -= ActionSelectionButtons;
 					gui_method -= BaseSelectionButtons;
 					gui_method += RecruitMenuButtons;
+					isRecruiting = true;
 					isAction = false;
 				}
 				
@@ -503,58 +505,78 @@ public class UnitGUI : MonoBehaviour {
 			mySkin.box.fontSize = Screen.height / 32;
 			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );
 //			GUI.enabled = 
+		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.scout );
 		if (MakeButton((1 * Screen.width)/64, (95*Screen.height)/1024 ,string.Format("Scout  {0}", _rs.unit_cost.scout), Style.scout)){
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
+				isRecruiting = false;
 			}
+		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.braver );
+		
 		if (MakeButton((1 * Screen.width)/64, (2*95*Screen.height) /1024,string.Format("Braver  {0}", _rs.unit_cost.braver), Style.braver)){
 			
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
-				
+				isRecruiting = false;
+			
 			}
+		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.arcane );
+		
 		if (MakeButton((1 * Screen.width)/64, (3*95*Screen.height) /1024, string.Format("Arcane  {0}", _rs.unit_cost.arcane), Style.arcane)){
 			
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
-				
+				isRecruiting = false;
+			
 			}
+		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.sniper );
+		
 		if (MakeButton((1 * Screen.width)/64, (4*95*Screen.height) /1024,string.Format("Sniper  {0}", _rs.unit_cost.sniper), Style.sniper)){
 			
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
-				
+				isRecruiting = false;
+			
 			}
+		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.titan );
+		
 		if (MakeButton((1 * Screen.width)/64, (5*95*Screen.height) /1024,string.Format("Gigan  {0}", _rs.unit_cost.titan), Style.gigan)){
 				
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
-				
+				isRecruiting = false;
+			
 			}
+		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.vangaurd );
+		
 		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
 			
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
-				
+				isRecruiting = false;
+			
 			}
+		GUI.enabled = true;
 		if (MakeButton((1 * Screen.width)/16, (660*Screen.height) /1024, "Back", Style.back)){
 				
 				isAction = true;
 				gui_method -= RecruitMenuButtons;
 				gui_method += BaseSelectionButtons;
 				gui_method += ActionSelectionButtons;
+				isRecruiting = false;
+			
 			}
 		
 		GUI.EndGroup();
