@@ -978,6 +978,7 @@ public class GM : Photon.MonoBehaviour
 	[RPC]
 	void AddUnitToCurrentPlayersContainer(UnitType unit_type){
 		// Signal spawner and to approiate players container
+		Debug.Log("Here i am");
 		GameObject unit = _recruit_system.SpawnUnit(unit_type);
 		unit.transform.parent = _player_container[_current_player_turn].transform;
 		UpdateFogOfWarComponents(unit);
