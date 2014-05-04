@@ -337,7 +337,7 @@ public class GM : Photon.MonoBehaviour
 	/// <param name="unit">Unit.</param>
 	private void UpdateFogOfWarComponents(GameObject unit){
 	
-		if( GetPlayer( unit.GetPhotonView().owner.ID-1 ) != WhichPlayerAmI ){
+		if( !unit.GetPhotonView().isMine  ){
 			
 			unit.GetComponent<FOWRenderers>().enabled = true;
 			unit.GetComponent<FOWRevealer>().enabled = false;
@@ -950,23 +950,27 @@ public class GM : Photon.MonoBehaviour
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);
 			
 			// Put unit into appropriate player's container
-			AddUnitToCurrentPlayersContainer(unit);
+			//AddUnitToCurrentPlayersContainer(unit);
+			
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit);
 			
 			sucessful_recruit = true;
 		} 
 
 		return sucessful_recruit;
 	}
-
+	
 	/// <summary>
 	/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
 	/// </summary>
 	/// <param name="unit">Unit.</param>
-	public void AddUnitToCurrentPlayersContainer(GameObject unit)
-	{
+	[RPC]
+	void AddUnitToCurrentPlayersContainer(GameObject unit){
+	
 		unit.transform.parent = _player_container[_current_player_turn].transform;
+		UpdateFogOfWarComponents(unit);
 	}
-
+	
 	/// <summary>
 	/// Determines if it is next players turn by checking if all units and leaders have used up all of their exhuast.
 	/// Next player's turn can be interupted by an "End turn" type button,

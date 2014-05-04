@@ -300,7 +300,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		case UnitType.Leader:
 			
-			if(GM.instance.GetPlayerLeader(player).name == "Altier_Seita(Clone)"){
+			if(GM.instance.CurrentFocus.name == "Altier_Seita(Clone)"){
 			
 				portrait_texture = UnitGUI.instance.Portraits.transform.Find("Seita").gameObject.guiTexture;
 				icon_texture = UnitGUI.instance.Icons.transform.Find("Braver").gameObject.guiTexture;
