@@ -981,6 +981,7 @@ public class GM : Photon.MonoBehaviour
 		Debug.Log("Here i am");
 		GameObject unit = _recruit_system.SpawnUnit(unit_type);
 		unit.transform.parent = _player_container[_current_player_turn].transform;
+		Debug.Log(string.Format("_current_player_turn: {0}   _player_container[{0}]: {1}", _current_player_turn, _player_container[_current_player_turn]));
 		UpdateFogOfWarComponents(unit);
 	}
 	
