@@ -174,8 +174,6 @@ public class GM : Photon.MonoBehaviour
 		StartTimer();
 
 		_game_init = true;
-
-		UpdateFogPerUnit();
 		
 		
 	}
@@ -279,17 +277,8 @@ public class GM : Photon.MonoBehaviour
 			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
-			if( GetPlayer( leader.GetPhotonView().owner.ID-1 ) != WhichPlayerAmI ){
+			UpdateFogOfWarComponents(leader);
 			
-				leader.GetComponent<FOWRenderers>().enabled = true;
-				leader.GetComponent<FOWRevealer>().enabled = false;
-				
-			}
-			else{
-				leader.GetComponent<FOWRenderers>().enabled = false;
-				leader.GetComponent<FOWRevealer>().enabled = true;
-				leader.GetComponent<FOWRevealer>().isActive = true;
-			}
 		}
 
 		// Distinguish which leader belongs to which player
@@ -319,43 +308,20 @@ public class GM : Photon.MonoBehaviour
 				Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
 			}
 				
-			reuse_hash.Add("CurrentTurn", (int)0);
-			_current_player_turn = 0;
-
+			
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
+			
+			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others)
 		}
-		else{
-		
-			StartCoroutine(UpdateTurnSequence());
-		
-		}
-		
+				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
-	}
-	
-	
-	IEnumerator UpdateTurnSequence(){
-	
-		while( !PhotonNetwork.room.customProperties.ContainsKey("Turn1") ){
-			
-			yield return null;
-		}
-		
-		
-		for(int i=0;i<Get_Leaders.Length;++i)
-		{
-			Debug.Log("From sender" + (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)]);
-			
-			_player_turn_order[i] = (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)];
-		}
-		
 	}
 	
 	[RPC]
 	void SendTurnOrder(PhotonMessageInfo mi)
 	{
 		Debug.Log("We get here");
-//		ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
+		//		ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
 		
 		for(int i=0;i<Get_Leaders.Length;++i)
 		{
@@ -364,6 +330,30 @@ public class GM : Photon.MonoBehaviour
 			_player_turn_order[i] = (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)];
 		}
 	}
+	
+	/// <summary>
+	/// Updates the fog of war components per unit
+	/// </summary>
+	/// <param name="unit">Unit.</param>
+	private void UpdateFogOfWarComponents(GameObject unit){
+	
+		if( GetPlayer( unit.GetPhotonView().owner.ID-1 ) != WhichPlayerAmI ){
+			
+			unit.GetComponent<FOWRenderers>().enabled = true;
+			unit.GetComponent<FOWRevealer>().enabled = false;
+			
+		}
+		else{
+			unit.GetComponent<FOWRenderers>().enabled = false;
+			unit.GetComponent<FOWRevealer>().enabled = true;
+			unit.GetComponent<FOWRevealer>().isActive = true;
+		}
+	}
+	
+	
+
+	
+
 
 	// Currently, shuffles player's turn order
 	private void GenerateTurnSequence()
@@ -1052,9 +1042,6 @@ public class GM : Photon.MonoBehaviour
 			_round_num += 1;
 		}
 		
-		// Enable Fog of War for other player's perspective
-		UpdateFogPerUnit();
-
 		// Change camera accoring to player
 		//_world_camera.ChangeCamera();
 	}
@@ -1131,32 +1118,6 @@ public class GM : Photon.MonoBehaviour
 
 		// Currently, doesn't work since unit is not part of the pooling system initially
 		//PoolingSystem.instance.Destroy(unit);
-	}
-
-	void UpdateFogPerUnit()
-	{
-		// With current player unit, enable FoW for them
-		foreach(GameObject unit in GetUnitsFromPlayer((Player) _current_player_turn))
-		{
-			unit.GetComponent<FOWRevealer>().isActive = true;
-		}
-
-		// All other players, disabled FoW
-		for(int i=0;i<_total_players;++i)
-		{
-			if(i == _current_player_turn)
-			{
-				// ignore
-			}
-			else
-			{
-				foreach(GameObject unit in GetUnitsFromPlayer((Player) i))
-				{
-					unit.GetComponent<FOWRevealer>().isActive = false;
-					// Possibly hide units here, not sure how it will work over a network
-				}
-			}
-		}
 	}
 
 	#endregion
