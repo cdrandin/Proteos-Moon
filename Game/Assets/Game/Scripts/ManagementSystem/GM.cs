@@ -889,7 +889,7 @@ public class GM : Photon.MonoBehaviour
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);
 			
 			// Put unit into appropriate player's container
-			AddUnitToCurrentPlayersContainer(unit);
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit);
 			
 			sucessful_recruit = true;
 		} 
