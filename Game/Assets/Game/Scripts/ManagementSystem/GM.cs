@@ -1045,7 +1045,7 @@ public class GM : Photon.MonoBehaviour
 		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
 		
 		//_current_player_turn =(_current_player_turn + 1) % _total_players;
-		PhotonNetwork.room.customProperties["CurrentTurn"] = _current_player_turn;
+		PhotonNetwork.room.SetCustomProperties["CurrentTurn"] = _current_player_turn;
 		
 
 		// When all player's have had their turn increment round number counter
