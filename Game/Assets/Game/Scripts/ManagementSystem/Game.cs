@@ -120,7 +120,7 @@ public class Game : Photon.MonoBehaviour
 				{
 					// Reset timer for display the resource text
 					timer = 0;
-					if(GM.instance.CurrentFocus == null && GM.instance.IsItMyTurn())
+					if(GM.instance.CurrentFocus == null )//&& GM.instance.IsItMyTurn())
 					{
 						Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
 						RaycastHit hit;

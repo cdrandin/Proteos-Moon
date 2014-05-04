@@ -103,12 +103,14 @@ public class CombatSystem : MonoBehaviour{
 			alpha = Mathf.Lerp(alpha,0.0f ,Time.time*0.01f);
 			if (Mathf.Abs (alpha - 0 ) < 0.0001){
 				showGUI = !showGUI;
+				alpha = 0.0f;
 			}
 		}
 		else{
 			alpha = Mathf.Lerp(alpha , 1.0f ,Time.time*0.01f);
 			if (Mathf.Abs (alpha - 1 ) < 0.0001f){
 				showGUI = !showGUI;
+				alpha = 1.0f;
 			}
 		}
 	}

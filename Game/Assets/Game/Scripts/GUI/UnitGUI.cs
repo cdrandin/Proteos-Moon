@@ -138,7 +138,9 @@ public class UnitGUI : MonoBehaviour {
 				if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)		
 					shift = Screen.height/ 16;
 				this.gui_method += UnitInformationBox;
-				this.gui_method += BaseSelectionButtons;
+	
+				if (GM.instance.IsItMyTurn())
+					this.gui_method += BaseSelectionButtons;
 				
 				
 			}

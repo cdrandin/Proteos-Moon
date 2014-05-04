@@ -979,12 +979,6 @@ public class GM : Photon.MonoBehaviour
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
 
-		// Leader still can do actions
-		if(!__leader.GetComponent<BaseClass>().unit_status.status.Rest)
-		{
-			next = false;
-		}
-
 		// Leader is still active so don't need to check other units
 		if(next)
 		{
