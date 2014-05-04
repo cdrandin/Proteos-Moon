@@ -897,10 +897,7 @@ public class GM : Photon.MonoBehaviour
 			_resource_count[(int)player] -= cost;
 			_resource_spent[(int)player] += cost;
 			_units_obtained[(int)player] += 1; 
-			
-			// Signal spawner and to approiate players container
-			GameObject unit = _recruit_system.SpawnUnit(unit_type);
-			
+						
 			// Put unit into appropriate player's container
 			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit);
 			
@@ -960,12 +957,11 @@ public class GM : Photon.MonoBehaviour
 			_units_obtained[_current_player_turn]  += 1; 
 			
 			// Signal spawner and to approiate players container
-			GameObject unit = _recruit_system.SpawnUnit(unit_type);
-			
+			GameObject unit = _recruit_system.SpawnUnit(unit_type);		
 			// Put unit into appropriate player's container
 			//AddUnitToCurrentPlayersContainer(unit);
 			
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit);
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
 			
 			sucessful_recruit = true;
 		} 
@@ -978,8 +974,9 @@ public class GM : Photon.MonoBehaviour
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	[RPC]
-	void AddUnitToCurrentPlayersContainer(GameObject unit){
-	
+	void AddUnitToCurrentPlayersContainer(UnitType unit_type){
+		// Signal spawner and to approiate players container
+		GameObject unit = _recruit_system.SpawnUnit(unit_type);
 		unit.transform.parent = _player_container[_current_player_turn].transform;
 		UpdateFogOfWarComponents(unit);
 	}
