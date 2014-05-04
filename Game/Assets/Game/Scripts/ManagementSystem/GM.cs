@@ -322,11 +322,6 @@ public class GM : Photon.MonoBehaviour
 			}
 				
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
-			
-			Debug.Log((Player)PhotonNetwork.room.customProperties["Turn1"]);
-			//this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
-			Debug.Log((Player)PhotonNetwork.room.customProperties["Turn2"]);
-			
 		}
 		else{
 		
