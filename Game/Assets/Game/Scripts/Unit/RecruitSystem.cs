@@ -56,6 +56,7 @@ public class RecruitSystem : MonoBehaviour
 	private float _timer;
 
 	private bool _summoned;
+	private bool _placement;
 
 	// Use this for initialization
 	void Awake()
@@ -63,6 +64,7 @@ public class RecruitSystem : MonoBehaviour
 		_interval        = 360.0f/steps;
 		++steps; // Just works for now
 		_ready_to_summon = false;
+		_placement       = false;
 		_obj_to_summon   = null;
 		_particle        = null;
 		_timer           = 0.0f;
@@ -109,7 +111,13 @@ public class RecruitSystem : MonoBehaviour
 		// Read to spawn unit. Display circle of where they can summon.
 		if(GM.instance.IsOn && _ready_to_summon)
 		{
-			if (Input.GetMouseButtonDown(0)) 
+			if(_ready_to_summon && !_placement)
+			{
+				if(Input.GetMouseButtonUp(0))
+					_placement = true;
+			}
+
+			if (_placement && Input.GetMouseButtonDown(0)) 
 			{
 				RaycastHit hit;
 				Ray ray = GM.instance.CurrentFocusCamera.ScreenPointToRay(Input.mousePosition);
@@ -125,6 +133,7 @@ public class RecruitSystem : MonoBehaviour
 						_obj_to_summon.SetActive(true);
 						_obj_to_summon.transform.position = hit.point;
 						_ready_to_summon = false;
+						_placement       = false;
 
 						// Create summon particle
 						_particle = PoolingSystem.instance.PS_Instantiate(summoning_particle, hit.point, Quaternion.identity);
@@ -193,11 +202,11 @@ public class RecruitSystem : MonoBehaviour
 			//GameObject obj = PoolingSystem.instance.PS_Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation);
 			GameObject obj = PhotonNetwork.Instantiate(unit.name, leader.position, leader.rotation, 0) as GameObject;
 			_summoned = true;
-			_ready_to_summon = true;
 			_obj_to_summon = obj;
 			obj.SetActive(false);
 			obj.name = unit.name;
-
+			_ready_to_summon = true;
+			
 			return obj;
 		}
 		else
