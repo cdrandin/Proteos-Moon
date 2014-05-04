@@ -36,7 +36,7 @@ public enum Player : byte
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
-	private static GameObject _GM_obj;
+	//private static GameObject _GM_obj;
 
 	// Determine whether the GameManager is active or not
 	private bool 				_game_init;
@@ -314,7 +314,7 @@ public class GM : Photon.MonoBehaviour
 			
 			//PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
-			this.photonView.RPC("SendTurnOrder", PhotonTargets.AllBuffered, _player_turn_order);
+			this.photonView.RPC("SendTurnOrder", PhotonTargets.All, _player_turn_order);
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
@@ -323,7 +323,10 @@ public class GM : Photon.MonoBehaviour
 	[RPC]
 	void SendTurnOrder(Player[] playerTurnOrder, PhotonMessageInfo mi)
 	{
-		_player_turn_order = playerTurnOrder;
+		for (int i = 0; i < playerTurnOrder.Length; ++i){
+			_player_turn_order[i] = playerTurnOrder[i];
+		}
+
 	}
 	
 	/// <summary>
@@ -471,7 +474,10 @@ public class GM : Photon.MonoBehaviour
 		{
 			if(_instance == null)
 			{
-				_instance = new GameObject("GameManager").AddComponent<GM>();
+				_instance = GameObject.FindGameObjectWithTag("GameManager").AddComponent<GM>();
+				//PhotonView photonView = GameObject.Find("GameManager").GetPhotonView();
+				//PhotonView
+				//_instance = GameObject.FindGameObjectWithTag("GameController").AddComponent<GM>();
 				/*
 				_GM_obj = Instantiate(Resources.Load("GM", typeof(GameObject))) as GameObject;
 				_GM_obj.AddComponent<GM>();
@@ -487,10 +493,10 @@ public class GM : Photon.MonoBehaviour
 	/// Gets the GM as a GameObject
 	/// </summary>
 	/// <value>The G m_obj.</value>
-	public static GameObject GM_obj
+	/*public static GameObject GM_obj
 	{
 		get { return _GM_obj; }
-	}
+	}*/
 
 	public Player[] TurnOrder
 	{
@@ -1038,7 +1044,11 @@ public class GM : Photon.MonoBehaviour
 		
 		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
 		//_current_player_turn =(_current_player_turn + 1) % _total_players;
-		room_properties.Add("CurrentTurn", _current_player_turn);
+		if (room_properties.ContainsKey("CurrentTurn")){
+			room_properties["CurrentTurn"] = _current_player_turn;
+		} else{
+			room_properties.Add("CurrentTurn", _current_player_turn);
+		}
 		PhotonNetwork.room.SetCustomProperties(room_properties);
 		
 
