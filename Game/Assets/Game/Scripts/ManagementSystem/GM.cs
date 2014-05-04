@@ -7,6 +7,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using PhotonHashTable = ExitGames.Client.Photon.Hashtable;
 
 /* GameManager - keeps track of the game state and control
  * Controlling the game 
@@ -75,7 +76,7 @@ public class GM : Photon.MonoBehaviour
 	private  int  _round_num;
 	
 
-	private	ExitGames.Client.Photon.Hashtable turn_order;
+	private	PhotonHashTable turn_order;
 	
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
 	private  float _base_time;
@@ -300,7 +301,7 @@ public class GM : Photon.MonoBehaviour
 		{
 			GenerateTurnSequence();
 
-			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
+			PhotonHashTable reuse_hash = PhotonNetwork.room.customProperties;
 
 			for(int i=0;i < Get_Leaders.Length;++i)
 			{
