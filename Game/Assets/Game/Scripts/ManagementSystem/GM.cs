@@ -300,36 +300,36 @@ public class GM : Photon.MonoBehaviour
 		{
 			GenerateTurnSequence();
 
-			PhotonHashTable reuse_hash = PhotonNetwork.room.customProperties;
+			//PhotonHashTable reuse_hash = PhotonNetwork.room.customProperties;
 
-			for(int i=0;i < Get_Leaders.Length;++i)
-			{
-					
-				reuse_hash.Add(string.Format("Turn{0}",i),  _player_turn_order[i]);
-				Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
-			}
+			//for(int i=0;i < Get_Leaders.Length;++i)
+			//{
+			//HACK MARK HACK
+			//reuse_hash.Add("TurnOrder",  _player_turn_order);	
+			//Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
+			//	reuse_hash.Add(string.Format("Turn{0}",i),  _player_turn_order[i]);
+			//	Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
+			//}
 				
 			
-			PhotonNetwork.room.SetCustomProperties(reuse_hash);
+			//PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
-			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
+			this.photonView.RPC("SendTurnOrder", PhotonTargets.AllBuffered, _player_turn_order);
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
 	}
 	
 	[RPC]
-	void SendTurnOrder(PhotonMessageInfo mi)
+	void SendTurnOrder(Player[] playerTurnOrder, PhotonMessageInfo mi)
 	{
-		Debug.Log("We get here");
-		//		ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
+		_player_turn_order = playerTurnOrder;
+		//PhotonHashTable reuse_hash = PhotonNetwork.room.customProperties;
+
+		//HACK MARK HACK
+		//reuse_hash.Add("TurnOrder",  _player_turn_order);	
 		
-		for(int i=0;i<Get_Leaders.Length;++i)
-		{
-			Debug.Log("From sender" + (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)]);
-			
-			_player_turn_order[i] = (Player)PhotonNetwork.room.customProperties[string.Format("Turn{0}",i)];
-		}
+		//PhotonNetwork.room.SetCustomProperties(reuse_hash);
 	}
 	
 	/// <summary>
