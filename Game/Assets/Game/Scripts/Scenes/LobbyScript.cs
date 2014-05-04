@@ -39,13 +39,21 @@ public class LobbyScript : MonoBehaviour
 		{
 			GuiInLobby();
 		}
+		else if(PhotonNetwork.inRoom){
+			StartGame ();
+		}
 		else if(PhotonNetwork.connectionStateDetailed == PeerState.Disconnected || PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated)
 		{
 			if (GUILayout.Button("Connect"))
 				PhotonNetwork.ConnectUsingSettings(game_version);
 		}
 	}
-	
+
+	void OnPhotonRandomJoinFailed()
+	{
+		PhotonNetwork.CreateRoom(null);
+	}
+
 	private void GuiInLobby()
 	{
 		GUILayout.BeginArea(LobbyRect);
@@ -54,16 +62,11 @@ public class LobbyScript : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
-			if(PhotonNetwork.JoinRandomRoom()){
-				PhotonNetwork.CreateRoom(null);
-				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
-			}
-			//StartGame();
+			PhotonNetwork.JoinRandomRoom();
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
 			PhotonNetwork.CreateRoom(room_name);
-			Application.LoadLevel(Application.loadedLevel + 1);
 		}
 		GUILayout.EndHorizontal();
 		
@@ -77,7 +80,6 @@ public class LobbyScript : MonoBehaviour
 			GUILayout.Box(game.name + " " + game.playerCount + "/2");
 			if (GUILayout.Button("Join Room")) {
 				PhotonNetwork.JoinRoom(game.name);
-				Application.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
 		GUILayout.EndScrollView();
@@ -86,7 +88,6 @@ public class LobbyScript : MonoBehaviour
 	}
 
 	void StartGame(){
-		if(PhotonNetwork.inRoom)
-			PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
+		PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 	}
 }
