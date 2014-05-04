@@ -58,6 +58,7 @@ public class TargetTransition : MonoBehaviour {
 
 				//Find the new position
 				//GM.instance.controll
+				GM.instance.SetUnitControllerActiveOn (GetCurrentList() [unitIndex]);
 				newPosition = GetCurrentList() [unitIndex].transform.position + distanceToUnit;
 				interpolate = true;
 			}
@@ -76,12 +77,13 @@ public class TargetTransition : MonoBehaviour {
 	}
 
 	public GameObject[] GetCurrentList(){
-		return GM.instance.GetUnitsFromPlayer(GM.instance.CurrentPlayer);
+		return GM.instance.GetUnitsFromPlayer(GM.instance.WhichPlayerAmI);
 	}
 	
 	#region Helper Functions
 	public GameObject GetFocusedTarget(){
 	
+		
 		return GetCurrentList()[unitIndex];
 	
 	}
@@ -139,7 +141,8 @@ public class TargetTransition : MonoBehaviour {
 		}
 		//If not then use the default vector distance
 		else {
-			return new Vector3(5, 5, -5);
+			float temp = WorldCamera.instance.MinCameraHeight + 1;
+			return new Vector3(temp, temp, temp);
 		}
 	}
 
