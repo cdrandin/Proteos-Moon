@@ -55,6 +55,8 @@ public class RecruitSystem : MonoBehaviour
 	private GameObject _particle;
 	private float _timer;
 
+	private bool _summoned;
+
 	// Use this for initialization
 	void Awake()
 	{
@@ -64,6 +66,7 @@ public class RecruitSystem : MonoBehaviour
 		_obj_to_summon   = null;
 		_particle        = null;
 		_timer           = 0.0f;
+		_summoned        = false;
 
 		if(summoning_radius <= 0)
 		{
@@ -184,11 +187,12 @@ public class RecruitSystem : MonoBehaviour
 			unit = null;
 		}
 
-		if(unit != null)
+		if(unit != null && !_summoned)
 		{
 			// Spawn behind leader
 			//GameObject obj = PoolingSystem.instance.PS_Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation);
 			GameObject obj = PhotonNetwork.Instantiate(unit.name, leader.position, leader.rotation, 0) as GameObject;
+			_summoned = true;
 			_ready_to_summon = true;
 			_obj_to_summon = obj;
 			obj.SetActive(false);
