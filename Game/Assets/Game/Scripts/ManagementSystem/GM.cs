@@ -999,7 +999,7 @@ public class GM : Photon.MonoBehaviour
 			}
 		}
 
-		Debug.Log(next)
+		Debug.Log(next);
 		return next;
 	}
 
