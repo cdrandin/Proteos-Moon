@@ -982,15 +982,19 @@ public class GM : Photon.MonoBehaviour
 
 		// Player should be in the scene. So it exist
 		// Check if leader can not longer perform action
-
+		// Leader still can do actions
+		if(!__leader.GetComponent<BaseClass>().unit_status.status.Rest)
+		{
+			next = false;
+		}
 		// Leader is still active so don't need to check other units
 		if(next)
 		{
 			// If units exist for current player, check if they are able to move
 			BaseClass[] units_base_class = _player_container[__leader.GetPhotonView().owner.ID-1].GetComponentsInChildren<BaseClass>();
-
 			for(int i=0;i<units_base_class.Length;++i)
-			{
+			{	
+				Debug.Log("Somebody is here in the player_container: " + units_base_class[i].transform.parent.name);
 				if(!units_base_class[i].unit_status.status.Rest)
 				{
 					next = false;
