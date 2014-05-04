@@ -504,7 +504,6 @@ public class UnitGUI : MonoBehaviour {
 			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );
 //			GUI.enabled = 
 		if (MakeButton((1 * Screen.width)/64, (95*Screen.height)/1024 ,string.Format("Scout  {0}", _rs.unit_cost.scout), Style.scout)){
-
 				focusObject.GetComponent<BaseClass>().unit_status.Action();
 				GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 				gui_method -= RecruitMenuButtons;
