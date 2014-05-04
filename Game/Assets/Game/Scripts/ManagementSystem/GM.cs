@@ -995,7 +995,6 @@ public class GM : Photon.MonoBehaviour
 			BaseClass[] units_base_class = _player_container[__leader.GetPhotonView().owner.ID-1].GetComponentsInChildren<BaseClass>();
 			for(int i=0;i<units_base_class.Length;++i)
 			{	
-				Debug.Log("Somebody is here in the player_container: " + units_base_class[i].transform.parent.name);
 				if(!units_base_class[i].unit_status.status.Rest)
 				{
 					next = false;
@@ -1003,8 +1002,6 @@ public class GM : Photon.MonoBehaviour
 				}
 			}
 		}
-
-		Debug.Log(next);
 		return next;
 	}
 
