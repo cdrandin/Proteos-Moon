@@ -309,11 +309,8 @@ public class GM : Photon.MonoBehaviour
 		{
 			GenerateTurnSequence();
 
-			//	ROOM:		PhotonNetwork.room.customProperties
-
-//			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
 			ExitGames.Client.Photon.Hashtable reuse_hash = PhotonNetwork.room.customProperties;
-			//turn_order = new ExitGames.Client.Photon.Hashtable();
+
 			for(int i=0;i < Get_Leaders.Length;++i)
 			{
 					
@@ -321,6 +318,9 @@ public class GM : Photon.MonoBehaviour
 				Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
 			}
 				
+			reuse_hash.Add("CurrentTurn", (int)0);
+			_current_player_turn = 0;
+
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 		}
 		else{
@@ -492,9 +492,8 @@ public class GM : Photon.MonoBehaviour
 		}
 	}
 	
-	public Player[] TurnOrder{
-	
-	
+	public Player[] TurnOrder
+	{
 		get{
 		
 			return _player_turn_order;
@@ -1038,10 +1037,20 @@ public class GM : Photon.MonoBehaviour
 		}
 
 		// Next player's turn
-		_current_player_turn =(_current_player_turn + 1) % _total_players;
+		int turn = (int)PhotonNetwork.room.customProperties["CurrentTurn"];
+		Debug.Log(string.Format("Previous turn: {0}", (Player)turn));
+		
+		if(PhotonNetwork.player.isMasterClient)
+		{
+			_current_player_turn = turn;
+		}
 
-		// Set other players _current_player_turn to the next
-		//_current_player_turn = (int)__leader.GetPhotonView().owner.customProperties["current_player_turn"];
+		_current_player_turn =(_current_player_turn + 1) % _total_players;
+		PhotonNetwork.room.customProperties["CurrentTurn"] = _current_player_turn;
+		turn = (int)PhotonNetwork.room.customProperties["CurrentTurn"];
+		
+		Debug.Log(string.Format("Current turn: {0}", (Player)turn));
+
 
 		// When all player's have had their turn increment round number counter
 		if(_current_player_turn == 0)
