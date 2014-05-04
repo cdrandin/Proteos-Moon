@@ -901,7 +901,7 @@ public class GM : Photon.MonoBehaviour
 			_units_obtained[(int)player] += 1; 
 						
 			// Put unit into appropriate player's container
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
 			
 			sucessful_recruit = true;
 		} 
@@ -963,7 +963,7 @@ public class GM : Photon.MonoBehaviour
 			// Put unit into appropriate player's container
 			//AddUnitToCurrentPlayersContainer(unit);
 			
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
+			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
 			
 			sucessful_recruit = true;
 		} 
@@ -976,10 +976,10 @@ public class GM : Photon.MonoBehaviour
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	[RPC]
-	void AddUnitToCurrentPlayersContainer(UnitType unit_type, PhotonMessageInfo mi){
+	void AddUnitToCurrentPlayersContainer(int unit_type, PhotonMessageInfo mi){
 		// Signal spawner and to approiate players container
 		Debug.Log("Here i am");
-		GameObject unit = _recruit_system.SpawnUnit(unit_type);
+		GameObject unit = _recruit_system.SpawnUnit((UnitType)unit_type);
 		unit.transform.parent = _player_container[_current_player_turn].transform;
 		Debug.Log(string.Format("_current_player_turn: {0}   _player_container[{0}]: {1}", _current_player_turn, _player_container[_current_player_turn]));
 		UpdateFogOfWarComponents(unit);

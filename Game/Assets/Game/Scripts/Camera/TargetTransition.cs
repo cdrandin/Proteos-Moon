@@ -58,7 +58,7 @@ public class TargetTransition : MonoBehaviour {
 
 				//Find the new position
 				//GM.instance.controll
-				GM.instance.SetUnitControllerActiveOn (GetCurrentList() [unitIndex]);
+				GM.instance.SetUnitControllerActiveOn ( ref GetCurrentList() [unitIndex] );
 				newPosition = GetCurrentList() [unitIndex].transform.position + distanceToUnit;
 				interpolate = true;
 			}
@@ -141,7 +141,7 @@ public class TargetTransition : MonoBehaviour {
 		}
 		//If not then use the default vector distance
 		else {
-			float temp = WorldCamera.instance.MinCameraHeight + 1;
+			float temp = WorldCamera.instance.MinCameraHeight() + 1;
 			return new Vector3(temp, temp, temp);
 		}
 	}
