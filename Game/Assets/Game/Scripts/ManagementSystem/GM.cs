@@ -32,10 +32,10 @@ public enum Player : byte
 		NONE
 }
 
-[RequireComponent(typeof(PhotonView))]
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
+	private PhotonView _photon_view;
 
 	// Determine whether the GameManager is active or not
 	private bool 				_game_init;
@@ -161,6 +161,8 @@ public class GM : Photon.MonoBehaviour
 		_current_player_turn = 0; 
 		
 		Allocate();
+
+		_photon_view = PhotonView.Get(this);
 
 		// Get player units on the screen, for now assuming leaders are there before the game starts
 		InitPlayerContainers();
@@ -310,7 +312,7 @@ public class GM : Photon.MonoBehaviour
 			
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
-			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
+			_photon_view.RPC("SendTurnOrder", PhotonTargets.Others);
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
@@ -888,7 +890,7 @@ public class GM : Photon.MonoBehaviour
 
 			
 			// Put unit into appropriate player's container
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
+			_photon_view.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
 			
 			sucessful_recruit = true;
 		} 
@@ -950,7 +952,7 @@ public class GM : Photon.MonoBehaviour
 			// Put unit into appropriate player's container
 			//AddUnitToCurrentPlayersContainer(unit);
 			
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
+			_photon_view.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, unit_type);
 			
 			sucessful_recruit = true;
 		} 
@@ -1028,7 +1030,7 @@ public class GM : Photon.MonoBehaviour
 		// Next player's turn
 		
 		
-		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
+		_photon_view.RPC("ChangeTurn", PhotonTargets.All);
 		
 		//_current_player_turn =(_current_player_turn + 1) % _total_players;
 		PhotonNetwork.room.customProperties["CurrentTurn"] = _current_player_turn;
