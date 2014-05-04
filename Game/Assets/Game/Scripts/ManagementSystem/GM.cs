@@ -37,6 +37,7 @@ public enum Player : byte
 public class GM : Photon.MonoBehaviour 
 {
 	private static GM _instance;
+	private static GameObject _GM_obj;
 
 	// Determine whether the GameManager is active or not
 	private bool 				_game_init;
@@ -279,11 +280,7 @@ public class GM : Photon.MonoBehaviour
 			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
-			if(leader.GetPhotonView().isMine)
-				this.photonView.viewID = leader.GetPhotonView().viewID;
-
 			UpdateFogOfWarComponents(leader);
-			
 		}
 
 		// Distinguish which leader belongs to which player
@@ -309,12 +306,10 @@ public class GM : Photon.MonoBehaviour
 				reuse_hash.Add(string.Format("Turn{0}",i),  _player_turn_order[i]);
 				Debug.Log("Add "+ string.Format("Turn{0}",i) +  " this value" + (int)_player_turn_order[i]);
 			}
-				
 			
 			PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
 			this.photonView.RPC("SendTurnOrder", PhotonTargets.Others);
-			
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
@@ -479,13 +474,25 @@ public class GM : Photon.MonoBehaviour
 		{
 			if(_instance == null)
 			{
-				_instance = new GameObject("GameManager").AddComponent<GM>();
+				//_instance = new GameObject("GameManager").AddComponent<GM>();
+				_GM_obj = PhotonNetwork.Instantiate("GM", Vector3.zero, Quaternion.identity, 0) as GameObject;
+				_GM_obj.AddComponent<GM>();
+				_instance = _GM_obj.GetComponent<GM>();
 			}
 			
 			return _instance; 
 		}
 	}
-	
+
+	/// <summary>
+	/// Gets the GM obj as a Gameobject
+	/// </summary>
+	/// <value>The G m_obj.</value>
+	public static GameObject GM_obj
+	{
+		get { return _GM_obj; }
+	}
+
 	public Player[] TurnOrder
 	{
 		get{
