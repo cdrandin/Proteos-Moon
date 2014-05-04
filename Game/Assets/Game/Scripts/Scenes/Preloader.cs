@@ -8,18 +8,18 @@ public class Preloader : Photon.MonoBehaviour
  
     void Update()
     {
-
-        //Wait for both mainmenu&game scene to be loaded (since mainmenu doesnt check on game scene)
-        if (Application.GetStreamProgressForLevel(1) >= 1 && Application.GetStreamProgressForLevel(2) >= 1)
+        // Checks if the next scene can be loaded
+        if (Application.GetStreamProgressForLevel(1) >= 1)
             Application.LoadLevel(1);
-
     }
 
     void OnGUI()
     {
+		// Sets the skin for the Loading label
         GUI.skin = skin;
 
-        GUI.Label(new Rect(Screen.width / 2 - 70, Screen.height / 2 - 12, 140, 25), "Loading: " + (int)(Application.GetStreamProgressForLevel(2) * 100)+"%");
+		// Displays the percentage loaded for the next scene
+        GUI.Label(new Rect(Screen.width / 2 - 128, Screen.height / 2 - 25, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(1) * 100)+"%");
     }
 
 }
