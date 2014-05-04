@@ -114,7 +114,9 @@ public class RecruitSystem : MonoBehaviour
 			if(_ready_to_summon && !_placement)
 			{
 				if(Input.GetMouseButtonUp(0))
+				{
 					_placement = true;
+				}
 			}
 
 			if (_placement && Input.GetMouseButtonDown(0)) 
