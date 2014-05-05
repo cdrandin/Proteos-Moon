@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: d86fa252033b84016ab9676aa6ff89ca
+guid: 819a2d07438b67e46a8a4a10aa0fd197
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: bend4Handle
     100002: pCube10
@@ -99,4 +99,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 
