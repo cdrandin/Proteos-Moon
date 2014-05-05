@@ -110,7 +110,7 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.Move(movement);
 
-			PhotonView pv = PhotonView.Get(this);
+			//PhotonView pv = PhotonView.Get(this);
 			//pv.RPC("UpdatePosition", PhotonTargets.Others);//, _unit_focus_cc.gameObject.transform.position);
 		}
 
