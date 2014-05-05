@@ -110,7 +110,8 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.Move(movement);
 
-			photonView.RPC("UpdatePosition", PhotonTargets.Others, _unit_focus_cc.gameObject.transform.position);
+			PhotonView pv = Photonview.Get(this);
+			pv.RPC("UpdatePosition", PhotonTargets.Others, _unit_focus_cc.gameObject.transform.position);
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
@@ -336,6 +337,7 @@ public class UnitController : Photon.MonoBehaviour
 	[RPC]
 	void UpdatePosition(Vector3 position)
 	{
+		Debug.Log("MOVE MOTHER FUCKER!!");
 		_unit_focus_cc.gameObject.transform.position = position;
 	}
 
