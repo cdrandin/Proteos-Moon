@@ -233,7 +233,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 1	;
 			isInitialize = true;
 			GUI.Box( informationBox, "");
-			CharacterPortrait(informationBox, focus_object, mySkin.FindStyle("blue_box"), GM.instance.CurrentPlayer);
+			CharacterPortrait(informationBox, focus_object, GM.instance.CurrentPlayer);
 			HealthExhaustBars(informationBox, focusObject);
 
 		
@@ -274,12 +274,22 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	
-	public static void CharacterPortrait(Rect info_box, GameObject char_portrait, GUIStyle style, Player player){
-		
-		Debug.Log(char_portrait.name);
+	public static void CharacterPortrait(Rect info_box, GameObject char_portrait, Player player){
+		GUIStyle style;
 		GUITexture portrait_texture = null;
 		GUITexture icon_texture = null;
 		string char_name = "";
+		
+		if(char_portrait.GetPhotonView().isMine ){
+		
+		
+			style = UnitGUI.UnitGUISkin().FindStyle("blue_box");
+		}
+		else{
+		
+			style = UnitGUI.UnitGUISkin().FindStyle("red_box");
+		}
+		
 		switch(char_portrait.GetComponent<BaseClass>().unit_status.unit_type){
 		
 		case UnitType.Arcane:

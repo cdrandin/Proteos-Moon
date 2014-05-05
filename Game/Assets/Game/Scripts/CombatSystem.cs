@@ -160,7 +160,7 @@ public class CombatSystem : MonoBehaviour{
 			GUI.depth = 1	;
 			GUI.Box( EnemyUnitBox, "");
 			GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b, 1.0f  );
-			UnitGUI.CharacterPortrait(EnemyUnitBox, enemyList[index], UnitGUI.UnitGUISkin().FindStyle("red_box") , GM.instance.GetPlayer( (((int)GM.instance.CurrentPlayer) + 1) % 2 ));
+			UnitGUI.CharacterPortrait(EnemyUnitBox, enemyList[index], GM.instance.GetPlayer( (((int)GM.instance.CurrentPlayer) + 1) % 2 ));
 			UnitGUI.HealthExhaustBars(EnemyUnitBox, enemyList[index]);
 			
 			
