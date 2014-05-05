@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 60d8722ec5b8f4fdba0c7f358417f064
+guid: d0eeac7a1543078478c269667b10fe85
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Camera
     100002: Cube
@@ -68,4 +68,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 
