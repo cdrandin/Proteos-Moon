@@ -213,7 +213,7 @@ public class UnitGUI : MonoBehaviour {
 		this.gui_method -= BaseSelectionButtons;
 		this.gui_method -= ActionSelectionButtons;
 		this.gui_method -= MovementEndButton;
-		
+		GM.instance.SetUnitControllerActiveOff();
 	}
 	
 	void OnGUI(){
