@@ -115,6 +115,7 @@ public class RecruitSystem : MonoBehaviour
 			{
 				if(Input.GetMouseButtonUp(0))
 				{
+					Debug.Log("Start placing a unit now");
 					_placement = true;
 				}
 			}
@@ -138,7 +139,9 @@ public class RecruitSystem : MonoBehaviour
 						_placement       = false;
 
 						// Create summon particle
-						_particle = PoolingSystem.instance.PS_Instantiate(summoning_particle, hit.point, Quaternion.identity);
+						//_particle = PoolingSystem.instance.PS_Instantiate(summoning_particle, hit.point, Quaternion.identity);
+						_particle = Instantiate(summoning_particle, hit.point, Quaternion.identity) as GameObject;
+
 						_timer = 0;
 					}
 				}
@@ -152,7 +155,7 @@ public class RecruitSystem : MonoBehaviour
 			// Update health bar info based on the refresh rate
 			if(_timer >= 1.5f)
 			{
-				PoolingSystem.instance.PS_Destroy(_particle);
+				Destroy(_particle);
 				_particle = null;
 				_timer = 0;
 			}
@@ -203,6 +206,8 @@ public class RecruitSystem : MonoBehaviour
 			// Spawn behind leader
 			//GameObject obj = PoolingSystem.instance.PS_Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation);
 			GameObject obj = PhotonNetwork.Instantiate(unit.name, leader.position, leader.rotation, 0) as GameObject;
+			Debug.Log(string.Format("Creating unit: {0} for {1}", obj.name, GM.instance.photonView.owner));
+
 			_summoned = true;
 			_obj_to_summon = obj;
 			obj.SetActive(false);

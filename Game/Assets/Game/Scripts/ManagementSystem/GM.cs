@@ -289,9 +289,6 @@ public class GM : Photon.MonoBehaviour
 			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 		}
 
-		
-		
-
 		Debug.Log(string.Format("{0} owns this room: {1}", (Player)PhotonNetwork.masterClient.ID-1, PhotonNetwork.room.name.ToString()));
 
 		//Generate Turn Sequence
@@ -980,8 +977,14 @@ public class GM : Photon.MonoBehaviour
 		// Signal spawner and to approiate players container
 		Debug.Log("Here i am");
 		GameObject unit = _recruit_system.SpawnUnit((UnitType)unit_type);
-		unit.transform.parent = _player_container[_current_player_turn].transform;
-		Debug.Log(string.Format("_current_player_turn: {0}   _player_container[{0}]: {1}", _current_player_turn, _player_container[_current_player_turn]));
+		if(_player_container[_current_player_turn].transform == null)
+			Debug.Log(string.Format("Player container for {0} doesn't exist!", (Player)_current_player_turn));
+		else
+		{
+			unit.transform.parent = _player_container[_current_player_turn].transform;
+			Debug.Log(string.Format("_current_player_turn: {0}   _player_container[{0}]: {1}", _current_player_turn, _player_container[_current_player_turn]));
+		}
+
 		UpdateFogOfWarComponents(unit);
 	}
 	
