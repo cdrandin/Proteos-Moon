@@ -515,6 +515,13 @@ public class GM : Photon.MonoBehaviour
 		}
 	}
 
+	public PhotonView GM_Photon_View
+	{
+		get
+		{
+			return __leader.GetPhotonView();
+		}
+	}
  	public GameObject[] Get_Leaders
 	{
 		get
@@ -1018,6 +1025,7 @@ public class GM : Photon.MonoBehaviour
 				}
 			}
 		}
+
 		return next;
 	}
 
@@ -1035,9 +1043,6 @@ public class GM : Photon.MonoBehaviour
 	/// </summary>
 	public void NextPlayersTurn()
 	{
-		// Unfocus current unit
-		SetUnitControllerActiveOff();
-
 		GameObject[] units = GetUnitsFromPlayer(CurrentPlayer);
 		foreach(GameObject unit in units)
 		{
@@ -1070,7 +1075,8 @@ public class GM : Photon.MonoBehaviour
 	[RPC]
 	void ChangeTurn(){
 		_current_player_turn = (_current_player_turn + 1) % _total_players;
-		
+		// Unfocus current unit
+
 	}
 
 	/// <summary>

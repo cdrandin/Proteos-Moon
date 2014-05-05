@@ -31,6 +31,7 @@ public class UnitGUI : MonoBehaviour {
 	public static UnitGUI instance;
 	
 	private RecruitSystem _rs;
+	private bool _reset_once;
 
 	private enum Style
 	{
@@ -72,6 +73,8 @@ public class UnitGUI : MonoBehaviour {
 		isInitialize = false;
 		isMoving = false;
 		smoothPos = false;
+		_reset_once = false;
+
 		shift = 0;
 		if(WorldCamera.instance != null)
 			WorldCamera.instance.TurnCameraControlsOn();
@@ -130,6 +133,16 @@ public class UnitGUI : MonoBehaviour {
 	void Update () {
 		if(GM.instance.IsOn)
 		{
+			if(GM.instance.IsItMyTurn())
+			{
+				if(!_reset_once)
+				{
+					ResetFlags();
+					RemoveGUI();
+					_reset_once = true;
+				}
+			}
+
 			focusTemp = GM.instance.CurrentFocus;
 			
 			if(!isInitialize && focusTemp != null /*&& focusTemp.GetComponent<BaseClass>().unit_status.status != Status.Rest*/){
@@ -184,7 +197,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	private void CheckButtonsPressedToRemoveGUI(){
-	
+
 		if( WorldCamera.instance.IsCameraOnControlsOn()  && (Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed()) ){
 			
 			RemoveGUI();

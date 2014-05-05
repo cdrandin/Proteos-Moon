@@ -110,6 +110,9 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.Move(movement);
 		}
+
+		if(GM.instance.IsNextPlayersTurn())
+			_unit_focus_cc = null;
 	}
 
 	void Move()
