@@ -3,72 +3,11 @@ guid: 512ee64fd9a8743feb2c24eaf7f3828d
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: Altier_Seita
-    100002: Altier_Seita_R_UV_3_left
-    100004: //RootNode
-    100006: Catwalk_Support_Beam_R_UV_left
-    100008: group
-    100010: left
-    100012: Mouth_Guard
-    100014: pasted__polySurface14
-    100016: pasted__polySurface18
-    100018: polySurface10
-    100020: polySurface12
-    100022: polySurface14
-    100024: polySurface15
-    100026: polySurface16
-    100028: polySurface3
-    100030: polySurface4
-    100032: polySurface6
-    100034: polySurface9
-    100036: Snipers_Nest_R_UV_left
-    100038: Staircase
-    100040: transform1
-    100042: transform2
-    100044: transform3
-    100046: transform4
-    100048: transform5
-    100050: transform6
-    100052: transform7
-    400000: Altier_Seita
-    400002: Altier_Seita_R_UV_3_left
-    400004: //RootNode
-    400006: Catwalk_Support_Beam_R_UV_left
-    400008: group
-    400010: left
-    400012: Mouth_Guard
-    400014: pasted__polySurface14
-    400016: pasted__polySurface18
-    400018: polySurface10
-    400020: polySurface12
-    400022: polySurface14
-    400024: polySurface15
-    400026: polySurface16
-    400028: polySurface3
-    400030: polySurface4
-    400032: polySurface6
-    400034: polySurface9
-    400036: Snipers_Nest_R_UV_left
-    400038: Staircase
-    400040: transform1
-    400042: transform2
-    400044: transform3
-    400046: transform4
-    400048: transform5
-    400050: transform6
-    400052: transform7
-    2300000: Mouth_Guard
-    2300002: polySurface16
-    2300004: Staircase
-    3300000: Mouth_Guard
-    3300002: polySurface16
-    3300004: Staircase
-    4300000: polySurface16
-    4300002: Mouth_Guard
-    4300004: Staircase
-    6400000: Mouth_Guard
-    6400002: polySurface16
-    6400004: Staircase
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Blockade
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -88,9 +27,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 3
+    globalScale: 7
     meshCompression: 1
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
