@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 7389318b47ee74269b08b50ee2663e38
+guid: 53cf040a14e816842bf5ed264eec99ff
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: imagePlane1
     100002: pCube1
@@ -141,4 +141,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 
