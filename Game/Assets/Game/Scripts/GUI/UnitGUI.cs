@@ -329,7 +329,16 @@ public class UnitGUI : MonoBehaviour {
 				char_name = "Leader: Mena";
 				
 			}
+			else{
+			
+				Debug.LogError( "Unit Status Leader is incorrect in BaseClass");
+			}
+			
 			break;
+			
+		default:
+		
+			Debug.LogError( "Unit Status is incorrect in BaseClass");
 		}
 		float pheight  = info_box.height - 32 ;
 		Rect box_pos = new Rect(16,16, 4*pheight / 6, pheight );
