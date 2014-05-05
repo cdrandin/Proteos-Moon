@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 832918bc15c38594a8a87b6b340240ad
+guid: 190a9e07dac9cad4cac47c5e4b20c447
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Chest
     100002: EffectorHead
@@ -188,4 +188,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 
