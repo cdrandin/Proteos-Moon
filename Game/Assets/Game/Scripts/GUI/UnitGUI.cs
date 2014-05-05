@@ -339,6 +339,7 @@ public class UnitGUI : MonoBehaviour {
 		default:
 		
 			Debug.LogError( "Unit Status is incorrect in BaseClass");
+			break;
 		}
 		float pheight  = info_box.height - 32 ;
 		Rect box_pos = new Rect(16,16, 4*pheight / 6, pheight );
