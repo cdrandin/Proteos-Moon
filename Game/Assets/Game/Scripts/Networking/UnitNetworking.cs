@@ -21,13 +21,13 @@ public class UnitNetworking : MonoBehaviour
 	}
 	
 	[RPC]
-	void UpdatePosition(Vector3 position)
+	void UpdatePosition(Vector3 position, PhotonMessageInfo mi)
 	{
 		if(GM.instance.IsOn)
 		{
 			// Get the unit in which to move
 			//GameObject unit = PhotonView.Find(photon_id).gameObject;
-			
+			Debug.Log(string.Format("Sender: {0}  Recv: {1}", mi.sender.name, _my_photon_view.owner.name));
 			this.gameObject.transform.position = position;
 		}
 	}
