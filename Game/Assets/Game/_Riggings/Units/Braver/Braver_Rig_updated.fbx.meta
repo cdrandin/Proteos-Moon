@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 40d941b7f06b5104fad4dc613b5fd200
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Braver_Chest
     100002: Braver_EffectorHead
@@ -192,4 +192,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 

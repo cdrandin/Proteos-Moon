@@ -17,14 +17,6 @@ public class ProteusChat : Photon.MonoBehaviour
     public static readonly string ChatRPC = "Chat";
 	public static readonly string GameChatRPC = "GameChat";
 
-	void Awake(){
-		QuickConnect qc;
-		qc = this.GetComponent<QuickConnect>();
-		if (qc.enabled){
-			this.enabled = false;
-		}
-	}
-
     public void Start()
     {
 		chatStyle = skin.FindStyle("ChatStyle");
