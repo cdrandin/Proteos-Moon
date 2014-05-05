@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(UnitActions))]
+[RequireComponent (typeof(UnitActions), typeof(UnitNetworking))]
 public class BaseClass : MonoBehaviour 
 {
 	[SerializeField] 

@@ -111,7 +111,7 @@ public class UnitController : Photon.MonoBehaviour
 			_unit_focus_cc.Move(movement);
 
 			PhotonView pv = PhotonView.Get(this);
-			pv.RPC("UpdatePosition", PhotonTargets.Others, _unit_focus_cc.gameObject.transform.position);
+			//pv.RPC("UpdatePosition", PhotonTargets.Others);//, _unit_focus_cc.gameObject.transform.position);
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
@@ -125,8 +125,8 @@ public class UnitController : Photon.MonoBehaviour
 			return;
 		}
 
-		float v = Input.GetAxisRaw("Vertical");
-		float h = Input.GetAxisRaw("Horizontal");
+		float v = Input.GetAxisRaw("Unit_Vertical");
+		float h = Input.GetAxisRaw("Unit_Horizontal");
 
 		//Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
 		Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
@@ -335,10 +335,10 @@ public class UnitController : Photon.MonoBehaviour
 	}
 
 	[RPC]
-	void UpdatePosition(Vector3 position)
+	void UpdatePosition(PhotonMessageInfo mi)
 	{
-		Debug.Log("MOVE MOTHER FUCKER!!");
-		_unit_focus_cc.gameObject.transform.position = position;
+		Debug.Log(mi.sender.name + "  MOVE!!");
+		//_unit_focus_cc.gameObject.transform.position = position;
 	}
 
 	/*
