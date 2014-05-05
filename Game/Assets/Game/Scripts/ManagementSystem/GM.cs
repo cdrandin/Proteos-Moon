@@ -1089,6 +1089,39 @@ public class GM : Photon.MonoBehaviour
 	}
 
 	/// <summary>
+	/// Updates the unit position over network.
+	/// </summary>
+	public void UpdateUnitPositionOverNetwork()
+	{
+		// Get unit that is currently ready to move
+		GameObject current_unit = _unit_controller.UnitControllerFocus;
+		Vector3 pos = current_unit.transform.position;
+
+		// Send RPC to other player to have the unit on their screen to move
+		GM_Photon_View.RPC("UpdatePosition", PhotonTargets.Others, current_unit.GetPhotonView().viewID, pos.x, pos.y, pos.z);
+	}
+
+	[RPC]
+	void UpdatePosition(int id, int posx, int posy, int posz, PhotonMessageInfo mi)
+	{
+
+		// Get other player's units
+		GameObject[] other_units = GetUnitsFromPlayer(CurrentPlayer);
+		for(int i=0;i<other_units.Length;++i)
+		{
+			// If this is the unit they wish to seek, show it
+			if(other_units[i].GetPhotonView().viewID == id)
+			{
+				// Move unit that was moved from the other player
+				other_units[i].transform.position = new Vector3(posx, posy, posz);
+				i = other_units.Length;
+
+				Debug.Log(string.Format("Should be moving unit {0}", other_units[i].name));
+			}
+		}
+	}
+
+	/// <summary>
 	/// Sets the unit controller active off. Killing input to move for the previous unit selected.
 	/// </summary>
 	public void SetUnitControllerActiveOff()

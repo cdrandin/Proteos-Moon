@@ -109,6 +109,8 @@ public class UnitController : Photon.MonoBehaviour
 			movement *= Time.deltaTime;
 
 			_unit_focus_cc.Move(movement);
+
+			GM.instance.UpdateUnitPositionOverNetwork();
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
