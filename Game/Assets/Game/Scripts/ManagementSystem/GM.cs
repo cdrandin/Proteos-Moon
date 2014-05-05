@@ -96,7 +96,7 @@ public class GM : Photon.MonoBehaviour
 
 	PhotonHashTable room_properties = new PhotonHashTable();
 
-
+	PhotonView GMpv = PhotonView.Get(this);
 
 	public void Awake()
 	{
@@ -1098,7 +1098,7 @@ public class GM : Photon.MonoBehaviour
 		Vector3 pos = current_unit.transform.position;
 
 		// Send RPC to other player to have the unit on their screen to move
-		GM_Photon_View.RPC("UpdatePosition", PhotonTargets.Others, current_unit.GetPhotonView().viewID, pos.x, pos.y, pos.z);
+		GMpv.RPC("UpdatePosition", PhotonTargets.Others, current_unit.GetPhotonView().viewID, pos.x, pos.y, pos.z);
 	}
 
 	[RPC]
