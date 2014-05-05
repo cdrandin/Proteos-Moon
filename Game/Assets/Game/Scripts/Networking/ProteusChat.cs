@@ -79,7 +79,7 @@ public class ProteusChat : Photon.MonoBehaviour
         inputLine = GUILayout.TextArea(inputLine, 180);
         if ((GUILayout.Button("Send", GUILayout.ExpandWidth(false))) && inputLine != "")
         {
-            ProteusChat.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
+            this.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
 			this.inputLine = "";
             GUI.FocusControl("");
         }
