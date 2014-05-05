@@ -1091,6 +1091,8 @@ public class GM : Photon.MonoBehaviour
 	/// <summary>
 	/// Updates the unit position over network.
 	/// </summary>
+	///
+	/*
 	public void UpdateUnitPositionOverNetwork()
 	{
 		// Get unit that is currently ready to move
@@ -1120,6 +1122,7 @@ public class GM : Photon.MonoBehaviour
 			}
 		}
 	}
+	*/
 
 	/// <summary>
 	/// Sets the unit controller active off. Killing input to move for the previous unit selected.
