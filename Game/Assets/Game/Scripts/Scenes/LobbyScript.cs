@@ -51,7 +51,7 @@ public class LobbyScript : MonoBehaviour
 
 	void OnPhotonRandomJoinFailed()
 	{
-		PhotonNetwork.CreateRoom(null);
+		PhotonNetwork.CreateRoom(null, true, true, 2);
 	}
 
 	private void GuiInLobby()
@@ -62,11 +62,11 @@ public class LobbyScript : MonoBehaviour
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
-			PhotonNetwork.JoinRandomRoom();
+			PhotonNetwork.JoinRandomRoom(null, 2);
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
-			PhotonNetwork.CreateRoom(room_name);
+			PhotonNetwork.CreateRoom(room_name, true, true, 2);
 		}
 		GUILayout.EndHorizontal();
 		
