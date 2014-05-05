@@ -275,7 +275,8 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	public static void CharacterPortrait(Rect info_box, GameObject char_portrait, GUIStyle style, Player player){
-			
+		
+		Debug.Log(char_portrait.name);
 		GUITexture portrait_texture = null;
 		GUITexture icon_texture = null;
 		string char_name = "";
