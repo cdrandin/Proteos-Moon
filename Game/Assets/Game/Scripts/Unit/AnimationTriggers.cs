@@ -7,7 +7,6 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	int attack_hash = Animator.StringToHash("Attack");
 	int damage_hash = Animator.StringToHash("Damage");
-	int death_hash = Animator.StringToHash("Death");
 	int gather_hash = Animator.StringToHash("Gather");
 	int idle_hash = Animator.StringToHash("Idle");
 	int ready_hash = Animator.StringToHash("Ready");
