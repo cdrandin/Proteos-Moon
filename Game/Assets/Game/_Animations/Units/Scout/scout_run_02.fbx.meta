@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e4981d45196fda54eb337da4dea96d12
+guid: b7f40f23bad558644a96111d3d6660d6
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -135,7 +135,7 @@ ModelImporter:
     400126: RThigh
     400128: RToe
     400130: //RootNode
-    7400000: iPi Default take
+    7400000: Run_01
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -153,9 +153,9 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: iPi Default take
+      name: Run_01
       takeName: iPi Default take
-      firstFrame: 136
+      firstFrame: 135
       lastFrame: 157
       wrapMode: 0
       orientationOffsetY: 0
@@ -168,9 +168,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
