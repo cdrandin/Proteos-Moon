@@ -155,8 +155,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Ready
       takeName: iPi Default take
-      firstFrame: 150
-      lastFrame: 239
+      firstFrame: 168
+      lastFrame: 213
       wrapMode: 0
       orientationOffsetY: 65
       level: 0
@@ -168,9 +168,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

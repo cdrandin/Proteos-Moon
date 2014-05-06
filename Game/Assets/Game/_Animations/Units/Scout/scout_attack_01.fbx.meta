@@ -157,22 +157,22 @@ ModelImporter:
     - serializedVersion: 16
       name: Attack_01
       takeName: iPi Default take
-      firstFrame: 165
-      lastFrame: 379
+      firstFrame: 179
+      lastFrame: 232
       wrapMode: 0
       orientationOffsetY: 65
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -315,22 +315,22 @@ ModelImporter:
     - serializedVersion: 16
       name: Attack_02
       takeName: iPi Default take
-      firstFrame: 379
-      lastFrame: 605
+      firstFrame: 413
+      lastFrame: 464
       wrapMode: 0
       orientationOffsetY: 65
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -473,22 +473,22 @@ ModelImporter:
     - serializedVersion: 16
       name: Attack_03
       takeName: iPi Default take
-      firstFrame: 605
-      lastFrame: 798
+      firstFrame: 632
+      lastFrame: 723
       wrapMode: 0
       orientationOffsetY: 43
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

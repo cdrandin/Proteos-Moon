@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9129f82970132714a8e3baf9233a024e
+guid: b4d0f665206b06b47aac417480e63624
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -135,7 +135,7 @@ ModelImporter:
     400126: RThigh
     400128: RToe
     400130: //RootNode
-    7400000: Run_01
+    7400000: Death
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -153,16 +153,16 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run_01
+      name: Death
       takeName: iPi Default take
-      firstFrame: 172
-      lastFrame: 208
+      firstFrame: 75
+      lastFrame: 187
       wrapMode: 0
-      orientationOffsetY: 0
+      orientationOffsetY: -15.0699997
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -752,7 +752,7 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: titan_run_01(Clone)
+    - name: titan_death_03(Clone)
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}

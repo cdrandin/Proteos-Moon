@@ -16,11 +16,11 @@ public class AnimationTriggers : MonoBehaviour {
 	int idle_state_hash = Animator.StringToHash("Base Layer.Idle");
 	int ready_state_hash = Animator.StringToHash("Base Layer.Ready");
 	
-	
 	int health = 100;
 	int number_of_attacks;
 	void Start ()
 	{
+		
 		anim = GetComponent<Animator>();
 		number_of_attacks = anim.GetInteger("num_of_attacks");
 	}
@@ -28,11 +28,12 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	void Update ()
 	{
-		float move = Input.GetAxis ("Vertical");
 		AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+		
+		float move = Input.GetAxis ("Vertical");
 		anim.SetFloat("Speed", move);
 		
-		
+		//gameObject.transform.localPosition = Vector3.Lerp(gameObject.transform.localPosition, gameObject.transform.localPosition + (gameObject.transform.forward * move), Time.deltaTime*5f);
 		
 		if(Input.GetKeyDown(KeyCode.R) && stateInfo.nameHash == idle_state_hash)
 		{
@@ -41,12 +42,12 @@ public class AnimationTriggers : MonoBehaviour {
 		}
 		else if(Input.GetKeyDown(KeyCode.R) && stateInfo.nameHash == ready_state_hash)
 		{
-
 			print (gameObject.name + "is Idle");
 			anim.SetTrigger (idle_hash);
 		}
 		
 		else if(Input.GetKeyDown(KeyCode.A)){
+		
 			print (gameObject.name + "is Attacking");
 			int attack_value = Random.Range(0, number_of_attacks);
 			anim.SetInteger("attack_style", attack_value);
