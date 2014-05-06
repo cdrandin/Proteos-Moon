@@ -110,8 +110,7 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.Move(movement);
 
-			PhotonView pv = PhotonView.Get(this);
-			//pv.RPC("UpdatePosition", PhotonTargets.Others);//, _unit_focus_cc.gameObject.transform.position);
+			_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitNetwork();
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
@@ -326,19 +325,6 @@ public class UnitController : Photon.MonoBehaviour
 		jump_height         = 0;
 		fall_speed          = 0;
 		air_jumps 			= 0;
-	}
-
-	void OnPhotonSerializeView(PhotonStream stream,
-	                           PhotonMessageInfo info)
-	{
-		Debug.Log("UnitController");
-	}
-
-	[RPC]
-	void UpdatePosition(PhotonMessageInfo mi)
-	{
-		Debug.Log(mi.sender.name + "  MOVE!!");
-		//_unit_focus_cc.gameObject.transform.position = position;
 	}
 
 	/*
