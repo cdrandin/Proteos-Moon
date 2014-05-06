@@ -16,14 +16,9 @@ public class TitleGUI : MonoBehaviour {
 	private bool button_clicked = false;
 	public bool resetPlayerName = false;
 	public MonoBehaviour componentToEnable;
+	private GUIStyle story, options, multiplayer;
 	
 	public Texture2D clicked, highlight;
-
-	private enum Style
-	{
-		header, loading, question, portrait, readybutton, checkmark, leaderinfo, 
-		chatstyle 
-	}
 
 	void Awake(){
 		//_button_height = Screen.height / 12;
@@ -40,19 +35,37 @@ public class TitleGUI : MonoBehaviour {
 		{
 			PlayerPrefs.SetString("playername", "");
 		}
+
 		UpdateSkin();
+		story = skin.FindStyle("Story");
+		options = skin.FindStyle("Options");
+		multiplayer = skin.FindStyle("Multiplayer");
 	}
 	
 	public void UpdateSkin(){
 	
-		Texture2D normal = skin.button.normal.background;
+		Texture2D special = skin.FindStyle("Story").normal.background;
+		Texture2D item = skin.FindStyle("Options").normal.background;
+		Texture2D attack = skin.FindStyle("Multiplayer").normal.background;
 
 		
-		skin.button.hover.background = UnitGUI.CombineTextures(normal, highlight);
-		skin.button.active.background = UnitGUI.CombineTextures(normal, clicked);
+		skin.customStyles[0].hover.background = UnitGUI.CombineTextures(special, highlight);
+		skin.customStyles[0].active.background = UnitGUI.CombineTextures(special, clicked);
 
-		skin.button.onHover.background = UnitGUI.CombineTextures(normal, highlight);
-		skin.button.onActive.background = UnitGUI.CombineTextures(normal, clicked);
+		skin.customStyles[0].onHover.background = UnitGUI.CombineTextures(special, highlight);
+		skin.customStyles[0].onActive.background = UnitGUI.CombineTextures(special, clicked);
+
+		skin.customStyles[1].hover.background = UnitGUI.CombineTextures(item, highlight);
+		skin.customStyles[1].active.background = UnitGUI.CombineTextures(item, clicked);
+		
+		skin.customStyles[1].onHover.background = UnitGUI.CombineTextures(item, highlight);
+		skin.customStyles[1].onActive.background = UnitGUI.CombineTextures(item, clicked);
+
+		skin.customStyles[2].hover.background = UnitGUI.CombineTextures(attack, highlight);
+		skin.customStyles[2].active.background = UnitGUI.CombineTextures(attack, clicked);
+		
+		skin.customStyles[2].onHover.background = UnitGUI.CombineTextures(attack, highlight);
+		skin.customStyles[2].onActive.background = UnitGUI.CombineTextures(attack, clicked);
 		
 	}
 	
@@ -60,17 +73,17 @@ public class TitleGUI : MonoBehaviour {
 		GUI.skin = skin;
 		if(!button_clicked){
 			
-			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) - 2 * (Screen.height / 12), 64 * _button_height / 15, Screen.height / 12), "Begin Story")){
+			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) - 2 * (Screen.height / 12), 64 * _button_height / 15, Screen.height / 12), "Begin Story", story)){
 				button_clicked = true;
 				which_button_clicked = BEGIN;
 				//Application.LoadLevel("BattleMap");
 			}
-			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) - ((Screen.height / 12) - (_button_height/4)), 64 * _button_height / 15, Screen.height / 12), "Options")){
+			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) - ((Screen.height / 12) - (_button_height/4)), 64 * _button_height / 15, Screen.height / 12), "Options", options)){
 				button_clicked = true;
 				which_button_clicked = OPTIONS;
 				//Application.LoadLevel("Options");
 			}
-			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) + 2*((Screen.height / 12)/4), 64 * _button_height / 15, Screen.height / 12), "Multiplayer")){
+			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) + 2*((Screen.height / 12)/4), 64 * _button_height / 15, Screen.height / 12), "Multiplayer", multiplayer)){
 				button_clicked = true;
 				which_button_clicked = MULTIPLAYER;
 				//Application.LoadLevel("Login");
@@ -106,17 +119,4 @@ public class TitleGUI : MonoBehaviour {
 			}
 		}
 	}
-
-	#region Helper Functions
-	
-	private bool MakeButton(float left, float top, string buttonName, Style index){
-		float height = Screen.height / 16;
-		return GUI.Button(new Rect(left, top, 64* height / 15, height), buttonName, skin.customStyles[(int)index]);
-		
-	}
-	private bool MakeButton(Rect box, string buttonName, Style index){
-		return GUI.Button ( box, buttonName, skin.customStyles[(int)index]);
-	}
-
-	#endregion
 }
