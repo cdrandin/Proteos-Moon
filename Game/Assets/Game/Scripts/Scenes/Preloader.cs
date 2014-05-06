@@ -13,7 +13,7 @@ public class Preloader : Photon.MonoBehaviour
     {
         // Checks if the next scene can be loaded
         if (Application.GetStreamProgressForLevel(1) >= 1)
-            Application.LoadLevel(1);
+            Application.LoadLevel(Application.loadedLevel + 1);
     }
 
     void OnGUI()

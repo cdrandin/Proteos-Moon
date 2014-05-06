@@ -23,7 +23,7 @@ public class SplashScreenLoader : MonoBehaviour {
 			return;
 		}
 		if(done_loading){
-			Application.LoadLevel("TitleScene");
+			Application.LoadLevel(Application.loadedLevel + 1);
 		}
 	}
 
