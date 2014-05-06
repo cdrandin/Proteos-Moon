@@ -9,7 +9,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	public Texture2D seita_texture;
 	public ProteusChat proteusChat;
 	public GameObject mena, seita;
-	public GUIStyle header, loading, question, portrait, readyButton, checkmark, leaderInfo;
+	private GUIStyle header, loading, question, portrait, readyButton, checkmark, leaderInfo;
 	private bool leader_chosen = false;
 	public bool gameReady = false;
 	private bool animatinglabels = false;
@@ -48,6 +48,8 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		counter = 0;
 		menaSpecialText = "\nMena personally trains the deadliest snipers day in\n and day out. \n\n\nSnipers: +10% Attack Range\nBravers: -10% Movement";
 		seitaSpecialText = "\nSeita teaches his Braver recruits to be absolutely\nfearless.\n\n\nBravers: +10% Attack Damage\nSnipers: -10% Movement";
+
+		proteusChat.photonView.RPC ("GameChat", PhotonTargets.All, "Joined");
 	}
 	
 	// Update is called once per frame

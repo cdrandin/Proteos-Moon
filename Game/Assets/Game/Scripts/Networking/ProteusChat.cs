@@ -26,10 +26,6 @@ public class ProteusChat : Photon.MonoBehaviour
         }
 
     }
-	public void OnJoinedRoom(){
-		this.photonView.RPC ("GameChat", PhotonTargets.All, "Joined");
-	}
-
 
     public void OnGUI()
     {
