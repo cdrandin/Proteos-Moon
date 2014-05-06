@@ -54,10 +54,7 @@ public class UnitActions : MonoBehaviour {
 	}
 	
 	public void WithinRange(GameObject currentFocus){
-		
-		
-		print (myTransform.parent + " is calling this function.");
-		
+
 		if( Vector3.SqrMagnitude(currentFocus.transform.position - myTransform.position )
 			< currentFocus.GetComponent<BaseClass>().attack_range * currentFocus.GetComponent<BaseClass>().attack_range ){
 		
