@@ -15,7 +15,7 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	int idle_state_hash = Animator.StringToHash("Base Layer.Idle");
 	int ready_state_hash = Animator.StringToHash("Base Layer.Ready");
-	
+	AnimatorStateInfo stateInfo;
 	int health = 100;
 	int number_of_attacks;
 	void Start ()
@@ -28,46 +28,53 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	void Update ()
 	{
-		AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+		stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 		
-		float move = Input.GetAxis ("Vertical");
-		anim.SetFloat("Speed", move);
+		//float move = Input.GetAxis ("Vertical");
+		//anim.SetFloat("Speed", move);		
+	}
+	
+	public void AttackAnimation(){
 		
-		//gameObject.transform.localPosition = Vector3.Lerp(gameObject.transform.localPosition, gameObject.transform.localPosition + (gameObject.transform.forward * move), Time.deltaTime*5f);
+		if( stateInfo.nameHash == ready_state_hash){
 		
-		if(Input.GetKeyDown(KeyCode.R) && stateInfo.nameHash == idle_state_hash)
-		{
-			print (gameObject.name + "is Ready");
-			anim.SetTrigger (ready_hash);
-		}
-		else if(Input.GetKeyDown(KeyCode.R) && stateInfo.nameHash == ready_state_hash)
-		{
-			print (gameObject.name + "is Idle");
-			anim.SetTrigger (idle_hash);
-		}
-		
-		else if(Input.GetKeyDown(KeyCode.A)){
-		
-			print (gameObject.name + "is Attacking");
-			int attack_value = Random.Range(0, number_of_attacks);
+			int	attack_value = Random.Range(0, number_of_attacks);
 			anim.SetInteger("attack_style", attack_value);
 			Debug.Log(attack_value);
-			anim.SetTrigger (attack_hash);
+			anim.SetTrigger (attack_hash);		
 		}
-		
-		else if(Input.GetKeyDown(KeyCode.D)){
-			
-			print (gameObject.name + "is Damaged");
-			health -= 50;
-			anim.SetInteger("Health", health);
-			anim.SetTrigger (damage_hash);
-		}
-		else if(Input.GetKeyDown(KeyCode.G)){
-			
-			print (gameObject.name + "is Gathering");
-			anim.SetTrigger (gather_hash);
-		}
-
 		
 	}
+	
+	public void DamageAnimation(int newHealth){
+
+		if( stateInfo.nameHash == idle_state_hash){
+			
+			anim.SetInteger("Health", newHealth);
+			anim.SetTrigger (damage_hash);
+		}
+	}
+	
+	public void ReadyAnimation(){
+	
+		if( stateInfo.nameHash == idle_state_hash){
+			
+			anim.SetTrigger (ready_hash);
+		}
+	}
+	
+	public void IdleAnimation(){
+		if( stateInfo.nameHash == ready_state_hash){
+			
+			anim.SetTrigger (idle_hash);
+		}
+	}
+	
+	public void GatherAnimation(){
+		
+		if( stateInfo.nameHash == ready_state_hash){
+			anim.SetTrigger (gather_hash);
+		}
+	}
 }
+
