@@ -14,7 +14,8 @@ public class UnitNetworking : MonoBehaviour
 	public void UpdateUnitNetwork()
 	{
 		// Get focused object
-		if(GM.instance.CurrentFocus == this.gameObject){
+		if(GM.instance.CurrentFocus == this.gameObject)
+		{
 			// Send RPC call to update unit's position
 			_my_photon_view.RPC("UpdatePosition", PhotonTargets.OthersBuffered, this.gameObject.transform.position);	
 		}
@@ -26,8 +27,6 @@ public class UnitNetworking : MonoBehaviour
 		if(GM.instance.IsOn)
 		{
 			// Get the unit in which to move
-			//GameObject unit = PhotonView.Find(photon_id).gameObject;
-			Debug.Log(string.Format("Sender: {0}  Recv: {1}", mi.sender.name, _my_photon_view.owner.name));
 			this.gameObject.transform.position = position;
 		}
 	}

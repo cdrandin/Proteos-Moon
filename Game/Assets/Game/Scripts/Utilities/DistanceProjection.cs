@@ -80,7 +80,7 @@ public class DistanceProjection : MonoBehaviour
 		{
 			_focus    		  = target;
 			_movement		  = _focus.GetComponent<BaseClass>().movement;
-			_distance         = _movement.max_distance * _movement.speed;
+			_distance         = _movement.max_distance;
 			_new_ortho_size   = _distance*_ratio;
 
 			// Resize
