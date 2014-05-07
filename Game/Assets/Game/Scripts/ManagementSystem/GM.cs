@@ -77,7 +77,7 @@ public class GM : Photon.MonoBehaviour
 	
 
 	private	PhotonHashTable turn_order;
-	
+
 	// Keep track of base time, which we use as a base in which time continues from that point and onwards
 	private  float _base_time;
 
@@ -865,11 +865,9 @@ public class GM : Photon.MonoBehaviour
 	/// <returns><c>true</c>, if unit was recruited, <c>false</c> otherwise.</returns>
 	/// <param name="player">Player.</param>
 	/// <param name="unit_type">Unit_type.</param>
-	public bool RecruitUnit(Player player, UnitType unit_type)
+	public void RecruitUnit(Player player, UnitType unit_type)
 	{
 		int cost;
-		bool sucessful_recruit = false;
-
 		switch(unit_type) 
 		{
 		case UnitType.Arcane:
@@ -906,11 +904,7 @@ public class GM : Photon.MonoBehaviour
 						
 			// Put unit into appropriate player's container
 			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
-			
-			sucessful_recruit = true;
 		} 
-	
-		return sucessful_recruit;
 	}
 
 	// Return bool if player can purchase unit, if so do purchase
@@ -923,11 +917,9 @@ public class GM : Photon.MonoBehaviour
 	/// <returns><c>true</c>, if unit was recruited, <c>false</c> otherwise.</returns>
 	/// <param name="player">Player.</param>
 	/// <param name="unit_type">Unit_type.</param>
-	public bool RecruitUnitOnCurrentPlayer(UnitType unit_type)
+	public void RecruitUnitOnCurrentPlayer(UnitType unit_type)
 	{
 		int cost;
-		bool sucessful_recruit = false;
-
 		switch(unit_type) 
 		{
 		case UnitType.Arcane:
@@ -966,15 +958,19 @@ public class GM : Photon.MonoBehaviour
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);		
 			// Put unit into appropriate player's container
 			//AddUnitToCurrentPlayersContainer(unit);
-			
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
-			
-			sucessful_recruit = true;
-		} 
 
-		return sucessful_recruit;
+			unit.GetComponent<UnitNetworking>().UpdateUnitToPlayerContainer();
+
+			//this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
+		} 
 	}
-	
+
+	public void AddUnitToCurrentPlayerContainer(GameObject unit)
+	{
+		Debug.Log(string.Format("Got unit: {0}", unit.name));
+		unit.transform.parent = _player_container[_current_player_turn].transform;
+	}
+
 	/// <summary>
 	/// Add unit into GameManager pool. It will distinguish whose turn it is and put them accoringly into a container.
 	/// </summary>

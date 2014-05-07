@@ -110,7 +110,7 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.Move(movement);
 
-			_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitNetwork();
+			_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitPosition();
 		}
 
 		if(GM.instance.IsNextPlayersTurn())

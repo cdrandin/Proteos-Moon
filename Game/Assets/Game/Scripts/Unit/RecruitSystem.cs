@@ -135,6 +135,7 @@ public class RecruitSystem : MonoBehaviour
 						// Make unit visble now
 						_obj_to_summon.SetActive(true);
 						_obj_to_summon.transform.position = hit.point;
+						_obj_to_summon.GetComponent<UnitNetworking>().UpdateUnitPosition();
 						_ready_to_summon = false;
 						_placement       = false;
 
