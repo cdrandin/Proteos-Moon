@@ -167,6 +167,9 @@ public class RecruitSystem : MonoBehaviour
 	// Does not use appropriate models, but logic is there
 	public GameObject SpawnUnit(UnitType unit_type)
 	{
+		if(!GM.instance.IsItMyTurn())
+			return null;
+
 		Transform leader = GM.instance.GetPlayerLeader(GM.instance.CurrentPlayer).transform;
 		GameObject unit;
 
