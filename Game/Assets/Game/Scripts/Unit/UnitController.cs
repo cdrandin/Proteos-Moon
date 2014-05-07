@@ -193,7 +193,7 @@ public class UnitController : Photon.MonoBehaviour
 		return Mathf.Sqrt(2 * height * fall_speed);
 	}
 
-	bool IsMoving()
+	public bool IsMoving()
 	{
 		return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f  || Mathf.Abs(Input.GetAxis("Vertical")) > 0.05f;
 	}
