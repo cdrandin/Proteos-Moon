@@ -420,7 +420,8 @@ public class UnitGUI : MonoBehaviour {
 			
 			GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
 			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
-				//TODO: Gather code
+			
+				focusObject.GetComponent<AnimationTriggers>().GatherAnimation();
 				GM.instance.AddResourcesToCurrentPlayer(50);
 				focusObject.GetComponent<BaseClass>().unit_status.Gather ();			
 			}
