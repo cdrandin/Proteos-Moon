@@ -16,23 +16,34 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	int idle_state_hash = Animator.StringToHash("Base Layer.Idle");
 	int ready_state_hash = Animator.StringToHash("Base Layer.Ready");
+	int num_of_attacks_hash = Animator.StringToHash("num_of_attacks");
+	int attack_style_hash = Animator.StringToHash("attack_style");
+	int speed_hash = Animator.StringToHash("Speed");
+	int health_hash = Animator.StringToHash("health_hash");
+	
 	AnimatorStateInfo stateInfo;
 	int health = 100;
 	int number_of_attacks;
+	
+	
 	void Start ()
 	{
 		
 		anim = GetComponent<Animator>();
-		number_of_attacks = anim.GetInteger("num_of_attacks");
+		number_of_attacks = anim.GetInteger(num_of_attacks_hash);
 	}
 	
 	
-	void Update ()
-	{
+	void Update ()	{
+	
 		stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+	}
+	
+	public void MoveAnimation(float move_scalar){
+	
+		anim.SetFloat(speed_hash, move_scalar);		
 		
-		float move = Input.GetAxis ("Vertical");
-		anim.SetFloat("Speed", move);		
+	
 	}
 	
 	public void AttackAnimation(){
@@ -46,7 +57,7 @@ public class AnimationTriggers : MonoBehaviour {
 				temp = 0;
 			}
 			int attack_value = temp;
-			anim.SetInteger("attack_style", attack_value);
+			anim.SetInteger(attack_style_hash, attack_value);
 			Debug.Log(attack_value);
 			anim.SetTrigger (attack_hash);		
 		}
@@ -57,7 +68,7 @@ public class AnimationTriggers : MonoBehaviour {
 
 		if( stateInfo.nameHash == idle_state_hash){
 			
-			anim.SetInteger("Health", newHealth);
+			anim.SetInteger(health_hash, newHealth);
 			anim.SetTrigger (damage_hash);
 		}
 	}
