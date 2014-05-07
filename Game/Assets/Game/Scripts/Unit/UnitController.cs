@@ -82,6 +82,13 @@ public class UnitController : Photon.MonoBehaviour
 		ClearFocusUnit();
 	}
 	
+	public float MovementScalar(){
+	
+		Vector3 horizontalVelocity = new Vector3(_unit_focus_cc.velocity.x, 0, _unit_focus_cc.velocity.z);
+		return horizontalVelocity.magnitude;
+		
+	}
+	
 	// Update is called once per frame
 	void FixedUpdate() 
 	{

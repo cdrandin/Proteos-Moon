@@ -24,6 +24,9 @@ public class UnitGUI : MonoBehaviour {
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	
+	GameObject unit_character_controller;
+	
+	
 	public GameObject Portraits, Bars, Icons;
 	
 	public Texture2D highlight, clicked;
@@ -126,6 +129,8 @@ public class UnitGUI : MonoBehaviour {
 		
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
+		
+		unit_character_controller = GameObject.FindWithTag("UnitController");
 	}
 	
 	
@@ -150,10 +155,13 @@ public class UnitGUI : MonoBehaviour {
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
+				
 				if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)		
 					shift = Screen.height/ 16;
+				
 				this.gui_method += UnitInformationBox;
-	
+				
+				
 				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine )
 					this.gui_method += BaseSelectionButtons;
 				
@@ -164,6 +172,8 @@ public class UnitGUI : MonoBehaviour {
 				if(focusObject == null){
 					Debug.LogError("The unit focus is missing");
 				}
+				
+				focusObject.GetComponent<AnimationTriggers>().MoveAnimation(unit_character_controller.GetComponent<UnitController>().MovementScalar());
 				
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				
@@ -235,7 +245,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 1	;
 			isInitialize = true;
 			GUI.Box( informationBox, "");
-			CharacterPortrait(informationBox, focus_object, GM.instance.CurrentPlayer);
+			CharacterPortrait(informationBox, focusObject, GM.instance.CurrentPlayer);
 			HealthExhaustBars(informationBox, focusObject);
 
 		
