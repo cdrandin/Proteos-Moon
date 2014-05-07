@@ -566,6 +566,9 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void RecruitMenuButtons(){
 	
+		if(!GM.instance.IsItMyTurn())
+			return;
+
 		GUI.BeginGroup(new Rect( (24 * Screen.width)/ 32  ,  (10 * Screen.height)/ 40 , (2 * Screen.width)/8, 3* Screen.height/ 4 ));
 			mySkin.box.fontSize = Screen.height / 32;
 			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );
