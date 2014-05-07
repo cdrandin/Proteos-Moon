@@ -17,6 +17,9 @@ public class UnitController : Photon.MonoBehaviour
 	[SerializeField]
 	private float speed;
 
+	[SerializeField]
+	private float rotation_speed;
+
 	// How far the unit should be able to travel
 	// Close to ~ in meters perse.
 	[SerializeField]
@@ -78,15 +81,14 @@ public class UnitController : Photon.MonoBehaviour
 		// Forward is the +Z axis
 		_move_direction  	= Vector3.zero; //transform.TransformDirection(Vector3.forward);
 		ShutDown();
-
+		rotation_speed = 25.0f;
 		ClearFocusUnit();
 	}
 	
-	public float MovementScalar(){
-	
+	public float MovementScalar()
+	{
 		Vector3 horizontalVelocity = new Vector3(_unit_focus_cc.velocity.x, 0, _unit_focus_cc.velocity.z);
 		return horizontalVelocity.magnitude;
-		
 	}
 	
 	// Update is called once per frame
@@ -132,10 +134,11 @@ public class UnitController : Photon.MonoBehaviour
 		}
 
 		float v = Input.GetAxisRaw("Unit_Vertical");
-		float h = Input.GetAxisRaw("Unit_Horizontal");
+		float turn = Input.GetAxisRaw("Unit_Horizontal");
 
-		//Vector3 target_direction = h * Vector3.right + v * Vector3.forward;
-		Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
+		//Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
+		Vector3 target_direction = v * _unit_focus_cc.transform.forward;
+		_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.deltaTime, 0);
 
 		if(IsGrounded())
 		{
