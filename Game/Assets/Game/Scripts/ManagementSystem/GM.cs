@@ -1018,13 +1018,16 @@ public class GM : Photon.MonoBehaviour
 		
 		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
 		//_current_player_turn =(_current_player_turn + 1) % _total_players;
-		if (room_properties.ContainsKey("CurrentTurn")){
+		if (room_properties.ContainsKey("CurrentTurn"))
+		{
 			room_properties["CurrentTurn"] = _current_player_turn;
-		} else{
+		} 
+		else
+		{
 			room_properties.Add("CurrentTurn", _current_player_turn);
 		}
+
 		PhotonNetwork.room.SetCustomProperties(room_properties);
-		
 
 		// When all player's have had their turn increment round number counter
 		if(_current_player_turn == 0)
@@ -1037,10 +1040,10 @@ public class GM : Photon.MonoBehaviour
 	}
 
 	[RPC]
-	void ChangeTurn(){
+	void ChangeTurn()
+	{
 		_current_player_turn = (_current_player_turn + 1) % _total_players;
 		// Unfocus current unit
-
 	}
 
 	/// <summary>
