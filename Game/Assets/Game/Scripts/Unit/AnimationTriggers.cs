@@ -38,11 +38,9 @@ public class AnimationTriggers : MonoBehaviour {
 		stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 	}
 	
-	public void MoveAnimation(bool moving_status){
+	public void MoveAnimation(bool isMoving){
 	
-		Debug.Log("1 if its true " + moving_status);
-		
-		anim.SetBool("isMoving", moving_status);		
+		anim.SetBool(isMoving_hash, isMoving);		
 		
 	
 	}
@@ -65,7 +63,7 @@ public class AnimationTriggers : MonoBehaviour {
 			Debug.Log(attack_value);
 			anim.SetTrigger (attack_hash);		
 		}
-		return anim.GetCurrentAnimatorStateInfo(0);;
+		return anim.GetCurrentAnimatorStateInfo(0);
 	}
 	
 	public void DamageAnimation(int newHealth){

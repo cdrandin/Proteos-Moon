@@ -171,7 +171,6 @@ public class UnitGUI : MonoBehaviour {
 					
 			}
 			if(isMoving){
-
 				if(focusObject == null){
 					Debug.LogError("The unit focus is missing");
 				}
@@ -418,6 +417,7 @@ public class UnitGUI : MonoBehaviour {
 				WorldCamera.instance.TurnCameraControlsOff();
 
 				gui_method += MovementEndButton;
+				unit_character_controller = GameObject.FindWithTag("UnitController");
 				smoothPos = true;
 				isMoving = true;
 				isAction = true;

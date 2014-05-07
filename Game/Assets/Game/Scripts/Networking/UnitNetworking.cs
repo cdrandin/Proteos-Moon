@@ -52,7 +52,7 @@ public class UnitNetworking : MonoBehaviour
 	{
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		unit.DealDamage(inc_damage);
-		this.gameObject.GetComponent<AnimationTriggers>().DamageAnimation((int)unit.vital.HP.current);
+		this.gameObject.GetComponentInChildren<AnimationTriggers>().DamageAnimation((int)unit.vital.HP.current);
 		
 	}
 }
