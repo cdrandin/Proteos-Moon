@@ -13,7 +13,8 @@ public class DayCycler : MonoBehaviour
 			if(sky == null)
 				sky = GameObject.FindGameObjectWithTag("SkyDome").GetComponent<TOD_Sky>();
 
-			sky.Cycle.Hour = (2*((float)GM.instance.CurrentRound/12.0f))%24.0f;
+			//sky.Cycle.Hour = (2*((float)GM.instance.CurrentRound/12.0f))%24.0f;
+			sky.Cycle.Hour = (Time.time/30.0f)%24.0f;
 			Debug.Log("DayCycler: Current round: " + GM.instance.CurrentRound);
 		}
 	}
