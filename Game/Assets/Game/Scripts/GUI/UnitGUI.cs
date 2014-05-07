@@ -175,7 +175,7 @@ public class UnitGUI : MonoBehaviour {
 					Debug.LogError("The unit focus is missing");
 				}
 				
-				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(unit_character_controller.GetComponent<UnitController>().MovementScalar());
+				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(GameObject.FindWithTag("UnitController").GetComponent<UnitController>().IsMoving());
 				
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				
