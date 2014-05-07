@@ -11,7 +11,6 @@ public class UnitNetworking : MonoBehaviour
 		_my_photon_view = this.gameObject.GetPhotonView();
 	}
 
-
 	public void UpdateUnitPosition()
 	{
 		// Get focused object
@@ -31,23 +30,10 @@ public class UnitNetworking : MonoBehaviour
 			this.gameObject.transform.position = position;
 		}
 	}
-
-
-	public void UpdateUnitToPlayerContainer(GameObject unit)
-	{
-		Debug.Log("HERE I AM 1");
-		// Get focused object
-		if(unit == this.gameObject)
-		{
-			Debug.Log("HERE I AM 2");
-			_my_photon_view.RPC("ParentUnitToCurrentPlayerContainer", PhotonTargets.AllBuffered);	
-		}
-	}
-
+	
 	[RPC]
 	void ParentUnitToCurrentPlayerContainer()
 	{
-		Debug.Log("HERE I AM 3");
 		if(GM.instance.IsOn)
 		{
 			GM.instance.AddUnitToCurrentPlayerContainer(this.gameObject);
