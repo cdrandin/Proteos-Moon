@@ -33,7 +33,7 @@ public class UnitNetworking : MonoBehaviour
 	}
 
 
-	public void UpdateUnitToPlayerContainer(GameObject unit)
+	/*public void UpdateUnitToPlayerContainer(GameObject unit)
 	{
 		Debug.Log("HERE I AM 1");
 		// Get focused object
@@ -42,7 +42,7 @@ public class UnitNetworking : MonoBehaviour
 			Debug.Log("HERE I AM 2");
 			_my_photon_view.RPC("ParentUnitToCurrentPlayerContainer", PhotonTargets.AllBuffered);	
 		}
-	}
+	}*/
 
 	[RPC]
 	void ParentUnitToCurrentPlayerContainer()

@@ -904,8 +904,7 @@ public class GM : Photon.MonoBehaviour
 				
 			// Signal spawner and to approiate players container
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);
-
-			unit.GetComponent<UnitNetworking>().UpdateUnitToPlayerContainer(unit);
+			unit.GetPhotonView().RPC ("ParentUnitToCurrentPlayerContainer", PhotonTargets.AllBuffered);
 
 			// Put unit into appropriate player's container
 			//this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);

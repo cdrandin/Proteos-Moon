@@ -3,13 +3,13 @@ using System.Collections;
 
 public class ScaleTexture : MonoBehaviour {
 
-	private GUITexture background;
+	public GUITexture background;
 	private TitleGUI titleGUI;
 	
 	void Awake()
 	{
 		background = GetComponent<GUITexture>();
-		titleGUI = GetComponent<TitleGUI>();
+		//titleGUI = GetComponent<TitleGUI>();
 	}
 
 	// Use this for initialization
@@ -45,6 +45,6 @@ public class ScaleTexture : MonoBehaviour {
 			         scaledWidth, scaledHeight);
 
 		// Enable Buttons
-		titleGUI.enabled = true;
+		//titleGUI.enabled = true;
 	}
 }
