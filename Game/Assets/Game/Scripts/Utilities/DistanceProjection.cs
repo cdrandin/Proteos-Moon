@@ -29,7 +29,6 @@ public class DistanceProjection : MonoBehaviour
 	// new ortho size is calculated when we got focus, then sizes projection according to that unit's distance
 	private float _new_ortho_size;
 
-	// Value. Based on ratio of, _travel_distance formula += (_move_direction * speed).normalized.magnitude * Time.deltaTime;
 	// When _travel_distance is 1 "unit" the ortho_size should be 
 	private const float _ratio = 2.55f;
 
@@ -37,8 +36,6 @@ public class DistanceProjection : MonoBehaviour
 	public Projector[] projectors;
 
 	private MovementStat _movement;
-
-
 
 	private bool on;
 
@@ -65,10 +62,6 @@ public class DistanceProjection : MonoBehaviour
 				SetProjectionOn(GM.instance.CurrentFocus);
 			}
 		}
-		if(_focus != null)
-		{
-			//UpdateProjection();
-		}
 	}
 	 
 	// Focus to target, get distance, calculate new ortho size for projections
@@ -81,14 +74,7 @@ public class DistanceProjection : MonoBehaviour
 			_focus    		  = target;
 			_movement		  = _focus.GetComponent<BaseClass>().movement;
 			_distance         = _movement.max_distance;
-			_new_ortho_size   = _distance*_ratio;
-
-			// Resize
-			foreach(Projector p in projectors)
-			{
-				p.orthographicSize = _new_ortho_size;
-			}
-
+		
 			UpdateProjection();
 		}
 	}
@@ -102,10 +88,12 @@ public class DistanceProjection : MonoBehaviour
 		Vector3 new_position      = _focus.transform.position;
 		new_position.y            = this.transform.position.y;
 		this.transform.position   = new_position;
+	
+		float offset = _distance*_ratio;
 
-		_new_ortho_size = Mathf.Clamp(_distance * _ratio - _movement.current_distance * _ratio,
+		_new_ortho_size = Mathf.Clamp(offset - _movement.current_distance * _ratio,
 		                              0.4f,
-		                              _distance * _ratio);
+		                              offset);
 
 		if(_new_ortho_size <= 0.4f)
 			_new_ortho_size = 0.0f;
