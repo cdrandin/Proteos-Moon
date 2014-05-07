@@ -46,8 +46,8 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		leaderInfo = skin.FindStyle("LeaderInfo");
 		startTime = 0.0f;
 		counter = 0;
-		menaSpecialText = "\nMena personally trains the deadliest snipers day in\n and day out. \n\n\nSnipers: +10% Attack Range\nBravers: -10% Movement";
-		seitaSpecialText = "Special Attack: Fall of the Altier\nBrother to Captain Mena,\nthe Altier is considered a sacred weapon\nused by the Ralsian People.\nSeita is one of the only Sarens\nto ever be chosen by the pendulum hammer.\nA stalwart and compassionate person,\nhe seeks to restore balance\nbetween the Ralsian and Saren people.\nImbued with the secrets of the Ralse,\nhe has phenomenal strength and unearthly power.\n";
+		menaSpecialText = "\n\n\n\n\t\t\t\t\t\t\t\tSpecial Attack:\n\t\t\t\t\t\t\t\t\t\tEwigen Nacht\n\n\t\tCaptain Mena is the sister of the Altier Seita. A living legend among the Saren Military, she has a reputation for never missing a shot. Over the years she alone ended wars by firing a single bullet over great distances to rout enemy commanders.\n\t\tBorn in the town of Galleone, she was orphaneddue to war and was adopted by Count Emmen, where she earned the nickname,\n\t\t\t\t\"Bellflower of Galleone\"\nbecause they only grew in the places she left in her wake.";
+		seitaSpecialText = "\n\n\n\n\t\t\t\t\t\t\t\tSpecial Attack:\n\t\t\t\t\t\t\t\t\t\tFall of the Altier\n\n\t\tBrother to Captain Mena, the Altier is considered a sacred weapon used by the Ralsian People. Seita is one of the only Sarens to ever be chosen by the pendulum hammer.\n\n\t\tA stalwart and compassionate person, he seeks to restore balance between the Ralsian and Saren people. Imbued with the secrets of the Ralse, he has phenomenal strength and unearthly power.";
 
 		proteusChat.photonView.RPC ("GameChat", PhotonTargets.All, "Joined");
 	}
@@ -176,12 +176,14 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			}
 			if (leaderClicked == 1){
 				leaderInfo.normal.background = menaBio;
-				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), menaSpecialText, leaderInfo);
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100 + 330), Screen.height / 2 - 256, 300, 470), menaSpecialText, leaderInfo);
 				_selected_leader = "Captain_Mena";
 			}
 			if (leaderClicked == 2){
 				leaderInfo.normal.background = seitaBio;
-				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), seitaSpecialText, leaderInfo);
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100 + 330), Screen.height / 2 - 256, 300, 470), seitaSpecialText, leaderInfo);
+				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), "?", question);
 				_selected_leader = "Altier_Seita";
 			}
 		}
