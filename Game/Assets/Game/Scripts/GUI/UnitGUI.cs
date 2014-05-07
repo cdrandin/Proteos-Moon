@@ -175,7 +175,7 @@ public class UnitGUI : MonoBehaviour {
 					Debug.LogError("The unit focus is missing");
 				}
 				
-				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(GameObject.FindWithTag("UnitController").GetComponent<UnitController>().IsMoving());
+				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(GameObject.FindWithTag("UnitController").GetComponent<UnitController>().IsMovingForward());
 				
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				
@@ -695,7 +695,6 @@ public class UnitGUI : MonoBehaviour {
 		
 		wantedRotationAngle = target.transform.eulerAngles.y;
 		wantedHeight = focus.y + lookAtHeight;
-		print ( "focus.y " + focus.y + " lookAtHeight " + lookAtHeight + " wantedHeight " + wantedHeight + " distanceScale " + distanceScale);
 		
 		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
 		currentHeight = WorldCamera.instance.transform.position.y;
@@ -714,7 +713,6 @@ public class UnitGUI : MonoBehaviour {
 		Vector3 worldCameraPosition =  target.transform.position;
 		
 		DistancefromPlayer = (wantedHeight - focus.y )/ distanceScale;
-		print ("Distance from player " + DistancefromPlayer);
 		
 		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
