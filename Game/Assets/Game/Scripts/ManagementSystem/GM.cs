@@ -901,9 +901,14 @@ public class GM : Photon.MonoBehaviour
 			_resource_count[(int)player] -= cost;
 			_resource_spent[(int)player] += cost;
 			_units_obtained[(int)player] += 1; 
-						
+				
+			// Signal spawner and to approiate players container
+			GameObject unit = _recruit_system.SpawnUnit(unit_type);
+
+			unit.GetComponent<UnitNetworking>().UpdateUnitToPlayerContainer();
+
 			// Put unit into appropriate player's container
-			this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
+			//this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
 		} 
 	}
 
@@ -956,11 +961,11 @@ public class GM : Photon.MonoBehaviour
 			
 			// Signal spawner and to approiate players container
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);		
+
 			// Put unit into appropriate player's container
 			//AddUnitToCurrentPlayersContainer(unit);
 
 			unit.GetComponent<UnitNetworking>().UpdateUnitToPlayerContainer();
-
 			//this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
 		} 
 	}
@@ -979,8 +984,11 @@ public class GM : Photon.MonoBehaviour
 	void AddUnitToCurrentPlayersContainer(int unit_type, PhotonMessageInfo mi){
 		// Signal spawner and to approiate players container
 		GameObject unit = _recruit_system.SpawnUnit((UnitType)unit_type);
+
 		if(_player_container[_current_player_turn].transform == null)
+		{
 			Debug.Log(string.Format("Player container for {0} doesn't exist!", (Player)_current_player_turn));
+		}
 		else
 		{
 			unit.transform.parent = _player_container[_current_player_turn].transform;

@@ -38,7 +38,6 @@ public class UnitNetworking : MonoBehaviour
 		// Get focused object
 		if(GM.instance.CurrentFocus == this.gameObject)
 		{
-			Debug.Log("HERE I AM");
 			_my_photon_view.RPC("ParentUnitToCurrentPlayerContainer", PhotonTargets.AllBuffered);	
 		}
 	}
@@ -46,6 +45,8 @@ public class UnitNetworking : MonoBehaviour
 	[RPC]
 	void ParentUnitToCurrentPlayerContainer()
 	{
+		print (GM.instance.IsOn);
+		Debug.Log("HERE I AM");
 		if(GM.instance.IsOn)
 		{
 			GM.instance.AddUnitToCurrentPlayerContainer(this.gameObject);
