@@ -22,7 +22,6 @@ public class AnimationTriggers : MonoBehaviour {
 	int health_hash = Animator.StringToHash("health_hash");
 	
 	AnimatorStateInfo stateInfo;
-	int health = 100;
 	int number_of_attacks;
 	
 	
@@ -50,13 +49,16 @@ public class AnimationTriggers : MonoBehaviour {
 		
 		if( stateInfo.nameHash == ready_state_hash){
 		
-			//int	attack_value = Random.Range(0, number_of_attacks);
-			
+			int	attack_value = Random.Range(0, number_of_attacks);
+			/*
 			++temp;
 			if(temp >= number_of_attacks){
 				temp = 0;
 			}
+			
 			int attack_value = temp;
+			*/
+			
 			anim.SetInteger(attack_style_hash, attack_value);
 			Debug.Log(attack_value);
 			anim.SetTrigger (attack_hash);		
