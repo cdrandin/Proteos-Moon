@@ -441,6 +441,9 @@ public class UnitGUI : MonoBehaviour {
 			GUI.enabled = !isAction;
 			if(MakeButton(0, (3 * Screen.height)/ 16, "Rest", Style.rest)){
 				focusObject.GetComponent<BaseClass>().unit_status.Rest();
+				
+				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
+				
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
@@ -556,9 +559,6 @@ public class UnitGUI : MonoBehaviour {
 					gui_method -= ActionSelectionButtons;
 					isAction  = false;
 				}
-				
-				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
-				
 			}
 
 		GUI.EndGroup();
