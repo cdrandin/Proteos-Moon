@@ -47,7 +47,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 		startTime = 0.0f;
 		counter = 0;
 		menaSpecialText = "\nMena personally trains the deadliest snipers day in\n and day out. \n\n\nSnipers: +10% Attack Range\nBravers: -10% Movement";
-		seitaSpecialText = "\nSeita teaches his Braver recruits to be absolutely\nfearless.\n\n\nBravers: +10% Attack Damage\nSnipers: -10% Movement";
+		seitaSpecialText = "Special Attack: Fall of the Altier\nBrother to Captain Mena,\nthe Altier is considered a sacred weapon\nused by the Ralsian People.\nSeita is one of the only Sarens\nto ever be chosen by the pendulum hammer.\nA stalwart and compassionate person,\nhe seeks to restore balance\nbetween the Ralsian and Saren people.\nImbued with the secrets of the Ralse,\nhe has phenomenal strength and unearthly power.\n";
 
 		proteusChat.photonView.RPC ("GameChat", PhotonTargets.All, "Joined");
 	}
