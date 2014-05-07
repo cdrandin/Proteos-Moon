@@ -199,6 +199,15 @@ public class CombatSystem : MonoBehaviour{
 	
 //		MainCamera.transform.LookAt();
 		if(gui_method == null){
+			Vector3 direction = focus.transform.forward;
+			Vector3 attacker = focus.transform.position;
+			Vector3 enemy = enemyList[index].transform.position;
+			
+			direction.y = 0.0f;
+			attacker.y = 0.0f;
+			enemy.y = 0.0f;
+				
+			focus.transform.eulerAngles = Quaternion.FromToRotation(direction, (enemy - attacker)).eulerAngles;		
 			
 			gui_method += UnitEnemyBox;
 		}
@@ -243,12 +252,20 @@ public class CombatSystem : MonoBehaviour{
 			//HACK: default calculations are set
 
 			float damage = (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current + 
-					       (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
-
-			//enemyList[index].GetComponent<BaseClass>().vital.HP.current -= damage;
+					       (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;	
+			
+			//float newHealth = enemyList[index].GetComponent<BaseClass>().vital.HP.current - damage;
+			
+			AnimatorStateInfo attack_anim = focusUnit.GetComponent<AnimationTriggers>().AttackAnimation();
+			
+			yield return new WaitForSeconds ( attack_anim.length );
+			
+			
+			//enemyList[index].GetComponent<AnimationTriggers>().DamageAnimation(newHealth);
+			
+			
 			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.AllBuffered, damage);
-
-			yield return new WaitForSeconds ( 5.0f );
+			
 			gui_method -= UnitEnemyBox;
 			
 			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);

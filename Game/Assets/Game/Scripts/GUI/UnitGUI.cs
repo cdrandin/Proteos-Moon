@@ -150,7 +150,7 @@ public class UnitGUI : MonoBehaviour {
 			focusTemp = GM.instance.CurrentFocus;
 			
 			//Conditions to print the GUI		
-			if( (!isInitialize && focusTemp != null &&  ( !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) && GM.instance.IsItMyTurn()) ) || !GM.instance.IsItMyTurn()  ){
+			if( (!isInitialize && focusTemp != null &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ) ){
 				
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
@@ -162,10 +162,12 @@ public class UnitGUI : MonoBehaviour {
 				this.gui_method += UnitInformationBox;
 				
 				
-				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine )
+				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine ){
+				
+					focusObject.GetComponent<AnimationTriggers>().ReadyAnimation();
 					this.gui_method += BaseSelectionButtons;
-				
-				
+				}
+					
 			}
 			if(isMoving){
 
@@ -553,7 +555,11 @@ public class UnitGUI : MonoBehaviour {
 					gui_method -= ActionSelectionButtons;
 					isAction  = false;
 				}
+				
+				focusObject.GetComponent<AnimationTriggers>().IdleAnimation();
+				
 			}
+
 		GUI.EndGroup();
 	}
 	

@@ -45,7 +45,7 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	}
 	
-	public void AttackAnimation(){
+	public AnimatorStateInfo AttackAnimation(){
 		
 		if( stateInfo.nameHash == ready_state_hash){
 		
@@ -63,7 +63,7 @@ public class AnimationTriggers : MonoBehaviour {
 			Debug.Log(attack_value);
 			anim.SetTrigger (attack_hash);		
 		}
-		
+		return anim.GetCurrentAnimatorStateInfo(0);;
 	}
 	
 	public void DamageAnimation(int newHealth){
@@ -72,7 +72,10 @@ public class AnimationTriggers : MonoBehaviour {
 			
 			anim.SetInteger(health_hash, newHealth);
 			anim.SetTrigger (damage_hash);
+			
+			
 		}
+		
 	}
 	
 	public void ReadyAnimation(){
