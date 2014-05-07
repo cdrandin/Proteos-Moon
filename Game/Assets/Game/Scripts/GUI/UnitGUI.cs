@@ -12,9 +12,10 @@ public class UnitGUI : MonoBehaviour {
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
 	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction,isRecruiting;
-	public float height = 3.0f, DistancefromPlayer = 3.0f;
+	public float lookAtHeight = 3.0f, DistancefromPlayer = 3.0f;
 	private float heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
-	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight, distanceScale;
+	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
+	public float distanceScale;
 	private Quaternion currentRotation;
 	private float shift;
 	private Transform from;
@@ -105,7 +106,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake(){
-		height = 3.0f;
+		instance = this;
 		DistancefromPlayer = 3.5f;
 		float pheight = (5*Screen.height/ 24);
 		UnitInfoLocation = new Rect( Screen.width - (5* pheight / 2) , 0 , 5* pheight / 2 , pheight );
@@ -114,14 +115,14 @@ public class UnitGUI : MonoBehaviour {
 		shift = 0;
 		UpdateSkinLayout();
 		
-		distanceScale = Mathf.Cos (0.523598776f);
+		distanceScale = 0.23f;
 		
 	}
 	
 	void Start () {
 		//Initialize World Camera Object
 		//worldCamera = GameObject.Find("WorldCamera");
-		instance = this;
+		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
@@ -673,10 +674,11 @@ public class UnitGUI : MonoBehaviour {
 		
 		Vector3 focus =  target.transform.position;
 		
-		focus.y += (0.85f) * target.GetComponent<CapsuleCollider>().height * target.transform.localScale.y;
+		focus.y += (0.85f) * target.GetComponent<CapsuleCollider>().height;
 		
 		wantedRotationAngle = target.transform.eulerAngles.y;
-		wantedHeight = focus.y + height;
+		wantedHeight = focus.y + lookAtHeight;
+		print ( "focus.y " + focus.y + " lookAtHeight " + lookAtHeight + " wantedHeight " + wantedHeight + " distanceScale " + distanceScale);
 		
 		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
 		currentHeight = WorldCamera.instance.transform.position.y;
@@ -694,7 +696,8 @@ public class UnitGUI : MonoBehaviour {
 		// distance meters behind the target
 		Vector3 worldCameraPosition =  target.transform.position;
 		
-		DistancefromPlayer = wantedHeight / distanceScale;
+		DistancefromPlayer = (wantedHeight - focus.y )/ distanceScale;
+		print ("Distance from player " + DistancefromPlayer);
 		
 		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
