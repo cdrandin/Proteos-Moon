@@ -70,7 +70,6 @@ public class UnitGUI : MonoBehaviour {
 		isAttacking = false;
 		isAction = false;
 		//Set bools to false
-		isInitialize = false;
 		isMoving = false;
 		smoothPos = false;
 		_reset_once = false;
@@ -108,7 +107,7 @@ public class UnitGUI : MonoBehaviour {
 	void Awake(){
 		height = 3.0f;
 		DistancefromPlayer = 3.5f;
-		float pheight = (4*Screen.height/ 24);
+		float pheight = (5*Screen.height/ 24);
 		UnitInfoLocation = new Rect( Screen.width - (5* pheight / 2) , 0 , 5* pheight / 2 , pheight );
 		informationBox = new Rect(0,0, UnitInfoLocation.width , UnitInfoLocation.height) ;
 		ResetFlags();
@@ -142,10 +141,11 @@ public class UnitGUI : MonoBehaviour {
 					_reset_once = true;
 				}
 			}
-
 			focusTemp = GM.instance.CurrentFocus;
 			
-			if(!isInitialize && focusTemp != null /*&& focusTemp.GetComponent<BaseClass>().unit_status.status != Status.Rest*/){
+			//Conditions to print the GUI		
+			if( (!isInitialize && focusTemp != null &&  ( !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) && GM.instance.IsItMyTurn()) ) || !GM.instance.IsItMyTurn()  ){
+				
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
@@ -208,7 +208,8 @@ public class UnitGUI : MonoBehaviour {
 	}	
 	
 	private void RemoveGUI(){
-
+		
+		isInitialize = false;
 		this.gui_method -= UnitInformationBox;
 		this.gui_method -= BaseSelectionButtons;
 		this.gui_method -= ActionSelectionButtons;
@@ -252,20 +253,26 @@ public class UnitGUI : MonoBehaviour {
 		float maxExhaust = char_stats.GetComponent<BaseClass>().vital.Exhaust.max;
 		
 		string exhaustLabel = "Exhaust";// + currentExhaust.ToString() + " / " + maxExhaust.ToString();
-									//(3*info_box.width / 5 + 16) * 1.1f
-		Rect label_pos = new Rect( ((4*( info_box.height - 32 ) / 6) * 1.1f) + 16 , 0.05f*info_box.height + 16 + (5*info_box.width)/ 64  , 3*info_box.width / 5 , (5*info_box.width)/ 128 );
+						
+		//(3*info_box.width / 5 + 16) * 1.1f
+		Rect label_pos = new Rect( ( ( 4* ( info_box.height - 32 ) / 6) * 1.1f) + 16 , 
+									16 + (5*info_box.width)/ 64  , 
+									3*info_box.width / 5 , 
+									(info_box.height - 32 -  (5*info_box.width)/ 64 )/ 4);
 		Rect texture_pos = label_pos;
 		texture_pos.y += texture_pos.height;
+	
 		
-		UnitGUI.instance.mySkin.label.fontSize = (int)(texture_pos.height );
-		UnitGUI.instance.mySkin.label.alignment = TextAnchor.LowerLeft;
+		UnitGUI.instance.mySkin.label.fontSize = (int)( texture_pos.height ) - (int)( UnitGUI.instance.mySkin.label.padding.bottom )- (int)( UnitGUI.instance.mySkin.label.padding.top );
+		UnitGUI.instance.mySkin.label.alignment = TextAnchor.MiddleLeft;
 		
+				
 		GUI.Label( label_pos , healthLabel );
 		
 		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture );
 		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Health").guiTexture.texture);
-		texture_pos.y += 2*texture_pos.height;
-		label_pos.y += 2.1f*texture_pos.height;
+		texture_pos.y += 2f*texture_pos.height;
+		label_pos.y += 2f*texture_pos.height;
 
 		GUI.Label( label_pos , exhaustLabel );
 		
@@ -358,6 +365,7 @@ public class UnitGUI : MonoBehaviour {
 		float icon_left_offset =  (pLeftOverWidth / 2) -  ( pheight / 2) + 16 + box_pos.width ;		
 
 		//icon_texture.renderer.material.color = Color.blue	;	
+		//Renders Icon in the screen
 		GUI.Box( box_pos, portrait_texture.guiTexture.texture, style );
 		GUI.DrawTexture( new Rect(icon_left_offset, 16, pheight, pheight) , icon_texture.texture);
 		
@@ -368,7 +376,11 @@ public class UnitGUI : MonoBehaviour {
 		box_pos.height = (5*info_box.width)/ 64 ;
 		
 		//mySkin.label.alignment = TextAnchor.LowerCenter;
-		UnitGUI.instance.mySkin.label.fontSize = (int)( box_pos.height) ;
+
+		UnitGUI.instance.mySkin.label.fontSize = (int)( box_pos.height) - (int)UnitGUI.instance.mySkin.label.padding.bottom - (int)UnitGUI.instance.mySkin.label.padding.top;
+		//print (box_pos);
+		//print ((int)( box_pos.height));
+		UnitGUI.instance.mySkin.label.alignment = TextAnchor.LowerLeft;
 		
 		GUI.Label(box_pos, char_name);
 		
