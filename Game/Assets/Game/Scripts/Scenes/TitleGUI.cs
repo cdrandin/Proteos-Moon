@@ -3,8 +3,8 @@ using System.Collections;
 
 public class TitleGUI : MonoBehaviour {
 	public GUISkin skin;
-	private int _button_width = 150;
-	private int _button_height = 50;
+	public int _button_width = 180;
+	public int _button_height = 40;
 	private float padding;
 	private int _half_button_width;
 	private int _half_screen_width;
@@ -73,17 +73,17 @@ public class TitleGUI : MonoBehaviour {
 		GUI.skin = skin;
 		if(!button_clicked){
 			
-			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) - 2 * (Screen.height / 12), 64 * _button_height / 15, Screen.height / 12), "Begin Story", story)){
+			if(GUI.Button(new Rect(_half_screen_width - _half_button_width, Screen.height - (3*_button_height + 135), _button_width, _button_height), "Begin Story", story)){
 				button_clicked = true;
 				which_button_clicked = BEGIN;
 				//Application.LoadLevel("BattleMap");
 			}
-			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) - ((Screen.height / 12) - (_button_height/4)), 64 * _button_height / 15, Screen.height / 12), "Options", options)){
+			if(GUI.Button(new Rect(_half_screen_width - _half_button_width, Screen.height - (2*_button_height + 135), _button_width, _button_height), "Options", options)){
 				button_clicked = true;
 				which_button_clicked = OPTIONS;
 				//Application.LoadLevel("Options");
 			}
-			if(GUI.Button(new Rect((Screen.width / 2) - ((64 * _button_height / 15)/2), (Screen.height / 2) + 2*((Screen.height / 12)/4), 64 * _button_height / 15, Screen.height / 12), "Multiplayer", multiplayer)){
+			if(GUI.Button(new Rect(_half_screen_width - _half_button_width, Screen.height - (_button_height + 135), _button_width, _button_height), "Multiplayer", multiplayer)){
 				button_clicked = true;
 				which_button_clicked = MULTIPLAYER;
 				//Application.LoadLevel("Login");
