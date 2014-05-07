@@ -4,7 +4,8 @@ using Random = UnityEngine.Random;
 
 public class LoginScript : MonoBehaviour
 {
-	public Vector2 guiSize = new Vector2(350, 200);
+	public Vector2 guiSize = new Vector2(360, 256);
+	public float offset = 50.0f;
 	private string playerName = "";
 	private Rect guiCenteredRect;
 	public GUISkin skin;
@@ -15,7 +16,7 @@ public class LoginScript : MonoBehaviour
 	
 	void Awake()
 	{
-		this.guiCenteredRect = new Rect(Screen.width/2-guiSize.x/2, Screen.height/2-100, guiSize.x, guiSize.y);
+		this.guiCenteredRect = new Rect(Screen.width/2-guiSize.x/2, Screen.height - guiSize.y - offset, guiSize.x, guiSize.y);
 		playerName = "";
 		if (this.componentToEnable == null || this.componentToEnable.enabled)
 		{
