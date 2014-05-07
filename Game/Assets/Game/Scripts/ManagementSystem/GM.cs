@@ -356,7 +356,11 @@ public class GM : Photon.MonoBehaviour
 		// Sloppy way of doing this
 		List<int> tmp = new List<int>();
 		int i = 0;
-		
+
+		Random.seed = 42;
+		Random.seed = Random.value;
+		Random.seed = (Random.value+1)/(Random.seed+1);
+
 		while(i<_total_players) 
 		{
 			int t = Random.Range(0, _total_players);
