@@ -86,6 +86,8 @@ public class WorldCamera : MonoBehaviour {
 		this.transform.localEulerAngles = Vector3.zero;
 		instance = this;	
 		_local = true; // simply bool to show local host
+		ScrollAngle =  new GameObject("ScrollAngle");
+		ScrollAngle.transform.parent = gameObject.transform;
 	}
 	
 	void Start () {
@@ -108,8 +110,7 @@ public class WorldCamera : MonoBehaviour {
 		mouseScrollLimits.BottomLimit = mouseBoundary;
 
 		cameraHeight = transform.position.y;
-		ScrollAngle =  new GameObject("ScrollAngle");
-		ScrollAngle.transform.parent = gameObject.transform;
+		
 		//ScrollAngle = gameObject;
 		
 	}
@@ -126,7 +127,7 @@ public class WorldCamera : MonoBehaviour {
 		                                      this.transform.position.y +( GM.instance.Photon_Leader.transform.localScale.y *  GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2) 
 		                                      ,this.transform.position.z );
 		
-		
+		this.WorldCamLookAt(GM.instance.Photon_Leader );
 		
 	}
 	
@@ -141,10 +142,10 @@ public class WorldCamera : MonoBehaviour {
 		MainCamera.transform.parent = this.transform;
 		
 		//Change Transform information
-		this.transform.position = new Vector3( MainCamera.transform.position.x, Mathf.Clamp(MainCamera.transform.position.y, minDistanceToObject+1, maxCameraHeight - 1), MainCamera.transform.position.z);
+		//this.transform.position = new Vector3( MainCamera.transform.position.x, Mathf.Clamp(MainCamera.transform.position.y, minDistanceToObject+1, maxCameraHeight - 1), MainCamera.transform.position.z);
 		MainCamera.transform.localPosition = new Vector3(0.0f ,0.0f ,0.0f);
-		this.transform.eulerAngles = new Vector3( 0.0f, MainCamera.transform.eulerAngles.y, 0.0f);
-		MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
+		this.transform.localEulerAngles = new Vector3( 0.0f, MainCamera.transform.localEulerAngles.y, 0.0f);
+		MainCamera.transform.localEulerAngles = new Vector3( MainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
 	}
 	
 	
@@ -412,6 +413,14 @@ public class WorldCamera : MonoBehaviour {
 
 	cameraOn = true;}
 
+
+	public void WorldCamLookAt(GameObject focus){
+	
+		var newRot = Quaternion.FromToRotation( this.transform.forward, focus.transform.position - this.transform.position );
+		
+		this.transform.localEulerAngles = new Vector3 (0.0f , newRot.eulerAngles.y, 0.0f);
+		MainCamera.transform.localEulerAngles = new Vector3 (newRot.eulerAngles.x , 0.0f, 0.0f);
+	}
 
 	public void ChangeCamera()
 	{
