@@ -3,9 +3,17 @@ using System.Collections;
 
 public class FadeLogoIn : MonoBehaviour {
 	public GUITexture Logo;
+	//public float delay = 1.0f;
 	// Use this for initialization
 	void Start () {
-		StartCoroutine("ChangeTransparency");
+		//float timer = 0.0f;
+		//if (timer <= delay){
+			//timer += Time.deltaTime;
+			//return;
+		//}
+		//else{
+			StartCoroutine("ChangeTransparency");
+		//}
 	}
 
 	IEnumerator ChangeTransparency(){
