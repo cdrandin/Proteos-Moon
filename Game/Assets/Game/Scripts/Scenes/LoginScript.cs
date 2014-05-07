@@ -55,7 +55,7 @@ public class LoginScript : MonoBehaviour
 		}
 		GUI.FocusControl("NameInput");
 		if (GUILayout.Button ("Back To Main Menu")){
-			Application.LoadLevel(0);
+			Application.LoadLevel(1);
 		}
 		GUILayout.EndHorizontal();
 		playerName = playerName.TrimStart(arr);
