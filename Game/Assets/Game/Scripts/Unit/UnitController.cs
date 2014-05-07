@@ -81,7 +81,6 @@ public class UnitController : Photon.MonoBehaviour
 		// Forward is the +Z axis
 		_move_direction  	= Vector3.zero; //transform.TransformDirection(Vector3.forward);
 		ShutDown();
-		rotation_speed = 100.0f;
 		ClearFocusUnit();
 	}
 	
@@ -314,6 +313,7 @@ public class UnitController : Photon.MonoBehaviour
 		speed               = _unit_focus_movement.speed;
 		can_jump            = _unit_focus_movement.can_jump;
 		jump_height         = _unit_focus_movement.jump_height;
+		rotation_speed      = _unit_focus_movement.rotation_speed;
 
 		if(_unit_focus_movement.fall_speed == 0)
 		{
