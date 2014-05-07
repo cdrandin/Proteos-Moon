@@ -924,50 +924,7 @@ public class GM : Photon.MonoBehaviour
 	/// <param name="unit_type">Unit_type.</param>
 	public void RecruitUnitOnCurrentPlayer(UnitType unit_type)
 	{
-		int cost;
-		switch(unit_type) 
-		{
-		case UnitType.Arcane:
-			cost = _unit_cost.arcane;
-			break;
-		case UnitType.Braver:
-			cost = _unit_cost.braver;
-			break;
-		case UnitType.Scout:
-			cost = _unit_cost.scout;
-			break;
-		case UnitType.Sniper:
-			cost = _unit_cost.sniper;
-			break;
-		case UnitType.Titan:
-			cost = _unit_cost.titan;
-			break;
-		case UnitType.Vangaurd:
-			cost = _unit_cost.vangaurd;
-			break;
-		default:
-			Debug.LogError(string.Format("Unit type: {0} does not have an associated cost to it!", unit_type));
-			cost = -1;
-			break;
-		}
-		
-		// Can current player afford unit
-		if(_resource_count[_current_player_turn] >= cost) 
-		{
-			// Record keeping
-			_resource_count[_current_player_turn] -= cost;
-			_resource_spent[_current_player_turn] += cost;
-			_units_obtained[_current_player_turn]  += 1; 
-			
-			// Signal spawner and to approiate players container
-			GameObject unit = _recruit_system.SpawnUnit(unit_type);		
-
-			// Put unit into appropriate player's container
-			//AddUnitToCurrentPlayersContainer(unit);
-
-			unit.GetComponent<UnitNetworking>().UpdateUnitToPlayerContainer();
-			//this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
-		} 
+		RecruitUnit((Player)_current_player_turn, unit_type);
 	}
 
 	public void AddUnitToCurrentPlayerContainer(GameObject unit)
