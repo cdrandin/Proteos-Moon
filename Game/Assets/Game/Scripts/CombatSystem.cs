@@ -245,8 +245,8 @@ public class CombatSystem : MonoBehaviour{
 			float damage = (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current + 
 					       (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
 
-			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= damage;
-			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", damage);
+			//enemyList[index].GetComponent<BaseClass>().vital.HP.current -= damage;
+			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.AllBuffered, damage);
 
 			yield return new WaitForSeconds ( 5.0f );
 			gui_method -= UnitEnemyBox;
