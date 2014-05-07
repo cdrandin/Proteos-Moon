@@ -258,13 +258,13 @@ public class UnitGUI : MonoBehaviour {
 		Rect label_pos = new Rect( ( ( 4* ( info_box.height - 32 ) / 6) * 1.1f) + 16 , 
 									16 + (5*info_box.width)/ 64  , 
 									3*info_box.width / 5 , 
-									(info_box.height - 32 -  (5*info_box.width)/ 64 )/ 4);
+									(info_box.height - 33 -  (5*info_box.width)/ 64 )/ 4);
 		Rect texture_pos = label_pos;
 		texture_pos.y += texture_pos.height;
 	
 		
-		UnitGUI.instance.mySkin.label.fontSize = (int)( texture_pos.height ) - (int)( UnitGUI.instance.mySkin.label.padding.bottom )- (int)( UnitGUI.instance.mySkin.label.padding.top );
-		UnitGUI.instance.mySkin.label.alignment = TextAnchor.MiddleLeft;
+		UnitGUI.instance.mySkin.label.fontSize = (int)( texture_pos.height ) - (int)( UnitGUI.instance.mySkin.label.padding.bottom )- (int)( UnitGUI.instance.mySkin.label.padding.top ) - 2;
+		UnitGUI.instance.mySkin.label.alignment = TextAnchor.LowerLeft;
 		
 				
 		GUI.Label( label_pos , healthLabel );
