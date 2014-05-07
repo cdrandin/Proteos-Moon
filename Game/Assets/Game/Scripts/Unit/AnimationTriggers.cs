@@ -19,7 +19,7 @@ public class AnimationTriggers : MonoBehaviour {
 	int num_of_attacks_hash = Animator.StringToHash("num_of_attacks");
 	int attack_style_hash = Animator.StringToHash("attack_style");
 	int isMoving_hash = Animator.StringToHash("isMoving");
-	int health_hash = Animator.StringToHash("health_hash");
+	int health_hash = Animator.StringToHash("Health");
 	
 	AnimatorStateInfo stateInfo;
 	int number_of_attacks;
@@ -38,9 +38,9 @@ public class AnimationTriggers : MonoBehaviour {
 		stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 	}
 	
-	public void MoveAnimation(bool isMoving){
+	public void MoveAnimation(float move_scalar){
 	
-		anim.SetBool(isMoving_hash, isMoving);		
+		anim.SetFloat("Speed", move_scalar);		
 		
 	
 	}
