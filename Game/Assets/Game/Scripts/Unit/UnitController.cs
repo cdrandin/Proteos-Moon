@@ -136,6 +136,9 @@ public class UnitController : Photon.MonoBehaviour
 		float v = Input.GetAxisRaw("Unit_Vertical");
 		float turn = Input.GetAxisRaw("Unit_Horizontal");
 
+		if(v < 0.0)
+			v = 0.0f;
+
 		//Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
 		Vector3 target_direction = v * _unit_focus_cc.transform.forward;
 		_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.deltaTime, 0);
