@@ -15,6 +15,10 @@ public class MovementStat
 	[SerializeField]
 	private float _speed;
 
+	[Range(0,360)]
+	[SerializeField]
+	private float _rotation_speed;
+
 	// How much exhaust moving cost per frame
 	//[SerializeField]
 	private float _movement_cost_per_frame;
@@ -50,6 +54,11 @@ public class MovementStat
 	public float speed
 	{
 		get { return _speed; }
+	}
+
+	public float rotation_speed
+	{
+		get { return _rotation_speed; }
 	}
 
 	public float movement_cost
