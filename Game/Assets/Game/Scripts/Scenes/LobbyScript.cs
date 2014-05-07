@@ -15,7 +15,9 @@ public class LobbyScript : MonoBehaviour
 	void Start()
 	{
 		CustomTypes.Register();
+		
 		LobbyRect = new Rect(Screen.width/2 - 250, Screen.height/2 - 112, 500, 450);
+		
 		leftToolbar = new Rect(leftToolbar.x, leftToolbar.y, leftToolbar.width, Screen.height - leftToolbar.y);
 		
 		if (string.IsNullOrEmpty(room_name))
