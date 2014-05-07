@@ -982,7 +982,6 @@ public class GM : Photon.MonoBehaviour
 	[RPC]
 	void AddUnitToCurrentPlayersContainer(int unit_type, PhotonMessageInfo mi){
 		// Signal spawner and to approiate players container
-		Debug.Log("Here i am");
 		GameObject unit = _recruit_system.SpawnUnit((UnitType)unit_type);
 		if(_player_container[_current_player_turn].transform == null)
 			Debug.Log(string.Format("Player container for {0} doesn't exist!", (Player)_current_player_turn));
