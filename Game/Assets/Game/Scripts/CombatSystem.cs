@@ -256,12 +256,12 @@ public class CombatSystem : MonoBehaviour{
 			
 			//float newHealth = enemyList[index].GetComponent<BaseClass>().vital.HP.current - damage;
 			
-			AnimatorStateInfo attack_anim = focusUnit.GetComponent<AnimationTriggers>().AttackAnimation();
+			AnimatorStateInfo attack_anim = focusUnit.GetComponentInChildren<AnimationTriggers>().AttackAnimation();
 			
 			yield return new WaitForSeconds ( attack_anim.length );
 			
 			
-			//enemyList[index].GetComponent<AnimationTriggers>().DamageAnimation(newHealth);
+			//enemyList[index].GetComponentInChildren<AnimationTriggers>().DamageAnimation(newHealth);
 			
 			
 			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.AllBuffered, damage);
