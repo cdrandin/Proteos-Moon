@@ -13,7 +13,7 @@ public class ScaleTexture : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start()
+	void Update()
 	{
 		// Position the billboard in the center, 
 		// but respect the picture aspect ratio

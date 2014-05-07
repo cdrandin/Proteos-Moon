@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 public class LobbyScript : MonoBehaviour
 {
-	private Rect LobbyRect;  		// set in inspector to position the lobby screen
+	public Rect LobbyRect;  		// set in inspector to position the lobby screen
 	public GUIStyle network_status_style;
 	public GUISkin skin;
 	public string game_version = "1.0";
@@ -15,7 +15,7 @@ public class LobbyScript : MonoBehaviour
 	{
 		CustomTypes.Register();
 		
-		LobbyRect = new Rect(Screen.width/2 - 250, Screen.height/2, 500, 450);
+		LobbyRect = new Rect(Screen.width/2 - 180, Screen.height/2 + 96, 360, 256);
 		
 		if (string.IsNullOrEmpty(room_name))
 		{
@@ -56,8 +56,8 @@ public class LobbyScript : MonoBehaviour
 	private void GuiInLobby()
 	{
 		GUILayout.BeginArea(LobbyRect);
-		GUILayout.Box("Lobby");
-		GUILayout.Label(string.Format("Players in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
+		GUILayout.Box(string.Format("Lobby\nPlayers in rooms: {0} looking for rooms: {1}  rooms: {2}", PhotonNetwork.countOfPlayersInRooms, PhotonNetwork.countOfPlayersOnMaster, PhotonNetwork.countOfRooms));
+		//GUILayout.Label();
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Join Random (or create)"))
 		{
