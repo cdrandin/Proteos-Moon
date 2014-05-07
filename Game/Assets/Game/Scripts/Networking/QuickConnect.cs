@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class QuickConnect : Photon.MonoBehaviour {
 	private string playerName = "";
 	private string game_version = "1.0";
@@ -19,15 +19,20 @@ public class QuickConnect : Photon.MonoBehaviour {
 	}
 	void OnJoinedLobby(){
 		if (this.enabled){
-			if(PhotonNetwork.JoinRandomRoom()){
-				PhotonNetwork.CreateRoom(null);
-			}
+			PhotonNetwork.JoinRandomRoom(null, 2);
+		}
+	}
+
+	void OnPhotonRandomJoinFailed()
+	{
+		if (this.enabled){
+			PhotonNetwork.CreateRoom(null, true, true, 2);
 		}
 	}
 
 	void OnJoinedRoom(){
 		if (this.enabled){
-			ExitGames.Client.Photon.Hashtable player_props = new ExitGames.Client.Photon.Hashtable();
+			Hashtable player_props = new Hashtable();
 			player_props.Add("Leader", "Altier_Seita");
 			PhotonNetwork.player.SetCustomProperties(player_props);
 			if (PhotonNetwork.inRoom){

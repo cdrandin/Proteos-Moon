@@ -12,14 +12,14 @@ public class Preloader : Photon.MonoBehaviour
     void Update()
     {
         // Checks if the next scene can be loaded
-        if (Application.GetStreamProgressForLevel(1) >= 1)
+		if (Application.GetStreamProgressForLevel(Application.loadedLevel + 1) >= 1)
             Application.LoadLevel(Application.loadedLevel + 1);
     }
 
     void OnGUI()
     {
 		// Displays the percentage loaded for the next scene
-        GUI.Label(new Rect(Screen.width / 2 - 128, Screen.height / 2 - 25, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(1) * 100)+"%", preloader);
+        GUI.Label(new Rect(Screen.width / 2 - 128, Screen.height / 2 - 25, 256, 50), "Loading: " + (int)(Application.GetStreamProgressForLevel(Application.loadedLevel + 1) * 100)+"%", preloader);
     }
 
 }

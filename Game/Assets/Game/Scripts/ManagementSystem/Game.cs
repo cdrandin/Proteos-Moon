@@ -84,6 +84,11 @@ public class Game : Photon.MonoBehaviour
 	}
 	//HACK
 	bool showDebug = false;
+
+	void OnLeftRoom(){
+		PhotonNetwork.LoadLevel(1);
+	}
+	
 	// Update is called once per frame
 	void Update () 
 	{
@@ -91,7 +96,9 @@ public class Game : Photon.MonoBehaviour
 		//HACK
 		if (Input.GetKeyDown(KeyCode.Q))
 			showDebug = !showDebug;
-
+		if(Input.GetKeyDown(KeyCode.Backspace)){
+			PhotonNetwork.LeaveRoom();
+		}
 		if(GM.instance.IsOn)
 		{
 			if(Input.GetKeyDown(KeyCode.R))
@@ -168,6 +175,7 @@ public class Game : Photon.MonoBehaviour
 			GUILayout.Label("isMasterClient: " + PhotonNetwork.isMasterClient);
 			GUILayout.Label("Players: " + PhotonNetwork.playerList.Length);
 			GUILayout.Label("Ping: " + PhotonNetwork.GetPing());
+			GUILayout.Label ("Press Backspace to return to Preloader");
 			//for(int i=1;i<6;++i)
 				//GUILayout.Label (string.Format("ViewID{0}: {1}",i, PhotonView.);
 		}

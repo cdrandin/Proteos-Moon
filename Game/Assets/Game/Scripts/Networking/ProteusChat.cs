@@ -13,13 +13,14 @@ public class ProteusChat : Photon.MonoBehaviour
 	private char[] arr = new char[] { '\r', '\n', ' ' };
 	private Vector2 scrollPos = new Vector2(Mathf.Infinity, Mathf.Infinity);
 	public GUISkin skin;
-	private GUIStyle chatStyle;
+	private GUIStyle chatStyle, sendButton;
     public static readonly string ChatRPC = "Chat";
 	public static readonly string GameChatRPC = "GameChat";
 
     public void Start()
     {
 		chatStyle = skin.FindStyle("ChatStyle");
+		sendButton = skin.FindStyle("SendButton");
         if (this.AlignBottom)
         {
             this.GuiRect.y = Screen.height - (this.GuiRect.height + 8);
@@ -73,7 +74,7 @@ public class ProteusChat : Photon.MonoBehaviour
         GUI.SetNextControlName("ChatInput");
 		inputLine = inputLine.TrimStart(arr);
         inputLine = GUILayout.TextArea(inputLine, 180);
-        if ((GUILayout.Button("Send", GUILayout.ExpandWidth(false))) && inputLine != "")
+		if ((GUILayout.Button("Send", sendButton, GUILayout.ExpandWidth(false))) && inputLine != "")
         {
             this.photonView.RPC("Chat", PhotonTargets.All, this.inputLine);
 			this.inputLine = "";
