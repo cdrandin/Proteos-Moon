@@ -115,7 +115,6 @@ public class RecruitSystem : MonoBehaviour
 			{
 				if(Input.GetMouseButtonUp(0))
 				{
-					Debug.Log("Start placing a unit now");
 					_placement = true;
 				}
 			}
