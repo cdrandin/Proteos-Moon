@@ -144,7 +144,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5

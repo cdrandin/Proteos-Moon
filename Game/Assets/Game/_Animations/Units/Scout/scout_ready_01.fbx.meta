@@ -155,8 +155,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Ready
       takeName: iPi Default take
-      firstFrame: 168
-      lastFrame: 213
+      firstFrame: 152
+      lastFrame: 228
       wrapMode: 0
       orientationOffsetY: 65
       level: 0

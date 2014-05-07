@@ -158,14 +158,14 @@ ModelImporter:
       name: Attack_01
       takeName: iPi Default take
       firstFrame: 179
-      lastFrame: 232
+      lastFrame: 295
       wrapMode: 0
       orientationOffsetY: 65
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -315,15 +315,15 @@ ModelImporter:
     - serializedVersion: 16
       name: Attack_02
       takeName: iPi Default take
-      firstFrame: 413
-      lastFrame: 464
+      firstFrame: 415
+      lastFrame: 483
       wrapMode: 0
-      orientationOffsetY: 65
+      orientationOffsetY: -37.2999992
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
@@ -476,7 +476,7 @@ ModelImporter:
       firstFrame: 632
       lastFrame: 723
       wrapMode: 0
-      orientationOffsetY: 43
+      orientationOffsetY: 65
       level: 0
       cycleOffset: 0
       loop: 0
