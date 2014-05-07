@@ -125,12 +125,13 @@ public class UnitGUI : MonoBehaviour {
 	void Start () {
 		//Initialize World Camera Object
 		//worldCamera = GameObject.Find("WorldCamera");
-		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
 		
 		unit_character_controller = GameObject.FindWithTag("UnitController");
+		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
+		
 	}
 	
 	
@@ -175,7 +176,7 @@ public class UnitGUI : MonoBehaviour {
 					Debug.LogError("The unit focus is missing");
 				}
 				
-				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(GameObject.FindWithTag("UnitController").GetComponent<UnitController>().IsMovingForward());
+				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation( unit_character_controller.GetComponent<UnitController>().IsMovingForward() );
 				
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				

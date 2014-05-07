@@ -41,7 +41,8 @@ public class AnimationTriggers : MonoBehaviour {
 	public void MoveAnimation(bool moving_status){
 	
 		Debug.Log("1 if its true " + moving_status);
-		anim.SetBool(isMoving_hash, moving_status);		
+		
+		anim.SetBool("isMoving", moving_status);		
 		
 	
 	}
