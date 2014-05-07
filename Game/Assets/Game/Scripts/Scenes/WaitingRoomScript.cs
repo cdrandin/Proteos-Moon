@@ -5,8 +5,8 @@ using System.Collections;
 public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	public GUISkin skin;
-	public Texture2D mena_texture;
-	public Texture2D seita_texture;
+	public Texture2D mena_texture, menaBio;
+	public Texture2D seita_texture, seitaBio;
 	public ProteusChat proteusChat;
 	public GameObject mena, seita;
 	private GUIStyle header, loading, question, portrait, readyButton, checkmark, leaderInfo;
@@ -168,10 +168,12 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 				leader_chosen = true;
 			}
 			if (leaderClicked == 1){
+				leaderInfo.normal.background = menaBio;
 				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), menaSpecialText, leaderInfo);
 				_selected_leader = "Captain_Mena";
 			}
 			if (leaderClicked == 2){
+				leaderInfo.normal.background = seitaBio;
 				GUI.Box(new Rect(Screen.width / 2 - (256 + 100), Screen.height / 2 - 256, 256, 256), seitaSpecialText, leaderInfo);
 				_selected_leader = "Altier_Seita";
 			}
