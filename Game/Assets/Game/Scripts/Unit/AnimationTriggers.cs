@@ -11,6 +11,8 @@ public class AnimationTriggers : MonoBehaviour {
 	int idle_hash = Animator.StringToHash("Idle");
 	int ready_hash = Animator.StringToHash("Ready");
 	
+	// temp for testing
+	int temp = 0;
 	
 	int idle_state_hash = Animator.StringToHash("Base Layer.Idle");
 	int ready_state_hash = Animator.StringToHash("Base Layer.Ready");
@@ -29,15 +31,21 @@ public class AnimationTriggers : MonoBehaviour {
 	{
 		stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 		
-		//float move = Input.GetAxis ("Vertical");
-		//anim.SetFloat("Speed", move);		
+		float move = Input.GetAxis ("Vertical");
+		anim.SetFloat("Speed", move);		
 	}
 	
 	public void AttackAnimation(){
 		
 		if( stateInfo.nameHash == ready_state_hash){
 		
-			int	attack_value = Random.Range(0, number_of_attacks);
+			//int	attack_value = Random.Range(0, number_of_attacks);
+			
+			++temp;
+			if(temp >= number_of_attacks){
+				temp = 0;
+			}
+			int attack_value = temp;
 			anim.SetInteger("attack_style", attack_value);
 			Debug.Log(attack_value);
 			anim.SetTrigger (attack_hash);		
