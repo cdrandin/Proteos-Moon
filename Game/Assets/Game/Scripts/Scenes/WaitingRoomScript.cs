@@ -54,6 +54,9 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Backspace)){
+			PhotonNetwork.LeaveRoom();
+		}
 		startTime += Time.deltaTime;
 		if (startTime >= 0.5f){
 			startTime -= 0.5f;
@@ -69,7 +72,11 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			}
 		}
 	}
-	
+
+	void OnLeftRoom(){
+		PhotonNetwork.LoadLevel(1);
+	}
+
 	void OnGUI(){
 		if (!Application.CanStreamedLevelBeLoaded(3) ||  !Application.CanStreamedLevelBeLoaded(2) || Application.GetStreamProgressForLevel(2) < 1 || Application.GetStreamProgressForLevel(3) < 1)
 		{

@@ -5,7 +5,6 @@ using Random = UnityEngine.Random;
 public class LobbyScript : MonoBehaviour
 {
 	private Rect LobbyRect;  		// set in inspector to position the lobby screen
-	public Rect leftToolbar;  		// set in inspector to position the lobby screen
 	public GUIStyle network_status_style;
 	public GUISkin skin;
 	public string game_version = "1.0";
@@ -16,9 +15,7 @@ public class LobbyScript : MonoBehaviour
 	{
 		CustomTypes.Register();
 		
-		LobbyRect = new Rect(Screen.width/2 - 250, Screen.height/2 - 112, 500, 450);
-		
-		leftToolbar = new Rect(leftToolbar.x, leftToolbar.y, leftToolbar.width, Screen.height - leftToolbar.y);
+		LobbyRect = new Rect(Screen.width/2 - 250, Screen.height/2, 500, 450);
 		
 		if (string.IsNullOrEmpty(room_name))
 		{
