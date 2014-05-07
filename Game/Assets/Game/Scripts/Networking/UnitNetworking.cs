@@ -22,6 +22,7 @@ public class UnitNetworking : MonoBehaviour
 	}
 
 	[RPC]
+	// Update the unit's current position. Allowing it to move
 	void UpdatePosition(Vector3 position)
 	{
 		if(GM.instance.IsOn)
@@ -32,6 +33,7 @@ public class UnitNetworking : MonoBehaviour
 	}
 	
 	[RPC]
+	// Put unit in its correct player container
 	void ParentUnitToCurrentPlayerContainer()
 	{
 		if(GM.instance.IsOn)
