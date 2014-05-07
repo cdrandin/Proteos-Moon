@@ -198,7 +198,7 @@ public class UnitController : Photon.MonoBehaviour
 		return Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f  || Mathf.Abs(Input.GetAxis("Vertical")) > 0.05f;
 	}
 
-	bool IsMovingForward()
+	public bool IsMovingForward()
 	{
 		return Input.GetAxisRaw("Vertical") > 0;
 	}
