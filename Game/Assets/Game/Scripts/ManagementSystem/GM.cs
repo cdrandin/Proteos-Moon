@@ -358,8 +358,8 @@ public class GM : Photon.MonoBehaviour
 		int i = 0;
 
 		Random.seed = 42;
-		Random.seed = Random.value;
-		Random.seed = (Random.value+1)/(Random.seed+1);
+		Random.seed = (int)Random.value;
+		Random.seed = (int)(Random.value+1)/(Random.seed+1);
 
 		while(i<_total_players) 
 		{
