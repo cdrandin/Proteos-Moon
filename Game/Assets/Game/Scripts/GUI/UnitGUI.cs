@@ -164,7 +164,7 @@ public class UnitGUI : MonoBehaviour {
 				
 				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine ){
 				
-					focusObject.GetComponent<AnimationTriggers>().ReadyAnimation();
+					focusObject.GetComponentInChildren<AnimationTriggers>().ReadyAnimation();
 					this.gui_method += BaseSelectionButtons;
 				}
 					
@@ -175,7 +175,7 @@ public class UnitGUI : MonoBehaviour {
 					Debug.LogError("The unit focus is missing");
 				}
 				
-				focusObject.GetComponent<AnimationTriggers>().MoveAnimation(unit_character_controller.GetComponent<UnitController>().MovementScalar());
+				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(unit_character_controller.GetComponent<UnitController>().MovementScalar());
 				
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				
@@ -433,7 +433,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
 			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
 			
-				focusObject.GetComponent<AnimationTriggers>().GatherAnimation();
+				focusObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
 				GM.instance.AddResourcesToCurrentPlayer(50);
 				focusObject.GetComponent<BaseClass>().unit_status.Gather ();			
 			}
@@ -556,7 +556,7 @@ public class UnitGUI : MonoBehaviour {
 					isAction  = false;
 				}
 				
-				focusObject.GetComponent<AnimationTriggers>().IdleAnimation();
+				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
 				
 			}
 
