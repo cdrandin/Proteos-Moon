@@ -59,6 +59,15 @@ public class BaseClass : MonoBehaviour
 		get { return _gather_range; }
 	}
 
+	/// <summary>
+	/// Deals the damage to this selected unit
+	/// </summary>
+	/// <param name="damage">Damage.</param>
+	public void DealDamage(float damage)
+	{
+		_vital.HP.current -= damage;
+	}
+
 	void FixedUpdate()
 	{
 		if(_vital.IsDead())

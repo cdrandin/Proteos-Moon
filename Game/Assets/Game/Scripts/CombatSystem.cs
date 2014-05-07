@@ -241,9 +241,13 @@ public class CombatSystem : MonoBehaviour{
 
 			//TODO: Figure out how damage is dealt		
 			//HACK: default calculations are set
-			
-			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current;
-			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
+
+			float damage = (float)focusUnit.GetComponent<BaseClass>().base_stat.Strength.current + 
+					       (float)focusUnit.GetComponent<BaseClass>().base_stat.Agility.current;
+
+			enemyList[index].GetComponent<BaseClass>().vital.HP.current -= damage;
+			enemyList[index].GetComponent<UnitNetworking>().DealDamage(damage);
+
 			yield return new WaitForSeconds ( 5.0f );
 			gui_method -= UnitEnemyBox;
 			

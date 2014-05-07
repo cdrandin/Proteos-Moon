@@ -21,8 +21,8 @@ public class UnitNetworking : MonoBehaviour
 		}
 	}
 
-	[RPC]
 	// Update the unit's current position. Allowing it to move
+	[RPC]
 	void UpdatePosition(Vector3 position)
 	{
 		if(GM.instance.IsOn)
@@ -32,13 +32,26 @@ public class UnitNetworking : MonoBehaviour
 		}
 	}
 	
-	[RPC]
 	// Put unit in its correct player container
+	[RPC]
 	void ParentUnitToCurrentPlayerContainer()
 	{
 		if(GM.instance.IsOn)
 		{
 			GM.instance.AddUnitToCurrentPlayerContainer(this.gameObject);
 		}
+	}
+
+	/// <summary>
+	/// Deals the damage to the "victim".
+	/// </summary>
+	/// <param name="victim_id">Victim_id.</param>
+	/// <param name="inc_damage">Inc_damage.</param>
+	[RPC]
+	public void DealDamage(float inc_damage)
+	{
+		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
+
+		unit.DealDamage(inc_damage);
 	}
 }
