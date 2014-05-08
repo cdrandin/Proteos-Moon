@@ -490,7 +490,7 @@ public class UnitGUI : MonoBehaviour {
 			if( MakeButton(0,0, "End Movement", Style.move_cancel) ){
 				GM.instance.SetUnitControllerActiveOff();
 				//GM.instance.SetFocusController(false);
-				focus_object.GetComponent<AnimationTriggers>().MoveAnimation(0.0f);
+				focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 				
 				isMoving = false;
 				smoothPos = true;
