@@ -31,6 +31,14 @@ function Start(){
    for (var state : AnimationState in _model.animation) {
    	 	state.time = Random.value * state.length;
    }
+   
+   var container_name = "Bird Container";
+   var bird_container = GameObject.Find(container_name);
+   if(bird_container == null)
+   {
+   		bird_container = new GameObject(container_name);
+   }
+   this.gameObject.transform.parent = bird_container.transform;
 }
 
 function Update() {
