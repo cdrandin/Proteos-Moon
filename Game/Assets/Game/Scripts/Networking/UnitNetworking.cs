@@ -17,18 +17,19 @@ public class UnitNetworking : MonoBehaviour
 		if(GM.instance.CurrentFocus == this.gameObject)
 		{
 			// Send RPC call to update unit's position
-			_my_photon_view.RPC("UpdatePosition", PhotonTargets.OthersBuffered, this.gameObject.transform.position);	
+			_my_photon_view.RPC("UpdatePosition", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation);	
 		}
 	}
 
 	// Update the unit's current position. Allowing it to move
 	[RPC]
-	void UpdatePosition(Vector3 position)
+	void UpdatePosition(Vector3 position, Quaternion rotation)
 	{
 		if(GM.instance.IsOn)
 		{
 			// Get the unit in which to move
 			this.gameObject.transform.position = position;
+			this.gameObject.transform.rotation = rotation;
 		}
 	}
 	
