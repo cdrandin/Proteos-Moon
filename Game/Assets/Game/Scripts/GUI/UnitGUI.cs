@@ -65,6 +65,7 @@ public class UnitGUI : MonoBehaviour {
 		get { return this.focusObject; }
 	}
 	
+	//Updates the flag when you want to reset the GUI functionality
 	private void ResetFlags(){
 		//set objects to null
 		isRecruiting = false;
@@ -83,6 +84,8 @@ public class UnitGUI : MonoBehaviour {
 			WorldCamera.instance.TurnCameraControlsOn();
 	}
 	
+	
+	//This will Update the GUI Skin Layout, this will allow the hightlight feature and clicked feature
 	public void UpdateSkinLayout(){
 		
 		Texture2D normal = mySkin.button.normal.background;
@@ -93,6 +96,7 @@ public class UnitGUI : MonoBehaviour {
 		mySkin.button.onActive.background = CombineTextures(normal, clicked);
 		mySkin.button.onHover.background = CombineTextures(normal, highlight);
 		
+		//This will only work for the given custom styles, any extra need to add after the loop
 		for(int i = 0; i < (int)Style.blue_box ; ++i){
 		
 			normal = mySkin.customStyles[i].normal.background;
