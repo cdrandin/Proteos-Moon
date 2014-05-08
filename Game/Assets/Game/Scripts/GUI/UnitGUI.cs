@@ -20,9 +20,9 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
-	private bool isInitialize, smoothPos, isMoving, proteus, isAttacking, isAction,isRecruiting;
+	private bool isInitialize, smoothPos, isMoving, proteus, isAction,isRecruiting;
 	public float lookAtHeight = 3.0f, DistancefromPlayer = 3.0f;
-	private float heightDamping = 0.5f , rotationDamping = 0.5f, button_pos = Screen.width - 250;
+	private float heightDamping = 0.5f , rotationDamping = 0.5f;//, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	public float distanceScale;
 	private Quaternion currentRotation;
@@ -33,7 +33,7 @@ public class UnitGUI : MonoBehaviour {
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	
-	GameObject unit_character_controller;
+	//GameObject unit_character_controller;
 	
 	
 	public GameObject Portraits, Bars, Icons;
@@ -81,7 +81,7 @@ public class UnitGUI : MonoBehaviour {
 		focusObject = null;
 		focusTemp = null;
 		proteus = false;
-		isAttacking = false;
+		//isAttacking = false;
 		isAction = false;
 		//Set bools to false
 		isMoving = false;
@@ -142,7 +142,7 @@ public class UnitGUI : MonoBehaviour {
 		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
 		
-		unit_character_controller = GameObject.FindWithTag("UnitController");
+		//unit_character_controller = GameObject.FindWithTag("UnitController");
 		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
 	}
@@ -446,7 +446,7 @@ public class UnitGUI : MonoBehaviour {
 				WorldCamera.instance.TurnCameraControlsOff();
 
 				gui_method += MovementEndButton;
-				unit_character_controller = GameObject.FindWithTag("UnitController");
+				//unit_character_controller = GameObject.FindWithTag("UnitController");
 				smoothPos = true;
 				//this will turn on the update that will allow update calls 
 				//on used while the character is moving

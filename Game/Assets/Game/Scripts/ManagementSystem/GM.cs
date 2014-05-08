@@ -84,7 +84,7 @@ public class GM : Photon.MonoBehaviour
 	/*
 	 * HACKY
 	 */
-	private static Game _game_gui;
+//	private static Game _game_gui;
 	/*
 	 * 
 	 */
@@ -146,7 +146,7 @@ public class GM : Photon.MonoBehaviour
 		/*
 		 * HACKY
 		 */
-		_game_gui = GameObject.Find("GameController").GetComponent<Game>();
+		//_game_gui = GameObject.Find("GameController").GetComponent<Game>();
 		/*
 		 * 
 		 */

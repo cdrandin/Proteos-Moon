@@ -53,7 +53,7 @@ public class HealthGUI : MonoBehaviour
 	private float _timer;
 
 	// Use to offset the position of the GUI bar from the start
-	private Vector3 _base_pos;
+	//private Vector3 _base_pos;
 
 	private float gui_width_offset = -55.78f;
 
@@ -64,7 +64,7 @@ public class HealthGUI : MonoBehaviour
 	{
 		_ratio    = remaining_health.GetComponent<GUITexture>().pixelInset.height/remaining_health.GetComponent<GUITexture>().pixelInset.width;
 		_timer    = refresh_time;
-		_base_pos = remaining_health.transform.position;
+		//_base_pos = remaining_health.transform.position;
 
 		screen_rect_w_offsets = new Rect(0.0f - x_render_offset, 0.0f - y_render_offset, Screen.width + x_render_offset, Screen.height + y_render_offset);
 	}
