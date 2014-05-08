@@ -5,10 +5,10 @@ public class TitleGUI : MonoBehaviour {
 	public GUISkin skin;
 	public float _button_width;
 	public float _button_height;
-	private float padding;
+	//private float padding;
 	private float _half_button_width;
 	private float _half_screen_width;
-	private float _half_screen_height;
+	//private float _half_screen_height;
 	private int which_button_clicked = 0;
 	private const int BEGIN = 0;
 	private const int OPTIONS = 1;
@@ -44,13 +44,13 @@ public class TitleGUI : MonoBehaviour {
 	private void Ratios(){
 	
 		_button_height = (10 * Screen.height) / 203;
-		padding  = (135 * Screen.height) / 812;
+		//padding  = (135 * Screen.height) / 812;
 		
 		_button_width = 64 * _button_height / 15;
 		_half_button_width = _button_width / 2;
 		
 		_half_screen_width = Screen.width / 2;
-		_half_screen_height = Screen.height / 2;
+		//_half_screen_height = Screen.height / 2;
 		
 		story.fontSize = (int)_button_height/2;
 		options.fontSize = (int)_button_height/2;
