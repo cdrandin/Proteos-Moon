@@ -2,6 +2,15 @@
 using System.Collections;
 
 
+//How to get screen ratios
+//If you want to move it change the ratio values
+//Example (25 * Screen.width)/ 32  to (51 * Screen.width) /64
+//NOTE (30/32)*Screen.width does not work
+
+//Find the ratio of the GUI, 60 height by 40 width, then the ratio is  3 by 2
+//Create a variable height = Screen.height/64
+//Then the width = 2 * height / 3
+
 public class UnitGUI : MonoBehaviour {
 
 
@@ -259,6 +268,8 @@ public class UnitGUI : MonoBehaviour {
 	
 	}
 	
+	//This is the method that will create new the health bar and the exhaust bar
+	//info_box is the GUI box location
 	public static void HealthExhaustBars(Rect info_box, GameObject char_stats){
 	
 		float currentHealth = char_stats.GetComponent<BaseClass>().vital.HP.current;
@@ -298,6 +309,8 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	
+	
+	//This will draw the appropiate picture for each unit
 	public static void CharacterPortrait(Rect info_box, GameObject char_portrait, Player player){
 		GUIStyle style;
 		GUITexture portrait_texture = null;
@@ -375,10 +388,14 @@ public class UnitGUI : MonoBehaviour {
 			Debug.LogError( "Unit Status is incorrect in BaseClass");
 			break;
 		}
-		float pheight  = info_box.height - 32 ;
+		//32 is because the is always 16 pixels
+		float pheight  = info_box.height - 32;
+		//Fix the position based off of the box because the offset is 16 by 16
 		Rect box_pos = new Rect(16,16, 4*pheight / 6, pheight );
 		
-		float pLeftOverWidth = info_box.width - 4*pheight / 6 - 32;
+		
+		// Since the box height width ratio is 4 over 6, we can find the left offset
+		float pLeftOverWidth = info_box.width - (4*pheight / 6) - 32;
 		float icon_left_offset =  (pLeftOverWidth / 2) -  ( pheight / 2) + 16 + box_pos.width ;		
 
 		//icon_texture.renderer.material.color = Color.blue	;	
@@ -402,13 +419,21 @@ public class UnitGUI : MonoBehaviour {
 		GUI.Label(box_pos, char_name);
 		
 	}
+	
+	// Base selections i.e. move, action, gather, rest
 	public void BaseSelectionButtons(){
 	
+		//If you want to move the buttons this is where you want to modify
 		GUI.BeginGroup(new Rect( (3 * Screen.width)/ 4  ,  (3 * Screen.height)/ 4 , (3 * Screen.width)/8, (3*Screen.height)/ 10 ));
 		
 			GUI.depth = 1;
 			mySkin.box.fontSize = mySkin.box.fontSize = Screen.height / 32;
 			//GUI.enabled = !isAction && (GetCurrentFocusStatus() == ((Status.Clean | Status.Move) | GetCurrentFocusStatus()));// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
+			
+			
+			//GUI.enabled is how you make the button inactive to click on
+			//This will check to see if there is not in the action window
+			//or if the user has moved the unit or not
 			GUI.enabled = !isAction && !GetCurrentFocusStatus().Move;// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 			if(MakeButton(0,0,"Move", Style.move)){
 				
@@ -423,12 +448,16 @@ public class UnitGUI : MonoBehaviour {
 				gui_method += MovementEndButton;
 				unit_character_controller = GameObject.FindWithTag("UnitController");
 				smoothPos = true;
+				//this will turn on the update that will allow update calls 
+				//on used while the character is moving
 				isMoving = true;
+				//This will turn off the buttons so they wont be able to select the base selction buttons
 				isAction = true;
 			}
 			
+			//This will check to see if there is not in the action window
+			//or if the user has used an action or not
 			GUI.enabled = !isAction && !GetCurrentFocusStatus().Action;
-			
 			if(MakeButton(0, Screen.height/ 16, "Action", Style.action)){
 				isAction = true;
 				gui_method += ActionSelectionButtons;
@@ -486,6 +515,7 @@ public class UnitGUI : MonoBehaviour {
 		return aReturnTexture;
 	}
 	
+	//This is the end button movement
 	public void MovementEndButton(){
 	
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  (29 * Screen.height)/ 40 , (3 * Screen.width)/8, (3 * Screen.height)/ 10 ));
@@ -508,9 +538,11 @@ public class UnitGUI : MonoBehaviour {
 
 
 
-
+	//The action buttons is the attack button, use buttons, special buttons and a back button
 	public void ActionSelectionButtons(){
 	
+		//This is the locations of where the buttons is located
+
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  ((29 * Screen.height)/ 40) - shift , (3 * Screen.width)/8, ((3*Screen.height) / 10)+ shift ) );
 		
 		GUI.depth = 2;
@@ -568,6 +600,9 @@ public class UnitGUI : MonoBehaviour {
 		GUI.EndGroup();
 	}
 	
+	//Recruit Menu buttons
+	//This will need to get modify
+	//What we want is the bio's to display on hover
 	public void RecruitMenuButtons(){
 	
 		if(!GM.instance.IsItMyTurn())
