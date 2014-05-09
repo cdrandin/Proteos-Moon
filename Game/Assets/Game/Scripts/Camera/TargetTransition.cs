@@ -58,6 +58,7 @@ public class TargetTransition : MonoBehaviour {
 
 				//Find the new position
 				//GM.instance.controll
+				GM.instance.SetUnitControllerActiveOff();
 				GM.instance.SetUnitControllerActiveOn ( ref GetCurrentList() [unitIndex] );
 				newPosition = GetCurrentList() [unitIndex].transform.position + distanceToUnit;
 				interpolate = true;
