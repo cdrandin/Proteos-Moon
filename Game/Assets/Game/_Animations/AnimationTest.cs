@@ -17,7 +17,7 @@ public class AnimationTest : MonoBehaviour {
 	
 		if(Input.GetKeyDown(KeyCode.R)){
 		
-			print ("Rest");
+			print ("Ready");
 			anim.ReadyAnimation();
 		}
 		else if(Input.GetKeyDown(KeyCode.E)){
