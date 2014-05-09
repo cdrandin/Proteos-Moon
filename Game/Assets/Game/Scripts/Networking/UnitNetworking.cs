@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+ * UnitController.cs
+ * 
+ * Christopher Randin
+ */
+using UnityEngine;
 using System.Collections;
 
 public class UnitNetworking : MonoBehaviour
