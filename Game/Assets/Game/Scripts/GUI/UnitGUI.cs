@@ -71,7 +71,10 @@ public class UnitGUI : MonoBehaviour {
 
 	public GameObject focus_object 
 	{
-		get { return this.focusObject; }
+		get 
+		{ 
+			return (this.focusObject == null)?null:this.focusObject; 
+		}
 	}
 	
 	//Updates the flag when you want to reset the GUI functionality

@@ -92,6 +92,9 @@ public class UnitController : Photon.MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate() 
 	{
+		if(!GM.instance.IsItMyTurn())
+			return;
+
 		// Controller is found, then use UnitController
 		if(_unit_focus_cc != null)
 		{
