@@ -167,7 +167,7 @@ public class GM : Photon.MonoBehaviour
 		InitPlayerContainers();
 		InitPlayersLeader();
 		
-		//ResetGameState();
+		ResetGameState();
 		
 		// Set camera
 		//_world_camera.ChangeCamera();
@@ -1015,8 +1015,6 @@ public class GM : Photon.MonoBehaviour
 		}
 
 		// Next player's turn
-		
-		
 		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
 		//_current_player_turn =(_current_player_turn + 1) % _total_players;
 		if (room_properties.ContainsKey("CurrentTurn"))
@@ -1035,6 +1033,8 @@ public class GM : Photon.MonoBehaviour
 		{
 			_round_num += 1;
 		}
+
+		Debug.Log(string.Format("GM: TURN #{0}", _round_num));
 		
 		// Change camera accoring to player
 		//_world_camera.ChangeCamera();
