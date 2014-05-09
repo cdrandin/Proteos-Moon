@@ -21,9 +21,7 @@ public class GameGUIInfo : MonoBehaviour {
 		GUI.Label(new Rect(0, 2*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Is it my turn {0}", GM.instance.IsItMyTurn()), textColor);
 		GUI.Label(new Rect(0, 3*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Current round: {0}", GM.instance.CurrentRound), textColor);
 	}
-	
-	
-	
+
 	// Update is called once per frame
 	void Update () {
 	
