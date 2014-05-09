@@ -1014,37 +1014,24 @@ public class GM : Photon.MonoBehaviour
 			unit.GetComponent<BaseClass>().unit_status.Clean();
 		}
 
+
 		// Next player's turn
-		this.photonView.RPC("ChangeTurn", PhotonTargets.All);
-		//_current_player_turn =(_current_player_turn + 1) % _total_players;
-		if (room_properties.ContainsKey("CurrentTurn"))
-		{
-			room_properties["CurrentTurn"] = _current_player_turn;
-		} 
-		else
-		{
-			room_properties.Add("CurrentTurn", _current_player_turn);
-		}
+		_current_player_turn = (_current_player_turn + 1) % _total_players;
+		this.photonView.RPC("ChangeTurn", PhotonTargets.AllBuffered, _current_player_turn);
 
-		PhotonNetwork.room.SetCustomProperties(room_properties);
-
-		// When all player's have had their turn increment round number counter
-		if(_current_player_turn == 0)
-		{
-			_round_num += 1;
-		}
-
-		Debug.Log(string.Format("GM: TURN #{0}", _round_num));
-		
 		// Change camera accoring to player
 		//_world_camera.ChangeCamera();
 	}
 
 	[RPC]
-	void ChangeTurn()
+	void ChangeTurn(int cur)
 	{
-		_current_player_turn = (_current_player_turn + 1) % _total_players;
-		// Unfocus current unit
+		_current_player_turn = cur;
+		// When all player's have had their turn increment round number counter
+		if(_current_player_turn == 0)
+		{
+			_round_num += 1;
+		}
 	}
 
 	/// <summary>
