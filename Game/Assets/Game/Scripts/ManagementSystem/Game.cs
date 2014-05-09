@@ -37,7 +37,11 @@ public class Game : Photon.MonoBehaviour
 	private bool init;
 
 	private WorldCamera wcm;
-	
+
+
+	private GameObject __focus_object;
+
+
 	void Awake() 
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
@@ -49,6 +53,8 @@ public class Game : Photon.MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		__focus_object = null;
+
 		if(testing)
 		{
 			this.gui_method += GUI_menu;
@@ -123,6 +129,8 @@ public class Game : Photon.MonoBehaviour
 
 			if(wcm != null)
 			{
+				Debug.Log(string.Format("Game: FOCUS OBJECT {0}", (__focus_object == null)?"NULL":__focus_object.name));
+
 				if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
 				{
 					// Reset timer for display the resource text
