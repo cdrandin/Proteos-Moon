@@ -10,13 +10,13 @@ public class LobbyScript : MonoBehaviour
 	public string game_version = "1.0";
 	private string room_name = "";
 	private Vector2 scroll_position;
+	public RoomOptions roomOptions;
 	
 	void Start()
 	{
 		CustomTypes.Register();
-		
 		LobbyRect = new Rect(Screen.width/2 - 180, Screen.height/2 + 96, 360, 256);
-		
+		roomOptions.maxPlayers = 2;
 		if (string.IsNullOrEmpty(room_name))
 		{
 			room_name = "Room" + Random.Range(1, 9999);
@@ -50,7 +50,7 @@ public class LobbyScript : MonoBehaviour
 
 	void OnPhotonRandomJoinFailed()
 	{
-		PhotonNetwork.CreateRoom(null, true, true, 2);
+		PhotonNetwork.CreateRoom(null, roomOptions, null);
 	}
 
 	private void GuiInLobby()
@@ -65,7 +65,7 @@ public class LobbyScript : MonoBehaviour
 		}
 		if (GUILayout.Button("Create New Game"))
 		{
-			PhotonNetwork.CreateRoom(room_name, true, true, 2);
+			PhotonNetwork.CreateRoom(room_name, roomOptions, null);
 		}
 		GUILayout.EndHorizontal();
 		

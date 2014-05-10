@@ -12,13 +12,13 @@ public class AnimationTriggers : MonoBehaviour {
 	int ready_hash = Animator.StringToHash("Ready");
 	
 	// temp for testing
-	int temp = 0;
+	//int temp = 0;
 	
 	int idle_state_hash = Animator.StringToHash("Base Layer.Idle");
 	int ready_state_hash = Animator.StringToHash("Base Layer.Ready");
 	int num_of_attacks_hash = Animator.StringToHash("num_of_attacks");
 	int attack_style_hash = Animator.StringToHash("attack_style");
-	int isMoving_hash = Animator.StringToHash("isMoving");
+	//int isMoving_hash = Animator.StringToHash("isMoving");
 	int health_hash = Animator.StringToHash("Health");
 	
 	AnimatorStateInfo stateInfo;
