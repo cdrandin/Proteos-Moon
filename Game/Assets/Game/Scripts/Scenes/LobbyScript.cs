@@ -75,9 +75,11 @@ public class LobbyScript : MonoBehaviour
 		
 		scroll_position = GUILayout.BeginScrollView(scroll_position, false, false);
 		foreach (RoomInfo game in PhotonNetwork.GetRoomList()) {
-			GUILayout.Box(game.name + " " + game.playerCount + "/2");
-			if (GUILayout.Button("Join Room")) {
-				PhotonNetwork.JoinRoom(game.name);
+			if (game.playerCount != 2){
+				GUILayout.Box(game.name + " " + game.playerCount + "/2");
+				if (GUILayout.Button("Join Room")) {
+					PhotonNetwork.JoinRoom(game.name);
+				}
 			}
 		}
 		GUILayout.EndScrollView();
