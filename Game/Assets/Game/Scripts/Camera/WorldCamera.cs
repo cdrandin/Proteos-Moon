@@ -151,6 +151,7 @@ public class WorldCamera : MonoBehaviour {
 	void LateUpdate () {
 		
 		if(cameraOn ){
+			
 			HandleMouseRotation ();
 			
 			ApplyScroll ();
