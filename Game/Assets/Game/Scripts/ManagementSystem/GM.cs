@@ -89,12 +89,8 @@ public class GM : Photon.MonoBehaviour
 	 * 
 	 */
 
-
-
 	//HACK 
 	private GameObject __leader;
-
-	PhotonHashTable room_properties = new PhotonHashTable();
 
 	//PhotonView GMpv = PhotonView.Get(this);
 
@@ -236,9 +232,9 @@ public class GM : Photon.MonoBehaviour
 
 		GameObject[] available_leaders = GameObject.FindGameObjectWithTag("GameController").GetComponent<Game>().available_leaders;
 
-		if (PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
+		if ((string)PhotonNetwork.player.customProperties["Leader"] == "Altier_Seita")
 			__leader = available_leaders[0];
-		else if (PhotonNetwork.player.customProperties["Leader"] == "Captain_Mena")
+		else if ((string)PhotonNetwork.player.customProperties["Leader"] == "Captain_Mena")
 			__leader = available_leaders[1];
 
 		if(__leader == null)

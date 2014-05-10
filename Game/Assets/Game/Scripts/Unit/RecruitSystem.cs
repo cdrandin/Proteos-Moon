@@ -48,8 +48,6 @@ public class RecruitSystem : MonoBehaviour
 
 	public UnitCost unit_cost;
 	
-	private float _interval;
-
 	private bool _ready_to_summon; // Use when to exactly summon a unit, used for placing a unit to spawn at location
 	private GameObject _obj_to_summon;
 	private GameObject _particle;
@@ -61,8 +59,6 @@ public class RecruitSystem : MonoBehaviour
 	// Use this for initialization
 	void Awake()
 	{
-		_interval        = 360.0f/steps;
-		++steps; // Just works for now
 		_ready_to_summon = false;
 		_placement       = false;
 		_obj_to_summon   = null;

@@ -15,8 +15,8 @@ public class Button : MonoBehaviour {
 
 		// Instantate the particle effect in front of the object  
 		
-		Transform effect = Instantiate ( effectToPlay, effectPos, Quaternion.Euler(effectAngle, 0, 0)) as Transform;	
-		
+		//Transform effect = Instantiate ( effectToPlay, effectPos, Quaternion.Euler(effectAngle, 0, 0)) as Transform;	
+		Debug.LogError("Disable Instantiate for effect");
     }
 
 }

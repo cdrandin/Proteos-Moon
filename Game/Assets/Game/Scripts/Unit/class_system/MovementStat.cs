@@ -19,10 +19,6 @@ public class MovementStat
 	[SerializeField]
 	private float _rotation_speed;
 
-	// How much exhaust moving cost per frame
-	//[SerializeField]
-	private float _movement_cost_per_frame;
-
 	// How much the unit has traveled so far
 	//[SerializeField]
 	//private float _current_distance;
@@ -60,12 +56,7 @@ public class MovementStat
 	{
 		get { return _rotation_speed; }
 	}
-
-	public float movement_cost
-	{
-		get { return _movement_cost_per_frame; }
-	}
-
+	 
 	public float current_distance
 	{
 		get
