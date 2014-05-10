@@ -28,11 +28,6 @@ public class Game : Photon.MonoBehaviour
 	private delegate void GUIMethod();
 	private GUIMethod gui_method;
 
-	private GUIText _game_manager_gui;
-	
-	private float waitingTime;
-	private float timer;
-
 	private WorldCamera wcm;
 
 
@@ -41,8 +36,6 @@ public class Game : Photon.MonoBehaviour
 
 	void Awake() 
 	{
-		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
-		_game_manager_gui.text = "";
 	}
 	
 	// Use this for initialization
@@ -53,12 +46,6 @@ public class Game : Photon.MonoBehaviour
 		if(testing)
 		{
 			this.gui_method += GUI_menu;
-			_game_manager_gui.enabled = true;
-			_game_manager_gui.transform.position = new Vector3(0.18f, 0.95f, 0.0f);
-			_game_manager_gui.fontSize = 16;
-			//FindWorldCamera();
-			waitingTime = 5.0f;
-			timer = 0.0f;
 		}
 
 		GameObject game = GameObject.FindGameObjectWithTag("Game_Init");
@@ -106,18 +93,9 @@ public class Game : Photon.MonoBehaviour
 				Debug.Log(string.Format("{0} has {1} resources", GM.instance.CurrentPlayer, GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)));
 			}
 
-			if(GM.instance.IsThereAWinner())
-			{
-				_game_manager_gui.text = string.Format("The winner is {0}!", GM.instance.Winner);
-			}
-
 			if(GM.instance.IsNextPlayersTurn())
 			{
-				// HACK
-				//this.photonView.RPC("ChangeTurn", PhotonTargets.All);
 				GM.instance.NextPlayersTurn();
-				
-				_game_manager_gui.text = string.Format("It is now {0}'s turn", GM.instance.CurrentPlayer);
 			}
 
 			if(wcm != null)
@@ -127,13 +105,12 @@ public class Game : Photon.MonoBehaviour
 				if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
 				{
 					// Reset timer for display the resource text
-					timer = 0;
 					if(GM.instance.CurrentFocus == null )//&& GM.instance.IsItMyTurn())
 					{
 						Ray ray = wcm.MainCamera.camera.ScreenPointToRay(Input.mousePosition);
 						RaycastHit hit;
 						if(Physics.Raycast(ray, out hit, 100))
-						{
+						{ 
 							// Get correct, unit
 							string tag = hit.transform.tag;
 							
@@ -148,21 +125,6 @@ public class Game : Photon.MonoBehaviour
 							}
 						}
 					}
-					
-				}
-			}
-
-			if(testing)
-			{
-				timer += Time.deltaTime;
-				if(timer > waitingTime)
-				{
-					//Action
-					_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
-					                                       GM.instance.CurrentPlayer, 
-					                                       GM.instance.GetResourceFrom(GM.instance.CurrentPlayer).ToString(),
-					                                       GM.instance.MaxResourceLimit.ToString());
-					timer = 0;
 				}
 			}
 		}
@@ -194,32 +156,12 @@ public class Game : Photon.MonoBehaviour
 		{
 			if(MakeButton(half, 150, "Next player's turn"))
 			{
-				//HACK
 				GM.instance.NextPlayersTurn();
-				
-				_game_manager_gui.text = string.Format("Next player's turn\n" + 
-				                                       "Current player: {0}\n",
-				                                       GM.instance.CurrentPlayer);
-			}
-			
-			else if(MakeButton(half, 170, "Current round #"))
-			{
-				_game_manager_gui.text = string.Format("Current round: {0}",
-				                                       GM.instance.CurrentRound);
-			}
-			
-			else if(MakeButton(half, 190, "Timer"))
-			{
-							_game_manager_gui.text = string.Format("Current time: {0}", GM.instance.CurrentTime);
 			}
 			
 			else if(MakeButton(half, 210, string.Format("Add 1000 resource pts")))
 			{
 				GM.instance.AddResourcesToCurrentPlayer(1000);
-				_game_manager_gui.text = string.Format("Current player: {0} at {1}/{2} Resources", 
-				                                       GM.instance.CurrentPlayer, 
-				                                       (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)).ToString(),
-				                                       GM.instance.MaxResourceLimit.ToString());
 			}
 		}
 	}
@@ -248,13 +190,11 @@ public class Game : Photon.MonoBehaviour
 		num_of_players = 2;
 		resource_limit = 1000000;
 		testing = false;
-		_game_manager_gui.text = "";
 	}
 
 	[RPC]
-	void ChangeTurn(PhotonMessageInfo mi)
+	void ChangeTurn()
 	{
-		//HACK
 		GM.instance.NextPlayersTurn();
 	} 
 }

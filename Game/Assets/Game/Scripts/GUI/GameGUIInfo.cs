@@ -20,6 +20,10 @@ public class GameGUIInfo : MonoBehaviour {
 		GUI.Label(new Rect(0, 1*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("{0}'s Turn ", GM.instance.CurrentPlayer),textColor);
 		GUI.Label(new Rect(0, 2*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Is it my turn {0}", GM.instance.IsItMyTurn()), textColor);
 		GUI.Label(new Rect(0, 3*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Current round: {0}", GM.instance.CurrentRound), textColor);
+		GUI.Label(new Rect(0, 4*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Current time: {0}", GM.instance.CurrentTime), textColor);
+		GUI.Label(new Rect(0, 5*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Current resource: {0}/{1}",
+		                                                                                          GM.instance.GetResourceFrom(GM.instance.WhichPlayerAmI),
+		                                                                                          GM.instance.MaxResourceLimit), textColor);
 	}
 
 	// Update is called once per frame

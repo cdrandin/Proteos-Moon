@@ -77,9 +77,8 @@ public class BaseClass : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		Status st = _unit_status.status;
-
 		/*
+		Status st = _unit_status.status;
 		Debug.Log(string.Format(
 				"Clean: {0}\nMove: {1}\nAction: {2}\nGather: {3}\nRest: {4}\nDead: {5}",
 				st.Clean, st.Move, st.Action, st.Gather, st.Rest, st.Dead
