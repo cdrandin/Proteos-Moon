@@ -88,6 +88,6 @@ public class BaseClass : MonoBehaviour
 
 		// Movement range
 		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(this.transform.position, _movement.max_distance * _movement.speed);
+		Gizmos.DrawWireSphere(this.transform.position, _movement.max_distance);
 	}
 }
