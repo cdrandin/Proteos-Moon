@@ -173,8 +173,7 @@ public class UnitGUI : MonoBehaviour {
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
 				
-				if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)		
-					shift = Screen.height/ 16;
+				
 				
 				this.gui_method += UnitInformationBox;
 				
@@ -583,8 +582,9 @@ public class UnitGUI : MonoBehaviour {
 			GUI.enabled = true;
 			GUI.depth = 2;
 			
-			if(shift > 0){
-				if(focusObject.tag == "Leader" && MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
+		if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)	{	
+				shift = Screen.height/ 16;
+				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
 					
 					gui_method -= ActionSelectionButtons;
 					gui_method -= BaseSelectionButtons;
@@ -593,7 +593,7 @@ public class UnitGUI : MonoBehaviour {
 					isAction = false;
 				}
 				
-			}
+		}
 			
 			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
 				

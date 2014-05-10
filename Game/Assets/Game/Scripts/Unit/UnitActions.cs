@@ -53,6 +53,11 @@ public class UnitActions : MonoBehaviour {
 		}
 	}
 	
+	public void TurnOffProject(){
+	
+		enemyProjector.GetComponent<Projector>().enabled = false;
+	}
+	
 	public void WithinRange(GameObject currentFocus){
 
 		if( Vector3.SqrMagnitude(currentFocus.transform.position - myTransform.position )

@@ -201,15 +201,15 @@ public class CombatSystem : MonoBehaviour{
 //		MainCamera.transform.LookAt();
 		
 		if(gui_method == null){
+		
 			Vector3 direction = focus.transform.forward;
 			Vector3 attacker = focus.transform.position;
 			Vector3 enemy = enemyList[index].transform.position;
-			print (enemyList[index].name);			
 			direction.y = 0.0f;
 			attacker.y = 0.0f;
 			enemy.y = 0.0f;
 				
-			focus.transform.eulerAngles = Quaternion.FromToRotation(direction, (enemy - attacker)).eulerAngles;		
+			focus.transform = Quaternion.LookRotation(enemy - attacker);		
 			
 			gui_method += UnitEnemyBox;
 		}
@@ -247,15 +247,6 @@ public class CombatSystem : MonoBehaviour{
 	
 	public IEnumerator Attack(GameObject focusUnit){
 	
-		Vector3 direction = focusUnit.transform.forward;
-		Vector3 attacker = focusUnit.transform.position;
-		Vector3 enemy = enemyList[index].transform.position;
-		
-		direction.y = 0.0f;
-		attacker.y = 0.0f;
-		enemy.y = 0.0f;
-		
-		focusUnit.transform.eulerAngles = Quaternion.FromToRotation(direction, (enemy - attacker)).eulerAngles;		
 	
 		if(Input.GetKeyDown(KeyCode.Space) ) {	
 			isLabelOn = false;
