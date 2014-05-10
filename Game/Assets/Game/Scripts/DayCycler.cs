@@ -38,7 +38,8 @@ public class DayCycler : MonoBehaviour
 
 			// If we have same cap, don't go over it
 			if(sky.Cycle.Hour >= current_hour_cap)
-				_current_time = Time.fixedTime;
+				_current_time = current_hour_cap;
+				//_current_time = Time.fixedTime;
 
 			// Update time of day
 			sky.Cycle.Hour = Mathf.Clamp((_current_time/day_period)%24.0f, 0, current_hour_cap);
