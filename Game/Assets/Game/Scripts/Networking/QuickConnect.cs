@@ -4,7 +4,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class QuickConnect : Photon.MonoBehaviour {
 	private string playerName = "";
 	private string game_version = "1.0";
-	public RoomOptions roomOptions;
 	void Awake()
 	{
 		if (this.enabled){
@@ -17,7 +16,6 @@ public class QuickConnect : Photon.MonoBehaviour {
 			PhotonNetwork.playerName = playerName;
 			PhotonNetwork.ConnectUsingSettings(game_version);
 		}
-		roomOptions.maxPlayers = 2;
 	}
 	void OnJoinedLobby(){
 		if (this.enabled){
@@ -28,7 +26,7 @@ public class QuickConnect : Photon.MonoBehaviour {
 	void OnPhotonRandomJoinFailed()
 	{
 		if (this.enabled){
-			PhotonNetwork.CreateRoom(null, roomOptions, null);
+			PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 2}, null);
 		}
 	}
 
