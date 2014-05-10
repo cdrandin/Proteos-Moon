@@ -239,9 +239,6 @@ public class UnitController : Photon.MonoBehaviour
 
 	public void SetFocusOnUnit(ref GameObject unit)
 	{
-		// -1 because enum _starts at 0 for player1
-		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
-
 		// Move valid unit
 		if(unit.tag == "Unit" || unit.tag == "Leader")
 		{
