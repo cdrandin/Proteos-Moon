@@ -582,13 +582,17 @@ public class UnitGUI : MonoBehaviour {
 			GUI.enabled = true;
 			GUI.depth = 2;
 			
-			if(focusObject.tag == "Leader" && MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
+			if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)	{	
+				shift = Screen.height/ 16;
+				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
+					
+					gui_method -= ActionSelectionButtons;
+					gui_method -= BaseSelectionButtons;
+					gui_method += RecruitMenuButtons;
+					isRecruiting = true;
+					isAction = false;
+				}
 				
-				gui_method -= ActionSelectionButtons;
-				gui_method -= BaseSelectionButtons;
-				gui_method += RecruitMenuButtons;
-				isRecruiting = true;
-				isAction = false;
 			}
 			
 			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
