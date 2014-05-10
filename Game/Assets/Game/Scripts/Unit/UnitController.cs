@@ -67,7 +67,7 @@ public class UnitController : Photon.MonoBehaviour
 	// Keep track of units' movement stat script
 	private MovementStat _unit_focus_movement;
 
-	private Vector3 start;
+	private Vector3 _start;
 
 	void Awake()
 	{	
@@ -98,7 +98,7 @@ public class UnitController : Photon.MonoBehaviour
 		// Controller is found, then use UnitController
 		if(_unit_focus_cc != null)
 		{
-			Vector3 dif = _unit_focus_cc.transform.position - start;
+			Vector3 dif = _unit_focus_cc.transform.position - _start;
 
 			if (!_is_controllable || ( enforce_distance && (dif.sqrMagnitude >= max_travel_distance * max_travel_distance * speed * speed)))
 			{
@@ -234,12 +234,12 @@ public class UnitController : Photon.MonoBehaviour
 
 	public float travel_distance
 	{
-		get { return Vector3.Distance(_unit_focus_cc.transform.position, start); }
+		get { return Vector3.Distance(_unit_focus_cc.transform.position, _start); }
 	}
 
 	public void SetFocusOnUnit(ref GameObject unit)
 	{
-		// -1 because enum starts at 0 for player1
+		// -1 because enum _starts at 0 for player1
 		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
 
 		// Move valid unit
@@ -272,7 +272,7 @@ public class UnitController : Photon.MonoBehaviour
 
 			// Assume we got what we need now.
 			_unit_focus_cc.detectCollisions = false;
-			start = _unit_focus_cc.gameObject.transform.position;
+			_start = _unit_focus_cc.gameObject.transform.position;
 
 			//SetIsControllable(true);
 		}
