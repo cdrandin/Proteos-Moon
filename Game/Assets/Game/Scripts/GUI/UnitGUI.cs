@@ -584,7 +584,7 @@ public class UnitGUI : MonoBehaviour {
 			GUI.depth = 2;
 			
 			if(shift > 0){
-				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
+				if(focusObject.tag == "Leader" && MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
 					
 					gui_method -= ActionSelectionButtons;
 					gui_method -= BaseSelectionButtons;
