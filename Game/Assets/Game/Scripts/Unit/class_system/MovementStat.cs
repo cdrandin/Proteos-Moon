@@ -11,7 +11,7 @@ using System.Collections;
 public class MovementStat 
 {
 	// How fast unit can move
-	[Range(0, 10)]
+	[Range(0, 50)]
 	[SerializeField]
 	private float _speed;
 

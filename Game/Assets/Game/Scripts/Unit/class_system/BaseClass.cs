@@ -28,6 +28,8 @@ public class BaseClass : MonoBehaviour
 	[SerializeField]
 	private float _gather_range;
 
+	[SerializeField]
+	private int _gather_amount;
 
 	public BaseStat base_stat
 	{
@@ -57,6 +59,11 @@ public class BaseClass : MonoBehaviour
 	public float gather_range
 	{
 		get { return _gather_range; }
+	}
+
+	public int gather_amount
+	{
+		get { return _gather_amount; }
 	}
 
 	/// <summary>

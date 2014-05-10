@@ -471,7 +471,7 @@ public class UnitGUI : MonoBehaviour {
 			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
 			
 				focusObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
-				GM.instance.AddResourcesToCurrentPlayer(50);
+				GM.instance.AddResourcesToCurrentPlayer(focusObject.GetComponent<BaseClass>().gather_amount);
 				focusObject.GetComponent<BaseClass>().unit_status.Gather ();			
 			}
 			GUI.enabled = !isAction;
