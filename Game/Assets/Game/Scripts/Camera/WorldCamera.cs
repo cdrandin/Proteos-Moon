@@ -62,7 +62,7 @@ public class WorldCamera : MonoBehaviour {
 	[HideInInspector] public float cameraY; //this will change relative to terrain
 	private float maxCameraHeight = 200f;
 	public LayerMask TerrainOnly;
-	private float minDistanceToObject = 5f;
+	public float minDistanceToObject = 10f;
 
 	private bool _local;
 	private Vector3 _previous_location; // Use to keep track of previous location before following a unit

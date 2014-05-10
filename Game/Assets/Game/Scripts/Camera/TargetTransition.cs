@@ -142,7 +142,7 @@ public class TargetTransition : MonoBehaviour {
 		}
 		//If not then use the default vector distance
 		else {
-			float temp = 5.0f ;
+			float temp = WorldCamera.instance.minDistanceToObject + GetCurrentList() [ unitIndex ].GetComponent<CapsuleCollider>().height ;
 			return new Vector3(temp, 
 							   temp , 
 			                   -(temp ) );
