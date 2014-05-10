@@ -100,7 +100,7 @@ public class UnitController : Photon.MonoBehaviour
 		{
 			Vector3 dif = _unit_focus_cc.transform.position - _start;
 
-			if (!_is_controllable || ( enforce_distance && (dif.sqrMagnitude >= max_travel_distance * max_travel_distance * speed * speed)))
+			if (!_is_controllable || ( enforce_distance && (dif.sqrMagnitude >= max_travel_distance * max_travel_distance)))
 			{
 				Input.ResetInputAxes();
 			}
