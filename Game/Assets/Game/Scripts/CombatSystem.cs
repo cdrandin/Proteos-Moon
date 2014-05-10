@@ -209,7 +209,7 @@ public class CombatSystem : MonoBehaviour{
 			attacker.y = 0.0f;
 			enemy.y = 0.0f;
 				
-			focus.transform = Quaternion.LookRotation(enemy - attacker);		
+			focus.transform.rotation = Quaternion.LookRotation(enemy - attacker);		
 			
 			gui_method += UnitEnemyBox;
 		}
