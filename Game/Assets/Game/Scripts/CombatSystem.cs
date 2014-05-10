@@ -139,6 +139,7 @@ public class CombatSystem : MonoBehaviour{
 		CombatSystem.instance.isLabelOn = false;
 		CombatSystem.instance.gui_method -= CombatSystem.instance.FlashLabel;
 		CombatSystem.instance.StopCoroutineProcess();
+		WorldCamera.instance.ResetCamera();
 	}
 	
 	public void StopCoroutineProcess(){
