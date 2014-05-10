@@ -135,7 +135,7 @@ public class UnitGUI : MonoBehaviour {
 		UpdateSkinLayout();
 		lookAtHeight = 5;
 		
-		distanceScale = 0.23f;
+		distanceScale = 1.0f;
 		
 	}
 	
