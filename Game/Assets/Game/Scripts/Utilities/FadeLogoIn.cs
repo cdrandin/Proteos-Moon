@@ -18,7 +18,7 @@ public class FadeLogoIn : MonoBehaviour {
 
 	IEnumerator ChangeTransparency(){
 		float startTime = Time.time;
-		float duration = 3.0f;
+		float duration = 5.0f;
 		float elapsed;
 		//float alpha;
 
