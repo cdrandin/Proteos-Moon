@@ -262,11 +262,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			AnimatorStateInfo attack_anim = focusUnit.GetComponentInChildren<AnimationTriggers>().AttackAnimation();
 			
-			yield return new WaitForSeconds ( attack_anim.length );
-			
-			
-			//enemyList[index].GetComponentInChildren<AnimationTriggers>().DamageAnimation(newHealth);
-			
+			yield return new WaitForSeconds ( attack_anim.length/2.0f );
 			
 			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.AllBuffered, damage);
 			

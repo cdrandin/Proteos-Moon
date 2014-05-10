@@ -469,10 +469,15 @@ public class UnitGUI : MonoBehaviour {
 			
 			GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
 			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
-			
+
+				/*
 				focusObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
 				GM.instance.AddResourcesToCurrentPlayer(focusObject.GetComponent<BaseClass>().gather_amount);
-				focusObject.GetComponent<BaseClass>().unit_status.Gather ();			
+				focusObject.GetComponent<BaseClass>().unit_status.Gather ();	
+				*/
+
+				focusObject.GetPhotonView().RPC("UnitGather", PhotonTargets.AllBuffered);
+
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			}
 			GUI.enabled = !isAction;
@@ -583,7 +588,7 @@ public class UnitGUI : MonoBehaviour {
 			
 			if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)	{	
 				shift = Screen.height/ 16;
-				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit",Style.summon)){
+				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit", Style.summon)){
 					
 					gui_method -= ActionSelectionButtons;
 					gui_method -= BaseSelectionButtons;
@@ -591,7 +596,10 @@ public class UnitGUI : MonoBehaviour {
 					isRecruiting = true;
 					isAction = false;
 				}
-				
+				else
+				{
+					shift = 0;
+				}
 			}
 			
 			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
