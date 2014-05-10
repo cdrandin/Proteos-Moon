@@ -48,6 +48,16 @@ public class UnitNetworking : MonoBehaviour
 		}
 	}
 
+	// Update the units status for both players.
+	[RPC]
+	public void UpdateUnitStatus(Status status)
+	{
+		if(GM.instance.IsOn)
+		{
+			this.gameObject.GetComponent<BaseClass>().unit_status.status = status;
+		}
+	}
+
 	/// <summary>
 	/// Deals the damage to the "victim".
 	/// </summary>
