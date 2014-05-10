@@ -149,11 +149,11 @@ public class WorldCamera : MonoBehaviour {
 	void Update (){}
 
 	void LateUpdate () {
-		HandleMouseRotation ();
-		
-		ApplyScroll ();
 		
 		if(cameraOn ){
+			HandleMouseRotation ();
+			
+			ApplyScroll ();
 			
 			if(CheckIfUserCameraInput()){
 				Vector3 desiredTranslation = GetDesiredTranslation();
