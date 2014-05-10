@@ -5,6 +5,7 @@ public class GameGUIInfo : MonoBehaviour {
 
 	public GUISkin mySkin;
 	public GUIStyle textColor;
+
 	// Use this for initialization
 	void Start () {
 		textColor.normal.textColor = Color.white;
@@ -24,10 +25,16 @@ public class GameGUIInfo : MonoBehaviour {
 		GUI.Label(new Rect(0, 4*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Current resource: {0}/{1}",
 		                                                                                          GM.instance.GetResourceFrom(GM.instance.WhichPlayerAmI),
 		                                                                                          GM.instance.MaxResourceLimit), textColor);
+
+		if(GM.instance.IsThereAWinner())
+		{
+			GUI.Label(new Rect(0, 8*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Winner: {0}", GM.instance.Winner), textColor);
+		}
+
 	}
 
 	// Update is called once per frame
 	void Update () {
-	
+		Debug.Log(GameObject.FindGameObjectsWithTag("Leader"));
 	}
 }
