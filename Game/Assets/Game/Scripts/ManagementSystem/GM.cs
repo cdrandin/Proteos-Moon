@@ -58,9 +58,6 @@ public class GM : Photon.MonoBehaviour
 	private int[] 				_resource_count;
 	private int   				_max_resource;
 
-	// Keep track of each player's unit accordingly
-	//HACK private GameObject[] 		_leaders;
-	
 	// Reference to containers, units will be rooted to them
 	// The gameobject will contain the objects of that player's units and leader as its children nodes
 	private GameObject[] 		_player_container;
@@ -91,6 +88,9 @@ public class GM : Photon.MonoBehaviour
 
 	//HACK 
 	private GameObject __leader;
+
+	// Keep track of each player's unit accordingly
+	private GameObject[] _leaders;
 
 	//PhotonView GMpv = PhotonView.Get(this);
 
@@ -188,7 +188,7 @@ public class GM : Photon.MonoBehaviour
 		_resources_obtained = new int[_total_players];
 		
 		// Allocate correct number of leaders
-		//HACK _leaders 			= new GameObject[_total_players];
+		_leaders 			= new GameObject[_total_players];
 		
 		// Allocate correct number of player containers for their units/leaders
 		_player_container 	= new GameObject[_total_players];
@@ -275,8 +275,9 @@ public class GM : Photon.MonoBehaviour
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
 			UpdateFogOfWarComponents(leader);
-			
 		}
+
+		_leaders = Get_Leaders;
 
 		// Distinguish which leader belongs to which player
 		// Make sure there is a player container prepared already.
@@ -398,7 +399,7 @@ public class GM : Photon.MonoBehaviour
 		_resource_count    	= null;
 		_resource_spent    	= null;
 		_resources_obtained = null;
-		//HACK _leaders			= null;
+		_leaders			= null;
 		_player_container	= null;
 		_units_obtained		= null;
 		_units_killed  		= null;
@@ -417,7 +418,7 @@ public class GM : Photon.MonoBehaviour
 		ResetRecordings();
 		
 		// Reset leaders to be alive
-		ResetLeaders();
+		//ResetLeaders();
 		
 		// Player order	
 		//GenerateTurnSequence();
@@ -448,10 +449,10 @@ public class GM : Photon.MonoBehaviour
 	// All leaders are alive
 	private void ResetLeaders()
 	{
-		/*HACK for(int i=0;i<_leaders.Length;++i)
+		for(int i=0;i<_leaders.Length;++i)
 		{
 			_leaders[i].GetComponent<BaseClass>().unit_status.Clean();
-		}*/
+		}
 	}
 
 	private void StartTimer()
@@ -770,14 +771,17 @@ public class GM : Photon.MonoBehaviour
 	{
 		get
 		{
+			if(_leaders == null)
+				return 99;
+
 			int alive = 0;
-//HACK			foreach(GameObject leader in _leaders)
-//			{
-//				if(!leader.GetComponent<BaseClass>().unit_status.status.Dead)
-//				{
-//					alive += 1;
-//				}
-//			}
+			foreach(GameObject leader in _leaders)
+			{
+				if(!leader.GetComponent<BaseClass>().unit_status.status.Dead)
+				{
+					alive += 1;
+				}
+			}
 
 			return alive;
 		}
@@ -803,7 +807,7 @@ public class GM : Photon.MonoBehaviour
 			}
 			
 			// Win by having 1 leader survive/killing off other leaders
-			/*HACK else if(SurvivingLeaderCount == 1) 
+			else if(SurvivingLeaderCount == 1) 
 			{
 				for(int i=0; i<=_total_players; ++i) 
 				{
@@ -814,7 +818,7 @@ public class GM : Photon.MonoBehaviour
 						i = _leaders.Length;
 					}
 				}
-			}*/
+			}
 		}
 
 		return is_winner;
