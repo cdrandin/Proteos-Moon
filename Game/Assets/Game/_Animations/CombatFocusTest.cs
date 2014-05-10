@@ -8,26 +8,28 @@ public class CombatFocusTest : MonoBehaviour {
 	Vector3 direction;
 	Vector3 attacker;
 	Vector3 enemy;
+	
+	Renderer rend;
+	
 	// Use this for initialization
 	void Start () {
 	
-		
+		rend = this.GetComponentInChildren<Transform>().GetComponentInChildren<Renderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		direction = this.gameObject.transform.forward ;
-		attacker = this.gameObject.transform.position;
-		enemy = Target.transform.position;
-		
-		print ("Direction " + direction);
-		print ("Target Vector" + (enemy - attacker));
-		
-		direction.y = 0.0f;
-		attacker.y = 0.0f;
-		enemy.y = 0.0f;
-		
-		this.gameObject.transform.rotation = Quaternion.LookRotation((enemy - attacker));			
+	
+	}
+	
+	void OnMouseOver()
+	{
+		rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+		rend.material.SetColor ("_OutlineColor", Color.blue);
+	}
+	
+	void OnMouseExit()
+	{
+		rend.material.shader = Shader.Find("Diffuse Detail");
 	}
 }

@@ -3,9 +3,12 @@ using System.Collections;
 
 public class UnitHighlight : MonoBehaviour {
 	
+	Renderer rend;
+	
 	// Use this for initialization
 	void Start () {
-	
+		
+		rend = this.GetComponentInChildren<Transform>().GetComponentInChildren<Renderer>();
 	}
 	
 	// Update is called once per frame
@@ -13,50 +16,14 @@ public class UnitHighlight : MonoBehaviour {
 	
 	}
 	
-	void OnMouseOver() {
-	
-		TraverseOutline(this.gameObject);
-	
-
+	void OnMouseOver()
+	{
+		rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+		rend.material.SetColor ("_OutlineColor", Color.blue);
 	}
 	
 	void OnMouseExit()
 	{
-	
-		TraverseDiffuse(this.gameObject);
-		
-	}
-	void TraverseOutline(GameObject obj)
-	{
-		Renderer obj_renderer = obj.GetComponent<Renderer>() ;
-		
-		if(obj_renderer != null){
-		
-			obj_renderer.material.color = Color.yellow;
-		}
-		
-		foreach (Transform child in obj.transform)
-		{
-			TraverseOutline(child.gameObject);
-		}
-		
-	}
-	
-	void TraverseDiffuse(GameObject obj)
-	{
-		Renderer obj_renderer = obj.GetComponent<Renderer>() ;
-		
-		if(obj_renderer != null){
-			
-			obj_renderer.material.color = Color.white;
-		}
-		
-		foreach (Transform child in obj.transform)
-		{
-
-			TraverseDiffuse(child.gameObject);
-
-		}
-		
+		rend.material.shader = Shader.Find("Diffuse Detail");
 	}
 }
