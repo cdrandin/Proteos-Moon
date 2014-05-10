@@ -10,16 +10,16 @@ public class UnitActions : MonoBehaviour {
 
 	public static bool isInRange;
 	private Transform myTransform;
-	GameObject enemyProjector;
-	
+	Renderer myRenderer	;
 	void Awake(){
 	
-		myTransform = this.GetComponent<Transform>();	
+		
 		
 	}
 	// Use this for initialization
 	void Start () {
-		enemyProjector = GameObject.Find("EnemyProjector");
+		myRenderer = this.GetComponentInChildren<Transform>().GetComponentInChildren<Renderer>();
+		myTransform = this.GetComponent<Transform>();	
 		
 	}
 	
@@ -39,23 +39,24 @@ public class UnitActions : MonoBehaviour {
 			
 	}
 	
-	public void TurnOnProjector(){
+	public void TurnOnHighlight(){
 	
 		if(isInRange){
-			enemyProjector.transform.position = new Vector3(this.transform.position.x ,this.transform.position.y + 10, this.transform.position.z)  ;
-			enemyProjector.GetComponent<Projector>().enabled = true;
-		
+			myRenderer.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+			myRenderer.material.SetColor ("_OutlineColor", Color.red);
+			
 		}
-		if( enemyProjector.GetComponent<Projector>().enabled && !isInRange	){
+		if( !isInRange	){
 		
-			enemyProjector.GetComponent<Projector>().enabled = false;
+			myRenderer.material.shader = Shader.Find("Diffuse Detail");
 			
 		}
 	}
 	
-	public void TurnOffProject(){
+	public void TurnOffHightlight(){
 	
-		enemyProjector.GetComponent<Projector>().enabled = false;
+		myRenderer.material.shader = Shader.Find("Diffuse Detail");
+		
 	}
 	
 	public void WithinRange(GameObject currentFocus){

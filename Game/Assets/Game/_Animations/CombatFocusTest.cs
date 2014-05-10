@@ -20,7 +20,7 @@ public class CombatFocusTest : MonoBehaviour {
 	
 		if(Input.GetKeyDown(KeyCode.Space)){
 			this.gameObject.GetComponent<BaseClass>().unit_status.Rest();
-			this.gameObject.GetComponent<UnitHighlight>().RestingUnitFadeOut();
+			this.gameObject.GetComponent<UnitHighlight>().RestingUnitGrayOut();
 		}
 	}
 

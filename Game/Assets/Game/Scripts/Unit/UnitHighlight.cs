@@ -19,14 +19,16 @@ public class UnitHighlight : MonoBehaviour {
 	
 	void OnMouseOver()
 	{
-		if(!this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest){// && this.gameObject.GetPhotonView().isMine)
+		if(!UnitGUI.instance.isInitialize && !this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest && this.gameObject.GetPhotonView().isMine)
+		{
 			
 			rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
 			rend.material.SetColor ("_OutlineColor", Color.blue);
 		}
 	}
 	
-	public void RestingUnitFadeOut(){
+	
+	public void RestingUnitGrayOut(){
 		
 		rend.material.shader = Shader.Find("Diffuse");
 	}

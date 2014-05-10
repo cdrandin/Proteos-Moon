@@ -20,7 +20,7 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
-	private bool isInitialize, smoothPos, isMoving, proteus, isAction,isRecruiting;
+	private bool _isInitialize, smoothPos, isMoving, proteus, isAction,isRecruiting;
 	public float lookAtHeight = 1.0f, DistancefromPlayer = 3.0f;
 	private float heightDamping = 2.0f , rotationDamping = 3.0f;//, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
@@ -77,6 +77,15 @@ public class UnitGUI : MonoBehaviour {
 		get 
 		{ 
 			return (this.focusObject == null)?null:this.focusObject; 
+		}
+	}
+	
+	
+	public bool	isInitialize 
+	{
+		get 
+		{ 
+			return _isInitialize; 
 		}
 	}
 	
@@ -170,7 +179,7 @@ public class UnitGUI : MonoBehaviour {
 			focusTemp = GM.instance.CurrentFocus;
 			
 			//Conditions to print the GUI		
-			if( (!isInitialize && focusTemp != null &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ) ){
+			if( (!_isInitialize && focusTemp != null &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ) ){
 				
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
@@ -238,7 +247,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	private void RemoveGUI(){
 		
-		isInitialize = false;
+		_isInitialize = false;
 		this.gui_method -= UnitInformationBox;
 		this.gui_method -= BaseSelectionButtons;
 		this.gui_method -= ActionSelectionButtons;
@@ -261,7 +270,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(UnitInfoLocation);
 		
 			GUI.depth = 1	;
-			isInitialize = true;
+			_isInitialize = true;
 			GUI.Box( informationBox, "");
 			CharacterPortrait(informationBox, focusObject, GM.instance.CurrentPlayer);
 			HealthExhaustBars(informationBox, focusObject);
@@ -496,13 +505,13 @@ public class UnitGUI : MonoBehaviour {
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 				
 				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
-				
+				focusObject.GetComponent<UnitHighlight>().RestingUnitGrayOut();
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
 				this.gui_method -= ActionSelectionButtons;
 				focusObject = null;
-				isInitialize = false;
+				_isInitialize = false;
 			}
 			GUI.enabled = true;
 		GUI.EndGroup();
@@ -574,7 +583,8 @@ public class UnitGUI : MonoBehaviour {
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
 				if(GM.instance.CurrentFocus != null)
 					GM.instance.SetFocusController(false);
-				focusObject.GetComponent<BaseClass>().unit_status.Action();		
+				focusObject.GetComponent<BaseClass>().unit_status.Action();	
+				WorldCamera.instance.TurnCameraControlsOff();	
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 				CombatSystem.instance.AttackButtonClicked();
 				//isAction  = false;
@@ -598,7 +608,8 @@ public class UnitGUI : MonoBehaviour {
 			GUI.enabled = true;
 			GUI.depth = 2;
 			
-			if(focus_object.GetComponent<BaseClass>().unit_status.unit_type == UnitType.Leader)	{	
+			if(focus_object.CompareTag("Leader"))	
+			{	
 				shift = Screen.height/ 16;
 				if(MakeButton(0, (3 * Screen.height)/ 15, "Recruit", Style.summon)){
 					
@@ -608,10 +619,11 @@ public class UnitGUI : MonoBehaviour {
 					isRecruiting = true;
 					isAction = false;
 				}
-				else
-				{
-					shift = 0;
-				}
+
+			}
+			else
+			{
+				shift = 0;
 			}
 			
 			if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
@@ -636,6 +648,7 @@ public class UnitGUI : MonoBehaviour {
 		if(!GM.instance.IsItMyTurn())
 			return;
 
+		
 		GUI.BeginGroup(new Rect( (24 * Screen.width)/ 32  ,  (10 * Screen.height)/ 40 , (2 * Screen.width)/8, 3* Screen.height/ 4 ));
 			mySkin.box.fontSize = Screen.height / 32;
 			GUI.Box (  new Rect (0,0,(2 * Screen.width)/8, 3*Screen.height/ 4), "Recruit Menu"  );

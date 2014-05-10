@@ -1022,6 +1022,7 @@ public class GM : Photon.MonoBehaviour
 		foreach(GameObject unit in units)
 		{
 			unit.GetComponent<BaseClass>().unit_status.Clean();
+			unit.GetComponent<UnitHighlight>().CleanUnit();
 		}
 
 

@@ -10,7 +10,7 @@ public class CombatSystem : MonoBehaviour{
 	public static event WithinRangeEvent WithinRange;
 	
 	public delegate void ProjectorEvent();
-	public static event ProjectorEvent TurnOnProjector;
+	public static event ProjectorEvent TurnOnHighlight;
 
 	private delegate void GUIMethod();
 	private GUIMethod gui_method = null;
@@ -22,7 +22,7 @@ public class CombatSystem : MonoBehaviour{
 	private int index = 0;
 	private List<GameObject> enemyList;
 	
-	private bool attacking = false, showGUI = false, isLabelOn = false;
+	private bool attacking = false, showGUI = false, isLabelOn = false, activeGUI = false;
 	
 	
 	private float alpha;
@@ -53,28 +53,28 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void CheckIfChangingTarget(){
 		
-		if( Input.GetKeyDown(KeyCode.LeftArrow) ) {
+		if( Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) ) {
 			
 			if(index + 1 >= enemyList.Count)
 				index = 0;
 			else if ( index + 1 < enemyList.Count)
 				++index;
-				
+			activeGUI = false;
 			gui_method -= UnitEnemyBox;
 			//gui_method += UnitEnemyBox;
 				
 		}
-		else if (Input.GetKeyDown(KeyCode.RightArrow) ) {
-			print (index);
+		else if (Input.GetKeyDown(KeyCode.RightArrow)|| Input.GetKeyDown(KeyCode.D)   ) {
 			if(index - 1 <= -1)
-				index = 0;
+				index =  enemyList.Count - 1;
 			else if (index - 1 >= 0)
 				--index;
-			
+			activeGUI = false;			
 			gui_method -= UnitEnemyBox;
 			//gui_method += UnitEnemyBox;
 			
 		}	
+		
 	}
 
 	void OnGUI(){
@@ -100,14 +100,14 @@ public class CombatSystem : MonoBehaviour{
 	public void FadeInOut(){
 	
 		if( showGUI ){	
-			alpha = Mathf.Lerp(alpha,0.0f ,Time.deltaTime);
+			alpha = Mathf.Lerp(alpha,0.0f , Time.deltaTime * 3.0f);
 			if (Mathf.Abs (alpha - 0 ) < 0.0001){
 				showGUI = !showGUI;
 				alpha = 0.0f;
 			}
 		}
 		else{
-			alpha = Mathf.Lerp(alpha , 1.0f ,Time.deltaTime);
+			alpha = Mathf.Lerp(alpha , 1.0f , Time.deltaTime * 3.0f);
 			if (Mathf.Abs (alpha - 1 ) < 0.0001f){
 				showGUI = !showGUI;
 				alpha = 1.0f;
@@ -137,9 +137,11 @@ public class CombatSystem : MonoBehaviour{
 		CombatSystem.instance.enemyList.Clear();
 		CombatSystem.instance.attacking = false;
 		CombatSystem.instance.isLabelOn = false;
+		CombatSystem.instance.activeGUI = false;
 		CombatSystem.instance.gui_method -= CombatSystem.instance.FlashLabel;
 		CombatSystem.instance.StopCoroutineProcess();
 		WorldCamera.instance.ResetCamera();
+		WorldCamera.instance.TurnCameraControlsOn();
 	}
 	
 	public void StopCoroutineProcess(){
@@ -173,6 +175,7 @@ public class CombatSystem : MonoBehaviour{
 		isLabelOn = true;
 		gui_method += FlashLabel;
 		gui_method += UnitEnemyBox;
+		activeGUI = true;
 		attacking = true;
 	}
 	
@@ -193,14 +196,14 @@ public class CombatSystem : MonoBehaviour{
 		print ("This is the current focus unit: " + focusUnit);
 
 		WithinRange(focusUnit);
-		TurnOnProjector();
+		TurnOnHighlight();
 	}
 	
 	public void CombatLookAt(GameObject focus){
 	
 //		MainCamera.transform.LookAt();
 		
-		if(gui_method == null){
+		if(!activeGUI){
 		
 			Vector3 direction = focus.transform.forward;
 			Vector3 attacker = focus.transform.position;
@@ -213,6 +216,7 @@ public class CombatSystem : MonoBehaviour{
 			focus.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, focus.transform.position, focus.transform.rotation);
 
 			gui_method += UnitEnemyBox;
+			activeGUI = true;
 		}
 		
 		
@@ -267,6 +271,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.AllBuffered, damage);
 			
+			
 			gui_method -= UnitEnemyBox;
 			
 			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);
@@ -277,6 +282,7 @@ public class CombatSystem : MonoBehaviour{
 				GM.instance.UnitDied(enemyList[index]);
 			}
 			ResetCombatSystem();
+			
 		}
 		yield return null;
 	}
@@ -294,7 +300,7 @@ public class CombatSystem : MonoBehaviour{
 			for( uint i = 0 ; i < otherPlayerUnits.Length; ++i){
 			
 				WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
-				TurnOnProjector += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnProjector;
+				TurnOnHighlight += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnHighlight;
 			}
 		}
 	}
@@ -311,7 +317,7 @@ public class CombatSystem : MonoBehaviour{
 			for (uint i = 0; i < otherPlayerUnits.Length; ++i){
 
 				WithinRange -= otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
-				TurnOnProjector -= otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnProjector;
+				TurnOnHighlight -= otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnHighlight;
 				
 			}
 		}
