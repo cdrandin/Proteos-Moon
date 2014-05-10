@@ -481,7 +481,6 @@ public class UnitGUI : MonoBehaviour {
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 				
 				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
-				
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
