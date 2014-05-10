@@ -771,7 +771,7 @@ public class UnitGUI : MonoBehaviour {
 		// distance meters behind the target
 		Vector3 worldCameraPosition =  target.transform.position;
 		
-		DistancefromPlayer = (wantedHeight - focus.y )/ distanceScale;
+		DistancefromPlayer = (wantedHeight - target.transform.position.y )/ distanceScale;
 		
 		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
