@@ -21,7 +21,7 @@ public class UnitGUI : MonoBehaviour {
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
 	private bool isInitialize, smoothPos, isMoving, proteus, isAction,isRecruiting;
-	public float lookAtHeight = 3.0f, DistancefromPlayer = 3.0f;
+	public float lookAtHeight = 1.0f, DistancefromPlayer = 3.0f;
 	private float heightDamping = 0.5f , rotationDamping = 0.5f;//, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	public float distanceScale;
@@ -746,7 +746,7 @@ public class UnitGUI : MonoBehaviour {
 
 	public void SmoothFollow(GameObject target){
 
-		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
+		//lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
 		Vector3 focus =  target.transform.position;
 		
