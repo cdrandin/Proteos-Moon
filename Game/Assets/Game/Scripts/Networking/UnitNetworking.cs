@@ -28,7 +28,7 @@ public class UnitNetworking : MonoBehaviour
 
 	// Update the unit's current position. Allowing it to move
 	[RPC]
-	void UpdatePosition(Vector3 position, Quaternion rotation)
+	void UpdateUnitTransformation(Vector3 position, Quaternion rotation)
 	{
 		if(GM.instance.IsOn)
 		{
