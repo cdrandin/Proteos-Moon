@@ -678,7 +678,7 @@ public class UnitGUI : MonoBehaviour {
 				isRecruiting = false;
 			
 			}
-		GUI.enabled =  false && (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.vangaurd );
+		GUI.enabled =  /*false &&*/ (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.vangaurd );
 		
 		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
 			
