@@ -823,6 +823,16 @@ public class GM : Photon.MonoBehaviour
 
 		return is_winner;
 	}
+
+	/// <summary>
+	/// Dids the I window.
+	/// </summary>
+	/// <returns><c>true</c>, if I window was dided, <c>false</c> otherwise.</returns>
+	public bool DidIWin()
+	{
+		return _winner == (Player)_current_player_turn;
+	}
+
 	#endregion
 
 	#region Game interaction methods

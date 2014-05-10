@@ -33,6 +33,9 @@ public class UnitGUI : MonoBehaviour {
 	Quaternion newRotation; 
 	public int toolbarInt = -1;
 
+	private Vector3 current_procite_pos;
+	public Quaternion look;
+
 	//GameObject unit_character_controller;
 	
 	
@@ -195,9 +198,7 @@ public class UnitGUI : MonoBehaviour {
 				CombatSystem.instance.CallCombatDelegates(focusObject);
 				
 				if (proteus != NearProcite()){
-					
 					proteus = NearProcite();
-					
 				}
 			}
 			
@@ -467,7 +468,7 @@ public class UnitGUI : MonoBehaviour {
 				
 			}
 			
-			GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
+		GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
 			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
 
 				/*
@@ -475,8 +476,17 @@ public class UnitGUI : MonoBehaviour {
 				GM.instance.AddResourcesToCurrentPlayer(focusObject.GetComponent<BaseClass>().gather_amount);
 				focusObject.GetComponent<BaseClass>().unit_status.Gather ();	
 				*/
+				
+				// Send act of doing gathering over network
+				focusObject.gameObject.GetPhotonView().RPC("UnitGather", PhotonTargets.AllBuffered);
 
-				focusObject.GetPhotonView().RPC("UnitGather", PhotonTargets.AllBuffered);
+				Quaternion lookat = Quaternion.LookRotation(current_procite_pos);
+				lookat.eulerAngles = new Vector3(lookat.eulerAngles.x, focusObject.transform.rotation.eulerAngles.y, lookat.eulerAngles.z);
+				focusObject.transform.rotation = lookat;
+
+				// Send updateded transformation
+				focusObject.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
+			                                           focusObject.gameObject.transform.position, lookat);
 
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			}
@@ -486,6 +496,7 @@ public class UnitGUI : MonoBehaviour {
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 				
 				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
+				
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
@@ -733,6 +744,7 @@ public class UnitGUI : MonoBehaviour {
 				float range = focusObject.GetComponent<BaseClass>().gather_range;
 				range = range * range;
 				if( offset.sqrMagnitude < range) {
+					current_procite_pos = procite_locations[i].gameObject.transform.position;
 					return true;
 				}
 			
