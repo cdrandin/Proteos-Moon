@@ -210,7 +210,8 @@ public class CombatSystem : MonoBehaviour{
 			enemy.y = 0.0f;
 				
 			focus.transform.rotation = Quaternion.LookRotation(enemy - attacker);		
-			
+			focus.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, focus.transform.position, focus.transform.rotation);
+
 			gui_method += UnitEnemyBox;
 		}
 		

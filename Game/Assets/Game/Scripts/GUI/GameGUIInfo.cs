@@ -28,17 +28,18 @@ public class GameGUIInfo : MonoBehaviour {
 
 		if(GM.instance.IsThereAWinner())
 		{
-			GUI.Label(new Rect(0, 8*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Winner: {0}", GM.instance.Winner), textColor);
+			if(GM.instance.DidIWin())
+			{
+				GUI.Label(new Rect(0, 8*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("Winner: {0}", GM.instance.Winner), textColor);
+			}
+			else
+			{
+				GUI.Label(new Rect(0, 8*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("DEFEAT!"), textColor);
+			}
 		}
-		else
-		{
-			GUI.Label(new Rect(0, 8*Screen.height/32, Screen.width, Screen.height/32 ), string.Format("DEFEAT!"), textColor);
-		}
-
 	}
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(GameObject.FindGameObjectsWithTag("Leader"));
 	}
 }

@@ -123,6 +123,7 @@ public class UnitController : Photon.MonoBehaviour
 			_unit_focus_cc.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
 			                                              _unit_focus_cc.gameObject.transform.position, _unit_focus_cc.gameObject.transform.rotation);
 
+
 			//_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitTransformation();
 		}
 
@@ -145,7 +146,8 @@ public class UnitController : Photon.MonoBehaviour
 
 		//Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
 		Vector3 target_direction = v * _unit_focus_cc.transform.forward;
-		_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.deltaTime, 0);
+		if(_unit_focus_cc.GetComponent<BaseClass>().unit_status.status.Move)
+			_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.deltaTime, 0);
 
 		if(IsGrounded())
 		{
