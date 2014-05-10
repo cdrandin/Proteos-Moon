@@ -469,15 +469,10 @@ public class UnitGUI : MonoBehaviour {
 			
 			GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
 			if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
-
-				/*
+			
 				focusObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
 				GM.instance.AddResourcesToCurrentPlayer(focusObject.GetComponent<BaseClass>().gather_amount);
-				focusObject.GetComponent<BaseClass>().unit_status.Gather ();	
-				*/
-
-				focusObject.GetPhotonView().RPC("UnitGather", PhotonTargets.AllBuffered);
-
+				focusObject.GetComponent<BaseClass>().unit_status.Gather ();			
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			}
 			GUI.enabled = !isAction;
@@ -486,6 +481,7 @@ public class UnitGUI : MonoBehaviour {
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 				
 				focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
+				
 				GM.instance.SetUnitControllerActiveOff();
 				this.gui_method -= UnitInformationBox;
 				this.gui_method -= BaseSelectionButtons;
