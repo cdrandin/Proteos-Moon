@@ -315,7 +315,7 @@ public class GM : Photon.MonoBehaviour
 	}
 	
 	[RPC]
-	void SendTurnOrder(Player[] playerTurnOrder, PhotonMessageInfo mi)
+	void SendTurnOrder(Player[] playerTurnOrder)
 	{
 		for (int i = 0; i < playerTurnOrder.Length; ++i){
 			_player_turn_order[i] = playerTurnOrder[i];
@@ -943,7 +943,7 @@ public class GM : Photon.MonoBehaviour
 	/// </summary>
 	/// <param name="unit">Unit.</param>
 	[RPC]
-	void AddUnitToCurrentPlayersContainer(int unit_type, PhotonMessageInfo mi){
+	void AddUnitToCurrentPlayersContainer(int unit_type){
 		// Signal spawner and to approiate players container
 		GameObject unit = _recruit_system.SpawnUnit((UnitType)unit_type);
 
@@ -1094,12 +1094,19 @@ public class GM : Photon.MonoBehaviour
 			return;
 		}
 
+		this.photonView.RPC("UpdateUnitDied", PhotonTargets.AllBuffered);
 		//_units_killed[_current_player_turn] += 1;
 
 		//unit.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 90));
 
 		// Currently, doesn't work since unit is not part of the pooling system initially
 		//PoolingSystem.instance.Destroy(unit);
+	}
+
+	[RPC]
+	void UpdateUnitDied()
+	{
+		_units_killed[_current_player_turn] += 1;
 	}
 
 	#endregion

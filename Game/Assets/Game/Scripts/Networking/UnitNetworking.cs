@@ -55,6 +55,10 @@ public class UnitNetworking : MonoBehaviour
 		if(GM.instance.IsOn)
 		{
 			this.gameObject.GetComponent<BaseClass>().unit_status.status = status;
+			if(status.Dead)
+			{
+				_my_photon_view.RPC("UnitDead", PhotonTargets.AllBuffered);
+			}
 		}
 	}
 
@@ -69,6 +73,20 @@ public class UnitNetworking : MonoBehaviour
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		unit.DealDamage(inc_damage);
 		this.gameObject.GetComponentInChildren<AnimationTriggers>().DamageAnimation((int)unit.vital.HP.current);
-		
+	}
+
+	[RPC]
+	void UnitGather()
+	{
+		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
+		GM.instance.AddResourcesToCurrentPlayer(unit.gather_amount);
+		this.gameObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
+		unit.unit_status.Gather();
+	}
+
+	[RPC] 
+	void UnitDead()
+	{
+		GM.instance.UnitDied(this.gameObject);
 	}
 }
