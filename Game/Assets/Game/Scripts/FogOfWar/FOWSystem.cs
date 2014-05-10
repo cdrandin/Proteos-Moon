@@ -100,7 +100,7 @@ public class FOWSystem : MonoBehaviour
 	/// Size of the fog of war texture. Higher resolution will result in more precise fog of war, at the cost of performance.
 	/// </summary>
 
-	public int textureSize = 128;
+	public int textureSize = 512;
 
 	/// <summary>
 	/// How frequently the visibility checks get performed.
@@ -789,13 +789,14 @@ public class FOWSystem : MonoBehaviour
 
 	void UpdateTexture ()
 	{
+		
 		if (mScreenHeight != Screen.height || mTexture0 == null)
 		{
 			mScreenHeight = Screen.height;
 
 			if (mTexture0 != null) Destroy(mTexture0);
 			if (mTexture1 != null) Destroy(mTexture1);
-
+			
 			// Native ARGB format is the fastest as it involves no data conversion
 			mTexture0 = new Texture2D(textureSize, textureSize, TextureFormat.ARGB32, false);
 			mTexture1 = new Texture2D(textureSize, textureSize, TextureFormat.ARGB32, false);
