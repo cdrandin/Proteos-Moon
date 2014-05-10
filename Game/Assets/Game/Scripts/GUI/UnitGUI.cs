@@ -527,7 +527,8 @@ public class UnitGUI : MonoBehaviour {
 		
 			GUI.depth = 2;
 			if( MakeButton(0,0, "End Movement", Style.move_cancel) ){
-				GM.instance.SetFocusController(false);
+				if(GM.instance.CurrentFocus != null)
+					GM.instance.SetFocusController(false);
 				//GM.instance.SetFocusController(false);
 				focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 				
@@ -556,8 +557,8 @@ public class UnitGUI : MonoBehaviour {
 			if(MakeButton(0,0, "Attack", Style.attack)){
 				//Expend units action
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
-
-				GM.instance.SetFocusController(false);
+				if(GM.instance.CurrentFocus != null)
+					GM.instance.SetFocusController(false);
 				focusObject.GetComponent<BaseClass>().unit_status.Action();		
 				//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 				CombatSystem.instance.AttackButtonClicked();
