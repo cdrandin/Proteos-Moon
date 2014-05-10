@@ -92,7 +92,12 @@ public class AnimationTriggers : MonoBehaviour {
 			anim.SetTrigger (idle_hash);
 		}
 	}
-	
+
+	public void ForceGatherAnimation()
+	{
+		anim.SetTrigger(gather_hash);
+	}
+
 	public void GatherAnimation(){
 		
 		if( stateInfo.nameHash == ready_state_hash){

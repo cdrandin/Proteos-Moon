@@ -80,6 +80,7 @@ public class UnitNetworking : MonoBehaviour
 	{
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		GM.instance.AddResourcesToCurrentPlayer(unit.gather_amount);
+		//this.gameObject.GetComponentInChildren<AnimationTriggers>().ForceGatherAnimation();
 		this.gameObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
 		unit.unit_status.Gather();
 	}
