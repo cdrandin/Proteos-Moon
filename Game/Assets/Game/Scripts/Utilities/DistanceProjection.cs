@@ -37,12 +37,9 @@ public class DistanceProjection : MonoBehaviour
 
 	private MovementStat _movement;
 
-	private bool on;
-
 	void Awake ()
 	{
 		projectors = GetComponentsInChildren<Projector>();
-		on = false;
 	}
 
 	// Use this for initialization

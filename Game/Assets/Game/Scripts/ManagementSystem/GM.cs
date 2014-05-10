@@ -89,12 +89,8 @@ public class GM : Photon.MonoBehaviour
 	 * 
 	 */
 
-
-
 	//HACK 
 	private GameObject __leader;
-
-	PhotonHashTable room_properties = new PhotonHashTable();
 
 	//PhotonView GMpv = PhotonView.Get(this);
 

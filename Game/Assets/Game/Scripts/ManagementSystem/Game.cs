@@ -30,11 +30,8 @@ public class Game : Photon.MonoBehaviour
 
 	private GUIText _game_manager_gui;
 	
-	private UnitCost _unit_cost;
-
 	private float waitingTime;
 	private float timer;
-	private bool init;
 
 	private WorldCamera wcm;
 
@@ -46,8 +43,6 @@ public class Game : Photon.MonoBehaviour
 	{
 		_game_manager_gui = GameObject.Find("GameManagerStatus").GetComponent<GUIText>();
 		_game_manager_gui.text = "";
-	
-		_unit_cost = GetComponent<RecruitSystem>().unit_cost;
 	}
 	
 	// Use this for initialization
@@ -64,8 +59,6 @@ public class Game : Photon.MonoBehaviour
 			//FindWorldCamera();
 			waitingTime = 5.0f;
 			timer = 0.0f;
-			
-			init = false;
 		}
 
 		GameObject game = GameObject.FindGameObjectWithTag("Game_Init");

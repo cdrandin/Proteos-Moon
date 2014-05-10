@@ -106,8 +106,8 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 			}
 			LoadingGUI();
 			if (letsDoThis){
-				//Destroy(leader);
-				//Destroy(otherLeader);
+				Destroy(leader);
+				Destroy(otherLeader);
 				PhotonNetwork.LoadLevel(Application.loadedLevel + 1);
 			}
 		}
