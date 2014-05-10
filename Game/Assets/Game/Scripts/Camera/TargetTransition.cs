@@ -126,7 +126,7 @@ public class TargetTransition : MonoBehaviour {
 			
 			unitIndex = GetCurrentList().Length - 1;
 			
-		} else if (unitIndex > GetCurrentList().Length - 1) {
+		} else if (unitIndex >= GetCurrentList().Length) {
 			
 			unitIndex = 0;
 		}					
@@ -142,8 +142,10 @@ public class TargetTransition : MonoBehaviour {
 		}
 		//If not then use the default vector distance
 		else {
-			float temp = WorldCamera.instance.MinCameraHeight() + 1;
-			return new Vector3(temp, temp, -temp);
+			float temp = WorldCamera.instance.MinCameraHeight() + 1 ;
+			return new Vector3(temp + GetCurrentList() [unitIndex].transform.position.x , 
+							   temp + GetCurrentList() [unitIndex].transform.position.y , 
+			                   -(temp + GetCurrentList() [unitIndex].transform.position.z ) );
 		}
 	}
 

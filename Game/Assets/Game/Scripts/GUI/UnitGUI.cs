@@ -133,6 +133,7 @@ public class UnitGUI : MonoBehaviour {
 		ResetFlags();
 		shift = 0;
 		UpdateSkinLayout();
+		lookAtHeight = 5;
 		
 		distanceScale = 0.23f;
 		
@@ -146,7 +147,6 @@ public class UnitGUI : MonoBehaviour {
 		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
 		
 		//unit_character_controller = GameObject.FindWithTag("UnitController");
-		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
 	}
 	
@@ -525,7 +525,7 @@ public class UnitGUI : MonoBehaviour {
 		
 			GUI.depth = 2;
 			if( MakeButton(0,0, "End Movement", Style.move_cancel) ){
-				GM.instance.SetUnitControllerActiveOff();
+				GM.instance.SetFocusController(false);
 				//GM.instance.SetFocusController(false);
 				focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 				
@@ -555,7 +555,7 @@ public class UnitGUI : MonoBehaviour {
 				//Expend units action
 //				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
 
-			
+				GM.instance.SetFocusController(false);
 				focusObject.GetComponent<BaseClass>().unit_status.Action();		
 				CombatSystem.instance.AttackButtonClicked();
 				//isAction  = false;
@@ -667,7 +667,7 @@ public class UnitGUI : MonoBehaviour {
 				isRecruiting = false;
 			
 			}
-		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.vangaurd );
+		GUI.enabled =  false && (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.vangaurd );
 		
 		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
 			
@@ -734,6 +734,7 @@ public class UnitGUI : MonoBehaviour {
 
 	public void SmoothFollow(GameObject target){
 
+		lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
 		Vector3 focus =  target.transform.position;
 		

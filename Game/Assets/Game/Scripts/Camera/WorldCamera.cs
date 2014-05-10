@@ -41,7 +41,7 @@ public class WorldCamera : MonoBehaviour {
 	public GameObject MainCamera;
 	private GameObject ScrollAngle;
 
-	private float cameraMoveSpeed = 20f; // This values adjust the camera speed
+	private float cameraMoveSpeed = 50.0f; // This values adjust the camera speed
 	private float shiftBonus      = 45f; // This value will increase the speed while holding shift
 	private float mouseBoundary   = 5f; //This value is the padding around the screen to apply mouse movement
 
@@ -60,7 +60,7 @@ public class WorldCamera : MonoBehaviour {
 
 	[HideInInspector] public float cameraHeight; //Only for scrolling or zooming
 	[HideInInspector] public float cameraY; //this will change relative to terrain
-	private float maxCameraHeight = 50f;
+	private float maxCameraHeight = 200f;
 	public LayerMask TerrainOnly;
 	private float minDistanceToObject = 5f;
 
@@ -179,7 +179,7 @@ public class WorldCamera : MonoBehaviour {
 
 		RaycastHit hit;
 		float minCameraHeight = WorldTerrain.transform.position.y;
-
+		
 		if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, TerrainOnly)){
 
 			minCameraHeight = hit.point.y + minDistanceToObject;
@@ -228,6 +228,7 @@ public class WorldCamera : MonoBehaviour {
 
 		float ScrollWheelValue = -1*Input.GetAxis ("Mouse ScrollWheel") * easeFactor;
 		//check deadZone
+		
 		if ((ScrollWheelValue > -deadZone && ScrollWheelValue < deadZone) || ScrollWheelValue == 0f)
 			return;
 

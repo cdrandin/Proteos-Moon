@@ -61,18 +61,18 @@ public class CombatSystem : MonoBehaviour{
 				++index;
 				
 			gui_method -= UnitEnemyBox;
-			gui_method += UnitEnemyBox;
+			//gui_method += UnitEnemyBox;
 				
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow) ) {
 			print (index);
-			if(index - 1 < 0)
+			if(index - 1 <= -1)
 				index = 0;
 			else if (index - 1 >= 0)
 				--index;
 			
 			gui_method -= UnitEnemyBox;
-			gui_method += UnitEnemyBox;
+			//gui_method += UnitEnemyBox;
 			
 		}	
 	}
@@ -100,14 +100,14 @@ public class CombatSystem : MonoBehaviour{
 	public void FadeInOut(){
 	
 		if( showGUI ){	
-			alpha = Mathf.Lerp(alpha,0.0f ,Time.deltaTime*0.01f);
+			alpha = Mathf.Lerp(alpha,0.0f ,Time.deltaTime);
 			if (Mathf.Abs (alpha - 0 ) < 0.0001){
 				showGUI = !showGUI;
 				alpha = 0.0f;
 			}
 		}
 		else{
-			alpha = Mathf.Lerp(alpha , 1.0f ,Time.deltaTime*0.01f);
+			alpha = Mathf.Lerp(alpha , 1.0f ,Time.deltaTime);
 			if (Mathf.Abs (alpha - 1 ) < 0.0001f){
 				showGUI = !showGUI;
 				alpha = 1.0f;
@@ -198,11 +198,12 @@ public class CombatSystem : MonoBehaviour{
 	public void CombatLookAt(GameObject focus){
 	
 //		MainCamera.transform.LookAt();
+		
 		if(gui_method == null){
 			Vector3 direction = focus.transform.forward;
 			Vector3 attacker = focus.transform.position;
 			Vector3 enemy = enemyList[index].transform.position;
-			
+			print (enemyList[index].name);			
 			direction.y = 0.0f;
 			attacker.y = 0.0f;
 			enemy.y = 0.0f;
@@ -211,6 +212,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			gui_method += UnitEnemyBox;
 		}
+		
 		
 		//print (target.localPosition);
 		wantedRotationAngle = enemyList[index].transform.eulerAngles.y;
@@ -243,6 +245,16 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
 	public IEnumerator Attack(GameObject focusUnit){
+	
+		Vector3 direction = focusUnit.transform.forward;
+		Vector3 attacker = focusUnit.transform.position;
+		Vector3 enemy = enemyList[index].transform.position;
+		
+		direction.y = 0.0f;
+		attacker.y = 0.0f;
+		enemy.y = 0.0f;
+		
+		focusUnit.transform.eulerAngles = Quaternion.FromToRotation(direction, (enemy - attacker)).eulerAngles;		
 	
 		if(Input.GetKeyDown(KeyCode.Space) ) {	
 			isLabelOn = false;
