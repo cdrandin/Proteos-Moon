@@ -84,21 +84,25 @@ public class UnitStatus
 	
 	public void Gather()
 	{
+		this._status.Clean  = false;
 		this._status.Gather = true;
 	}
 
 	public void Move()
 	{
+		this._status.Clean  = false;
 		this._status.Move = true;
 	}
 
 	public void Action()
 	{
+		this._status.Clean  = false;
 		this._status.Action = true;
 	}
 
 	public void Rest()
 	{
+		this._status.Clean  = false;
 		this._status.Rest = true;
 	}
 	
