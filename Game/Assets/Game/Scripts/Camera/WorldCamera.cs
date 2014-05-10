@@ -67,9 +67,6 @@ public class WorldCamera : MonoBehaviour {
 	private bool _local;
 	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
 
-	
-	private float height = 5.0f;
-	private float heightDamping = 2.0f;
 	//private float rotationDamping = 3.0f;
 	public float DistanceFromPlayer = 5.0f;
 	

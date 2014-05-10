@@ -30,11 +30,11 @@ public enum UnitType
 public struct Status
 {
 public bool Clean,  // Has not moved, all actions avaliable
-	Move,   // Unit is moving
-	Action, // Unit has performed an action
-	Gather, // Unit is gathering a resource
-	Rest,   // Unit has exhuasted its exhuast bar or cannot perform any more actions
-	Dead ;  // Unit is dead (Not sure if needed)
+			Move,   // Unit is moving
+			Action, // Unit has performed an action
+			Gather, // Unit is gathering a resource
+			Rest,   // Unit has exhuasted its exhuast bar or cannot perform any more actions
+			Dead ;  // Unit is dead (Not sure if needed)
 }
 
 [System.Serializable]
@@ -82,8 +82,8 @@ public class UnitStatus
 		this._status.Dead   = false;
 	}
 	
-	public void Gather(){
-	
+	public void Gather()
+	{
 		this._status.Gather = true;
 	}
 
@@ -110,6 +110,5 @@ public class UnitStatus
 		this._status.Gather = false;
 		this._status.Rest   = true;
 		this._status.Dead   = true;
-	
 	}
 }

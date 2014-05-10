@@ -28,7 +28,7 @@ public class UnitNetworking : MonoBehaviour
 
 	// Update the unit's current position. Allowing it to move
 	[RPC]
-	void UpdatePosition(Vector3 position, Quaternion rotation)
+	void UpdateUnitTransformation(Vector3 position, Quaternion rotation)
 	{
 		if(GM.instance.IsOn)
 		{
@@ -45,6 +45,16 @@ public class UnitNetworking : MonoBehaviour
 		if(GM.instance.IsOn)
 		{
 			GM.instance.AddUnitToCurrentPlayerContainer(this.gameObject);
+		}
+	}
+
+	// Update the units status for both players.
+	[RPC]
+	public void UpdateUnitStatus(Status status)
+	{
+		if(GM.instance.IsOn)
+		{
+			this.gameObject.GetComponent<BaseClass>().unit_status.status = status;
 		}
 	}
 

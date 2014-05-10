@@ -11,17 +11,13 @@ using System.Collections;
 public class MovementStat 
 {
 	// How fast unit can move
-	[Range(0, 10)]
+	[Range(0, 50)]
 	[SerializeField]
 	private float _speed;
 
 	[Range(0,360)]
 	[SerializeField]
 	private float _rotation_speed;
-
-	// How much exhaust moving cost per frame
-	//[SerializeField]
-	private float _movement_cost_per_frame;
 
 	// How much the unit has traveled so far
 	//[SerializeField]
@@ -60,12 +56,7 @@ public class MovementStat
 	{
 		get { return _rotation_speed; }
 	}
-
-	public float movement_cost
-	{
-		get { return _movement_cost_per_frame; }
-	}
-
+	 
 	public float current_distance
 	{
 		get

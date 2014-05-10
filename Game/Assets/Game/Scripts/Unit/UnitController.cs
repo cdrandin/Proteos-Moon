@@ -120,7 +120,10 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.Move(movement);
 
-			_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitPosition();
+			_unit_focus_cc.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
+			                                              _unit_focus_cc.gameObject.transform.position, _unit_focus_cc.gameObject.transform.rotation);
+
+			//_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitTransformation();
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
@@ -239,9 +242,6 @@ public class UnitController : Photon.MonoBehaviour
 
 	public void SetFocusOnUnit(ref GameObject unit)
 	{
-		// -1 because enum _starts at 0 for player1
-		int player_num = int.Parse(unit.transform.parent.tag[unit.transform.parent.tag.Length-1].ToString()) - 1;
-
 		// Move valid unit
 		if(unit.tag == "Unit" || unit.tag == "Leader")
 		{
