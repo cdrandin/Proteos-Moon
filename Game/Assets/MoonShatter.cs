@@ -30,6 +30,7 @@ public class MoonShatter : MonoBehaviour {
 	void Update(){
 		if(Input.anyKey && !skipped){
 			StopCoroutine("MainMenuScene");
+			StopCoroutine("RumbleMoon");
 			transform.localPosition = GameObject.Find("EndPosition").transform.localPosition;
 			if(!brokenMoon.activeSelf){
 				brokenMoon.SetActive(true);
