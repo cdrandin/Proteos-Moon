@@ -79,6 +79,8 @@ public class UnitGUI : MonoBehaviour {
 			return (this.focusObject == null)?null:this.focusObject; 
 		}
 	}
+
+
 	
 	
 	public bool	isInitialize 
@@ -264,6 +266,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	#region UNIT GUI BUTTONS
+
 	
 	public void UnitInformationBox(){
 		
@@ -742,6 +745,12 @@ public class UnitGUI : MonoBehaviour {
 	
 	#region Helper Functions
 	
+	
+	public void RemoveUnitInformation(){
+	
+		gui_method -= UnitInfoLocation;
+	
+	}
 	
 	private Status GetCurrentFocusStatus(){
 		

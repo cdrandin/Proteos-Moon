@@ -48,11 +48,11 @@ public class TargetTransition : MonoBehaviour {
 			
 			int previousUnitIndex = unitIndex;
 			bool dirty = HandleUnitSwitching();
-			ClampIndexValue();
+			
 
 			//Input keys were called
 			if (dirty) {
-					
+				ClampIndexValue();
 				//These conditions choose which model to put the camera focus on
 				distanceToUnit = GetVectorDistanceFromUnit(previousUnitIndex);
 
@@ -129,7 +129,9 @@ public class TargetTransition : MonoBehaviour {
 		} else if (unitIndex >= GetCurrentList().Length) {
 			
 			unitIndex = 0;
-		}					
+		}
+		
+		UnitGUI.instance.RemoveUnitInformation();
 
 	}
 

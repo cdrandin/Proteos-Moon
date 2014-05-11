@@ -19,6 +19,9 @@ public class UnitHighlight : MonoBehaviour {
 	
 	void OnMouseOver()
 	{
+		print ("Is this mine? " + this.gameObject.GetPhotonView().isMine);
+		print ("Am I not restring? " + !this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest);
+		
 		if(!UnitGUI.instance.isInitialize && !this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest && this.gameObject.GetPhotonView().isMine)
 		{
 			
