@@ -155,7 +155,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Damage
       takeName: iPi Default take
-      firstFrame: 153
+      firstFrame: 178
       lastFrame: 281
       wrapMode: 0
       orientationOffsetY: 0

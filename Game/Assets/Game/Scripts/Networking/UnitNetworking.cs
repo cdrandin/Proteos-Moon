@@ -72,7 +72,23 @@ public class UnitNetworking : MonoBehaviour
 	{
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		unit.DealDamage(inc_damage);
-		this.gameObject.GetComponentInChildren<AnimationTriggers>().DamageAnimation((int)unit.vital.HP.current);
+	}
+	
+	[RPC]
+	public void DamageAnimation(float inc_damage){
+	
+		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
+		
+		int newHealth = 0;
+		
+		if( unit.vital.HP.current - inc_damage > 0) {
+		
+			newHealth = (int)(unit.vital.HP.current - inc_damage);
+		
+		}
+		
+		this.gameObject.GetComponentInChildren<AnimationTriggers>().DamageAnimation(newHealth);
+	
 	}
 
 	[RPC]
