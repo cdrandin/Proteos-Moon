@@ -122,9 +122,6 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
 			                                              _unit_focus_cc.gameObject.transform.position, _unit_focus_cc.gameObject.transform.rotation);
-
-
-			//_unit_focus_cc.gameObject.GetComponent<UnitNetworking>().UpdateUnitTransformation();
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
