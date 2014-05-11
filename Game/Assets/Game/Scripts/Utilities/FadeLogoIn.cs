@@ -3,24 +3,15 @@ using System.Collections;
 
 public class FadeLogoIn : MonoBehaviour {
 	public GUITexture Logo;
-	//public float delay = 1.0f;
-	// Use this for initialization
+
 	void Start () {
-		//float timer = 0.0f;
-		//if (timer <= delay){
-			//timer += Time.deltaTime;
-			//return;
-		//}
-		//else{
-			StartCoroutine("ChangeTransparency");
-		//}
+		StartCoroutine("ChangeTransparency");
 	}
 
 	IEnumerator ChangeTransparency(){
 		float startTime = Time.time;
 		float duration = 5.0f;
 		float elapsed;
-		//float alpha;
 
 		do
 		{  // calculate how far through we are
