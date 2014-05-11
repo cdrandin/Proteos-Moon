@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
 public class AnimationTriggers : MonoBehaviour {
@@ -20,10 +21,11 @@ public class AnimationTriggers : MonoBehaviour {
 	int attack_style_hash = Animator.StringToHash("attack_style");
 	//int isMoving_hash = Animator.StringToHash("isMoving");
 	int health_hash = Animator.StringToHash("Health");
-	
+	int speed_hash = Animator.StringToHash("Speed");
 	AnimatorStateInfo stateInfo;
 	int number_of_attacks;
 	
+//	float hit_time;
 	
 	void Start ()
 	{
@@ -40,12 +42,20 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	public void MoveAnimation(float move_scalar){
 	
-		anim.SetFloat("Speed", move_scalar);		
+		anim.SetFloat(speed_hash, move_scalar);		
 		
 	
 	}
 	
-	public AnimatorStateInfo AttackAnimation(){
+	//An event in the script
+	public void Hit_Time(float new_hit_time){
+	
+		//TODO: add attack Noise
+//		hit_time = new_hit_time;
+		
+	}
+	
+	public void AttackAnimation(){
 		
 		if( stateInfo.nameHash == ready_state_hash){
 		
@@ -59,11 +69,22 @@ public class AnimationTriggers : MonoBehaviour {
 			int attack_value = temp;
 			*/
 			
-			anim.SetInteger(attack_style_hash, attack_value);
-			Debug.Log(attack_value);
-			anim.SetTrigger (attack_hash);		
+			anim.SetInteger(attack_style_hash, 0);
+			anim.SetTrigger (attack_hash);
+
+
+			/*
+			AnimationInfo[] test = anim.GetCurrentAnimationClipState(0);
+			
+			AnimationEvent[] events = AnimationUtility.GetAnimationEvents( test[0].clip) ;
+			print ("Animation Clip name " + test[0].clip.name);
+			print("Length of events " + events.Length);
+			print (events[0].functionName);
+			print (events[0].time);
+			*/
+		
 		}
-		return anim.GetCurrentAnimatorStateInfo(0);
+		
 	}
 	
 	public void DamageAnimation(int newHealth){

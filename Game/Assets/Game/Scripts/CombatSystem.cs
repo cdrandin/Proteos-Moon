@@ -265,12 +265,17 @@ public class CombatSystem : MonoBehaviour{
 			
 			//float newHealth = enemyList[index].GetComponent<BaseClass>().vital.HP.current - damage;
 			
-			AnimatorStateInfo attack_anim = focusUnit.GetComponentInChildren<AnimationTriggers>().AttackAnimation();
+			focusUnit.GetComponentInChildren<AnimationTriggers>().AttackAnimation();
 			
-			yield return new WaitForSeconds ( attack_anim.length/2.0f );
+			
+			enemyList[index].GetComponent<PhotonView>().RPC("DamageAnimation", PhotonTargets.AllBuffered, damage);
+			
+			yield return new WaitForSeconds ( 1.0f );
 			
 			enemyList[index].GetComponent<PhotonView>().RPC("DealDamage", PhotonTargets.AllBuffered, damage);
 			
+			
+			yield return new WaitForSeconds ( 1.0f );
 			
 			gui_method -= UnitEnemyBox;
 			
@@ -292,7 +297,8 @@ public class CombatSystem : MonoBehaviour{
 		
 		for(uint j = 0; j < GM.instance.NumberOfPlayers; ++j){
 		
-			if((Player)j == GM.instance.CurrentPlayer)
+			//If I am this player, skip to next player
+			if((Player)j == GM.instance.WhichPlayerAmI)
 				continue;
 
 			GameObject [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer ((Player)j);

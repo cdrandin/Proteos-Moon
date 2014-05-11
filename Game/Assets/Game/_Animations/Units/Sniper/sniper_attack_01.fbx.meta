@@ -155,7 +155,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Attack
       takeName: iPi Default take
-      firstFrame: 86
+      firstFrame: 112
       lastFrame: 213
       wrapMode: 0
       orientationOffsetY: -65

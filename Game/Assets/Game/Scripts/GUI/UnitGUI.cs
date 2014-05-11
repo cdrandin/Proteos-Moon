@@ -239,7 +239,7 @@ public class UnitGUI : MonoBehaviour {
 		if( WorldCamera.instance.IsCameraOnControlsOn()  && (Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed()) ){
 			
 			RemoveGUI();
-
+			CombatSystem.ResetCombatSystem();
 			ResetFlags();
 			
 		}
