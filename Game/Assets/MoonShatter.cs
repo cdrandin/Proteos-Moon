@@ -46,7 +46,7 @@ public class MoonShatter : MonoBehaviour {
 			skipped = true;
 		}
 		timer += Time.deltaTime;
-		if(timer >= 30.0f){
+		if(timer >= 25.0f){
 			GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
 			if (fireballs != null){
 				for (int i = 0; i < fireballs.Length; i++){
