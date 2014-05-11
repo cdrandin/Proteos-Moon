@@ -17,14 +17,11 @@ public class MoonShatter : MonoBehaviour {
 	private bool skipped = false;
 	private float timer;
 
-	void Awake(){
-		//explosion.SetActive(false);
-	}
-
 	void Start () {
 		StartCoroutine("RumbleMoon");
 		StartCoroutine("MainMenuScene");
 		timer = 0.0f;
+		Invoke("DestroyFireballs", 25.0f);
 	}
 
 	void Update(){
@@ -38,25 +35,19 @@ public class MoonShatter : MonoBehaviour {
 			}
 			mainMenu.SetActive(true);
 			gameLogo.SetActive(true);
-			GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
-			if (fireballs != null){
-				for (int i = 0; i < fireballs.Length; i++){
-					Destroy(fireballs[i]);
-				}
-			}
+			Invoke ("DestroyFireballs", 0.0f);
 			skipped = true;
-		}
-		timer += Time.deltaTime;
-		if(timer >= 25.0f){
-			GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
-			if (fireballs != null){
-				for (int i = 0; i < fireballs.Length; i++){
-					Destroy(fireballs[i]);
-				}
-			}
 		}
 	}
 
+	void DestroyFireballs(){
+		GameObject[] fireballs = GameObject.FindGameObjectsWithTag("Fireball");
+		if (fireballs != null){
+			for (int i = 0; i < fireballs.Length; i++){
+				Destroy(fireballs[i]);
+			}
+		}
+	}
 	IEnumerator RumbleMoon(){
 		bool shake = true;
 		float timer = 0.0f;
