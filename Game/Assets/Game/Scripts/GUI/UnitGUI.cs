@@ -22,7 +22,7 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject focusTemp, focusObject;
 	private bool _isInitialize, smoothPos, isMoving, proteus, isAction,isRecruiting;
 	public float lookAtHeight = 1.0f, DistancefromPlayer = 3.0f;
-	private float heightDamping = 2.0f , rotationDamping = 3.0f;//, button_pos = Screen.width - 250;
+	public float heightDamping = 2.0f , rotationDamping = 3.0f;//, button_pos = Screen.width - 250;
 	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
 	public float distanceScale;
 	private Quaternion currentRotation;
