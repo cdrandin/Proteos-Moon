@@ -279,8 +279,6 @@ public class CombatSystem : MonoBehaviour{
 			
 			gui_method -= UnitEnemyBox;
 			
-			print ("Health" + enemyList[index].GetComponent<BaseClass>().vital.HP.current);
-			
 			if(enemyList[index].GetComponent<BaseClass>().vital.HP.current == 0)
 			{
 				enemyList[index].GetComponent<BaseClass>().unit_status.Dead();
