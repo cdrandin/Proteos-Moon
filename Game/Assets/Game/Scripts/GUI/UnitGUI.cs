@@ -230,7 +230,7 @@ public class UnitGUI : MonoBehaviour {
 			
 			CombatSystem.instance.CombatLookAt(focusObject);;
 			
-		}
+		} 
 		
 	}
 	
