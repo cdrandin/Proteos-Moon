@@ -278,6 +278,7 @@ public class GM : Photon.MonoBehaviour
 		}
 
 		_leaders = Get_Leaders;
+		ResetLeaders();
 
 		// Distinguish which leader belongs to which player
 		// Make sure there is a player container prepared already.
@@ -920,9 +921,6 @@ public class GM : Photon.MonoBehaviour
 			GameObject unit = _recruit_system.SpawnUnit(unit_type);
 
 			unit.GetPhotonView().RPC("ParentUnitToCurrentPlayerContainer", PhotonTargets.AllBuffered);	
-
-			// Put unit into appropriate player's container
-			//this.photonView.RPC ("AddUnitToCurrentPlayersContainer", PhotonTargets.All, (int)unit_type);
 		} 
 	}
 
