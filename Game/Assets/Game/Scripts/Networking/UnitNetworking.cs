@@ -35,7 +35,7 @@ public class UnitNetworking : MonoBehaviour
 			// Get the unit in which to move
 			this.gameObject.transform.position = position;
 			this.gameObject.transform.rotation = rotation;
-			this.gameObject.GetComponent<AnimationTriggers>().MoveAnimation(Input.GetAxis("Vertical"));
+			this.gameObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(Input.GetAxis("Vertical"));
 		}
 	}
 	
