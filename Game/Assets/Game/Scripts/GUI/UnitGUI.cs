@@ -153,22 +153,20 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	
-	void Start () {
-		//Initialize World Camera Object
-		//worldCamera = GameObject.Find("WorldCamera");
-		
-		procite_locations = GameObject.FindGameObjectsWithTag("Resource");
-		_rs               = GameObject.FindObjectOfType<RecruitSystem>();
-		
-		//unit_character_controller = GameObject.FindWithTag("UnitController");
-		
-	}
-	
-	
 	// Update is called once per frame
 	void Update () {
 		if(GM.instance.IsOn)
 		{
+			if(procite_locations == null)
+			{
+				procite_locations = GameObject.FindGameObjectsWithTag("Resource");
+			}
+
+			if(_rs == null)
+			{
+				_rs = GameObject.FindObjectOfType<RecruitSystem>();
+			}
+
 			if(GM.instance.IsItMyTurn())
 			{
 				if(!_reset_once)
