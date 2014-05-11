@@ -223,7 +223,8 @@ public class UnitGUI : MonoBehaviour {
 	
 	void LateUpdate(){
 		if(isMoving && focusObject != null){
-			SmoothFollow(focusObject);
+			Camera.main.gameObject.GetComponent<SmoothFollow>().target = focusObject.transform;
+			//SmoothFollow(focusObject);
 			
 		}
 		if(focusObject != null && CombatSystem.instance.CheckIfAttacking()){
@@ -253,6 +254,7 @@ public class UnitGUI : MonoBehaviour {
 		this.gui_method -= ActionSelectionButtons;
 		this.gui_method -= MovementEndButton;
 		GM.instance.SetUnitControllerActiveOff();
+		Camera.main.gameObject.GetComponent<SmoothFollow>().target = null;
 	}
 	
 	void OnGUI(){
@@ -554,6 +556,7 @@ public class UnitGUI : MonoBehaviour {
 				if(GM.instance.CurrentFocus != null)
 					GM.instance.SetFocusController(false);
 				//GM.instance.SetFocusController(false);
+				Camera.main.gameObject.GetComponent<SmoothFollow>().target = null;
 				focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 				
 				isMoving = false;

@@ -130,7 +130,7 @@ public class WorldCamera : MonoBehaviour {
 	
 	void InitializeMainCamera(){
 	
-		MainCamera = GameObject.Find ("Main Camera");
+		MainCamera = Camera.main.gameObject;
 		
 		MainCamera.GetComponent<AudioListener>().enabled = true;
 		MainCamera.GetComponent<Camera>().enabled = true;

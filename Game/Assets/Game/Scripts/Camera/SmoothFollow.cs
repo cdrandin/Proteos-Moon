@@ -33,7 +33,7 @@ public class SmoothFollow : MonoBehaviour {
 
 	void LateUpdate () {
 		// Early out if we don't have a target
-		if (!target)
+		if (target == null)
 			return;
 		
 		// Calculate the current rotation angles
