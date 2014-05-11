@@ -746,9 +746,10 @@ public class UnitGUI : MonoBehaviour {
 	#region Helper Functions
 	
 	
-	public void RemoveUnitInformation(){
+	public void UpdateUnitInformation(){
 	
 		gui_method -= UnitInfoLocation;
+		gui_method += UnitInfoLocation;
 	
 	}
 	
