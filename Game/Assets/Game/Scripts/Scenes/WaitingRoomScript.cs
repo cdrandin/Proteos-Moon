@@ -7,7 +7,7 @@ public class WaitingRoomScript : Photon.MonoBehaviour {
 	public GUISkin skin;
 	public Texture2D mena_texture, menaBio;
 	public Texture2D seita_texture, seitaBio;
-	public ProteusChat proteusChat;
+	private ProteusChat proteusChat;
 	public GameObject mena, seita;
 	private GUIStyle header, loading, question, portrait, readyButton, checkmark, leaderInfo;
 	private bool leader_chosen = false;
