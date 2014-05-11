@@ -480,7 +480,7 @@ public class UnitGUI : MonoBehaviour {
 			
 		}
 		
-		GUI.enabled = proteus && !isAction && !GetCurrentFocusStatus().Gather;	
+		GUI.enabled =  NearProcite() && !isAction && !GetCurrentFocusStatus().Gather;	
 		if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
 			
 			/*
