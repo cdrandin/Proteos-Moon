@@ -48,17 +48,20 @@ public class TargetTransition : MonoBehaviour {
 			
 			int previousUnitIndex = unitIndex;
 			bool dirty = HandleUnitSwitching();
-			
+			ClampIndexValue();
 
 			//Input keys were called
 			if (dirty) {
-				ClampIndexValue();
+				
 				//These conditions choose which model to put the camera focus on
 				distanceToUnit = GetVectorDistanceFromUnit(previousUnitIndex);
 
 				//Find the new position
 				//GM.instance.controll
-				
+				print (GetCurrentList() [unitIndex].name);
+				GM.instance.SetUnitControllerActiveOff();
+				GM.instance.SetUnitControllerActiveOn ( ref GetCurrentList() [unitIndex] );
+				UnitGUI.instance.UpdateUnitInformation();
 				newPosition = GetCurrentList() [unitIndex].transform.position + distanceToUnit;
 				interpolate = true;
 			}
@@ -129,9 +132,8 @@ public class TargetTransition : MonoBehaviour {
 			
 			unitIndex = 0;
 		}
-		GM.instance.SetUnitControllerActiveOff();
-		GM.instance.SetUnitControllerActiveOn ( ref GetCurrentList() [unitIndex] );
-		UnitGUI.instance.UpdateUnitInformation();
+		
+
 
 	}
 
