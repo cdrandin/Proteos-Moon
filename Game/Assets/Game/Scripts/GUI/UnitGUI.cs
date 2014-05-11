@@ -748,8 +748,8 @@ public class UnitGUI : MonoBehaviour {
 	
 	public void UpdateUnitInformation(){
 	
-		gui_method -= UnitInformationBox;
-		gui_method += UnitInformationBox;
+		RemoveGUI();
+		ResetFlags();
 	
 	}
 	
