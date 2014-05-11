@@ -26,7 +26,7 @@ public class GameGUIInfo : MonoBehaviour {
 		                                                                                          GM.instance.GetResourceFrom(GM.instance.WhichPlayerAmI),
 		                                                                                          GM.instance.MaxResourceLimit), textColor);
 
-		if(GM.instance.IsThereAWinner())
+		if(GM.instance.Winner != Player.NONE)
 		{
 			if(GM.instance.DidIWin())
 			{

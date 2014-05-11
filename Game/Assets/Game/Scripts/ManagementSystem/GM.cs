@@ -814,7 +814,8 @@ public class GM : Photon.MonoBehaviour
 				{
 					if(!_leaders[i].GetComponent<BaseClass>().unit_status.status.Dead)
 					{
-						_winner =(Player)i;
+						this.photonView.RPC("Win", PhotonTargets.AllBuffered, i);
+						//_winner =(Player)i;
 						is_winner = true;
 						i = _leaders.Length;
 					}
@@ -823,6 +824,12 @@ public class GM : Photon.MonoBehaviour
 		}
 
 		return is_winner;
+	}
+
+	[RPC]
+	void Win(int player)
+	{
+		_winner = (Player)player;
 	}
 
 	/// <summary>
