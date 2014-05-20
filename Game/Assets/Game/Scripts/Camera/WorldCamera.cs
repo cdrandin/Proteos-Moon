@@ -80,6 +80,7 @@ public class WorldCamera : MonoBehaviour {
 	
 	void Awake()
 	{
+		
 		this.transform.localEulerAngles = Vector3.zero;
 		instance = this;	
 		//_local = true; // simply bool to show local host
@@ -88,7 +89,7 @@ public class WorldCamera : MonoBehaviour {
 	}
 	
 	void Start () {
-		
+
 		InitializeMainCamera();
 		this.transform.localEulerAngles = Vector3.zero;
 		//Declare camera limits
@@ -101,12 +102,13 @@ public class WorldCamera : MonoBehaviour {
 		cameraLimits.BottomLimit = WorldTerrain.transform.position.z + WorldTerrainPadding;
 		
 
-		cameraHeight = transform.position.y;
+		//cameraHeight = transform.position.y;
 		
 		lookAtHeight = 5;
 		
 		distanceScale = 1.0f;
 		DistancefromPlayer = 3.5f;
+		
 		//ScrollAngle = gameObject;
 		
 	}
@@ -114,16 +116,17 @@ public class WorldCamera : MonoBehaviour {
 	public void LeaderFocus(){
 	
 	
-		this.transform.position = GM.instance.Photon_Leader.transform.position;
+		transform.position = GM.instance.Photon_Leader.transform.position;
 		
-		this.transform.position -= GM.instance.Photon_Leader.transform.forward * 
+		transform.position -= GM.instance.Photon_Leader.transform.forward * 
 								   GM.instance.Photon_Leader.transform.localScale.y * 
 								   GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2;
-		this.transform.position = new Vector3(this.transform.position.x, 
-		                                      this.transform.position.y +( GM.instance.Photon_Leader.transform.localScale.y *  GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2) 
-		                                      ,this.transform.position.z );
-		
-		this.WorldCamLookAt(GM.instance.Photon_Leader );
+		transform.position = new Vector3(transform.position.x, 
+		                                      transform.position.y +( GM.instance.Photon_Leader.transform.localScale.y *  GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2) 
+		                                      ,transform.position.z );
+		cameraHeight = GM.instance.Photon_Leader.transform.localScale.y *  GM.instance.Photon_Leader.GetComponent<CapsuleCollider>().height * 2;
+		cameraY = transform.position.y;
+		WorldCamLookAt(GM.instance.Photon_Leader );
 		
 	}
 	
@@ -148,7 +151,6 @@ public class WorldCamera : MonoBehaviour {
 	void Update (){}
 
 	void LateUpdate () {
-		
 		if(cameraOn ){
 			
 			HandleMouseRotation ();
@@ -177,11 +179,12 @@ public class WorldCamera : MonoBehaviour {
 
 		RaycastHit hit;
 		float minCameraHeight = WorldTerrain.transform.position.y;
-		
+
 		if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, TerrainOnly)){
 
 			minCameraHeight = hit.point.y + minDistanceToObject;
 		}
+
 		return minCameraHeight;
 
 	}
@@ -263,7 +266,7 @@ public class WorldCamera : MonoBehaviour {
 		float deadZone = 0.0001f;
 		
 		if(Physics.Raycast(desiredPosition, Vector3.down, out hit, Mathf.Infinity)){
-			
+			print ("1 Camera Height " + cameraHeight + " HitPoint " + hit.point.y + " Camera Y " + cameraY);
 			float newHeight = cameraHeight + hit.point.y;
 			
 			float heightDifference = newHeight - cameraY;
@@ -273,7 +276,8 @@ public class WorldCamera : MonoBehaviour {
 			if(newHeight > maxCameraHeight || newHeight < MinCameraHeight()) return;
 			
 			cameraY = newHeight;
-
+			print ("2 Camera Height " + cameraHeight + " HitPoint " + hit.point.y + " Camera Y " + cameraY);
+			
 		}
 		return;
 
@@ -288,11 +292,12 @@ public class WorldCamera : MonoBehaviour {
 		//smooth damp
 		float smoothTime = 0.1f;
 		float yVelocity = 0.0f;
-
+		
+		//print ("Current height " + transform.position.y + " Current cameraY " + cameraY);
 		float newPoisitionY = Mathf.SmoothDamp (transform.position.y, cameraY, ref yVelocity, smoothTime);
 
 		if (newPoisitionY < maxCameraHeight) {
-
+			
 			transform.position = new Vector3(transform.position.x, newPoisitionY, transform.position.z);
 
 		}
@@ -311,7 +316,7 @@ public class WorldCamera : MonoBehaviour {
 	//Works out the cameras desired location depending on the players input
 	public Vector3 GetDesiredTranslation()
 	{
-		float moveSpeed = 10f;
+		float moveSpeed = 5f;
 		Vector3 desiredTranslation = new Vector3 ();
 		
 		if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
@@ -332,7 +337,6 @@ public class WorldCamera : MonoBehaviour {
 		
 		if (Input.GetKey (KeyCode.D))
 			desiredTranslation += Vector3.right * moveSpeed;
-
 		return desiredTranslation;
 	}
 	
