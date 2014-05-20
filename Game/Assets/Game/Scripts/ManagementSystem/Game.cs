@@ -69,7 +69,7 @@ public class Game : Photon.MonoBehaviour
 		fow_terrain.materialTemplate = fow_material;
 	}
 	//HACK
-	bool showDebug = false;
+	bool showDebug = true;
 
 	void OnLeftRoom(){
 		PhotonNetwork.LoadLevel(1);
