@@ -16,13 +16,13 @@ public class AnimationTriggers : MonoBehaviour {
 	
 	int idle_state_hash = Animator.StringToHash("Base Layer.Idle");
 	int ready_state_hash = Animator.StringToHash("Base Layer.Ready");
-	int num_of_attacks_hash = Animator.StringToHash("num_of_attacks");
+	//int num_of_attacks_hash = Animator.StringToHash("num_of_attacks");
 	int attack_style_hash = Animator.StringToHash("attack_style");
 	//int isMoving_hash = Animator.StringToHash("isMoving");
 	int health_hash = Animator.StringToHash("Health");
 	int speed_hash = Animator.StringToHash("Speed");
 	AnimatorStateInfo stateInfo;
-	int number_of_attacks;
+	//int number_of_attacks;
 	
 //	float hit_time;
 	
@@ -30,7 +30,7 @@ public class AnimationTriggers : MonoBehaviour {
 	{
 		
 		anim = GetComponent<Animator>();
-		number_of_attacks = anim.GetInteger(num_of_attacks_hash);
+		//number_of_attacks = anim.GetInteger(num_of_attacks_hash);
 	}
 	
 	
@@ -58,7 +58,7 @@ public class AnimationTriggers : MonoBehaviour {
 		
 		if( stateInfo.nameHash == ready_state_hash){
 		
-			int	attack_value = Random.Range(0, number_of_attacks);
+			//int	attack_value = Random.Range(0, number_of_attacks);
 			/*
 			++temp;
 			if(temp >= number_of_attacks){

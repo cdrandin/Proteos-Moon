@@ -15,12 +15,10 @@ public class MoonShatter : MonoBehaviour {
 	public GameObject mainMenu;
 	public GameObject gameLogo;
 	private bool skipped = false;
-	private float timer;
 
 	void Start () {
 		StartCoroutine("RumbleMoon");
 		StartCoroutine("MainMenuScene");
-		timer = 0.0f;
 		Invoke("DestroyFireballs", 25.0f);
 	}
 

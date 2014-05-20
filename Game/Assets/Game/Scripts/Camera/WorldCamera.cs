@@ -63,7 +63,7 @@ public class WorldCamera : MonoBehaviour {
 	public LayerMask TerrainOnly;
 	public float minDistanceToObject = 10f;
 
-	private bool _local;
+	//private bool _local;
 	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
 
 	//private float rotationDamping = 3.0f;
@@ -81,7 +81,7 @@ public class WorldCamera : MonoBehaviour {
 	{
 		this.transform.localEulerAngles = Vector3.zero;
 		instance = this;	
-		_local = true; // simply bool to show local host
+		//_local = true; // simply bool to show local host
 		ScrollAngle =  new GameObject("ScrollAngle");
 		ScrollAngle.transform.parent = gameObject.transform;
 	}

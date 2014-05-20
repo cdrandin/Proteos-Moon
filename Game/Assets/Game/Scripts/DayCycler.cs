@@ -15,11 +15,11 @@ public class DayCycler : MonoBehaviour
 	private float current_hour_cap;
 
 	private TOD_Sky sky;
-	private float _current_time;
+	//private float _current_time;
 
 	void Start ()
 	{
-		_current_time = Time.fixedTime;
+		//_current_time = Time.fixedTime;
 	}
 
 	// Update is called once per frame
