@@ -15,7 +15,6 @@ public class HorizontalSlowMovement : MonoBehaviour
 	// Entered the movement impairing object
 	void OnTriggerEnter(Collider other)
 	{
-		Debug.Log("OnTriggerEnter");
 		BaseClass unit = other.gameObject.GetComponent<BaseClass>();
 		if(unit != null)
 		{

@@ -137,7 +137,6 @@ public class BaseClass : MonoBehaviour
 	public void ModMovement(float amount)
 	{
 		UnitController unit_cc = GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>();
-
 		unit_cc.mod_speed = _movement.speed * amount;
 	}
 

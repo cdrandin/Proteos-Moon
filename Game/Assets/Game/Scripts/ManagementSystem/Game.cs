@@ -100,8 +100,6 @@ public class Game : Photon.MonoBehaviour
 
 			if(wcm != null)
 			{
-				Debug.Log(string.Format("Game: FOCUS OBJECT {0}", (__focus_object == null)?"NULL":__focus_object.name));
-
 				if(Input.GetMouseButtonDown(0) && wcm.MainCamera != null)
 				{
 					// Reset timer for display the resource text
