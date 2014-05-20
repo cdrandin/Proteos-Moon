@@ -20,6 +20,17 @@ public class ByteStats
 	}
 }
 
+public enum BaseStatID:byte
+{
+	STAMINA,
+	STRENGTH,
+	AGILITY,
+	INTELLECT,
+	RECOVERY,
+	PHYSICAL_DEFENSE,
+	MAGICAL_DEFENSE
+}
+
 [System.Serializable]
 public class BaseStat 
 {
@@ -45,7 +56,6 @@ public class BaseStat
 	[SerializeField] 
 	private ByteStats _magical_def;
 
-	/*
 	public BaseStat(byte stamina, byte strength, byte intellect, byte recovery, byte p_def, byte m_def, byte max=byte.MaxValue)
 	{
 		this._stamina      = new ByteStats(stamina, max);
@@ -55,7 +65,6 @@ public class BaseStat
 		this._physical_def = new ByteStats(p_def, max);
 		this._magical_def  = new ByteStats(m_def, max);
 	}
-	*/
 
 	// Getters and Setters
 	public ByteStats Stamina

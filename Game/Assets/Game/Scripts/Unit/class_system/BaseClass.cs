@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent (typeof(UnitActions), typeof(UnitNetworking))]
 public class BaseClass : MonoBehaviour 
@@ -30,6 +31,9 @@ public class BaseClass : MonoBehaviour
 
 	[SerializeField]
 	private int _gather_amount;
+
+	//[SerializeField]
+	//private List<StatBuff> _stat_buffs;
 
 	public BaseStat base_stat
 	{
@@ -73,6 +77,43 @@ public class BaseClass : MonoBehaviour
 	public void DealDamage(float damage)
 	{
 		_vital.HP.current -= damage;
+	}
+
+	public void BuffStat(BaseStatID stat, int amount)
+	{
+		byte amnt = (byte)amount;
+
+		switch(stat)
+		{
+		case BaseStatID.AGILITY:
+			_base_stat.Agility.max += amnt;
+			_base_stat.Agility.current += amnt;
+			break;
+		case BaseStatID.INTELLECT:
+			_base_stat.Intellect.max += amnt;
+			_base_stat.Intellect.current += amnt;
+			break;
+		case BaseStatID.MAGICAL_DEFENSE:
+			_base_stat.Magical_def.max += amnt;
+			_base_stat.Magical_def.current += amnt;
+			break;
+		case BaseStatID.PHYSICAL_DEFENSE:
+			_base_stat.Physical_def.max += amnt;
+			_base_stat.Physical_def.current += amnt;
+			break;
+		case BaseStatID.RECOVERY:
+			_base_stat.Recovery.max += amnt;
+			_base_stat.Recovery.current += amnt;
+			break;
+		case BaseStatID.STAMINA:
+			_base_stat.Stamina.max += amnt;
+			_base_stat.Stamina.current += amnt;
+			break;
+		case BaseStatID.STRENGTH:
+			_base_stat.Strength.max += amnt;
+			_base_stat.Strength.current += amnt;
+			break;
+		}
 	}
 
 	void FixedUpdate()
