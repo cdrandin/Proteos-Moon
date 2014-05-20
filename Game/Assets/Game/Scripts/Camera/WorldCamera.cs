@@ -266,7 +266,6 @@ public class WorldCamera : MonoBehaviour {
 		float deadZone = 0.0001f;
 		
 		if(Physics.Raycast(desiredPosition, Vector3.down, out hit, Mathf.Infinity)){
-			print ("1 Camera Height " + cameraHeight + " HitPoint " + hit.point.y + " Camera Y " + cameraY);
 			float newHeight = cameraHeight + hit.point.y;
 			
 			float heightDifference = newHeight - cameraY;
@@ -276,7 +275,6 @@ public class WorldCamera : MonoBehaviour {
 			if(newHeight > maxCameraHeight || newHeight < MinCameraHeight()) return;
 			
 			cameraY = newHeight;
-			print ("2 Camera Height " + cameraHeight + " HitPoint " + hit.point.y + " Camera Y " + cameraY);
 			
 		}
 		return;
@@ -293,7 +291,6 @@ public class WorldCamera : MonoBehaviour {
 		float smoothTime = 0.1f;
 		float yVelocity = 0.0f;
 		
-		//print ("Current height " + transform.position.y + " Current cameraY " + cameraY);
 		float newPoisitionY = Mathf.SmoothDamp (transform.position.y, cameraY, ref yVelocity, smoothTime);
 
 		if (newPoisitionY < maxCameraHeight) {
