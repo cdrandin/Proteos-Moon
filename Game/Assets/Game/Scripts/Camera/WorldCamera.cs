@@ -443,7 +443,7 @@ public class WorldCamera : MonoBehaviour {
 		//	mainCamera.transform.LookAt(target);
 		
 	
-		MainCamera.transform.LookAt(focus);
+		transform.LookAt(focus);
 	
 		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
 		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);
