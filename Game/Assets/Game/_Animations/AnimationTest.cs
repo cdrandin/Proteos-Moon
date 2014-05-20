@@ -10,7 +10,7 @@ public class AnimationTest : MonoBehaviour {
 	void Start () {
 		anim = gameObject.GetComponentInChildren<AnimationTriggers>()	;
 		
-		WorldCamera.instance.SmoothFollow(follow);
+//		WorldCamera.instance.SmoothFollow(follow);
 	}
 	
 	// Update is called once per frame

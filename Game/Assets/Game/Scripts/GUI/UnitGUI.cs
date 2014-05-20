@@ -454,6 +454,7 @@ public class UnitGUI : MonoBehaviour {
 			//WorldCamera.instance.MainCamera = CurrentMainCamera();
 			WorldCamera.instance.TurnCameraControlsOff();
 			
+			
 			gui_method += MovementEndButton;
 			//unit_character_controller = GameObject.FindWithTag("UnitController");
 			smoothPos = true;
