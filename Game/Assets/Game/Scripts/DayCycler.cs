@@ -9,6 +9,7 @@ using System.Collections;
 
 public class DayCycler : MonoBehaviour 
 {
+	public float start_time;
 	public int round_per_day = 12;
 	public float day_period  = 30.0f;
 
@@ -20,6 +21,7 @@ public class DayCycler : MonoBehaviour
 	void Start ()
 	{
 		_current_time = Time.fixedTime;
+		sky.Cycle.Hour = start_time;
 	}
 
 	// Update is called once per frame
@@ -30,7 +32,8 @@ public class DayCycler : MonoBehaviour
 			if(sky == null)
 				sky = GameObject.FindGameObjectWithTag("SkyDome").GetComponent<TOD_Sky>();
 
-			sky.Cycle.Hour = Time.time/40.0f;;
+
+			sky.Cycle.Hour = Time.time/40.0f;
 
 			// How much the time should progress for current round
 			current_hour_cap = (24.0f*((float)GM.instance.CurrentRound/(float)round_per_day))%24.0f;
