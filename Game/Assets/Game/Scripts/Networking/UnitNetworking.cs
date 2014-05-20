@@ -5,14 +5,28 @@
  */
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitNetworking : MonoBehaviour
 {
+	
+	private struct MovementInfo{
+	
+		public Transform currentTransform;
+		public bool isInOtherPlayerFOV;
+	
+	}
+
+	private Transform myTransform;
+
+	private List<MovementInfo> movementList;
+
 	private PhotonView _my_photon_view;
 	
 	// Use this for initialization
 	void Start ()
 	{
+		myTransform = this.transform;
 		_my_photon_view = this.gameObject.GetPhotonView();
 	}
 
@@ -25,6 +39,47 @@ public class UnitNetworking : MonoBehaviour
 			_my_photon_view.RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation);	
 		}
 	}
+
+
+	IEnumerator WhileMoving(){
+	
+		movementList.Clear();
+		
+		MovementInfo newTransform;
+		
+		Player otherPlayer = (Player)((int)GM.instance.WhichPlayerAmI + 1 % GM.instance.NumberOfPlayers);
+//		GameObject [] enemyList = GM.instance.GetEnemyUnitsNearPlayer(otherPlayer);
+		
+		newTransform.currentTransform = this.transform;
+		
+		int index = 1;
+		
+		float delta = 0.25f;
+		
+		while(true){
+		
+			if (Mathf.Abs( (this.transform.position.sqrMagnitude - movementList[index].currentTransform.position.sqrMagnitude) ) > 1.0f){
+				
+				newTransform.currentTransform = this.transform;
+				
+				++index;
+			}
+			
+			yield return new WaitForSeconds(delta);
+		}
+	
+	}
+	
+	public bool CanTheOtherPlayerSeeMe(GameObject[] enemyList){
+	
+		for(int i = 0; i < enemyList.Length; ++i){
+		
+			//if(enemyList[i].)
+			
+		}
+		return true;
+	}
+	
 
 	// Update the unit's current position. Allowing it to move
 	[RPC]

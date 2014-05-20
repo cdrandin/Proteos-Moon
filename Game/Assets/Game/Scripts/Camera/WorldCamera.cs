@@ -304,26 +304,8 @@ public class WorldCamera : MonoBehaviour {
 	public bool CheckIfUserCameraInput()
 	{
 
-		bool keyboardMove;
-		bool mouseMove;
-		bool canMove;
 		
-		//check keyboard		
-		if(WorldCamera.AreCameraKeyboardButtonsPressed()){
-			keyboardMove = true;			
-		} else {
-			keyboardMove = false;
-		}
-		
-		//check mouse position
-		if(WorldCamera.IsMousePositionWithinBoundaries())
-			mouseMove = true; else mouseMove = false;
-		
-		
-		if(keyboardMove || mouseMove)
-			canMove = true; else canMove = false;
-		
-		return canMove;
+		return WorldCamera.AreCameraKeyboardButtonsPressed();
 	}
 
 	//Works out the cameras desired location depending on the players input
@@ -390,16 +372,6 @@ public class WorldCamera : MonoBehaviour {
 				false;
 	}
 	
-	public static bool IsMousePositionWithinBoundaries()
-	{
-		if(
-			(Input.mousePosition.x < mouseScrollLimits.LeftLimit && Input.mousePosition.x > -5) ||
-			(Input.mousePosition.x > (Screen.width - mouseScrollLimits.RightLimit) && Input.mousePosition.x < (Screen.width + 5)) ||
-			(Input.mousePosition.y < mouseScrollLimits.BottomLimit && Input.mousePosition.y > -5) ||
-			(Input.mousePosition.y > (Screen.height - mouseScrollLimits.TopLimit) && Input.mousePosition.y < (Screen.height + 5))
-			)
-			return true; else return false;
-	}
 	#endregion
 
 	public bool IsCameraOnControlsOn( ){return cameraOn;}
@@ -437,14 +409,17 @@ public class WorldCamera : MonoBehaviour {
 		
 		focus.y += (0.85f) * target.GetComponent<CapsuleCollider>().height;
 		
+	
 		wantedRotationAngle = target.transform.eulerAngles.y;
 		wantedHeight = focus.y + lookAtHeight;
 		
-		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
-		currentHeight = WorldCamera.instance.transform.position.y;
+		currentRotationAngle = MainCamera.transform.eulerAngles.y;
+		currentHeight = transform.position.y;
 		
 		// Damp the rotation around the y-axis
 		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+		
+		DistancefromPlayer = (wantedHeight - target.transform.position.y )/ distanceScale;
 		
 		// Damp the height
 		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
@@ -456,7 +431,7 @@ public class WorldCamera : MonoBehaviour {
 		// distance meters behind the target
 		Vector3 worldCameraPosition =  target.transform.position;
 		
-		DistancefromPlayer = (wantedHeight - target.transform.position.y )/ distanceScale;
+		
 		
 		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
@@ -466,10 +441,10 @@ public class WorldCamera : MonoBehaviour {
 			
 		transform.position = worldCameraPosition;
 		//	mainCamera.transform.LookAt(target);
-			
 		
+	
 		MainCamera.transform.LookAt(focus);
-		
+	
 		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
 		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);
 	}

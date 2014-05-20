@@ -14,7 +14,7 @@ public class CameraTest : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		WorldCamera.instance.SmoothFollow(gamefocus);
+//		WorldCamera.instance.SmoothFollow(gamefocus);
 		
 	}
 }

@@ -70,7 +70,7 @@ public class TargetTransition : MonoBehaviour {
 			if(interpolate){
 				InterpolateToNewPosition();
 
-				if( IsWithinBuffer(buffer) || AreCameraMovementPressed() || WorldCamera.IsMousePositionWithinBoundaries()){
+				if( IsWithinBuffer(buffer) || AreCameraMovementPressed() ){
 					interpolate = false;
 				}
 			}
