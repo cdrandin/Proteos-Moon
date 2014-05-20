@@ -21,8 +21,8 @@ public class DayCycler : MonoBehaviour
 
 	void Start ()
 	{
-		_current_time = Time.fixedTime;
-		sky.Cycle.Hour = start_time;
+		_current_time    = start_time;
+		current_hour_cap = start_time;
 	}
 
 	// Update is called once per frame
@@ -33,11 +33,8 @@ public class DayCycler : MonoBehaviour
 			if(sky == null)
 				sky = GameObject.FindGameObjectWithTag("SkyDome").GetComponent<TOD_Sky>();
 
-
-			sky.Cycle.Hour = Time.time/40.0f;
-
 			// How much the time should progress for current round
-			current_hour_cap = (24.0f*((float)GM.instance.CurrentRound/(float)round_per_day))%24.0f;
+			current_hour_cap = (24.0f *((float)GM.instance.CurrentRound/(float)round_per_day))%24.0f;
 
 			// Change time of day over time
 			_current_time += Time.fixedDeltaTime;
@@ -45,7 +42,6 @@ public class DayCycler : MonoBehaviour
 			// If we have same cap, don't go over it
 			if(sky.Cycle.Hour >= current_hour_cap)
 				_current_time = current_hour_cap;
-				//_current_time = Time.fixedTime;
 
 			// Update time of day
 			sky.Cycle.Hour = Mathf.Clamp((_current_time/day_period)%24.0f, 0, current_hour_cap);
