@@ -67,12 +67,7 @@ public class WorldCamera : MonoBehaviour {
 	private Vector3 _previous_location; // Use to keep track of previous location before following a unit
 
 	//private float rotationDamping = 3.0f;
-	public float DistanceFromPlayer = 5.0f;
 	
-	public float lookAtHeight = 1.0f, DistancefromPlayer = 3.0f;
-	public float heightDamping = 2.0f , rotationDamping = 3.0f;//, button_pos = Screen.width - 250;
-	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
-	public float distanceScale;
 	
 	private Quaternion currentRotation;	
 	#endregion
@@ -102,13 +97,7 @@ public class WorldCamera : MonoBehaviour {
 		cameraLimits.BottomLimit = WorldTerrain.transform.position.z + WorldTerrainPadding;
 		
 
-		//cameraHeight = transform.position.y;
-		
-		lookAtHeight = 5;
-		
-		distanceScale = 1.0f;
-		DistancefromPlayer = 3.5f;
-		
+		//cameraHeight = transform.position.y;	
 		//ScrollAngle = gameObject;
 		
 	}
@@ -402,51 +391,78 @@ public class WorldCamera : MonoBehaviour {
 		WorldCamera.instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
 	}
 	
-	public void SmoothFollow(GameObject target){
+	public void StartCharacterFollow(GameObject target){
+	
+		MainCamera.transform.localEulerAngles = Vector3.zero;
+		
+		TurnCameraControlsOff();	
+		
+		StartCoroutine("SmoothFollow", target);
+	}
+	
+	public void StopCharacterFollow(){
+	
+		StopCoroutine("SmoothFollow");
+		ResetCamera();
+		TurnCameraControlsOn();
+		
+	}
+	
+	public IEnumerator SmoothFollow(GameObject target){
 		
 		//lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
 		
-		Vector3 focus =  target.transform.position;
 		
-		focus.y += (0.85f) * target.GetComponent<CapsuleCollider>().height;
+		float characterHeight = (0.85f) * target.GetComponent<CapsuleCollider>().height;
 		
-	
-		wantedRotationAngle = target.transform.eulerAngles.y;
-		wantedHeight = focus.y + 5.0f;
+		float lookAtHeight = 5.0f;
+		float heightDamping = 10.0f , rotationDamping = 10.0f;//, button_pos = Screen.width - 250;
+		float wantedRotationAngle, currentRotationAngle, currentHeight;
+		float distanceScale = 1.0f;
+		Vector3  characterPosition;
 		
-		currentRotationAngle = transform.eulerAngles.y;
-		currentHeight = transform.position.y;
+		float DistancefromPlayer = characterHeight / distanceScale;
+		cameraHeight = characterHeight;
+
+		while(true){
 		
-		// Damp the rotation around the y-axis
-		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, 10.0f * Time.deltaTime);
-		
-		DistancefromPlayer = (wantedHeight - target.transform.position.y )/ distanceScale;
-		
-		// Damp the height
-		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, 10.0f * Time.deltaTime);
-		
-		// Convert the angle into a rotation
-		currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
-		
-		// Set the position of the camera on the x-z plane to:
-		// distance meters behind the target
-		Vector3 worldCameraPosition =  target.transform.position;
-		
-		
-		
-//		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
-		worldCameraPosition -= currentRotation * Vector3.forward * DistancefromPlayer;	
-		
-		// Set the height of the camera
-		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
-		
+			wantedRotationAngle = target.transform.eulerAngles.y;
+			cameraY = target.transform.position.y + characterHeight +  lookAtHeight;
 			
-		transform.position = worldCameraPosition;
-		//	mainCamera.transform.LookAt(target);
-		
-	
-		transform.LookAt(focus);
-	
+			currentRotationAngle = transform.eulerAngles.y;
+			currentHeight = transform.position.y;
+			
+			// Damp the rotation around the y-axis
+			currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+			
+			// Damp the height
+			currentHeight = Mathf.Lerp (currentHeight, cameraY, heightDamping * Time.deltaTime);
+			
+			// Convert the angle into a rotation
+			currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
+			
+			// Set the position of the camera on the x-z plane to:
+			// distance meters behind the target
+			Vector3 worldCameraPosition =  target.transform.position;
+			
+
+			//worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
+			worldCameraPosition -= currentRotation * Vector3.forward * DistancefromPlayer;	
+			
+			// Set the height of the camera
+			worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
+			
+				
+			transform.position = worldCameraPosition;
+			//	mainCamera.transform.LookAt(target);
+			
+			characterPosition = target.transform.position;
+			characterPosition.y += characterHeight;
+			
+			transform.LookAt(characterPosition);
+			
+			yield return null;
+		}	
 		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
 		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);
 	}

@@ -20,7 +20,7 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
-	private bool _isInitialize, smoothPos, isMoving, proteus, isAction,isRecruiting;
+	private bool _isInitialize, isMoving, proteus, isAction,isRecruiting;
 
 	private Quaternion currentRotation;
 	private float shift;
@@ -99,7 +99,6 @@ public class UnitGUI : MonoBehaviour {
 		isAction = false;
 		//Set bools to false
 		isMoving = false;
-		smoothPos = false;
 		_reset_once = false;
 		
 		shift = 0;
@@ -217,10 +216,7 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	void LateUpdate(){
-		if(isMoving && focusObject != null){
-			WorldCamera.instance.SmoothFollow(focusObject);
-			
-		}
+		
 		if(focusObject != null && CombatSystem.instance.CheckIfAttacking()){
 			
 			CombatSystem.instance.CombatLookAt(focusObject);;
@@ -450,14 +446,11 @@ public class UnitGUI : MonoBehaviour {
 			GM.instance.SetUnitControllerActiveOn(ref focusObject);	
 			GM.instance.SetFocusController(true);
 			
-			WorldCamera.instance.MainCamera.transform.localEulerAngles = Vector3.zero;
-			//WorldCamera.instance.MainCamera = CurrentMainCamera();
-			WorldCamera.instance.TurnCameraControlsOff();
-			
+			WorldCamera.instance.StartCharacterFollow(focusObject);
 			
 			gui_method += MovementEndButton;
 			//unit_character_controller = GameObject.FindWithTag("UnitController");
-			smoothPos = true;
+
 			//this will turn on the update that will allow update calls 
 			//on used while the character is moving
 			isMoving = true;
@@ -553,10 +546,10 @@ public class UnitGUI : MonoBehaviour {
 			//GM.instance.SetFocusController(false);
 			focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 			
+			
+			WorldCamera.instance.StopCharacterFollow();
+			
 			isMoving = false;
-			smoothPos = true;
-			WorldCamera.instance.ResetCamera();
-			WorldCamera.instance.TurnCameraControlsOn();
 			gui_method -= MovementEndButton;
 			isAction  = false;
 		}

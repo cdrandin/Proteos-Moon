@@ -16,9 +16,7 @@ public class UnitNetworking : MonoBehaviour
 		public bool isInOtherPlayerFOV;
 	
 	}
-
-	private Transform myTransform;
-
+	
 	private List<MovementInfo> movementList;
 
 	private PhotonView _my_photon_view;
@@ -26,7 +24,6 @@ public class UnitNetworking : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		myTransform = this.transform;
 		_my_photon_view = this.gameObject.GetPhotonView();
 	}
 
@@ -50,7 +47,7 @@ public class UnitNetworking : MonoBehaviour
 		Player otherPlayer = (Player)((int)GM.instance.WhichPlayerAmI + 1 % GM.instance.NumberOfPlayers);
 //		GameObject [] enemyList = GM.instance.GetEnemyUnitsNearPlayer(otherPlayer);
 		
-		newTransform.currentTransform = this.transform;
+		newTransform.currentTransform = transform;
 		
 		int index = 1;
 		
@@ -58,9 +55,9 @@ public class UnitNetworking : MonoBehaviour
 		
 		while(true){
 		
-			if (Mathf.Abs( (this.transform.position.sqrMagnitude - movementList[index].currentTransform.position.sqrMagnitude) ) > 1.0f){
+			if (Mathf.Abs( (transform.position.sqrMagnitude - movementList[index].currentTransform.position.sqrMagnitude) ) > 1.0f){
 				
-				newTransform.currentTransform = this.transform;
+				newTransform.currentTransform = transform;
 				
 				++index;
 			}
