@@ -8,12 +8,12 @@ using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
-public class ByteStats
+public class IntStats
 {
-	public byte current;
-	public byte max;
+	public int current;
+	public int max;
 
-	public ByteStats(byte current, byte max)
+	public IntStats(int current, int max)
 	{
 		this.current = current;
 		this.max     = max;
@@ -36,38 +36,38 @@ public class BaseStat
 {
 	// Some basic stats for stuff
 	[SerializeField] 
-	private ByteStats _stamina;
+	private IntStats _stamina;
 
 	[SerializeField] 
-	private ByteStats _strength;
+	private IntStats _strength;
 
 	[SerializeField]
-	private ByteStats _agility;
+	private IntStats _agility;
 
 	[SerializeField] 
-	private ByteStats _intellect;
+	private IntStats _intellect;
 
 	[SerializeField] 
-	private ByteStats _recovery;
+	private IntStats _recovery;
 
 	[SerializeField] 
-	private ByteStats _physical_def;
+	private IntStats _physical_def;
 
 	[SerializeField] 
-	private ByteStats _magical_def;
+	private IntStats _magical_def;
 
 	public BaseStat(byte stamina, byte strength, byte intellect, byte recovery, byte p_def, byte m_def, byte max=byte.MaxValue)
 	{
-		this._stamina      = new ByteStats(stamina, max);
-		this._strength     = new ByteStats(strength, max);
-		this._intellect    = new ByteStats(intellect, max);
-		this._recovery     = new ByteStats(recovery, max);
-		this._physical_def = new ByteStats(p_def, max);
-		this._magical_def  = new ByteStats(m_def, max);
+		this._stamina      = new IntStats(stamina, max);
+		this._strength     = new IntStats(strength, max);
+		this._intellect    = new IntStats(intellect, max);
+		this._recovery     = new IntStats(recovery, max);
+		this._physical_def = new IntStats(p_def, max);
+		this._magical_def  = new IntStats(m_def, max);
 	}
 
 	// Getters and Setters
-	public ByteStats Stamina
+	public IntStats Stamina
 	{
 		get	
 		{
@@ -87,7 +87,7 @@ public class BaseStat
 	}
 	
 
-	public ByteStats Strength
+	public IntStats Strength
 	{
 		get	
 		{
@@ -106,7 +106,7 @@ public class BaseStat
 		set { _strength = value;}
 	}
 
-	public ByteStats Agility
+	public IntStats Agility
 	{
 		get	
 		{
@@ -125,7 +125,7 @@ public class BaseStat
 		set { _strength = value;}
 	}
 	
-	public ByteStats Intellect
+	public IntStats Intellect
 	{
 		get	
 		{
@@ -144,7 +144,7 @@ public class BaseStat
 		set { _intellect = value;}
 	}
 	
-	public ByteStats Recovery
+	public IntStats Recovery
 	{
 		get	
 		{
@@ -163,7 +163,7 @@ public class BaseStat
 		set { _recovery = value;}
 	}
 	
-	public ByteStats Physical_def
+	public IntStats Physical_def
 	{
 		get	
 		{
@@ -182,7 +182,7 @@ public class BaseStat
 		set { _physical_def = value;}
 	}
 	
-	public ByteStats Magical_def
+	public IntStats Magical_def
 	{
 		get	
 		{

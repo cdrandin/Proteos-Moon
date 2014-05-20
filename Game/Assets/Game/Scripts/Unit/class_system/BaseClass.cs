@@ -89,37 +89,35 @@ public class BaseClass : MonoBehaviour
 
 	public void BuffStat(BaseStatID stat, int amount)
 	{
-		byte amnt = (byte)amount;
-
 		switch(stat)
 		{
 		case BaseStatID.AGILITY:
-			_base_stat.Agility.max += amnt;
-			_base_stat.Agility.current += amnt;
+			_base_stat.Agility.max += amount;
+			_base_stat.Agility.current += amount;
 			break;
 		case BaseStatID.INTELLECT:
-			_base_stat.Intellect.max += amnt;
-			_base_stat.Intellect.current += amnt;
+			_base_stat.Intellect.max += amount;
+			_base_stat.Intellect.current += amount;
 			break;
 		case BaseStatID.MAGICAL_DEFENSE:
-			_base_stat.Magical_def.max += amnt;
-			_base_stat.Magical_def.current += amnt;
+			_base_stat.Magical_def.max += amount;
+			_base_stat.Magical_def.current += amount;
 			break;
 		case BaseStatID.PHYSICAL_DEFENSE:
-			_base_stat.Physical_def.max += amnt;
-			_base_stat.Physical_def.current += amnt;
+			_base_stat.Physical_def.max += amount;
+			_base_stat.Physical_def.current += amount;
 			break;
 		case BaseStatID.RECOVERY:
-			_base_stat.Recovery.max += amnt;
-			_base_stat.Recovery.current += amnt;
+			_base_stat.Recovery.max += amount;
+			_base_stat.Recovery.current += amount;
 			break;
 		case BaseStatID.STAMINA:
-			_base_stat.Stamina.max += amnt;
-			_base_stat.Stamina.current += amnt;
+			_base_stat.Stamina.max += amount;
+			_base_stat.Stamina.current += amount;
 			break;
 		case BaseStatID.STRENGTH:
-			_base_stat.Strength.max += amnt;
-			_base_stat.Strength.current += amnt;
+			_base_stat.Strength.max += amount;
+			_base_stat.Strength.current += amount;
 			break;
 		}
 	}
