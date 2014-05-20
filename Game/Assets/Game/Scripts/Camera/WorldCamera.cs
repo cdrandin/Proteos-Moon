@@ -396,7 +396,7 @@ public class WorldCamera : MonoBehaviour {
 	public void ResetCamera(){
 		
 		Vector3 oldWorldTransformEul = new Vector3(0.0f, WorldCamera.instance.transform.eulerAngles.y + WorldCamera.instance.MainCamera.transform.localEulerAngles.y, 0.0f);
-		Vector3 oldMainEul = new Vector3(WorldCamera.instance.MainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
+		Vector3 oldMainEul = new Vector3(WorldCamera.instance.transform.localEulerAngles.x, 0.0f, 0.0f);
 		WorldCamera.instance.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
 		WorldCamera.instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
 	}
@@ -411,18 +411,18 @@ public class WorldCamera : MonoBehaviour {
 		
 	
 		wantedRotationAngle = target.transform.eulerAngles.y;
-		wantedHeight = focus.y + lookAtHeight;
+		wantedHeight = focus.y + 5.0f;
 		
-		currentRotationAngle = MainCamera.transform.eulerAngles.y;
+		currentRotationAngle = transform.eulerAngles.y;
 		currentHeight = transform.position.y;
 		
 		// Damp the rotation around the y-axis
-		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, 10.0f * Time.deltaTime);
 		
 		DistancefromPlayer = (wantedHeight - target.transform.position.y )/ distanceScale;
 		
 		// Damp the height
-		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, 10.0f * Time.deltaTime);
 		
 		// Convert the angle into a rotation
 		currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
@@ -433,7 +433,8 @@ public class WorldCamera : MonoBehaviour {
 		
 		
 		
-		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
+//		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
+		worldCameraPosition -= currentRotation * Vector3.forward * DistancefromPlayer;	
 		
 		// Set the height of the camera
 		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);

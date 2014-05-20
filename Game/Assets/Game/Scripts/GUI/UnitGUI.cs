@@ -450,7 +450,7 @@ public class UnitGUI : MonoBehaviour {
 			GM.instance.SetUnitControllerActiveOn(ref focusObject);	
 			GM.instance.SetFocusController(true);
 			
-			WorldCamera.instance.transform.eulerAngles = Vector3.zero;
+			WorldCamera.instance.MainCamera.transform.localEulerAngles = Vector3.zero;
 			//WorldCamera.instance.MainCamera = CurrentMainCamera();
 			WorldCamera.instance.TurnCameraControlsOff();
 			
