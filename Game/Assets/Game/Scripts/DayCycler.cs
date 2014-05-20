@@ -22,7 +22,6 @@ public class DayCycler : MonoBehaviour
 	void Start ()
 	{
 		_current_time = start_time;
-		sky.Cycle.Hour = _current_time;
 	}
 
 	// Update is called once per frame
@@ -33,6 +32,7 @@ public class DayCycler : MonoBehaviour
 			if(sky == null)
 			{
 				sky = GameObject.FindGameObjectWithTag("SkyDome").GetComponent<TOD_Sky>();
+				sky.Cycle.Hour = _current_time;
 			}
 
 			// How much the time should progress for current round
