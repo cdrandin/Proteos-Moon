@@ -9,6 +9,7 @@ using System.Collections;
 
 public class DayCycler : MonoBehaviour 
 {
+	[Range(0, 24)]
 	public float start_time;
 	public int round_per_day = 12;
 	public float day_period  = 30.0f;
