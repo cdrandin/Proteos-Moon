@@ -32,6 +32,9 @@ public class BaseClass : MonoBehaviour
 	[SerializeField]
 	private int _gather_amount;
 
+	[SerializeField]
+	private float _sight_range;
+
 	//[SerializeField]
 	//private List<StatBuff> _stat_buffs;
 
@@ -68,6 +71,11 @@ public class BaseClass : MonoBehaviour
 	public int gather_amount
 	{
 		get { return _gather_amount; }
+	}
+
+	public float sight_range
+	{
+		get { return _sight_range; }
 	}
 
 	/// <summary>
