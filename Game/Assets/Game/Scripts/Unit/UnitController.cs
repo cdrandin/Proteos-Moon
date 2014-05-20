@@ -270,7 +270,7 @@ public class UnitController : Photon.MonoBehaviour
 			Setup();
 
 			// Assume we got what we need now.
-			_unit_focus_cc.detectCollisions = false;
+			_unit_focus_cc.detectCollisions = true;
 			_start = _unit_focus_cc.gameObject.transform.position;
 
 			//SetIsControllable(true);
@@ -327,6 +327,15 @@ public class UnitController : Photon.MonoBehaviour
 		}
 
 		air_jumps 			= _unit_focus_movement.air_jumps;
+	}
+
+	/// <summary>
+	/// Sets the speed for both the unit controller and movementstat's speed
+	/// </summary>
+	/// <value>The mod_speed.</value>
+	public float mod_speed
+	{
+		set	{ speed = value; }
 	}
 
 	void ShutDown()

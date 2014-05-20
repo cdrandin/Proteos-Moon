@@ -87,39 +87,58 @@ public class BaseClass : MonoBehaviour
 		_vital.HP.current -= damage;
 	}
 
-	public void BuffStat(BaseStatID stat, int amount)
+	/// <summary>
+	/// Modify a specific stat by the amount enter. +/- are both fine.
+	/// </summary>
+	/// <param name="stat">Stat.</param>
+	/// <param name="amount">Amount.</param>
+	public void ModStat(BaseStatID stat, int amount)
 	{
 		switch(stat)
 		{
 		case BaseStatID.AGILITY:
-			_base_stat.Agility.max += amount;
-			_base_stat.Agility.current += amount;
+			_base_stat.Agility.max          += amount;
+			_base_stat.Agility.current      += amount;
 			break;
 		case BaseStatID.INTELLECT:
-			_base_stat.Intellect.max += amount;
-			_base_stat.Intellect.current += amount;
+			_base_stat.Intellect.max        += amount;
+			_base_stat.Intellect.current    += amount;
 			break;
 		case BaseStatID.MAGICAL_DEFENSE:
-			_base_stat.Magical_def.max += amount;
-			_base_stat.Magical_def.current += amount;
+			_base_stat.Magical_def.max      += amount;
+			_base_stat.Magical_def.current  += amount;
 			break;
 		case BaseStatID.PHYSICAL_DEFENSE:
-			_base_stat.Physical_def.max += amount;
+			_base_stat.Physical_def.max     += amount;
 			_base_stat.Physical_def.current += amount;
 			break;
 		case BaseStatID.RECOVERY:
-			_base_stat.Recovery.max += amount;
-			_base_stat.Recovery.current += amount;
+			_base_stat.Recovery.max         += amount;
+			_base_stat.Recovery.current     += amount;
 			break;
 		case BaseStatID.STAMINA:
-			_base_stat.Stamina.max += amount;
-			_base_stat.Stamina.current += amount;
+			_base_stat.Stamina.max          += amount;
+			_base_stat.Stamina.current      += amount;
 			break;
 		case BaseStatID.STRENGTH:
-			_base_stat.Strength.max += amount;
-			_base_stat.Strength.current += amount;
+			_base_stat.Strength.max         += amount;
+			_base_stat.Strength.current     += amount;
 			break;
 		}
+	}
+
+	/// <summary>
+	/// Modify the movement. This is by a scalar. Amount will be clamped (0 - 2) inclusive.
+	/// This scales the movement stat's speed, but never overwrites it. This does in fact change the
+	///    unit controller's speed.
+	/// </summary>
+	/// <param name="stat">Stat.</param>
+	/// <param name="amount">Amount.</param>
+	public void ModMovement(float amount)
+	{
+		UnitController unit_cc = GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>();
+
+		unit_cc.mod_speed = _movement.speed * amount;
 	}
 
 	void FixedUpdate()
