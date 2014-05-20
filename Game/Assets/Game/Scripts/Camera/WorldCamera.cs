@@ -69,10 +69,11 @@ public class WorldCamera : MonoBehaviour {
 	//private float rotationDamping = 3.0f;
 	public float DistanceFromPlayer = 5.0f;
 	
-	private float wantedRotationAngle;
-	private float wantedHeight;
-	private float currentRotationAngle;
-	private float currentHeight;
+	public float lookAtHeight = 1.0f, DistancefromPlayer = 3.0f;
+	public float heightDamping = 2.0f , rotationDamping = 3.0f;//, button_pos = Screen.width - 250;
+	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight;
+	public float distanceScale;
+	
 	private Quaternion currentRotation;	
 	#endregion
 	
@@ -102,6 +103,10 @@ public class WorldCamera : MonoBehaviour {
 
 		cameraHeight = transform.position.y;
 		
+		lookAtHeight = 5;
+		
+		distanceScale = 1.0f;
+		DistancefromPlayer = 3.5f;
 		//ScrollAngle = gameObject;
 		
 	}
@@ -423,15 +428,20 @@ public class WorldCamera : MonoBehaviour {
 		WorldCamera.instance.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
 		WorldCamera.instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
 	}
-	/*
+	
 	public void SmoothFollow(GameObject target){
-
-		target.transform.position =  new Vector3 (target.transform.position.x, target.transform.position.y + target.GetComponent<CharacterController>().height, target.transform.position.z);
-		wantedRotationAngle = target.transform.eulerAngles.y;
-		wantedHeight = target.transform.position.y + height;
 		
-		currentRotationAngle = transform.eulerAngles.y;
-		currentHeight = transform.position.y;
+		//lookAtHeight = WorldCamera.instance.MinCameraHeight() / 2;
+		
+		Vector3 focus =  target.transform.position;
+		
+		focus.y += (0.85f) * target.GetComponent<CapsuleCollider>().height;
+		
+		wantedRotationAngle = target.transform.eulerAngles.y;
+		wantedHeight = focus.y + lookAtHeight;
+		
+		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
+		currentHeight = WorldCamera.instance.transform.position.y;
 		
 		// Damp the rotation around the y-axis
 		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
@@ -444,17 +454,26 @@ public class WorldCamera : MonoBehaviour {
 		
 		// Set the position of the camera on the x-z plane to:
 		// distance meters behind the target
-		this.transform.position = target.transform.position;
-		this.transform.position -= currentRotation * Vector3.forward * DistanceFromPlayer;
+		Vector3 worldCameraPosition =  target.transform.position;
+		
+		DistancefromPlayer = (wantedHeight - target.transform.position.y )/ distanceScale;
+		
+		worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 		
 		// Set the height of the camera
-		this.transform.position = new Vector3 (transform.position.x, currentHeight, transform.position.z);
+		worldCameraPosition = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
 		
+			
+		transform.position = worldCameraPosition;
+		//	mainCamera.transform.LookAt(target);
+			
 		
-		this.transform.LookAt(new Vector3(0,target.position.y, 0 ) );
-		MainCamera.transform.LookAt(new Vector3(target.position.x, 0, 0) );
+		MainCamera.transform.LookAt(focus);
+		
+		//var rotation = Quaternion.LookRotation(target.position - worldCamera.transform.position);
+		//mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, rotation, Time.deltaTime * 5.5);
 	}
-*/
+	
 	public void SetMainCamera ( GameObject focus )
 	{
 		MainCamera = focus;

@@ -4,10 +4,13 @@ using System.Collections;
 public class AnimationTest : MonoBehaviour {
 
 	AnimationTriggers anim;
+	public GameObject follow;
 
 	// Use this for initialization
 	void Start () {
 		anim = gameObject.GetComponentInChildren<AnimationTriggers>()	;
+		
+		WorldCamera.instance.SmoothFollow(follow);
 	}
 	
 	// Update is called once per frame
