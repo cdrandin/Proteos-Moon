@@ -92,6 +92,7 @@ public class GM : Photon.MonoBehaviour
 	// Keep track of each player's unit accordingly
 	private GameObject[] _leaders;
 
+	private bool isOtherPlayerOn = false;
 	//PhotonView GMpv = PhotonView.Get(this);
 
 	public void Awake()
@@ -259,14 +260,22 @@ public class GM : Photon.MonoBehaviour
 
 		//Debug.Log(string.Format("There are a total of {0} leaders", Get_Leaders.Length));
 	}
+	
+	[RPC]
+	void OtherPlayerIsOn()
+	{
+		isOtherPlayerOn = true;
+		
+	}
 
 	// Get all leaders in the room and puts them in their respective local container
 	IEnumerator SetupPlayerContainer()
 	{
-		while(_total_players != Get_Leaders.Length){
+		while(_total_players != Get_Leaders.Length && !isOtherPlayerOn){
 			Debug.Log ("Photon PlayerList Length: " + Get_Leaders.Length);
 			Debug.Log ("Our Game PlayerList Length: " + _total_players);
-			yield return new WaitForSeconds(0.5f);
+			this.photonView.RPC("OtherPlayerIsOn", PhotonTargets.OthersBuffered);
+			yield return new WaitForSeconds(0.25f);
 		}
 	
 		foreach(GameObject leader in Get_Leaders)
@@ -333,13 +342,13 @@ public class GM : Photon.MonoBehaviour
 		if( !unit.GetPhotonView().isMine  ){
 			
 			unit.GetComponent<FOWRenderers>().enabled = true;
-			unit.GetComponent<FOWRevealer>().enabled = false;
+			unit.GetComponent<FOWUnitRevealer>().enabled = false;
 			
 		}
 		else{
 			unit.GetComponent<FOWRenderers>().enabled = false;
-			unit.GetComponent<FOWRevealer>().enabled = true;
-			unit.GetComponent<FOWRevealer>().isActive = true;
+			unit.GetComponent<FOWUnitRevealer>().enabled = true;
+			unit.GetComponent<FOWUnitRevealer>().isActive = true;
 		}
 	}
 	

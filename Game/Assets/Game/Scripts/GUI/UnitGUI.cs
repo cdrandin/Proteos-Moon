@@ -701,7 +701,6 @@ public class UnitGUI : MonoBehaviour {
 	
 	//Call this coroutine to start the character movement and any checks required while moving
 	public IEnumerator CharacterMovement(){
-		
 		focusObject.GetComponent<BaseClass>().unit_status.Move();
 
 		//this will turn on the update that will allow update calls 

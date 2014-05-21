@@ -23,10 +23,10 @@ public class UnitHighlight : MonoBehaviour {
 	public void OnMouseOver()
 	{
 	
-			if(!UnitGUI.instance.isInitialize && !baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn())
+			if(!UnitGUI.instance.isInitialize && !baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn() && IsMine)
 			{
 				
-				rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+				rend.material.shader = Shader.Find("Outlined/Diffuse");
 				rend.material.SetColor ("_OutlineColor", Color.blue);
 			}
 	}

@@ -40,7 +40,7 @@ public class UnitActions : MonoBehaviour {
 	}
 	
 	public void TurnOnHighlight(){
-	
+		
 		if(isInRange){
 			myRenderer.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
 			myRenderer.material.SetColor ("_OutlineColor", Color.red);
@@ -60,7 +60,6 @@ public class UnitActions : MonoBehaviour {
 	}
 	
 	public void WithinRange(GameObject currentFocus){
-
 		if( Vector3.SqrMagnitude(currentFocus.transform.position - myTransform.position )
 			< currentFocus.GetComponent<BaseClass>().attack_range * currentFocus.GetComponent<BaseClass>().attack_range ){
 		
