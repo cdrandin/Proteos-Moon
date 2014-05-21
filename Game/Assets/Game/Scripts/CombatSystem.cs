@@ -222,7 +222,7 @@ public class CombatSystem : MonoBehaviour{
 	
 	Vector3 GetFinalCameraPosition(Vector3 focusPostion, float characterHeight, float characterYAngle){
 	
-		float DistancefromPlayer = characterHeight / 1.0f;
+		float DistancefromPlayer = characterHeight / 0.23f;
 		Vector3 finalCameraPosition = focusPostion ;
 		
 		float finalCameraHeight = focusPostion.y + characterHeight +  5.0f;
@@ -247,11 +247,12 @@ public class CombatSystem : MonoBehaviour{
 		float smoothCamPos = 1.0f, smoothCamRot = 1.0f, smoothFocRot = 1.0f;
 		
 		//Get the final positions of each component, i.e. the camera, position and rotation, and the character rotation
-		Vector3 finalCameraPosition = GetFinalCameraPosition(focus.transform.position, characterHeight, focus.transform.eulerAngles.y);
-		Quaternion finalCameraRotation = Quaternion.LookRotation(enemyList[index].transform.position - finalCameraPosition);
 		Quaternion finalfocusRotation  = Quaternion.LookRotation(enemyPostion - attacker);
+		Vector3 finalCameraPosition = GetFinalCameraPosition(focus.transform.position, characterHeight, finalfocusRotation.eulerAngles.y);
+		Quaternion finalCameraRotation = Quaternion.LookRotation(enemyList[index].transform.position - finalCameraPosition);
 		
-		while ( WithinEpsilon(WorldCamera.instance.transform.position, finalCameraPosition, 0.01f) ){
+		
+		while ( WithinEpsilon(WorldCamera.instance.transform.position, finalCameraPosition, 0.0001f) ){
 			
 			WorldCamera.instance.transform.position = Vector3.Lerp(WorldCamera.instance.transform.position, finalCameraPosition, Time.deltaTime + smoothCamPos);				
 			WorldCamera.instance.cameraY = WorldCamera.instance.transform.position.y;
@@ -262,7 +263,7 @@ public class CombatSystem : MonoBehaviour{
 		
 		WorldCamera.instance.transform.position = finalCameraPosition;
 		
-		while ( WithinEpsilon(WorldCamera.instance.transform.eulerAngles, finalCameraRotation.eulerAngles, 0.01f) ){
+		while ( WithinEpsilon(WorldCamera.instance.transform.eulerAngles, finalCameraRotation.eulerAngles, 0.0001f) ){
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
@@ -271,7 +272,7 @@ public class CombatSystem : MonoBehaviour{
 		
 		WorldCamera.instance.transform.rotation = finalCameraRotation;
 		
-		while ( WithinEpsilon(focus.transform.eulerAngles, finalfocusRotation.eulerAngles, 0.01f) ){
+		while ( WithinEpsilon(focus.transform.eulerAngles, finalfocusRotation.eulerAngles, 0.0001f) ){
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
