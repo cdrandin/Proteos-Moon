@@ -46,8 +46,9 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
 	private IEnumerator StartCombatCoroutine(GameObject focus){
-	
+		
 		inCombat = true;
+		WorldCamera.instance.MainCamera.transform.localEulerAngles = Vector3.zero;
 		StartCoroutine(FadeInOut());
 		StartCoroutine(CombatLookAt(focus));
 		while(attacking){

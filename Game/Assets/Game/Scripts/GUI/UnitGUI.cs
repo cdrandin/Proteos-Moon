@@ -422,7 +422,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.enabled = !isAction && !GetCurrentFocusStatus().Move;// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 		if(MakeButton(0,0,"Move", Style.move)){
 			
-			StartCoroutine("CharacterMovement");
+			StartCoroutine(CharacterMovement());
 			gui_method += MovementEndButton;
 			
 		}
