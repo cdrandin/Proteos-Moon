@@ -260,6 +260,8 @@ public class CombatSystem : MonoBehaviour{
 			WorldCamera.instance.cameraY = WorldCamera.instance.transform.position.y;
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime + smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime +smoothFocRot);
+			
+			Debug.Log("1");
 			yield return null;
 		}
 		
@@ -269,6 +271,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
+			Debug.Log("2");
 			yield return null;
 		}
 		
@@ -278,6 +281,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
+			Debug.Log("3");
 			yield return null;
 		}
 		
