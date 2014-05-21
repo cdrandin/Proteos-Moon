@@ -49,7 +49,7 @@ public class CombatSystem : MonoBehaviour{
 	
 		inCombat = true;
 		StartCoroutine("FadeInOut");
-		
+		StartCoroutine("CombatLookAt", focus);
 		while(attacking){
 		
 			CheckIfButtonsPress(focus);			
@@ -220,17 +220,16 @@ public class CombatSystem : MonoBehaviour{
 		        Mathf.Abs(v1.z - v2.z) > epsilon	);
 	}
 	
-	Vector3 GetFinalCameraPosition(Vector3 focusPostion, float characterHeight, float characterYAngle){
+	Vector3 GetFinalCameraPosition(Transform focus, float characterHeight, float characterYAngle){
 	
 		float DistancefromPlayer = characterHeight / 0.23f;
-		Vector3 finalCameraPosition = focusPostion ;
+		Vector3 finalCameraPosition = focus.position +  focus.right * (0.25f * characterHeight);	
 		
-		float finalCameraHeight = focusPostion.y + characterHeight +  5.0f;
+		float finalCameraHeight = focus.position.y + characterHeight +  5.0f;
 		
 		Quaternion characterRotation = Quaternion.Euler (0.0f, characterYAngle, 0.0f);
 		
-		finalCameraPosition -= characterRotation * Vector3.forward * DistancefromPlayer;	
-
+		finalCameraPosition -= characterRotation * Vector3.forward * DistancefromPlayer;
 		return new Vector3 (finalCameraPosition.x, finalCameraHeight, finalCameraPosition.z);
 	 	
 	}
@@ -248,7 +247,7 @@ public class CombatSystem : MonoBehaviour{
 		
 		//Get the final positions of each component, i.e. the camera, position and rotation, and the character rotation
 		Quaternion finalfocusRotation  = Quaternion.LookRotation(enemyPostion - attacker);
-		Vector3 finalCameraPosition = GetFinalCameraPosition(focus.transform.position, characterHeight, finalfocusRotation.eulerAngles.y);
+		Vector3 finalCameraPosition = GetFinalCameraPosition(focus.transform, characterHeight, finalfocusRotation.eulerAngles.y);
 		Quaternion finalCameraRotation = Quaternion.LookRotation(enemyList[index].transform.position - finalCameraPosition);
 		
 		
