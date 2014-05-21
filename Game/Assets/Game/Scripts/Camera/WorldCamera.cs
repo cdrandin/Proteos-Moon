@@ -68,8 +68,7 @@ public class WorldCamera : MonoBehaviour {
 
 	//private float rotationDamping = 3.0f;
 	
-	
-	private Quaternion currentRotation;	
+
 	#endregion
 	
 	
@@ -325,11 +324,7 @@ public class WorldCamera : MonoBehaviour {
 			desiredTranslation += Vector3.right * moveSpeed;
 		return desiredTranslation;
 	}
-	
-	
-	
-	
-	
+		
 	//checks if the desired position crosses boundaries
 	public bool isDesiredPositionOverBoundaries(Vector3 desiredTranslation)
 	{
@@ -420,7 +415,7 @@ public class WorldCamera : MonoBehaviour {
 		float wantedRotationAngle, currentRotationAngle, currentHeight;
 		float distanceScale = 1.0f;
 		Vector3  characterPosition;
-		
+		Quaternion currentRotation;	
 		float DistancefromPlayer = characterHeight / distanceScale;
 		cameraHeight = characterHeight;
 
@@ -444,7 +439,6 @@ public class WorldCamera : MonoBehaviour {
 			// Set the position of the camera on the x-z plane to:
 			// distance meters behind the target
 			Vector3 worldCameraPosition =  target.transform.position;
-			
 
 			//worldCameraPosition -= currentRotation * target.transform.forward * DistancefromPlayer;	
 			worldCameraPosition -= currentRotation * Vector3.forward * DistancefromPlayer;	

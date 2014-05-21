@@ -3,32 +3,51 @@ using System.Collections;
 
 public class UnitHighlight : MonoBehaviour {
 	
-	public Renderer rend;
+	private Renderer rend;
+	private BaseClass baseClass;
+	private bool IsMine;
+	
 	
 	// Use this for initialization
 	void Start () {
 		
 		rend = this.GetComponentInChildren<Transform>().GetComponentInChildren<Renderer>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	
-	}
-	
-	void OnMouseOver()
-	{
-		print ("Is this mine? " + this.gameObject.GetPhotonView().isMine);
-		print ("Am I not restring? " + !this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest);
+		baseClass = this.gameObject.GetComponent<BaseClass>();
+		IsMine = this.gameObject.GetPhotonView().isMine;
 		
-		if(!UnitGUI.instance.isInitialize && !this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest && this.gameObject.GetPhotonView().isMine)
-		{
+		
+	}
+	
+	
+	public void StartMouseHighlight(){
+	
+		StartCoroutine("OnMouseOver");
+		StartCoroutine("OnMouseExit");
+	}
+	
+	public void StopMouseHighlight(){
+	
+		StopAllCoroutines();
+	}
+		
+	// Update is called once per frame
+	void Update () {}
+	
+	public IEnumerator OnMouseOver()
+	{
 			
-			rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
-			rend.material.SetColor ("_OutlineColor", Color.blue);
+		while(true){
+		
+			if(!UnitGUI.instance.isInitialize && !baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn())
+			{
+				
+				rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+				rend.material.SetColor ("_OutlineColor", Color.blue);
+			}
+			yield return null;
 		}
 	}
+	
 	
 	
 	public void RestingUnitGrayOut(){
@@ -41,9 +60,14 @@ public class UnitHighlight : MonoBehaviour {
 		rend.material.shader = Shader.Find("Diffuse Detail");
 	}
 	
-	void OnMouseExit()
+	public IEnumerator OnMouseExit()
 	{
-		if(!this.gameObject.GetComponent<BaseClass>().unit_status.status.Rest)
-			rend.material.shader = Shader.Find("Diffuse Detail");
+		while(true){
+		
+			if(!baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn())
+				rend.material.shader = Shader.Find("Diffuse Detail");
+				
+			yield return null;
+		}
 	}
 }

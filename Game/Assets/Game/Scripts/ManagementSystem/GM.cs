@@ -971,7 +971,12 @@ public class GM : Photon.MonoBehaviour
 			unit.transform.parent = _player_container[_current_player_turn].transform;
 			Debug.Log(string.Format("_current_player_turn: {0}   _player_container[{0}]: {1}", _current_player_turn, _player_container[_current_player_turn]));
 		}
-
+		
+		if(unit.GetPhotonView().isMine){
+		
+			unit.GetComponent<UnitHighlight>().StartMouseHighlight();
+		}
+		
 		UpdateFogOfWarComponents(unit);
 	}
 	
