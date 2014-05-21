@@ -53,7 +53,7 @@ public class UnitActions : MonoBehaviour {
 		}
 	}
 	
-	public void TurnOffHightlight(){
+	public void TurnOffHighlight(){
 	
 		myRenderer.material.shader = Shader.Find("Diffuse Detail");
 		
