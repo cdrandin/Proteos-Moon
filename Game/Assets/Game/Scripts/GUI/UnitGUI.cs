@@ -131,7 +131,8 @@ public class UnitGUI : MonoBehaviour {
 	// Use this for initialization
 	void Awake(){
 		instance = this;
-		
+		procite_locations = null;
+		_rs = null;
 		StartCoroutine("InitializeProcite");
 		StartCoroutine("InitalizeRecruitSystem");
 		
@@ -728,7 +729,7 @@ public class UnitGUI : MonoBehaviour {
 		CombatSystem.instance.CallCombatDelegates(focusObject);
 		
 		if (nearProcite != NearProcite()){
-			nearProcite = NearProcite();
+			nearProcite = !nearProcite;
 		}
 		
 		yield return null;

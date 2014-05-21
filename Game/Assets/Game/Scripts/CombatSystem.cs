@@ -154,6 +154,7 @@ public class CombatSystem : MonoBehaviour{
 		if (enemyList != null)
 			enemyList.Clear();
 		attacking = false;
+		inCombat = false;
 		gui_method -= FlashLabel;
 		StopAllCoroutines();
 		WorldCamera.instance.ResetCamera();
