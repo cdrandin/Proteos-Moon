@@ -11,6 +11,8 @@ public class CombatSystem : MonoBehaviour{
 	
 	public delegate void ProjectorEvent();
 	public static event ProjectorEvent TurnOnHighlight;
+	public delegate void TurnOffEvent();
+	public static event TurnOffEvent TurnOffHighlight;
 
 	private delegate void GUIMethod();
 	private GUIMethod gui_method = null;
@@ -43,6 +45,7 @@ public class CombatSystem : MonoBehaviour{
 	public void StartCombat(GameObject focus){
 	
 		StartCoroutine(StartCombatCoroutine(focus));
+		
 	}
 	
 	private IEnumerator StartCombatCoroutine(GameObject focus){
@@ -56,6 +59,8 @@ public class CombatSystem : MonoBehaviour{
 			CheckIfButtonsPress(focus);			
 			yield return null;
 		}
+		if(TurnOffHighlight != null)
+			TurnOffHighlight();
 		yield return null;
 	}
 	
@@ -151,12 +156,16 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void ResetCombatSystem(){
 	
-		gui_method -= CombatSystem.instance.UnitEnemyBox;
+		gui_method -= UnitEnemyBox;
 		index = 0;
 		if (enemyList != null)
 			enemyList.Clear();
 		attacking = false;
 		inCombat = false;
+		
+		if (TurnOffHighlight != null)
+			TurnOffHighlight();
+		
 		gui_method -= FlashLabel;
 		StopAllCoroutines();
 		WorldCamera.instance.ResetCamera();
@@ -345,6 +354,7 @@ public class CombatSystem : MonoBehaviour{
 			
 				WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
 				TurnOnHighlight += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnHighlight;
+				TurnOffHighlight += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOffHighlight;
 			}
 		}
 	}
@@ -353,6 +363,7 @@ public class CombatSystem : MonoBehaviour{
 	
 		WithinRange = null;
 		TurnOnHighlight = null;
+		TurnOffHighlight = null;
 	}
 
 	/*
