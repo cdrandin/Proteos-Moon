@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class UnitController : Photon.MonoBehaviour
 {
@@ -69,6 +70,12 @@ public class UnitController : Photon.MonoBehaviour
 
 	private Vector3 _start;
 
+	// How far the player has ran in terms of path traveled
+	private float _steps;
+
+	// path player has taken to record location
+	private List<Vector3> _path;
+
 	void Awake()
 	{	
 		_distance_proj = GameObject.FindObjectOfType<DistanceProjection>();
@@ -81,8 +88,34 @@ public class UnitController : Photon.MonoBehaviour
 		_move_direction  	= Vector3.zero; //transform.TransformDirection(Vector3.forward);
 		ShutDown();
 		ClearFocusUnit();
+		_steps = 0.0f;
+		_path  = new List<Vector3>();
 	}
-	
+
+	IEnumerator CollectPositions()
+	{
+		float delta = 0.25f;
+
+		for(;;)
+		{
+			Vector3 cur = _unit_focus_cc.transform.position;
+
+			if(_path.Count == 0)
+			{
+				_path.Add(cur);
+			}
+			else
+			{
+				if((cur - _path[_path.Count-1]).sqrMagnitude >= 1.0f * 2)
+				{
+					_path.Add(cur);
+				}
+			}
+
+			yield return new WaitForSeconds(delta);
+		}
+	}
+
 	public float MovementScalar()
 	{
 		Vector3 horizontalVelocity = new Vector3(_unit_focus_cc.velocity.x, 0, _unit_focus_cc.velocity.z);
@@ -119,6 +152,9 @@ public class UnitController : Photon.MonoBehaviour
 			movement *= Time.deltaTime;
 
 			_unit_focus_cc.Move(movement);
+
+			_steps += _unit_focus_cc.velocity.magnitude/speed;
+			//Debug.Log(string.Format("Steps total: {0}", _steps));
 
 			_unit_focus_cc.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
 			                                              _unit_focus_cc.gameObject.transform.position, _unit_focus_cc.gameObject.transform.rotation);
@@ -270,8 +306,10 @@ public class UnitController : Photon.MonoBehaviour
 			Setup();
 
 			// Assume we got what we need now.
-			_unit_focus_cc.detectCollisions = true;
 			_start = _unit_focus_cc.gameObject.transform.position;
+			_steps = 0.0f;
+			_path.Clear();
+			StartCoroutine(CollectPositions());
 
 			//SetIsControllable(true);
 		}
@@ -290,7 +328,6 @@ public class UnitController : Photon.MonoBehaviour
 
 		// Set distance projector to unfocus
 		_distance_proj.SetProjectionOff();
-
 	}
 
 	public GameObject UnitControllerFocus
