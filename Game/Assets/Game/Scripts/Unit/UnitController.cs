@@ -116,6 +116,20 @@ public class UnitController : Photon.MonoBehaviour
 		}
 	}
 
+	float DistanceTraveledAlongPath()
+	{
+		float distance = 0.0f;
+		Vector3 prev = _path[0];
+
+		for(int i=1;i<_path.Count;++i)
+		{
+			distance += (_path[i] - prev).sqrMagnitude;
+			prev = _path[i];
+		}
+
+		return distance/speed;
+	}
+
 	public float MovementScalar()
 	{
 		Vector3 horizontalVelocity = new Vector3(_unit_focus_cc.velocity.x, 0, _unit_focus_cc.velocity.z);
@@ -133,7 +147,7 @@ public class UnitController : Photon.MonoBehaviour
 		{
 			Vector3 dif = _unit_focus_cc.transform.position - _start;
 
-			if (!_is_controllable || ( enforce_distance && (dif.sqrMagnitude >= max_travel_distance * max_travel_distance)))
+			if (!_is_controllable || DistanceTraveledAlongPath() >= max_travel_distance)
 			{
 				Input.ResetInputAxes();
 			}
@@ -158,6 +172,11 @@ public class UnitController : Photon.MonoBehaviour
 
 			_unit_focus_cc.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
 			                                              _unit_focus_cc.gameObject.transform.position, _unit_focus_cc.gameObject.transform.rotation);
+		}
+
+		if(Input.GetKeyDown(KeyCode.G))
+		{
+			Debug.Log(string.Format("SqrMagnitude: Collective Distance  {0}", DistanceTraveledAlongPath()));
 		}
 
 		if(GM.instance.IsNextPlayersTurn())

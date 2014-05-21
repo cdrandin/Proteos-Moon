@@ -23,10 +23,7 @@ public class Minimap: MonoBehaviour
 	
 	void LateUpdate () 
 	{
-		//Debug.Log(GM.instance.CurrentFocus);
-
 		target = _unit_gui.focus_object;
-		//Debug.Log(string.Format("Minimap: Target {0}", (target == null)?"NULL":target.name));
 		if (target == null)
 		{
 			target = Camera.main.gameObject;
