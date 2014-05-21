@@ -219,7 +219,8 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void CallCombatDelegates(GameObject focusUnit){
 
-		WithinRange(focusUnit);
+		if (focusUnit != null)
+			WithinRange(focusUnit);
 		TurnOnHighlight();
 	}
 	

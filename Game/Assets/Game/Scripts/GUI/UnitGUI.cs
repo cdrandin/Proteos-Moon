@@ -181,6 +181,7 @@ public class UnitGUI : MonoBehaviour {
 					ResetFlags();
 					RemoveGUI();
 					_reset_once = true;
+					focusObject = null;
 				}
 			}
 			focusTemp = GM.instance.CurrentFocus;
@@ -190,8 +191,8 @@ public class UnitGUI : MonoBehaviour {
 				
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
-				GM.instance.SetUnitControllerActiveOff();
-				
+				StartCoroutine(NearbyCheck());
+				GM.instance.SetUnitControllerActiveOff();				
 				this.gui_method += UnitInformationBox;
 				
 				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ){
@@ -719,7 +720,7 @@ public class UnitGUI : MonoBehaviour {
 			
 			currentFocusAnimationTriggers.MoveAnimation( Input.GetAxis("Vertical") );
 			
-			StartCoroutine("NearbyCheck");		
+			StartCoroutine(NearbyCheck());		
 			
 			yield return null;
 		}

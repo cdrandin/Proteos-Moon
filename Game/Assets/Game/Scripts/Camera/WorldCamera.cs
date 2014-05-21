@@ -380,8 +380,8 @@ public class WorldCamera : MonoBehaviour {
 
 	public void ResetCamera(){
 		
-		Vector3 oldWorldTransformEul = new Vector3(0.0f, WorldCamera.instance.transform.eulerAngles.y + WorldCamera.instance.MainCamera.transform.localEulerAngles.y, 0.0f);
-		Vector3 oldMainEul = new Vector3(WorldCamera.instance.transform.eulerAngles.x + WorldCamera.instance.MainCamera.transform.localEulerAngles.x, 0.0f, 0.0f);
+		Vector3 oldWorldTransformEul = new Vector3(0.0f, transform.eulerAngles.y + MainCamera.transform.localEulerAngles.y, 0.0f);
+		Vector3 oldMainEul = new Vector3(MainCamera.transform.eulerAngles.x, 0.0f, 0.0f);
 		WorldCamera.instance.transform.rotation = Quaternion.Euler(oldWorldTransformEul);
 		WorldCamera.instance.MainCamera.transform.localRotation = Quaternion.Euler(oldMainEul);
 	}
