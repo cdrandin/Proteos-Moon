@@ -148,7 +148,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	private IEnumerator InitializeProcite(){
 	
-		while(procite_locations != null)
+		while(procite_locations == null)
 		{
 			procite_locations = GameObject.FindGameObjectsWithTag("Resource");
 			
@@ -160,11 +160,11 @@ public class UnitGUI : MonoBehaviour {
 	
 	private IEnumerable InitalizeRecruitSystem(){
 	
-		while(_rs != null)
+		while(_rs == null)
 		{
 			_rs = GameObject.FindObjectOfType<RecruitSystem>();
 			
-			yield return new WaitForSeconds(0.25f);
+			yield return null;
 		}
 		
 		yield return null;
@@ -504,6 +504,9 @@ public class UnitGUI : MonoBehaviour {
 		
 		GUI.depth = 2;
 		if( MakeButton(0,0, "End Movement", Style.move_cancel) ){
+			
+			StopCoroutine("CharacterMovement");
+			
 			if(GM.instance.CurrentFocus != null)
 				GM.instance.SetFocusController(false);
 			//GM.instance.SetFocusController(false);
