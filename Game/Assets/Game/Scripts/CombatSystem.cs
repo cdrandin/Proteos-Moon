@@ -217,8 +217,8 @@ public class CombatSystem : MonoBehaviour{
 	
 	public static bool WithinEpsilon(Vector3 v1, Vector3 v2, float epsilon ){
 	
-		return ( Mathf.Abs(v1.x - v2.x) > epsilon && 
-		        Mathf.Abs(v1.y - v2.y) > epsilon &&
+		return ( Mathf.Abs(v1.x - v2.x) > epsilon || 
+		        Mathf.Abs(v1.y - v2.y) > epsilon ||
 		        Mathf.Abs(v1.z - v2.z) > epsilon	);
 	}
 	

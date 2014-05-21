@@ -13,37 +13,22 @@ public class UnitHighlight : MonoBehaviour {
 		
 		rend = this.GetComponentInChildren<Transform>().GetComponentInChildren<Renderer>();
 		baseClass = this.gameObject.GetComponent<BaseClass>();
-		IsMine = this.gameObject.GetPhotonView().isMine;
-		
+		IsMine = this.gameObject.GetPhotonView().isMine	;	
 		
 	}	
-	public void StartMouseHighlight(){
-	
-		StartCoroutine(OnMouseOver());
-		StartCoroutine(OnMouseExit());
-	}
-	
-	public void StopMouseHighlight(){
-	
-		StopAllCoroutines();
-	}
 		
 	// Update is called once per frame
 	void Update () {}
 	
-	public IEnumerator OnMouseOver()
+	public void OnMouseOver()
 	{
-			
-		while(true){
-		
+	
 			if(!UnitGUI.instance.isInitialize && !baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn())
 			{
 				
 				rend.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
 				rend.material.SetColor ("_OutlineColor", Color.blue);
 			}
-			yield return null;
-		}
 	}
 	
 	
@@ -58,14 +43,11 @@ public class UnitHighlight : MonoBehaviour {
 		rend.material.shader = Shader.Find("Diffuse Detail");
 	}
 	
-	public IEnumerator OnMouseExit()
+	public void OnMouseExit()
 	{
-		while(true){
 		
-			if(!baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn())
-				rend.material.shader = Shader.Find("Diffuse Detail");
+		if(!baseClass.unit_status.status.Rest && GM.instance.IsItMyTurn())
+			rend.material.shader = Shader.Find("Diffuse Detail");
 				
-			yield return null;
-		}
 	}
 }
