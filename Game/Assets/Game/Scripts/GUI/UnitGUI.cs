@@ -158,7 +158,7 @@ public class UnitGUI : MonoBehaviour {
 		yield return null;
 	}
 	
-	private IEnumerable InitalizeRecruitSystem(){
+	private IEnumerator InitalizeRecruitSystem(){
 	
 		while(_rs == null)
 		{
