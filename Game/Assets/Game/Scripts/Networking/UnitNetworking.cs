@@ -42,12 +42,12 @@ public class UnitNetworking : MonoBehaviour
 	
 		movementList.Clear();
 		
-		MovementInfo newTransform;
+		MovementInfo firstTransform;
 		
 		Player otherPlayer = (Player)((int)GM.instance.WhichPlayerAmI + 1 % GM.instance.NumberOfPlayers);
 //		GameObject [] enemyList = GM.instance.GetEnemyUnitsNearPlayer(otherPlayer);
 		
-		newTransform.currentTransform = transform;
+		firstTransform.currentTransform = transform;
 		
 		int index = 1;
 		
@@ -57,7 +57,11 @@ public class UnitNetworking : MonoBehaviour
 		
 			if (Mathf.Abs( (transform.position.sqrMagnitude - movementList[index].currentTransform.position.sqrMagnitude) ) > 1.0f){
 				
-				newTransform.currentTransform = transform;
+				MovementInfo newMovementInfo = new MovementInfo();
+				
+				newMovementInfo.currentTransform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+				
+				newMovementInfo.currentTransform.rotation = Quaternion.Euler(transform.eulerAngles);
 				
 				++index;
 			}

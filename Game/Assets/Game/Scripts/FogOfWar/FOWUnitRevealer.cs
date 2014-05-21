@@ -25,7 +25,7 @@ public class FOWUnitRevealer : MonoBehaviour
 	/// Radius of the area being revealed. Everything below X is always revealed. Everything up to Y may or may not be revealed.
 	/// </summary>
 
-	private Vector2 range = new Vector2(2f, 30f);
+	public Vector2 range = new Vector2(2f, 30f);
 
 	/// <summary>
 	/// What kind of line of sight checks will be performed.
@@ -53,6 +53,8 @@ public class FOWUnitRevealer : MonoBehaviour
 	
 	void Start (){
 		sightRange = this.gameObject.GetComponent<BaseClass>().sight_range;
+		range.x = sightRange;
+		range.y = range.x * 15;
 	}
 
 	void OnDisable ()
@@ -73,8 +75,8 @@ public class FOWUnitRevealer : MonoBehaviour
 			if (lineOfSightCheck != FOWSystem.LOSChecks.OnlyOnce) mRevealer.cachedBuffer = null;
 
 			mRevealer.pos = mTrans.position;
-			mRevealer.inner = sightRange;
-			mRevealer.outer = sightRange * sightScale;
+			mRevealer.inner = range.x;
+			mRevealer.outer = range.y;
 			mRevealer.los = lineOfSightCheck;
 			mRevealer.isActive = true;
 		}

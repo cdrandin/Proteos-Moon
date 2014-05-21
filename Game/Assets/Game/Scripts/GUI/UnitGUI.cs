@@ -423,7 +423,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.enabled = !isAction && !GetCurrentFocusStatus().Move;// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 		if(MakeButton(0,0,"Move", Style.move)){
 			
-			StartCoroutine(CharacterMovement());
+			StartCoroutine("CharacterMovement");
 			gui_method += MovementEndButton;
 			
 		}
@@ -508,9 +508,11 @@ public class UnitGUI : MonoBehaviour {
 			
 			StopCoroutine("CharacterMovement");
 			
-			if(GM.instance.CurrentFocus != null)
+			if(GM.instance.CurrentFocus != null){
+				
 				GM.instance.SetFocusController(false);
-			//GM.instance.SetFocusController(false);
+				
+			}
 			focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 			
 			
@@ -723,6 +725,8 @@ public class UnitGUI : MonoBehaviour {
 			
 			yield return null;
 		}
+		
+		yield return null;
 	}
 	
 	//This check will do checks to see if there are any units that are nearby or procite

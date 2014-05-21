@@ -81,7 +81,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			if(previousIndex != index){
 				StopCoroutine("CombatLookAt");
-				StartCoroutine(CombatLookAt(focus));
+				StartCoroutine("CombatLookAt" , focus);
 			}
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow)|| Input.GetKeyDown(KeyCode.D)   ) {
@@ -95,12 +95,12 @@ public class CombatSystem : MonoBehaviour{
 			
 			if(previousIndex != index){
 				StopCoroutine("CombatLookAt");
-				StartCoroutine(CombatLookAt(focus));
+				StartCoroutine("CombatLookAt" , focus);
 			}
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Space) ) {
-			StartCoroutine(Attack(focus));
+			StartCoroutine("Attack", focus);
 		}
 	}
 
