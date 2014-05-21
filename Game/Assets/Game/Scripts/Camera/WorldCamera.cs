@@ -413,7 +413,7 @@ public class WorldCamera : MonoBehaviour {
 		float lookAtHeight = 5.0f;
 		float heightDamping = 10.0f , rotationDamping = 10.0f;//, button_pos = Screen.width - 250;
 		float wantedRotationAngle, currentRotationAngle, currentHeight;
-		float distanceScale = 0.23f;
+		float distanceScale = 0.5f;
 		Vector3  characterPosition;
 		Quaternion currentRotation;	
 		float DistancefromPlayer = characterHeight / distanceScale;

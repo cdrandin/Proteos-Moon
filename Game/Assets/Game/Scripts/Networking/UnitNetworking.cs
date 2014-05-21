@@ -125,6 +125,7 @@ public class UnitNetworking : MonoBehaviour
 	{
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		unit.DealDamage(inc_damage);
+		print ("increment damage " + inc_damage);
 	}
 	
 	[RPC]

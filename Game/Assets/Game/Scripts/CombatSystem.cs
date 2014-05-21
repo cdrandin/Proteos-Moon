@@ -42,14 +42,14 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void StartCombat(GameObject focus){
 	
-		StartCoroutine("StartCombatCoroutine", focus);
+		StartCoroutine(StartCombatCoroutine(focus));
 	}
 	
 	private IEnumerator StartCombatCoroutine(GameObject focus){
 	
 		inCombat = true;
-		StartCoroutine("FadeInOut");
-		StartCoroutine("CombatLookAt", focus);
+		StartCoroutine(FadeInOut());
+		StartCoroutine(CombatLookAt(focus));
 		while(attacking){
 		
 			CheckIfButtonsPress(focus);			
@@ -75,7 +75,7 @@ public class CombatSystem : MonoBehaviour{
 			
 			if(previousIndex != index){
 				StopCoroutine("CombatLookAt");
-				StartCoroutine("CombatLookAt", focus);
+				StartCoroutine(CombatLookAt(focus));
 			}
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow)|| Input.GetKeyDown(KeyCode.D)   ) {
@@ -89,12 +89,12 @@ public class CombatSystem : MonoBehaviour{
 			
 			if(previousIndex != index){
 				StopCoroutine("CombatLookAt");
-				StartCoroutine("CombatLookAt", focus);
+				StartCoroutine(CombatLookAt(focus));
 			}
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Space) ) {
-			StartCoroutine("Attack", focus);
+			StartCoroutine(Attack(focus));
 		}
 	}
 
@@ -110,7 +110,8 @@ public class CombatSystem : MonoBehaviour{
 	public void FlashLabel(){
 	
 		GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
-		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 16), "Press Space to Attack");
+		GUI.skin.label.fontSize = Screen.height / 14;
+		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 14), "Press Space to Attack");
 	}
 	
 	public IEnumerator FadeInOut(){
@@ -222,7 +223,7 @@ public class CombatSystem : MonoBehaviour{
 	
 	Vector3 GetFinalCameraPosition(Transform focus, float characterHeight, float characterYAngle){
 	
-		float DistancefromPlayer = characterHeight / 0.23f;
+		float DistancefromPlayer = characterHeight / 0.5f;
 		Vector3 finalCameraPosition = focus.position +  focus.right * (0.25f * characterHeight);	
 		
 		float finalCameraHeight = focus.position.y + characterHeight +  5.0f;
@@ -238,17 +239,19 @@ public class CombatSystem : MonoBehaviour{
 	
 		Vector3 attacker = focus.transform.position;
 		Vector3 enemyPostion = enemyList[index].transform.position;
+		Vector3 cameraLookAt = enemyList[index].transform.position;
+		cameraLookAt.y += (0.85f) * enemyList[index].GetComponent<CapsuleCollider>().height;
 		float characterHeight = (0.85f) * focus.GetComponent<CapsuleCollider>().height;			
 		
 		attacker.y = 0.0f;
 		enemyPostion.y = 0.0f;
 		
-		float smoothCamPos = 1.0f, smoothCamRot = 1.0f, smoothFocRot = 1.0f;
+		float smoothCamPos = 0.05f, smoothCamRot = 0.05f, smoothFocRot = 0.05f;
 		
 		//Get the final positions of each component, i.e. the camera, position and rotation, and the character rotation
 		Quaternion finalfocusRotation  = Quaternion.LookRotation(enemyPostion - attacker);
 		Vector3 finalCameraPosition = GetFinalCameraPosition(focus.transform, characterHeight, finalfocusRotation.eulerAngles.y);
-		Quaternion finalCameraRotation = Quaternion.LookRotation(enemyList[index].transform.position - finalCameraPosition);
+		Quaternion finalCameraRotation = Quaternion.LookRotation(cameraLookAt - finalCameraPosition);
 		
 		
 		while ( WithinEpsilon(WorldCamera.instance.transform.position, finalCameraPosition, 0.0001f) ){

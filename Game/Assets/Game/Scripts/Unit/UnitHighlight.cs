@@ -16,13 +16,11 @@ public class UnitHighlight : MonoBehaviour {
 		IsMine = this.gameObject.GetPhotonView().isMine;
 		
 		
-	}
-	
-	
+	}	
 	public void StartMouseHighlight(){
 	
-		StartCoroutine("OnMouseOver");
-		StartCoroutine("OnMouseExit");
+		StartCoroutine(OnMouseOver());
+		StartCoroutine(OnMouseExit());
 	}
 	
 	public void StopMouseHighlight(){
