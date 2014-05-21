@@ -15,7 +15,11 @@ using UnityEngine;
 public class FOWUnitRevealer : MonoBehaviour
 {
 	Transform mTrans;
+	
+	#region IvanVariables
 	float sightRange;
+	float sightScale = 15.0f;
+	#endregion
 	
 	/// <summary>
 	/// Radius of the area being revealed. Everything below X is always revealed. Everything up to Y may or may not be revealed.
@@ -43,9 +47,12 @@ public class FOWUnitRevealer : MonoBehaviour
 
 	void Awake ()
 	{	
-		
 		mTrans = transform;
 		mRevealer = FOWSystem.CreateRevealer();
+	}
+	
+	void Start (){
+		sightRange = this.gameObject.GetComponent<BaseClass>().sight_range;
 	}
 
 	void OnDisable ()
@@ -66,8 +73,8 @@ public class FOWUnitRevealer : MonoBehaviour
 			if (lineOfSightCheck != FOWSystem.LOSChecks.OnlyOnce) mRevealer.cachedBuffer = null;
 
 			mRevealer.pos = mTrans.position;
-			mRevealer.inner = range.x;
-			mRevealer.outer = range.y;
+			mRevealer.inner = sightRange;
+			mRevealer.outer = sightRange * sightScale;
 			mRevealer.los = lineOfSightCheck;
 			mRevealer.isActive = true;
 		}

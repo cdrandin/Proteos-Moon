@@ -20,7 +20,7 @@ public class UnitGUI : MonoBehaviour {
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
 	private GameObject focusTemp, focusObject;
-	private bool _isInitialize, isMoving, proteus, isAction,isRecruiting;
+	private bool _isInitialize, nearProcite, isAction,isRecruiting;
 
 	private Quaternion currentRotation;
 	private float shift;
@@ -68,7 +68,6 @@ public class UnitGUI : MonoBehaviour {
 	}
 	
 	
-	
 	public GameObject focus_object 
 	{
 		get 
@@ -76,9 +75,6 @@ public class UnitGUI : MonoBehaviour {
 			return (this.focusObject == null)?null:this.focusObject; 
 		}
 	}
-
-
-	
 	
 	public bool	isInitialize 
 	{
@@ -94,11 +90,10 @@ public class UnitGUI : MonoBehaviour {
 		isRecruiting = false;
 		focusObject = null;
 		focusTemp = null;
-		proteus = false;
+		nearProcite = false;
 		//isAttacking = false;
 		isAction = false;
 		//Set bools to false
-		isMoving = false;
 		_reset_once = false;
 		
 		shift = 0;
@@ -137,6 +132,9 @@ public class UnitGUI : MonoBehaviour {
 	void Awake(){
 		instance = this;
 		
+		StartCoroutine("InitializeProcite");
+		StartCoroutine("InitalizeRecruitSystem");
+		
 		float pheight = (5*Screen.height/ 24);
 		UnitInfoLocation = new Rect( Screen.width - (5* pheight / 2) , 0 , 5* pheight / 2 , pheight );
 		informationBox = new Rect(0,0, UnitInfoLocation.width , UnitInfoLocation.height) ;
@@ -147,20 +145,34 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	
+	private IEnumerator InitializeProcite(){
+	
+		while(procite_locations != null)
+		{
+			procite_locations = GameObject.FindGameObjectsWithTag("Resource");
+			
+			yield return new WaitForSeconds(0.25f);
+		}
+	
+		yield return null;
+	}
+	
+	private IEnumerable InitalizeRecruitSystem(){
+	
+		while(_rs != null)
+		{
+			_rs = GameObject.FindObjectOfType<RecruitSystem>();
+			
+			yield return new WaitForSeconds(0.25f);
+		}
+		
+		yield return null;
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		if(GM.instance.IsOn)
 		{
-			if(procite_locations == null)
-			{
-				procite_locations = GameObject.FindGameObjectsWithTag("Resource");
-			}
-
-			if(_rs == null)
-			{
-				_rs = GameObject.FindObjectOfType<RecruitSystem>();
-			}
-
 			if(GM.instance.IsItMyTurn())
 			{
 				if(!_reset_once)
@@ -179,48 +191,16 @@ public class UnitGUI : MonoBehaviour {
 				focusObject = focusTemp;
 				GM.instance.SetUnitControllerActiveOff();
 				
-				
-				
 				this.gui_method += UnitInformationBox;
-				
 				
 				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ){
 					
 					focusObject.GetComponentInChildren<AnimationTriggers>().ReadyAnimation();
 					this.gui_method += BaseSelectionButtons;
 				}
-				
-			}
-			if(isMoving){
-				if(focusObject == null){
-					Debug.LogError("The unit focus is missing");
-				}
-				
-				focusObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation( Input.GetAxis("Vertical") );
-				
-				CombatSystem.instance.CallCombatDelegates(focusObject);
-				
-				if (proteus != NearProcite()){
-					proteus = NearProcite();
-				}
 			}
 			
-			if(CombatSystem.instance.CheckIfAttacking() ){
-				
-				CombatSystem.instance.CheckIfChangingTarget();
-				StartCoroutine(CombatSystem.instance.Attack(focusObject));
-			}
 			CheckButtonsPressedToRemoveGUI();
-		}
-		
-	}
-	
-	void LateUpdate(){
-		
-		if(focusObject != null && CombatSystem.instance.CheckIfAttacking()){
-			
-			CombatSystem.instance.CombatLookAt(focusObject);;
-			
 		}
 		
 	}
@@ -230,7 +210,7 @@ public class UnitGUI : MonoBehaviour {
 		if( WorldCamera.instance.IsCameraOnControlsOn()  && (Input.GetKeyUp(KeyCode.Escape) || WorldCamera.AreCameraKeyboardButtonsPressed()) ){
 			
 			RemoveGUI();
-			CombatSystem.ResetCombatSystem();
+			CombatSystem.instance.ResetCombatSystem();
 			ResetFlags();
 			
 		}
@@ -441,21 +421,9 @@ public class UnitGUI : MonoBehaviour {
 		GUI.enabled = !isAction && !GetCurrentFocusStatus().Move;// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 		if(MakeButton(0,0,"Move", Style.move)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Move();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
-			GM.instance.SetUnitControllerActiveOn(ref focusObject);	
-			GM.instance.SetFocusController(true);
-			
-			WorldCamera.instance.StartCharacterFollow(focusObject);
-			
+			StartCoroutine("CharacterMovement");
 			gui_method += MovementEndButton;
-			//unit_character_controller = GameObject.FindWithTag("UnitController");
-
-			//this will turn on the update that will allow update calls 
-			//on used while the character is moving
-			isMoving = true;
-			//This will turn off the buttons so they wont be able to select the base selction buttons
-			isAction = true;
+			
 		}
 		
 		//This will check to see if there is not in the action window
@@ -467,14 +435,8 @@ public class UnitGUI : MonoBehaviour {
 			
 		}
 		
-		GUI.enabled =  NearProcite() && !isAction && !GetCurrentFocusStatus().Gather;	
+		GUI.enabled =  nearProcite && !isAction && !GetCurrentFocusStatus().Gather;	
 		if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
-			
-			/*
-				focusObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
-				GM.instance.AddResourcesToCurrentPlayer(focusObject.GetComponent<BaseClass>().gather_amount);
-				focusObject.GetComponent<BaseClass>().unit_status.Gather ();	
-				*/
 			
 			// Send act of doing gathering over network
 			focusObject.gameObject.GetPhotonView().RPC("UnitGather", PhotonTargets.AllBuffered);
@@ -483,7 +445,7 @@ public class UnitGUI : MonoBehaviour {
 			lookat.eulerAngles = new Vector3(lookat.eulerAngles.x, focusObject.transform.rotation.eulerAngles.y, lookat.eulerAngles.z);
 			focusObject.transform.rotation = lookat;
 			
-			// Send updateded transformation
+			// Send updated transformation
 			focusObject.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
 			                                           focusObject.gameObject.transform.position, lookat);
 			
@@ -548,8 +510,6 @@ public class UnitGUI : MonoBehaviour {
 			
 			
 			WorldCamera.instance.StopCharacterFollow();
-			
-			isMoving = false;
 			gui_method -= MovementEndButton;
 			isAction  = false;
 		}
@@ -566,7 +526,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  ((29 * Screen.height)/ 40) - shift , (3 * Screen.width)/8, ((3*Screen.height) / 10)+ shift ) );
 		
 		GUI.depth = 2;
-		GUI.enabled = !CombatSystem.instance.CheckIfAttacking() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && !(GetCurrentFocusStatus().Action) && !isRecruiting;
+		GUI.enabled = !CombatSystem.instance.CurrentlyInCombat() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && !(GetCurrentFocusStatus().Action) && !isRecruiting;
 		GUI.depth = 2;
 		if(MakeButton(0,0, "Attack", Style.attack)){
 			//Expend units action
@@ -577,6 +537,8 @@ public class UnitGUI : MonoBehaviour {
 			WorldCamera.instance.TurnCameraControlsOff();	
 			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			CombatSystem.instance.AttackButtonClicked();
+			CombatSystem.instance.StartCombat(focusObject);
+			
 			//isAction  = false;
 			
 		}
@@ -619,7 +581,7 @@ public class UnitGUI : MonoBehaviour {
 		if(MakeButton(0, ((3 * Screen.height)/ 15) + shift, "Back", Style.back)){
 			
 			if(CombatSystem.instance.CheckIfAttacking()){
-				CombatSystem.ResetCombatSystem();
+				CombatSystem.instance.ResetCombatSystem();
 			}	
 			else{
 				gui_method -= ActionSelectionButtons;
@@ -732,6 +694,46 @@ public class UnitGUI : MonoBehaviour {
 	
 	#region Helper Functions
 	
+	//Call this coroutine to start the character movement and any checks required while moving
+	public IEnumerator CharacterMovement(){
+		
+		focusObject.GetComponent<BaseClass>().unit_status.Move();
+
+		//this will turn on the update that will allow update calls 
+		//on used while the character is moving
+
+		//This will turn off the buttons so they wont be able to select the base selction buttons
+		isAction = true;
+		
+		GM.instance.SetUnitControllerActiveOn(ref focusObject);	
+		GM.instance.SetFocusController(true);
+		WorldCamera.instance.StartCharacterFollow(focusObject);
+		
+		AnimationTriggers currentFocusAnimationTriggers =  focusObject.GetComponentInChildren<AnimationTriggers>();
+		
+		while(true){
+			
+			currentFocusAnimationTriggers.MoveAnimation( Input.GetAxis("Vertical") );
+			
+			StartCoroutine("NearbyCheck");		
+			
+			yield return null;
+		}
+	}
+	
+	//This check will do checks to see if there are any units that are nearby or procite
+	public IEnumerator NearbyCheck(){
+		
+		
+		CombatSystem.instance.CallCombatDelegates(focusObject);
+		
+		if (nearProcite != NearProcite()){
+			nearProcite = NearProcite();
+		}
+		
+		yield return null;
+		
+	}
 	
 	public void UpdateUnitInformation(){
 	

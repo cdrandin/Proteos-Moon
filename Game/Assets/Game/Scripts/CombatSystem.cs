@@ -14,75 +14,94 @@ public class CombatSystem : MonoBehaviour{
 
 	private delegate void GUIMethod();
 	private GUIMethod gui_method = null;
-	
-	private static Player currentPlayer = Player.NONE;
-	
+		
 	public static CombatSystem instance;
 	private Rect EnemyUnitBoxLoc, EnemyUnitBox;
-	private int index = 0;
+	private int index = 0, previousIndex;
 	private List<GameObject> enemyList;
 	
-	private bool attacking = false, showGUI = false, isLabelOn = false, activeGUI = false;
+	private bool attacking = false, inCombat = false;
 	
 	
 	private float alpha;
 	
-	private float wantedRotationAngle, wantedHeight, currentRotationAngle, currentHeight, height = 10.0f, heightDamping = 0.5f , rotationDamping = 0.5f;
-	private Quaternion currentRotation;
 	#endregion
 	
 	// Update is called once per frame
-	public void Update () {
-		
-		if( isLabelOn ){
-			FadeInOut ();
-		}
-
-	}
-	public void FixedUpdate(){
+	public void Update () {}
 	
-	}
 	public bool CheckIfAttacking(){
 		return attacking;
 	}
 	
 	public void Start () {
+		alpha = 1.0f;
 		instance = this;
 		
 	}
 	
-	public void CheckIfChangingTarget(){
+	public void StartCombat(GameObject focus){
+	
+		StartCoroutine("StartCombatCoroutine", focus);
+	}
+	
+	private IEnumerator StartCombatCoroutine(GameObject focus){
+	
+		inCombat = true;
+		StartCoroutine("FadeInOut");
+		
+		while(attacking){
+		
+			CheckIfButtonsPress(focus);			
+			yield return null;
+		}
+		yield return null;
+	}
+	
+	public bool CurrentlyInCombat(){
+		return inCombat;
+	}
+	
+	public void CheckIfButtonsPress(GameObject focus){
 		
 		if( Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A) ) {
-			
+			previousIndex = index;
 			if(index + 1 >= enemyList.Count)
 				index = 0;
 			else if ( index + 1 < enemyList.Count)
 				++index;
-			activeGUI = false;
 			gui_method -= UnitEnemyBox;
-			//gui_method += UnitEnemyBox;
-				
+			gui_method += UnitEnemyBox;
+			
+			if(previousIndex != index){
+				StopCoroutine("CombatLookAt");
+				StartCoroutine("CombatLookAt", focus);
+			}
 		}
 		else if (Input.GetKeyDown(KeyCode.RightArrow)|| Input.GetKeyDown(KeyCode.D)   ) {
+			previousIndex = index;
 			if(index - 1 <= -1)
 				index =  enemyList.Count - 1;
 			else if (index - 1 >= 0)
 				--index;
-			activeGUI = false;			
 			gui_method -= UnitEnemyBox;
-			//gui_method += UnitEnemyBox;
+			gui_method += UnitEnemyBox;
 			
-		}	
+			if(previousIndex != index){
+				StopCoroutine("CombatLookAt");
+				StartCoroutine("CombatLookAt", focus);
+			}
+		}
 		
+		if(Input.GetKeyDown(KeyCode.Space) ) {
+			StartCoroutine("Attack", focus);
+		}
 	}
 
 	void OnGUI(){
-		
-		
+	
 		GUI.skin = UnitGUI.UnitGUISkin();
 		if(this.gui_method != null ){
-			
 			this.gui_method();
 		}
 	
@@ -90,56 +109,53 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void FlashLabel(){
 	
-		//GUIContent color = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
-		//GUIStyle newStyle = new GUIStyle(GUI.skin.label);
 		GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
 		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 16), "Press Space to Attack");
-		//print ("Stuff");		
 	}
 	
-	public void FadeInOut(){
-	
-		if( showGUI ){	
-			alpha = Mathf.Lerp(alpha,0.0f , Time.deltaTime * 3.0f);
-			if (Mathf.Abs (alpha - 0 ) < 0.0001){
-				showGUI = !showGUI;
-				alpha = 0.0f;
+	public IEnumerator FadeInOut(){
+
+		while(attacking){	
+			
+			while( alpha > 0.01 ){
+				alpha = Mathf.Lerp(alpha,0.0f , Time.deltaTime * 3.0f);
+				yield return null;
 			}
-		}
-		else{
-			alpha = Mathf.Lerp(alpha , 1.0f , Time.deltaTime * 3.0f);
-			if (Mathf.Abs (alpha - 1 ) < 0.0001f){
-				showGUI = !showGUI;
-				alpha = 1.0f;
+			
+			alpha = 0.0f;
+			
+			while( Mathf.Abs (alpha - 1 )  > 0.01f){
+				alpha = Mathf.Lerp(alpha , 1.0f , Time.deltaTime * 3.0f);
+				yield return null;
 			}
+			
+			alpha = 1.0f;
+			yield return null;
 		}
 	}
 		
 	
 	public void UpdateWithinRangeDelegate(){
  		
-		if (currentPlayer != GM.instance.CurrentPlayer) {
+		if (GM.instance.WhichPlayerAmI == GM.instance.CurrentPlayer) {
 
 			if(WithinRange != null)
 				CleanDelegateBeforeSwitch();
 			
 			AddDelegates();
-			
-			currentPlayer = GM.instance.CurrentPlayer;
 		}
 		
 	}
 	
-	public static void ResetCombatSystem(){
+	public void ResetCombatSystem(){
 	
-		CombatSystem.instance.gui_method -= CombatSystem.instance.UnitEnemyBox;
-		CombatSystem.instance.index = 0;
-		CombatSystem.instance.enemyList.Clear();
-		CombatSystem.instance.attacking = false;
-		CombatSystem.instance.isLabelOn = false;
-		CombatSystem.instance.activeGUI = false;
-		CombatSystem.instance.gui_method -= CombatSystem.instance.FlashLabel;
-		CombatSystem.instance.StopCoroutineProcess();
+		gui_method -= CombatSystem.instance.UnitEnemyBox;
+		index = 0;
+		if (enemyList != null)
+			enemyList.Clear();
+		attacking = false;
+		gui_method -= FlashLabel;
+		StopAllCoroutines();
 		WorldCamera.instance.ResetCamera();
 		WorldCamera.instance.TurnCameraControlsOn();
 	}
@@ -171,11 +187,9 @@ public class CombatSystem : MonoBehaviour{
 		}
 	}
 	
-	public void AttackButtonClicked(){
-		isLabelOn = true;
+	public void AttackButtonClicked(){;
 		gui_method += FlashLabel;
 		gui_method += UnitEnemyBox;
-		activeGUI = true;
 		attacking = true;
 	}
 	
@@ -197,62 +211,82 @@ public class CombatSystem : MonoBehaviour{
 		TurnOnHighlight();
 	}
 	
-	public void CombatLookAt(GameObject focus){
 	
-//		MainCamera.transform.LookAt();
+	public static bool WithinEpsilon(Vector3 v1, Vector3 v2, float epsilon ){
+	
+		return ( Mathf.Abs(v1.x - v2.x) < epsilon && 
+		        Mathf.Abs(v1.y - v2.y) < epsilon &&
+		        Mathf.Abs(v1.z - v2.z) < epsilon	);
+	}
+	
+	Vector3 GetFinalCameraPosition(Vector3 focusPostion, float characterHeight, float characterYAngle){
+	
+		float DistancefromPlayer = characterHeight / 1.0f;
+		Vector3 finalCameraPosition = focusPostion ;
 		
-		if(!activeGUI){
+		float finalCameraHeight = focusPostion.y + characterHeight +  5.0f;
 		
-			Vector3 direction = focus.transform.forward;
-			Vector3 attacker = focus.transform.position;
-			Vector3 enemy = enemyList[index].transform.position;
-			direction.y = 0.0f;
-			attacker.y = 0.0f;
-			enemy.y = 0.0f;
-				
-			focus.transform.rotation = Quaternion.LookRotation(enemy - attacker);		
-			focus.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, focus.transform.position, focus.transform.rotation);
+		Quaternion characterRotation = Quaternion.Euler (0.0f, characterYAngle, 0.0f);
+		
+		finalCameraPosition -= characterRotation * Vector3.forward * DistancefromPlayer;	
 
-			gui_method += UnitEnemyBox;
-			activeGUI = true;
+		return new Vector3 (finalCameraPosition.x, finalCameraHeight, finalCameraPosition.z);
+	 	
+	}
+	
+	public IEnumerator CombatLookAt(GameObject focus){
+	
+		Vector3 attacker = focus.transform.position;
+		Vector3 enemyPostion = enemyList[index].transform.position;
+		float characterHeight = (0.85f) * focus.GetComponent<CapsuleCollider>().height;			
+		
+		attacker.y = 0.0f;
+		enemyPostion.y = 0.0f;
+		
+		float smoothCamPos = 1.0f, smoothCamRot = 1.0f, smoothFocRot = 1.0f;
+		
+		//Get the final positions of each component, i.e. the camera, position and rotation, and the character rotation
+		Vector3 finalCameraPosition = GetFinalCameraPosition(focus.transform.position, characterHeight, focus.transform.eulerAngles.y);
+		Quaternion finalCameraRotation = Quaternion.LookRotation(enemyList[index].transform.position - finalCameraPosition);
+		Quaternion finalfocusRotation  = Quaternion.LookRotation(enemyPostion - attacker);
+		
+		while ( WithinEpsilon(WorldCamera.instance.transform.position, finalCameraPosition, 0.01f) ){
+			
+			WorldCamera.instance.transform.position = Vector3.Lerp(WorldCamera.instance.transform.position, finalCameraPosition, Time.deltaTime + smoothCamPos);				
+			WorldCamera.instance.cameraY = WorldCamera.instance.transform.position.y;
+			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime + smoothCamRot);
+			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime +smoothFocRot);
+			yield return null;
 		}
 		
+		WorldCamera.instance.transform.position = finalCameraPosition;
 		
-		//print (target.localPosition);
-		wantedRotationAngle = enemyList[index].transform.eulerAngles.y;
-		//print (wantedRotationAngle);
-		wantedHeight = enemyList[index].transform.position.y + height;
+		while ( WithinEpsilon(WorldCamera.instance.transform.eulerAngles, finalCameraRotation.eulerAngles, 0.01f) ){
+			
+			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
+			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
+			yield return null;
+		}
 		
-		currentRotationAngle = WorldCamera.instance.transform.eulerAngles.y;
-		currentHeight = WorldCamera.instance.transform.position.y;
+		WorldCamera.instance.transform.rotation = finalCameraRotation;
 		
-		// Damp the rotation around the y-axis
-		currentRotationAngle = Mathf.LerpAngle (currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+		while ( WithinEpsilon(focus.transform.eulerAngles, finalfocusRotation.eulerAngles, 0.01f) ){
+			
+			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
+			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
+			yield return null;
+		}
 		
-		// Damp the height
-		currentHeight = Mathf.Lerp (currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+		focus.transform.rotation = finalfocusRotation;
 		
-		// Convert the angle into a rotation
-		currentRotation = Quaternion.Euler (0, currentRotationAngle, 0);
-		
-		// Set the position of the camera on the x-z plane to:
-		// distance meters behind the target
-		Vector3 worldCameraPosition =  focus.transform.position;
-		worldCameraPosition -= currentRotation * Vector3.Normalize(enemyList[index].transform.position - focus.transform.position) * 10;	
-		//print (currentRotation);
-		//print (Vector3.Normalize(enemyList[index].transform.position - focus.transform.position));
-		// Set the height of the camera
-		WorldCamera.instance.transform.position = new Vector3 (worldCameraPosition.x, currentHeight, worldCameraPosition.z);
-		
-		//TODO: interpolate
-		WorldCamera.instance.MainCamera.transform.LookAt(enemyList[index].transform);
+		focus.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, focus.transform.position, focus.transform.rotation);				
+		yield return null;
 	}
+	
 	
 	public IEnumerator Attack(GameObject focusUnit){
 	
-	
-		if(Input.GetKeyDown(KeyCode.Space) ) {	
-			isLabelOn = false;
+			attacking = false;
 			gui_method -= FlashLabel;
 
 			//TODO: Figure out how damage is dealt		
@@ -283,9 +317,8 @@ public class CombatSystem : MonoBehaviour{
 				GM.instance.UnitDied(enemyList[index]);
 			}
 			ResetCombatSystem();
-			
-		}
-		yield return null;
+			yield return null;
+
 	}
 
 
@@ -309,20 +342,8 @@ public class CombatSystem : MonoBehaviour{
 
 	private void CleanDelegateBeforeSwitch(){
 	
-		for(uint j = 0; j < GM.instance.NumberOfPlayers; ++j){
-	
-			if((Player)j == GM.instance.CurrentPlayer)
-				continue;
-			
-			GameObject [] otherPlayerUnits = GM.instance.GetUnitsFromPlayer ((Player)j);
-
-			for (uint i = 0; i < otherPlayerUnits.Length; ++i){
-
-				WithinRange -= otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
-				TurnOnHighlight -= otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnHighlight;
-				
-			}
-		}
+		WithinRange = null;
+		TurnOnHighlight = null;
 	}
 
 	/*
