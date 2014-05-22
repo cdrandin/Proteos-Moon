@@ -13,18 +13,19 @@ public class UnitNetworking : MonoBehaviour
 	private struct MovementInfo{
 	
 		public Transform currentTransform;
-		public bool isInOtherPlayerFOV;
+		public int isInOtherPlayerFOV;
 	
 	}
 	
 	private List<MovementInfo> movementList;
-
+	private FOWRenderers fowRenderer;
 	private PhotonView _my_photon_view;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		_my_photon_view = this.gameObject.GetPhotonView();
+		fowRenderer = this.gameObject.GetComponent<FOWRenderers>();
 	}
 
 	public void UpdateUnitPosition()
@@ -36,34 +37,76 @@ public class UnitNetworking : MonoBehaviour
 			_my_photon_view.RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation);	
 		}
 	}
-
-
-	IEnumerator WhileMoving(){
 	
-		movementList.Clear();
+	//Call this when you are starting to move your character
+	void StartStoringMovements(int whichPlayerAmI)
+	{
+
+		StartCoroutine("WhileMoving", (Player)whichPlayerAmI);
+	}
+	
+	//Call this when you are no longer moving your character
+	void StopStoringMovements(int whichPlayerAmI){
+	
+	
+		StopCoroutine("WhileMoving");
 		
-		MovementInfo firstTransform;
+		//Make sure to store the final position to the movementlist
+		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)whichPlayerAmI);
+		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
 		
-		Player otherPlayer = (Player)((int)GM.instance.WhichPlayerAmI + 1 % GM.instance.NumberOfPlayers);
-//		GameObject [] enemyList = GM.instance.GetEnemyUnitsNearPlayer(otherPlayer);
+	}
+	
+	[RPC]
+	void ClearMovementList(){
+	
+		if (movementList != null)
+			movementList.Clear();
+	}
+	
+
+	[RPC]
+	void AddToMovementList(Vector3 position, Quaternion rotation, int boolean)
+	{
+		//Storing the values to its appropiate locations
+		MovementInfo newMovementInfo = new MovementInfo();
+		newMovementInfo.currentTransform.position = position;
+		newMovementInfo.currentTransform.rotation = rotation;
+		newMovementInfo.isInOtherPlayerFOV = boolean;
 		
-		firstTransform.currentTransform = transform;
+		movementList.Add(newMovementInfo);
 		
-		int index = 1;
+	}
+	
+	//A coroutine that updates the position the of character
+	IEnumerator WhileMoving(Player ownerOfUnitMoving){
+	
+		//Clear the list before beginning
+		_my_photon_view.RPC("ClearMovementList", PhotonTargets.AllBuffered);
 		
+		//Get the list of enemies to check to see if they are within their sight range
+		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer(ownerOfUnitMoving);
+		
+		//store the first position to compare the next positions
+		Vector3 previousPosition = this.gameObject.transform.position;
+
+		//Add the first position to the list
+		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
+				
+		//the time to check the next frame		
 		float delta = 0.25f;
 		
 		while(true){
 		
-			if (Mathf.Abs( (transform.position.sqrMagnitude - movementList[index].currentTransform.position.sqrMagnitude) ) > 1.0f){
+			//if the next position square magnitude is larger than 1 then store the value
+			if (Mathf.Abs( (transform.position.sqrMagnitude - previousPosition.sqrMagnitude) ) > 1.0f){
 				
-				MovementInfo newMovementInfo = new MovementInfo();
+				//update the previous position
+				previousPosition = this.gameObject.transform.position;
 				
-				newMovementInfo.currentTransform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+				//Add the new transform to the movement list
+				_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
 				
-				newMovementInfo.currentTransform.rotation = Quaternion.Euler(transform.eulerAngles);
-				
-				++index;
 			}
 			
 			yield return new WaitForSeconds(delta);
@@ -71,14 +114,25 @@ public class UnitNetworking : MonoBehaviour
 	
 	}
 	
-	public bool CanTheOtherPlayerSeeMe(GameObject[] enemyList){
+	//This checks to see if the character is in the sight range
+	public int CanTheOtherPlayerSeeMe(GameObject[] enemyList){
+	
+		//HACK: Since RPC calls cant send bool parameters, we are going to send integers with the values of 0 or 1
 	
 		for(int i = 0; i < enemyList.Length; ++i){
-		
-			//if(enemyList[i].)
+			
+			//the range y value in revealer is the max distance the player can see 
+			float sightRange = enemyList[i].GetComponent<FOWUnitRevealer>().range.y;
+			//The magnitude between both players
+			float sqrMag = Vector3.SqrMagnitude(enemyList[i].transform.position - this.transform.position);
+			//Checking to see if they are within the sight range
+			if(sightRange * sightRange > sqrMag ){
+			
+				return 1;
+			}
 			
 		}
-		return true;
+		return 0;
 	}
 	
 
