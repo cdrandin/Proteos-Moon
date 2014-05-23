@@ -328,7 +328,8 @@ public class UnitController : Photon.MonoBehaviour
 			_start = _unit_focus_cc.gameObject.transform.position;
 			_steps = 0.0f;
 			_path.Clear();
-			StartCoroutine(CollectPositions());
+			StopCoroutine("CollectPositions");
+			StartCoroutine("CollectPositions");
 
 			//SetIsControllable(true);
 		}

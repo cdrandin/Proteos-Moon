@@ -30,7 +30,7 @@ public class DistanceProjection : MonoBehaviour
 	private float _new_ortho_size;
 
 	// When _travel_distance is 1 "unit" the ortho_size should be 
-	private const float _ratio = 2.55f;
+	private const float _ratio = 12.7f;
 
 	// Array of projectors
 	public Projector[] projectors;
@@ -58,6 +58,8 @@ public class DistanceProjection : MonoBehaviour
 			{
 				SetProjectionOn(GM.instance.CurrentFocus);
 			}
+
+			//UpdateProjection();
 		}
 	}
 	 
