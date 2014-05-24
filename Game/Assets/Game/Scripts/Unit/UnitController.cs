@@ -187,10 +187,6 @@ public class UnitController : Photon.MonoBehaviour
 			_unit_focus_cc.Move(movement);
 
 			_steps += _unit_focus_cc.velocity.magnitude/speed;
-			//Debug.Log(string.Format("Steps total: {0}", _steps));
-
-			_unit_focus_cc.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
-			                                              _unit_focus_cc.gameObject.transform.position, _unit_focus_cc.gameObject.transform.rotation);
 		}
 
 		if(Input.GetKeyDown(KeyCode.G))
