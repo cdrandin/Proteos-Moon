@@ -9,23 +9,22 @@ using System.Collections.Generic;
 
 public class UnitNetworking : MonoBehaviour
 {
-	
 	private struct MovementInfo{
 	
 		public Transform currentTransform;
-		public int isInOtherPlayerFOV;
+		public bool isInOtherPlayerFOV;
 	
 	}
 	
 	private List<MovementInfo> movementList;
-	private FOWRenderers fowRenderer;
 	private PhotonView _my_photon_view;
+	private AnimationTriggers unitAnim;
 	
 	// Use this for initialization
 	void Start ()
 	{
 		_my_photon_view = this.gameObject.GetPhotonView();
-		fowRenderer = this.gameObject.GetComponent<FOWRenderers>();
+		unitAnim = this.gameObject.GetComponentInChildren<AnimationTriggers>();
 	}
 
 	public void UpdateUnitPosition()
@@ -37,16 +36,17 @@ public class UnitNetworking : MonoBehaviour
 			_my_photon_view.RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation);	
 		}
 	}
+
 	
 	//Call this when you are starting to move your character
-	void StartStoringMovements(int whichPlayerAmI)
+	public void StartStoringMovements(int whichPlayerAmI)
 	{
 
 		StartCoroutine("WhileMoving", (Player)whichPlayerAmI);
 	}
 	
 	//Call this when you are no longer moving your character
-	void StopStoringMovements(int whichPlayerAmI){
+	public void StopStoringMovements(int whichPlayerAmI){
 	
 	
 		StopCoroutine("WhileMoving");
@@ -54,32 +54,48 @@ public class UnitNetworking : MonoBehaviour
 		//Make sure to store the final position to the movementlist
 		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)whichPlayerAmI);
 		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
+		PhotonNetwork.isMessageQueueRunning = false;
+		StartCoroutine(MoveCharacterLocally());
 		
 	}
 	
-	[RPC]
-	void ClearMovementList(){
-	
-		if (movementList != null)
-			movementList.Clear();
-	}
-	
-
-	[RPC]
-	void AddToMovementList(Vector3 position, Quaternion rotation, int boolean)
-	{
-		//Storing the values to its appropiate locations
-		MovementInfo newMovementInfo = new MovementInfo();
-		newMovementInfo.currentTransform.position = position;
-		newMovementInfo.currentTransform.rotation = rotation;
-		newMovementInfo.isInOtherPlayerFOV = boolean;
+	//This is called locally in the machine based off the 
+	private IEnumerator MoveCharacterLocally(){
 		
-		movementList.Add(newMovementInfo);
+		bool movementValid = false;
+		
+		
+		Transform myTransform = this.gameObject.transform;
+		
+		for(int i = 1; i < movementList.Count - 1 ; ++i){
+			
+			movementValid = movementList[i-1].isInOtherPlayerFOV || movementList[i].isInOtherPlayerFOV;
+			
+			myTransform.position = movementList[i-1].currentTransform.position;
+			myTransform.rotation = movementList[i-1].currentTransform.rotation;
+			Vector3 nextPosition = movementList[i].currentTransform.position;
+			Vector3 nextEuler = movementList[i].currentTransform.eulerAngles;
+			while(movementValid && !GM.WithinEpsilon(myTransform.position, nextPosition, 0.001f) 
+			      &&  !GM.WithinEpsilon(myTransform.eulerAngles, nextEuler, 0.001f )){
+				
+				unitAnim.MoveAnimation(1.0f);
+				myTransform.position = Vector3.Lerp(myTransform.position, nextPosition, Time.deltaTime);
+				myTransform.eulerAngles = Vector3.Lerp(myTransform.eulerAngles, nextEuler, Time.deltaTime);
+				
+				yield return null;				
+			}
+			
+			myTransform.position = nextPosition	;
+			myTransform.eulerAngles = nextEuler ;
+		}
+		//End of for loop stop movement animation
+		unitAnim.MoveAnimation(0.0f);
+		PhotonNetwork.isMessageQueueRunning = true;
 		
 	}
 	
 	//A coroutine that updates the position the of character
-	IEnumerator WhileMoving(Player ownerOfUnitMoving){
+	private IEnumerator WhileMoving(Player ownerOfUnitMoving){
 	
 		//Clear the list before beginning
 		_my_photon_view.RPC("ClearMovementList", PhotonTargets.AllBuffered);
@@ -135,41 +151,94 @@ public class UnitNetworking : MonoBehaviour
 		return 0;
 	}
 	
+	//To remove overhead we are using functions within the networking that will send all rpc calls for each individual unit
+	
+	public void UnitIsIdle(){
+		
+		_my_photon_view.RPC("UnitIdle", PhotonTargets.AllBuffered);
+	}
+	
+	public void UnitIsReady(){
+	
+		_my_photon_view.RPC("UnitReady", PhotonTargets.AllBuffered);
+	}
+
+	public void UnitIsGathering(Vector3 current_procite_pos){
+	
+		Quaternion lookat = Quaternion.LookRotation(current_procite_pos);
+		lookat.eulerAngles = new Vector3(lookat.eulerAngles.x, this.gameObject.transform.eulerAngles.y, lookat.eulerAngles.z);
+		
+		// Send updated transformation
+		_my_photon_view.RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, this.gameObject.transform.position, lookat);
+
+		// Send act of doing gathering over network
+		_my_photon_view.RPC("UnitGather", PhotonTargets.AllBuffered);
+	}
+
+	#region RPC calls
+	[RPC]
+	void ClearMovementList(){
+		
+		if (movementList != null)
+			movementList.Clear();
+	}
+	
+	
+	[RPC]
+	void AddToMovementList(Vector3 position, Quaternion rotation, int boolean)
+	{
+		//Storing the values to its appropiate locations
+		MovementInfo newMovementInfo = new MovementInfo();
+		newMovementInfo.currentTransform.position = position;
+		newMovementInfo.currentTransform.rotation = rotation;
+		newMovementInfo.isInOtherPlayerFOV =  (boolean == 1)? true : false ;
+		
+		movementList.Add(newMovementInfo);
+		
+	}
+	
 
 	// Update the unit's current position. Allowing it to move
 	[RPC]
 	void UpdateUnitTransformation(Vector3 position, Quaternion rotation)
 	{
-		if(GM.instance.IsOn)
-		{
-			// Get the unit in which to move
-			this.gameObject.transform.position = position;
-			this.gameObject.transform.rotation = rotation;
-			this.gameObject.GetComponentInChildren<AnimationTriggers>().MoveAnimation(Input.GetAxis("Vertical"));
+		// Get the unit in which to move
+		this.gameObject.transform.position = position;
+		StartCoroutine(SmoothRotation(rotation));
+
+	}
+	
+	private IEnumerator SmoothRotation(Quaternion rotation){
+		
+		PhotonNetwork.isMessageQueueRunning = false;
+		
+		Transform myTransform = this.gameObject.transform;
+		Vector3 finalEuler = rotation.eulerAngles;
+		while ( !GM.WithinEpsilon(myTransform.eulerAngles, finalEuler, 0.01f) ){
+			
+			myTransform.rotation = Quaternion.Slerp(myTransform.rotation, rotation, Time.deltaTime);
+			yield return null;
 		}
+		myTransform.rotation = rotation;
+		
+		PhotonNetwork.isMessageQueueRunning = true;
 	}
 	
 	// Put unit in its correct player container
 	[RPC]
 	void ParentUnitToCurrentPlayerContainer()
 	{
-		if(GM.instance.IsOn)
-		{
-			GM.instance.AddUnitToCurrentPlayerContainer(this.gameObject);
-		}
+		GM.instance.AddUnitToCurrentPlayerContainer(this.gameObject);
 	}
 
 	// Update the units status for both players.
 	[RPC]
 	public void UpdateUnitStatus(Status status)
 	{
-		if(GM.instance.IsOn)
+		this.gameObject.GetComponent<BaseClass>().unit_status.status = status;
+		if(status.Dead)
 		{
-			this.gameObject.GetComponent<BaseClass>().unit_status.status = status;
-			if(status.Dead)
-			{
-				_my_photon_view.RPC("UnitDead", PhotonTargets.AllBuffered);
-			}
+			_my_photon_view.RPC("UnitDead", PhotonTargets.AllBuffered);
 		}
 	}
 
@@ -199,17 +268,28 @@ public class UnitNetworking : MonoBehaviour
 		
 		}
 		
-		this.gameObject.GetComponentInChildren<AnimationTriggers>().DamageAnimation(newHealth);
+		unitAnim.DamageAnimation(newHealth);
 	
 	}
 
+	[RPC]
+	void UnitReady()
+	{
+		unitAnim.ReadyAnimation();
+	}
+	
+	[RPC]
+	void UnitIdle()
+	{
+		unitAnim.IdleAnimation();
+	}
+	
 	[RPC]
 	void UnitGather()
 	{
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		GM.instance.AddResourcesToCurrentPlayer(unit.gather_amount);
-		//this.gameObject.GetComponentInChildren<AnimationTriggers>().ForceGatherAnimation();
-		this.gameObject.GetComponentInChildren<AnimationTriggers>().GatherAnimation();
+		unitAnim.GatherAnimation();
 		unit.unit_status.Gather();
 	}
 
@@ -218,4 +298,6 @@ public class UnitNetworking : MonoBehaviour
 	{
 		GM.instance.UnitDied(this.gameObject);
 	}
+	
+	#endregion
 }

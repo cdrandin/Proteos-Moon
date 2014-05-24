@@ -224,12 +224,6 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
 	
-	public static bool WithinEpsilon(Vector3 v1, Vector3 v2, float epsilon ){
-	
-		return ( Mathf.Abs(v1.x - v2.x) > epsilon || 
-		        Mathf.Abs(v1.y - v2.y) > epsilon ||
-		        Mathf.Abs(v1.z - v2.z) > epsilon	);
-	}
 	
 	Vector3 GetFinalCameraPosition(Transform focus, float characterHeight, float characterYAngle){
 	
@@ -264,7 +258,7 @@ public class CombatSystem : MonoBehaviour{
 		Quaternion finalCameraRotation = Quaternion.LookRotation(cameraLookAt - finalCameraPosition);
 		
 		
-		while ( WithinEpsilon(WorldCamera.instance.transform.position, finalCameraPosition, 0.0001f) ){
+		while ( !GM.WithinEpsilon(WorldCamera.instance.transform.position, finalCameraPosition, 0.0001f) ){
 			
 			WorldCamera.instance.transform.position = Vector3.Lerp(WorldCamera.instance.transform.position, finalCameraPosition, Time.deltaTime + smoothCamPos);				
 			WorldCamera.instance.cameraY = WorldCamera.instance.transform.position.y;
@@ -277,7 +271,7 @@ public class CombatSystem : MonoBehaviour{
 		
 		WorldCamera.instance.transform.position = finalCameraPosition;
 		
-		while ( WithinEpsilon(WorldCamera.instance.transform.eulerAngles, finalCameraRotation.eulerAngles, 0.0001f) ){
+		while ( !GM.WithinEpsilon(WorldCamera.instance.transform.eulerAngles, finalCameraRotation.eulerAngles, 0.0001f) ){
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
@@ -287,7 +281,7 @@ public class CombatSystem : MonoBehaviour{
 		
 		WorldCamera.instance.transform.rotation = finalCameraRotation;
 		
-		while ( WithinEpsilon(focus.transform.eulerAngles, finalfocusRotation.eulerAngles, 0.0001f) ){
+		while ( !GM.WithinEpsilon(focus.transform.eulerAngles, finalfocusRotation.eulerAngles, 0.0001f) ){
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
@@ -298,7 +292,6 @@ public class CombatSystem : MonoBehaviour{
 		focus.transform.rotation = finalfocusRotation;
 		
 		focus.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, focus.transform.position, focus.transform.rotation);				
-		yield return null;
 	}
 	
 	
