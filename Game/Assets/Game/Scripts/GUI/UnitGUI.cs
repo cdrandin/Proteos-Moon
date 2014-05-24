@@ -190,6 +190,7 @@ public class UnitGUI : MonoBehaviour {
 			
 
 			GM.instance.SetFocusController(false);		
+			CharacterFocusComponentsUpdate();
 			this.gui_method += UnitInformationBox;
 			
 			if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine &&  !focusUnitBaseClass.unit_status.status.Rest){

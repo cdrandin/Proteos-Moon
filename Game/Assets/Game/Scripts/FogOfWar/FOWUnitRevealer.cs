@@ -54,7 +54,7 @@ public class FOWUnitRevealer : MonoBehaviour
 	void Start (){
 		sightRange = this.gameObject.GetComponent<BaseClass>().sight_range;
 		range.x = sightRange;
-		range.y = range.x * 15;
+		range.y = range.x * sightScale;
 	}
 
 	void OnDisable ()
