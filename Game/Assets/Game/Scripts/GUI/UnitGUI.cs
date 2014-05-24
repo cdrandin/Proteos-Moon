@@ -184,6 +184,7 @@ public class UnitGUI : MonoBehaviour {
 					focusObject = null;
 				}
 			}
+			
 			focusTemp = GM.instance.CurrentFocus;
 			
 			//Conditions to print the GUI		
@@ -192,12 +193,12 @@ public class UnitGUI : MonoBehaviour {
 				CombatSystem.instance.UpdateWithinRangeDelegate();
 				focusObject = focusTemp;
 				StartCoroutine(NearbyCheck());
-				GM.instance.SetUnitControllerActiveOff();				
+				GM.instance.SetFocusController(false);		
 				this.gui_method += UnitInformationBox;
 				
 				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ){
 					
-					focusObject.GetComponentInChildren<AnimationTriggers>().ReadyAnimation();
+					focusObject.GetComponent<UnitNetworking>().UnitIsReady();
 					this.gui_method += BaseSelectionButtons;
 				}
 			}
@@ -440,26 +441,15 @@ public class UnitGUI : MonoBehaviour {
 		
 		GUI.enabled =  nearProcite && !isAction && !GetCurrentFocusStatus().Gather;	
 		if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
-			
-			// Send act of doing gathering over network
-			focusObject.gameObject.GetPhotonView().RPC("UnitGather", PhotonTargets.AllBuffered);
-			
-			Quaternion lookat = Quaternion.LookRotation(current_procite_pos);
-			lookat.eulerAngles = new Vector3(lookat.eulerAngles.x, focusObject.transform.rotation.eulerAngles.y, lookat.eulerAngles.z);
-			focusObject.transform.rotation = lookat;
-			
-			// Send updated transformation
-			focusObject.gameObject.GetPhotonView().RPC("UpdateUnitTransformation", PhotonTargets.AllBuffered, 
-			                                           focusObject.gameObject.transform.position, lookat);
-			
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
+
+			focusObject.GetComponent<UnitNetworking>().UnitIsGathering(current_procite_pos);
 		}
+		
 		GUI.enabled = !isAction;
 		if(MakeButton(0, (3 * Screen.height)/ 16, "Rest", Style.rest)){
 			focusObject.GetComponent<BaseClass>().unit_status.Rest();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			
-			focusObject.GetComponentInChildren<AnimationTriggers>().IdleAnimation();
+			focusObject.GetComponent<UnitNetworking>().UnitIsIdle();
 			focusObject.GetComponent<UnitHighlight>().RestingUnitGrayOut();
 			GM.instance.SetUnitControllerActiveOff();
 			this.gui_method -= UnitInformationBox;
@@ -543,7 +533,6 @@ public class UnitGUI : MonoBehaviour {
 				GM.instance.SetFocusController(false);
 			focusObject.GetComponent<BaseClass>().unit_status.Action();	
 			WorldCamera.instance.TurnCameraControlsOff();	
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			CombatSystem.instance.AttackButtonClicked();
 			CombatSystem.instance.StartCombat(focusObject);
 			
@@ -553,14 +542,12 @@ public class UnitGUI : MonoBehaviour {
 		if(MakeButton(0, Screen.height/ 15 , "Use", Style.item)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			gui_method -= ActionSelectionButtons;
 			isAction = false;
 		}
 		if(MakeButton(0, (2 * Screen.height)/ 15, "Special", Style.special)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			gui_method -= ActionSelectionButtons;
 			isAction  =false;
 		}
@@ -616,7 +603,6 @@ public class UnitGUI : MonoBehaviour {
 		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.scout );
 		if (MakeButton((1 * Screen.width)/64, (95*Screen.height)/1024 ,string.Format("Scout  {0}", _rs.unit_cost.scout), Style.scout)){
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -627,7 +613,6 @@ public class UnitGUI : MonoBehaviour {
 		if (MakeButton((1 * Screen.width)/64, (2*95*Screen.height) /1024,string.Format("Braver  {0}", _rs.unit_cost.braver), Style.braver)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -639,7 +624,6 @@ public class UnitGUI : MonoBehaviour {
 		if (MakeButton((1 * Screen.width)/64, (3*95*Screen.height) /1024, string.Format("Arcane  {0}", _rs.unit_cost.arcane), Style.arcane)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -651,7 +635,6 @@ public class UnitGUI : MonoBehaviour {
 		if (MakeButton((1 * Screen.width)/64, (4*95*Screen.height) /1024,string.Format("Sniper  {0}", _rs.unit_cost.sniper), Style.sniper)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -663,7 +646,6 @@ public class UnitGUI : MonoBehaviour {
 		if (MakeButton((1 * Screen.width)/64, (5*95*Screen.height) /1024,string.Format("Gigan  {0}", _rs.unit_cost.titan), Style.gigan)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -675,7 +657,6 @@ public class UnitGUI : MonoBehaviour {
 		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
 			
 			focusObject.GetComponent<BaseClass>().unit_status.Action();
-			//focusObject.GetPhotonView().RPC("UpdateUnitStatus", PhotonTargets.AllBuffered, focusObject.GetComponent<BaseClass>().unit_status.status);
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
