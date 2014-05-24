@@ -56,7 +56,6 @@ public class UnitNetworking : MonoBehaviour
 		//Make sure to store the final position to the movementlist
 		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)whichPlayerAmI);
 		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
-		PhotonNetwork.isMessageQueueRunning = false;
 		_my_photon_view.RPC("StartMovementLocally", PhotonTargets.OthersBuffered);
 		
 	}
@@ -69,7 +68,7 @@ public class UnitNetworking : MonoBehaviour
 	
 	//This is called locally in the machine based off the 
 	private IEnumerator MoveCharacterLocally(){
-		
+		PhotonNetwork.isMessageQueueRunning = false;
 		bool movementValid = false;
 		
 		print (movementList.Count);
@@ -99,7 +98,7 @@ public class UnitNetworking : MonoBehaviour
 		}
 		//End of for loop stop movement animation
 		unitAnim.MoveAnimation(0.0f);
-		PhotonNetwork.isMessageQueueRunning = true;
+		//PhotonNetwork.isMessageQueueRunning = true;
 		
 	}
 	
