@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class UnitNetworking : MonoBehaviour
 {
-	private struct MovementInfo{
+	public struct MovementInfo{
 	
 		public Quaternion currentRotation;
 		public Vector3 currentPosition;
@@ -17,7 +17,7 @@ public class UnitNetworking : MonoBehaviour
 	
 	}
 	
-	private List<MovementInfo> movementList;
+	public List<MovementInfo> movementList;
 	private PhotonView _my_photon_view;
 	private AnimationTriggers unitAnim;
 	
@@ -75,8 +75,8 @@ public class UnitNetworking : MonoBehaviour
 		
 		for(int i = 1; i < movementList.Count - 1 ; ++i){
 			
+			print ("Before " + Time.time);
 			movementValid = movementList[i-1].isInOtherPlayerFOV || movementList[i].isInOtherPlayerFOV;
-			
 			transform.position = movementList[i-1].currentPosition;
 			transform.rotation = movementList[i-1].currentRotation;
 			Vector3 nextPosition = movementList[i].currentPosition;
@@ -90,11 +90,12 @@ public class UnitNetworking : MonoBehaviour
 				
 				yield return null;				
 			}
+			print ("After " + Time.time);
+			
 			unitAnim.MoveAnimation(1.0f);
 			transform.position = nextPosition	;
 			transform.eulerAngles = nextEuler ;
 			
-			yield return null;
 		}
 		//End of for loop stop movement animation
 		unitAnim.MoveAnimation(0.0f);
