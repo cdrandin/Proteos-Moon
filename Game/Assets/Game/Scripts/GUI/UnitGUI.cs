@@ -38,6 +38,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	public Texture2D highlight, clicked;
 	
+	private Texture2D healthBar, exhaustBar, emptyBar;
 	
 	public static UnitGUI instance;
 	
@@ -104,22 +105,22 @@ public class UnitGUI : MonoBehaviour {
 		
 		Texture2D normal = mySkin.button.normal.background;
 		
-		mySkin.button.active.background = CombineTextures(normal, clicked);
-		mySkin.button.hover.background = CombineTextures(normal, highlight);
+		mySkin.button.active.background = GM.CombineTextures(normal, clicked);
+		mySkin.button.hover.background = GM.CombineTextures(normal, highlight);
 		
-		mySkin.button.onActive.background = CombineTextures(normal, clicked);
-		mySkin.button.onHover.background = CombineTextures(normal, highlight);
+		mySkin.button.onActive.background = GM.CombineTextures(normal, clicked);
+		mySkin.button.onHover.background = GM.CombineTextures(normal, highlight);
 		
 		//This will only work for the given custom styles, any extra need to add after the loop
 		for(int i = 0; i < (int)Style.blue_box ; ++i){
 			
 			normal = mySkin.customStyles[i].normal.background;
 			
-			mySkin.customStyles[i].active.background = CombineTextures(normal, clicked);
-			mySkin.customStyles[i].hover.background = CombineTextures(normal, highlight);
+			mySkin.customStyles[i].active.background = GM.CombineTextures(normal, clicked);
+			mySkin.customStyles[i].hover.background = GM.CombineTextures(normal, highlight);
 			
-			mySkin.customStyles[i].onActive.background = CombineTextures(normal, clicked);
-			mySkin.customStyles[i].onHover.background = CombineTextures(normal, highlight);
+			mySkin.customStyles[i].onActive.background = GM.CombineTextures(normal, clicked);
+			mySkin.customStyles[i].onHover.background = GM.CombineTextures(normal, highlight);
 			
 		}
 		
@@ -130,6 +131,10 @@ public class UnitGUI : MonoBehaviour {
 		instance = this;
 		procite_locations = null;
 		_rs = null;
+		
+		healthBar = (Texture2D)Bars.transform.Find("Health").guiTexture.texture;
+		exhaustBar = (Texture2D)Bars.transform.Find("Exhaust").guiTexture.texture;
+		emptyBar = (Texture2D)Bars.transform.Find("Empty").guiTexture.texture;
 		
 		StartCoroutine("InitializeProcite");
 		
@@ -257,6 +262,7 @@ public class UnitGUI : MonoBehaviour {
 		
 	}
 	
+	
 	//This is the method that will create new the health bar and the exhaust bar
 	//info_box is the GUI box location
 	public static void HealthExhaustBars(Rect info_box, BaseClass char_stats){
@@ -279,6 +285,7 @@ public class UnitGUI : MonoBehaviour {
 		Rect texture_pos = label_pos;
 		texture_pos.y += texture_pos.height;
 		
+
 		
 		UnitGUI.instance.mySkin.label.fontSize = (int)( texture_pos.height ) - (int)( UnitGUI.instance.mySkin.label.padding.bottom )- (int)( UnitGUI.instance.mySkin.label.padding.top ) - 2;
 		UnitGUI.instance.mySkin.label.alignment = TextAnchor.LowerLeft;
@@ -287,16 +294,22 @@ public class UnitGUI : MonoBehaviour {
 		// Health
 		GUI.Label( label_pos , healthLabel );
 		
-		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture );
-		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Health").guiTexture.texture);
+		GUI.DrawTexture( texture_pos, UnitGUI.instance.emptyBar );
+
+		GUI.BeginGroup (new Rect (texture_pos.x,texture_pos.y, currentHealth / maxHealth * texture_pos.width, texture_pos.height));
+		GUI.DrawTexture( new Rect(0,0, texture_pos.width, texture_pos.height ), UnitGUI.instance.healthBar);
+		GUI.EndGroup();
+
 		texture_pos.y += 2f*texture_pos.height;
 		label_pos.y += 2f*texture_pos.height;
 
 		// Exhaust
 		GUI.Label( label_pos , exhaustLabel );
 		
-		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture ) ;
-		GUI.DrawTexture( new Rect(texture_pos.x, texture_pos.y , (currentExhaust * texture_pos.width) / maxExhaust, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Exhaust").guiTexture.texture);
+		GUI.DrawTexture( texture_pos, UnitGUI.instance.emptyBar ) ;
+		GUI.BeginGroup (new Rect (texture_pos.x,texture_pos.y, currentExhaust / maxExhaust * texture_pos.width, texture_pos.height));
+		GUI.DrawTexture( new Rect(0, 0 , texture_pos.width,texture_pos.height ), UnitGUI.instance.exhaustBar);
+		GUI.EndGroup();		
 	}
 	
 	
@@ -464,33 +477,7 @@ public class UnitGUI : MonoBehaviour {
 		GUI.EndGroup();
 		
 	}
-	
-	
-	
-	public static Texture2D CombineTextures(Texture2D aBaseTexture, Texture2D aToCopyTexture)
-	{
-		int aWidth = aBaseTexture.width;
-		int aHeight = aBaseTexture.height;
 		
-		Texture2D aReturnTexture = new Texture2D(aWidth, aHeight, TextureFormat.RGBA32, false);
-		
-		Color[] aBaseTexturePixels = aBaseTexture.GetPixels();
-		Color[] aCopyTexturePixels = aToCopyTexture.GetPixels();
-		Color[] aColorList = new Color[aBaseTexturePixels.Length];
-		
-		int aPixelLength = aBaseTexturePixels.Length;
-		
-		for(int p = 0; p < aPixelLength; p++)
-		{
-			aColorList[p] = Color.Lerp(aBaseTexturePixels[p], aCopyTexturePixels[p], aCopyTexturePixels[p].a);
-		}
-		
-		aReturnTexture.SetPixels(aColorList);
-		aReturnTexture.Apply(false);
-		
-		return aReturnTexture;
-	}
-	
 	//This is the end button movement
 	public void MovementEndButton(){
 		

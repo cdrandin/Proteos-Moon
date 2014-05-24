@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class UnitNetworking : MonoBehaviour
 {
-	public struct MovementInfo{
+	private struct MovementInfo{
 	
 		public Quaternion currentRotation;
 		public Vector3 currentPosition;
@@ -17,13 +17,18 @@ public class UnitNetworking : MonoBehaviour
 	
 	}
 	
-	public List<MovementInfo> movementList;
+	private List<MovementInfo> movementList;
 	private PhotonView _my_photon_view;
 	private AnimationTriggers unitAnim;
 	
+	public float deltaMovement;
+	public float duration;
 	// Use this for initialization
 	void Start ()
 	{
+		duration = 5.0f;
+		deltaMovement = 1.0f / duration;
+		
 		movementList = new List<MovementInfo>();
 		_my_photon_view = this.gameObject.GetPhotonView();
 		unitAnim = this.gameObject.GetComponentInChildren<AnimationTriggers>();
@@ -72,30 +77,35 @@ public class UnitNetworking : MonoBehaviour
 		bool movementValid = false;
 		
 		
-		for(int i = 1; i < movementList.Count - 1 ; ++i){
+		for(int i = 1; i < movementList.Count; ++i){
 			
 			movementValid = movementList[i-1].isInOtherPlayerFOV || movementList[i].isInOtherPlayerFOV;
-			transform.position = movementList[i-1].currentPosition;
-			transform.rotation = movementList[i-1].currentRotation;
+			this.gameObject.transform.position = movementList[i-1].currentPosition;
+			this.gameObject.transform.rotation = movementList[i-1].currentRotation;
+			
+			Vector3 beforePosition = this.gameObject.transform.position;
 			Vector3 nextPosition = movementList[i].currentPosition;
-			Vector3 nextEuler = movementList[i].currentRotation.eulerAngles;
-			while(movementValid && !GM.WithinEpsilon(transform.position, nextPosition, 0.01f) 
-			      &&  !GM.WithinEpsilon(transform.eulerAngles, nextEuler, 0.01f )){
+			Quaternion beforeRotation = this.gameObject.transform.rotation;
+			Quaternion nextRotation = movementList[i].currentRotation;
+						
+			float startTime=Time.time; // Time.time contains current frame time, so remember starting point
+			
+			while(movementValid && (Time.time-startTime<=deltaMovement) ){
 				
 				unitAnim.MoveAnimation(1.0f);
-				transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime * 6.0f );
-				transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, nextEuler, Time.deltaTime * 6.0f);
-				
+				this.gameObject.transform.position = Vector3.Lerp(beforePosition, nextPosition, (Time.time-startTime) * duration);
+				this.gameObject.transform.rotation = Quaternion.Slerp( beforeRotation, nextRotation, (Time.time-startTime) * duration );
 				yield return null;				
 			}
 			
 			unitAnim.MoveAnimation(1.0f);
-			transform.position = nextPosition	;
-			transform.eulerAngles = nextEuler ;
+			this.gameObject.transform.position = nextPosition	;
+			this.gameObject.transform.rotation = nextRotation ;
 			
 		}
 		//End of for loop stop movement animation
 		unitAnim.MoveAnimation(0.0f);
+		yield return new WaitForSeconds(0.5f);
 		PhotonNetwork.isMessageQueueRunning = true;
 		
 	}
@@ -114,10 +124,8 @@ public class UnitNetworking : MonoBehaviour
 
 		//Add the first position to the list
 		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
+			
 				
-		//the time to check the next frame		
-		float delta = 0.25f;
-		
 		while(true){
 		
 			//if the next position square magnitude is larger than 1 then store the value
@@ -131,7 +139,7 @@ public class UnitNetworking : MonoBehaviour
 				
 			}
 			
-			yield return new WaitForSeconds(delta);
+			yield return new WaitForSeconds(deltaMovement);
 		}
 	
 	}

@@ -10,17 +10,14 @@ public class UnitActions : MonoBehaviour {
 
 	public static bool isInRange;
 	private Transform myTransform;
-	Renderer myRenderer	;
-	void Awake(){
-	
-		
-		
-	}
+	Renderer myRenderer;
+	float sightRange;
+	void Awake(){}
 	// Use this for initialization
 	void Start () {
 		myRenderer = this.GetComponentInChildren<Transform>().GetComponentInChildren<Renderer>();
 		myTransform = this.GetComponent<Transform>();	
-		
+		sightRange = this.gameObject.GetComponent<FOWUnitRevealer>().range.y;
 	}
 	
 	public static bool IsUnitInRange(){
@@ -29,20 +26,12 @@ public class UnitActions : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-//		if(isSelected){
-//		
-//			SelectedProjector.transform.position = gameObject.transform.position;
-//		
-//		}
-			
-	}
+	void Update () {}
 	
 	public void TurnOnHighlight(){
 		
 		if(isInRange){
-			myRenderer.material.shader = Shader.Find("Self-Illumin/Outlined Diffuse");
+			myRenderer.material.shader = Shader.Find("Outlined/Diffuse");
 			myRenderer.material.SetColor ("_OutlineColor", Color.red);
 			
 		}
@@ -59,7 +48,7 @@ public class UnitActions : MonoBehaviour {
 		
 	}
 	
-	public void WithinRange(GameObject currentFocus){
+	public void WithinAttackRange(GameObject currentFocus){
 		if( Vector3.SqrMagnitude(currentFocus.transform.position - myTransform.position )
 			< currentFocus.GetComponent<BaseClass>().attack_range * currentFocus.GetComponent<BaseClass>().attack_range ){
 		
@@ -70,5 +59,22 @@ public class UnitActions : MonoBehaviour {
 		
 			isInRange = false;
 		}	
+	}
+	
+	public void WithinSightRange(GameObject currentFocus){
+	
+		if( Vector3.SqrMagnitude(currentFocus.transform.position - myTransform.position )
+		   < sightRange * sightRange ){
+			
+			
+			isInRange = true;
+		}
+		else{
+			
+			isInRange = false;
+		}	
+		
+	
+	
 	}
 }

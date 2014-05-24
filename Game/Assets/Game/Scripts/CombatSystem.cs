@@ -7,7 +7,7 @@ public class CombatSystem : MonoBehaviour{
 	// Event Handler
 	#region class variables
 	public delegate void WithinRangeEvent(GameObject currentFocus);
-	public static event WithinRangeEvent WithinRange;
+	public static event WithinRangeEvent WithinAttackRange;
 	
 	public delegate void ProjectorEvent();
 	public static event ProjectorEvent TurnOnHighlight;
@@ -151,7 +151,7 @@ public class CombatSystem : MonoBehaviour{
  		
 		if (GM.instance.WhichPlayerAmI == GM.instance.CurrentPlayer) {
 
-			if(WithinRange != null)
+			if(WithinAttackRange != null)
 				CleanDelegateBeforeSwitch();
 			
 			AddDelegates();
@@ -220,7 +220,7 @@ public class CombatSystem : MonoBehaviour{
 	
 	public void CallCombatDelegates(GameObject focusUnit){
 
-		WithinRange(focusUnit);
+		WithinAttackRange(focusUnit);
 		TurnOnHighlight();
 	}
 	
@@ -268,7 +268,6 @@ public class CombatSystem : MonoBehaviour{
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime + smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime +smoothFocRot);
 			
-			Debug.Log("1");
 			yield return null;
 		}
 		
@@ -278,7 +277,6 @@ public class CombatSystem : MonoBehaviour{
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
-			Debug.Log("2");
 			yield return null;
 		}
 		
@@ -288,7 +286,6 @@ public class CombatSystem : MonoBehaviour{
 			
 			WorldCamera.instance.transform.rotation = Quaternion.Slerp(WorldCamera.instance.transform.rotation, finalCameraRotation, Time.deltaTime +smoothCamRot);
 			focus.transform.rotation = Quaternion.Slerp(focus.transform.rotation, finalfocusRotation, Time.deltaTime + smoothFocRot);
-			Debug.Log("3");
 			yield return null;
 		}
 		
@@ -348,7 +345,7 @@ public class CombatSystem : MonoBehaviour{
 		
 			for( uint i = 0 ; i < otherPlayerUnits.Length; ++i){
 			
-				WithinRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinRange;
+				WithinAttackRange += otherPlayerUnits[i].GetComponent<UnitActions>().WithinAttackRange;
 				TurnOnHighlight += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOnHighlight;
 				TurnOffHighlight += otherPlayerUnits[i].GetComponent<UnitActions>().TurnOffHighlight;
 			}
@@ -357,7 +354,7 @@ public class CombatSystem : MonoBehaviour{
 
 	private void CleanDelegateBeforeSwitch(){
 	
-		WithinRange = null;
+		WithinAttackRange = null;
 		TurnOnHighlight = null;
 		TurnOffHighlight = null;
 	}

@@ -50,8 +50,8 @@ public class TitleGUI : MonoBehaviour {
 	public void UpdateSkin(){
 	
 		Texture2D normal = skin.button.normal.background;
-		skin.button.hover.background = UnitGUI.CombineTextures(normal, highlight);
-		skin.button.active.background = UnitGUI.CombineTextures(normal, clicked);
+		skin.button.hover.background = GM.CombineTextures(normal, highlight);
+		skin.button.active.background = GM.CombineTextures(normal, clicked);
 		
 	}
 	

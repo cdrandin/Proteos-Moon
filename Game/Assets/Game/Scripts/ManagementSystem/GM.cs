@@ -1184,4 +1184,29 @@ public class GM : Photon.MonoBehaviour
 		        Mathf.Abs(v1.y - v2.y) < epsilon &&
 		        Mathf.Abs(v1.z - v2.z) < epsilon	);
 	}
+	
+	
+	public static Texture2D CombineTextures(Texture2D aBaseTexture, Texture2D aToCopyTexture)
+	{
+		int aWidth = aBaseTexture.width;
+		int aHeight = aBaseTexture.height;
+		
+		Texture2D aReturnTexture = new Texture2D(aWidth, aHeight, TextureFormat.RGBA32, false);
+		
+		Color[] aBaseTexturePixels = aBaseTexture.GetPixels();
+		Color[] aCopyTexturePixels = aToCopyTexture.GetPixels();
+		Color[] aColorList = new Color[aBaseTexturePixels.Length];
+		
+		int aPixelLength = aBaseTexturePixels.Length;
+		
+		for(int p = 0; p < aPixelLength; p++)
+		{
+			aColorList[p] = Color.Lerp(aBaseTexturePixels[p], aCopyTexturePixels[p], aCopyTexturePixels[p].a);
+		}
+		
+		aReturnTexture.SetPixels(aColorList);
+		aReturnTexture.Apply(false);
+		
+		return aReturnTexture;
+	}
 }
