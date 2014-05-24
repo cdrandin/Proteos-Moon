@@ -76,6 +76,14 @@ public class UnitController : Photon.MonoBehaviour
 	// path player has taken to record location
 	private List<Vector3> _path;
 
+	// This is how much distance is required till we get a new position when moving, compares using sqrmagnitude
+	[Range(0.1f, 1.0f)]
+	public float distance_till_next_sample;
+
+	// How often to check for a new position
+	[Range(0.1f, 1.0f)]
+	public float sample_rate;
+
 	void Awake()
 	{	
 		_distance_proj = GameObject.FindObjectOfType<DistanceProjection>();
@@ -94,21 +102,23 @@ public class UnitController : Photon.MonoBehaviour
 
 	IEnumerator CollectPositions()
 	{
-		float delta = 0.25f;
+		float delta = sample_rate;
 
 		for(;;)
 		{
-			Vector3 cur = _unit_focus_cc.transform.position;
-
-			if(_path.Count == 0)
+			if(_unit_focus_cc != null)
 			{
-				_path.Add(cur);
-			}
-			else
-			{
-				if((cur - _path[_path.Count-1]).sqrMagnitude >= 1.0f * 2)
+				Vector3 cur = _unit_focus_cc.transform.position;
+				if(_path.Count == 0)
 				{
 					_path.Add(cur);
+				}
+				else
+				{
+					if((cur - _path[_path.Count-1]).sqrMagnitude >= distance_till_next_sample * 2)
+					{
+						_path.Add(cur);
+					}
 				}
 			}
 
@@ -131,12 +141,12 @@ public class UnitController : Photon.MonoBehaviour
 	}
 
 	/// <summary>
-	/// Returns Momvements is left in terms of a percentage
+	/// Returns movement left amount within 0 and 1. This is the before step when x100 to get the %
 	/// </summary>
 	/// <returns>The left.</returns>
 	public float MovementLeft()
 	{
-		return DistanceTraveledAlongPath()/max_travel_distance;
+		return 1.0f - Mathf.Clamp(DistanceTraveledAlongPath()/max_travel_distance,0.0f, 1.0f);
 	}
 
 	public float MovementScalar()

@@ -3,7 +3,9 @@ using System.Collections;
 
 public class MovementGUI : MonoBehaviour
 {
-	public Rect rect;
+	public float offset;
+	private Rect rect;
+	private float base_width;
 	private UnitController _uc;
 
 	void Awake()
@@ -15,7 +17,9 @@ public class MovementGUI : MonoBehaviour
 
 	void Start()
 	{
-		rect = new Rect(0 , 0, 100, 16);
+		offset = 33.0f; // tested value
+		rect = new Rect(0 , 0, 100, 16); // tested value
+		base_width = rect.width;
 	}
 
 	void OnGUI()
@@ -32,15 +36,14 @@ public class MovementGUI : MonoBehaviour
 			{
 				if(target.GetComponent<BaseClass>().unit_status.status.Move)
 				{
-					Debug.Log("DRAW MOVEMENT BAR");
-					Vector2 pos = camera.WorldToScreenPoint(target.transform.position);
-					rect.x = 350.0f;
-					rect.y = 50.0f;
+					Vector2 pos = Camera.main.WorldToScreenPoint(target.transform.position);
+					rect.x = pos.x - offset;
+					rect.y = pos.y;
+					rect.width = _uc.MovementLeft() * base_width;
+
 					GUI.DrawTexture( rect, UnitGUI.instance.Bars.transform.Find("Movement").guiTexture.texture );
 				}
 			}
 		}
-		else
-			GUI.DrawTexture( rect, UnitGUI.instance.Bars.transform.Find("Movement").guiTexture.texture );
 	}
 }
