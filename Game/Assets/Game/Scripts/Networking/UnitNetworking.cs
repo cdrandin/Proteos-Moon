@@ -94,8 +94,8 @@ public class UnitNetworking : MonoBehaviour
 			      &&  !GM.WithinEpsilon(transform.eulerAngles, nextEuler, 0.01f )){
 				
 				unitAnim.MoveAnimation(1.0f);
-				transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime);
-				transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, nextEuler, Time.deltaTime);
+				transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime * 6.0f );
+				transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, nextEuler, Time.deltaTime * 6.0f);
 				
 				yield return null;				
 			}
