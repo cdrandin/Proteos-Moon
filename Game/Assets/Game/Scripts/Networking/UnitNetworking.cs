@@ -11,7 +11,8 @@ public class UnitNetworking : MonoBehaviour
 {
 	private struct MovementInfo{
 	
-		public Transform currentTransform;
+		public Quaternion currentRotation;
+		public Vector3 currentPosition;
 		public bool isInOtherPlayerFOV;
 	
 	}
@@ -71,10 +72,10 @@ public class UnitNetworking : MonoBehaviour
 			
 			movementValid = movementList[i-1].isInOtherPlayerFOV || movementList[i].isInOtherPlayerFOV;
 			
-			myTransform.position = movementList[i-1].currentTransform.position;
-			myTransform.rotation = movementList[i-1].currentTransform.rotation;
-			Vector3 nextPosition = movementList[i].currentTransform.position;
-			Vector3 nextEuler = movementList[i].currentTransform.eulerAngles;
+			myTransform.position = movementList[i-1].currentPosition;
+			myTransform.rotation = movementList[i-1].currentRotation;
+			Vector3 nextPosition = movementList[i].currentPosition;
+			Vector3 nextEuler = movementList[i].currentRotation.eulerAngles;
 			while(movementValid && !GM.WithinEpsilon(myTransform.position, nextPosition, 0.001f) 
 			      &&  !GM.WithinEpsilon(myTransform.eulerAngles, nextEuler, 0.001f )){
 				
@@ -190,8 +191,8 @@ public class UnitNetworking : MonoBehaviour
 	{
 		//Storing the values to its appropiate locations
 		MovementInfo newMovementInfo = new MovementInfo();
-		newMovementInfo.currentTransform.position = position;
-		newMovementInfo.currentTransform.rotation = rotation;
+		newMovementInfo.currentPosition = position;
+		newMovementInfo.currentRotation = rotation;
 		newMovementInfo.isInOtherPlayerFOV =  (boolean == 1)? true : false ;
 		
 		movementList.Add(newMovementInfo);
