@@ -1,9 +1,0 @@
-fileFormatVersion: 2
-guid: 5384c6c1ddecdd141a025c544bc2f4ad
-MonoImporter:
-  serializedVersion: 2
-  defaultReferences:
-  - movement_gui: {fileID: 13100006, guid: c805dc8f8e15e544684456ec32cb4db0, type: 2}
-  executionOrder: 0
-  icon: {instanceID: 0}
-  userData: 

@@ -23,9 +23,9 @@ public class UnitGUI : MonoBehaviour {
 	private bool _isInitialize, nearProcite, isAction,isRecruiting;
 	private float shift;
 	public GUISkin mySkin;
-	private Rect informationBox, UnitInfoLocation;
+	private Rect informationBox, UnitInfoLocation, movementBox;
 	public int toolbarInt = -1;
-	
+	private UnitController _uc;
 	private Vector3 current_procite_pos;
 	public Quaternion look;
 	
@@ -38,7 +38,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	public Texture2D highlight, clicked;
 	
-	private Texture2D healthBar, exhaustBar, emptyBar;
+	private Texture2D healthBar, exhaustBar, emptyBar, movement_bar;
 	
 	public static UnitGUI instance;
 	
@@ -131,11 +131,11 @@ public class UnitGUI : MonoBehaviour {
 		instance = this;
 		procite_locations = null;
 		_rs = null;
-		
+		movementBox = new Rect(0 , 0, Screen.width/16, (Screen.height*4)/225);
 		healthBar = (Texture2D)Bars.transform.Find("Health").guiTexture.texture;
 		exhaustBar = (Texture2D)Bars.transform.Find("Exhaust").guiTexture.texture;
 		emptyBar = (Texture2D)Bars.transform.Find("Empty").guiTexture.texture;
-		
+		movement_bar = (Texture2D)Bars.transform.Find("Movement").guiTexture.texture;
 		StartCoroutine("InitializeProcite");
 		
 		StartCoroutine("InitalizeRecruitSystem");
@@ -148,7 +148,10 @@ public class UnitGUI : MonoBehaviour {
 		ResetFlags();
 		shift = 0;
 		UpdateSkinLayout();
-
+		
+		_uc = GameObject.FindObjectOfType<UnitController>().GetComponent<UnitController>();
+		if(_uc == null)
+			Debug.LogError("Missing UnitController component");
 		
 	}
 	
@@ -233,6 +236,7 @@ public class UnitGUI : MonoBehaviour {
 		this.gui_method -= BaseSelectionButtons;
 		this.gui_method -= ActionSelectionButtons;
 		this.gui_method -= MovementEndButton;
+		this.gui_method -= MovementBar;
 		GM.instance.SetUnitControllerActiveOff();
 		StartCoroutine("CheckForFocusObject");
 	}
@@ -247,6 +251,23 @@ public class UnitGUI : MonoBehaviour {
 	
 	#region UNIT GUI BUTTONS
 
+	
+	public void MovementBar(){
+		
+		Vector2 pos = Camera.main.WorldToScreenPoint(focusObject.transform.position);
+		movementBox.x = pos.x - (movementBox.width/2);
+		movementBox.y = (Screen.height/2) - (pos.y/2);
+		float newWidth = _uc.MovementLeft() * movementBox.width;
+		Rect healthBox = movementBox;
+		healthBox.width = newWidth;
+		
+		//GUI.BeginGroup()
+		GUI.DrawTexture(movementBox, emptyBar);
+		GUI.BeginGroup(healthBox);
+		GUI.DrawTexture( new Rect(0,0, movementBox.width, 16), movement_bar );
+		GUI.EndGroup();
+		
+	}
 	
 	public void UnitInformationBox(){
 		
@@ -440,6 +461,7 @@ public class UnitGUI : MonoBehaviour {
 		if(MakeButton(0,0,"Move", Style.move)){
 			
 			StartCoroutine("CharacterMovement");
+			gui_method += MovementBar;
 			gui_method += MovementEndButton;
 			
 		}
@@ -489,6 +511,7 @@ public class UnitGUI : MonoBehaviour {
 			StopCoroutine("CharacterMovement");
 			focusUnitAnim.MoveAnimation(0.0f);
 			focusUnitNetworking.StopStoringMovements((int)GM.instance.WhichPlayerAmI);
+			gui_method -= MovementBar;
 			
 			if(GM.instance.CurrentFocus != null){
 				
