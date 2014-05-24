@@ -56,8 +56,17 @@ public class UnitNetworking : MonoBehaviour
 		//Make sure to store the final position to the movementlist
 		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)whichPlayerAmI);
 		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
+		_my_photon_view.RPC("PrintMovementList", PhotonTargets.OthersBuffered);
 		_my_photon_view.RPC("StartMovementLocally", PhotonTargets.OthersBuffered);
 		
+	}
+	[RPC]
+	void PrintMovementList(){
+		
+		for(int i = 0; i < movementList.Count - 1 ; ++i){
+		
+			print ( i + " " + movementList[i].currentPosition + " " + movementList[i].currentRotation.eulerAngles + " " + movementList[i].isInOtherPlayerFOV );	
+		}
 	}
 	
 	[RPC]
@@ -201,8 +210,7 @@ public class UnitNetworking : MonoBehaviour
 		MovementInfo newMovementInfo = new MovementInfo();
 		newMovementInfo.currentPosition = position;
 		newMovementInfo.currentRotation = rotation;
-		newMovementInfo.isInOtherPlayerFOV =  (boolean == 1)? true : false ;
-		
+		newMovementInfo.isInOtherPlayerFOV = (boolean == 1)? true : false ;
 		movementList.Add(newMovementInfo);
 		
 	}
