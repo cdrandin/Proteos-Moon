@@ -45,8 +45,8 @@ public class MovementGUI : MonoBehaviour
 					Rect rect2 = rect;
 					rect2.width = newWidth;
 					GUI.DrawTexture(rect, empty_bar);
-					GUI.BeginGroup(rect);
-					GUI.DrawTexture( new Rect(0,0, newWidth, 16), movement_bar );
+					GUI.BeginGroup(rect2);
+					GUI.DrawTexture( new Rect(0,0, base_width, 16), movement_bar );
 					GUI.EndGroup();
 				}
 			}
