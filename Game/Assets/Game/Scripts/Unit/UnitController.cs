@@ -130,6 +130,15 @@ public class UnitController : Photon.MonoBehaviour
 		return distance/speed;
 	}
 
+	/// <summary>
+	/// Returns Momvements is left in terms of a percentage
+	/// </summary>
+	/// <returns>The left.</returns>
+	public float MovementLeft()
+	{
+		return DistanceTraveledAlongPath()/max_travel_distance;
+	}
+
 	public float MovementScalar()
 	{
 		Vector3 horizontalVelocity = new Vector3(_unit_focus_cc.velocity.x, 0, _unit_focus_cc.velocity.z);

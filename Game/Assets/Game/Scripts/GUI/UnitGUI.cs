@@ -280,19 +280,20 @@ public class UnitGUI : MonoBehaviour {
 		UnitGUI.instance.mySkin.label.fontSize = (int)( texture_pos.height ) - (int)( UnitGUI.instance.mySkin.label.padding.bottom )- (int)( UnitGUI.instance.mySkin.label.padding.top ) - 2;
 		UnitGUI.instance.mySkin.label.alignment = TextAnchor.LowerLeft;
 		
-		
+
+		// Health
 		GUI.Label( label_pos , healthLabel );
 		
 		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture );
 		GUI.DrawTexture( new Rect(texture_pos.x,texture_pos.y, (currentHealth * texture_pos.width) / maxHealth, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Health").guiTexture.texture);
 		texture_pos.y += 2f*texture_pos.height;
 		label_pos.y += 2f*texture_pos.height;
-		
+
+		// Exhaust
 		GUI.Label( label_pos , exhaustLabel );
 		
 		GUI.DrawTexture( texture_pos, UnitGUI.instance.Bars.transform.Find("Empty").guiTexture.texture ) ;
 		GUI.DrawTexture( new Rect(texture_pos.x, texture_pos.y , (currentExhaust * texture_pos.width) / maxExhaust, texture_pos.height ), UnitGUI.instance.Bars.transform.Find("Exhaust").guiTexture.texture);
-		
 	}
 	
 	
