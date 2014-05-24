@@ -43,30 +43,21 @@ public class UnitNetworking : MonoBehaviour
 	//Call this when you are starting to move your character
 	public void StartStoringMovements(int whichPlayerAmI)
 	{
-
-		StartCoroutine("WhileMoving", (Player)whichPlayerAmI);
+		int otherPlayer = (whichPlayerAmI + 1) % GM.instance.NumberOfPlayers;
+		StartCoroutine("WhileMoving", (Player)otherPlayer);
 	}
 	
 	//Call this when you are no longer moving your character
 	public void StopStoringMovements(int whichPlayerAmI){
 	
-	
+		int otherPlayer = (whichPlayerAmI + 1) % GM.instance.NumberOfPlayers;
 		StopCoroutine("WhileMoving");
 		
 		//Make sure to store the final position to the movementlist
-		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)whichPlayerAmI);
+		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)otherPlayer);
 		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
-		_my_photon_view.RPC("PrintMovementList", PhotonTargets.OthersBuffered);
 		_my_photon_view.RPC("StartMovementLocally", PhotonTargets.OthersBuffered);
 		
-	}
-	[RPC]
-	void PrintMovementList(){
-		
-		for(int i = 0; i < movementList.Count - 1 ; ++i){
-		
-			print ( i + " " + movementList[i].currentPosition + " " + movementList[i].currentRotation.eulerAngles + " " + movementList[i].isInOtherPlayerFOV );	
-		}
 	}
 	
 	[RPC]
@@ -80,11 +71,9 @@ public class UnitNetworking : MonoBehaviour
 		PhotonNetwork.isMessageQueueRunning = false;
 		bool movementValid = false;
 		
-		print (movementList.Count);
 		
 		for(int i = 1; i < movementList.Count - 1 ; ++i){
 			
-			print ("Before " + Time.time);
 			movementValid = movementList[i-1].isInOtherPlayerFOV || movementList[i].isInOtherPlayerFOV;
 			transform.position = movementList[i-1].currentPosition;
 			transform.rotation = movementList[i-1].currentRotation;
@@ -99,7 +88,6 @@ public class UnitNetworking : MonoBehaviour
 				
 				yield return null;				
 			}
-			print ("After " + Time.time);
 			
 			unitAnim.MoveAnimation(1.0f);
 			transform.position = nextPosition	;
@@ -113,13 +101,13 @@ public class UnitNetworking : MonoBehaviour
 	}
 	
 	//A coroutine that updates the position the of character
-	private IEnumerator WhileMoving(Player ownerOfUnitMoving){
+	private IEnumerator WhileMoving(Player otherPlayer){
 	
 		//Clear the list before beginning
 		_my_photon_view.RPC("ClearMovementList", PhotonTargets.AllBuffered);
 		
 		//Get the list of enemies to check to see if they are within their sight range
-		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer(ownerOfUnitMoving);
+		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer(otherPlayer);
 		
 		//store the first position to compare the next positions
 		Vector3 previousPosition = this.gameObject.transform.position;
@@ -160,6 +148,7 @@ public class UnitNetworking : MonoBehaviour
 			//The magnitude between both players
 			float sqrMag = Vector3.SqrMagnitude(enemyList[i].transform.position - this.transform.position);
 			//Checking to see if they are within the sight range
+			
 			if(sightRange * sightRange > sqrMag ){
 			
 				return 1;
