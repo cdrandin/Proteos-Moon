@@ -57,8 +57,14 @@ public class UnitNetworking : MonoBehaviour
 		GameObject [] enemyList = GM.instance.GetUnitsFromPlayer((Player)whichPlayerAmI);
 		_my_photon_view.RPC("AddToMovementList", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation, CanTheOtherPlayerSeeMe(enemyList));	
 		PhotonNetwork.isMessageQueueRunning = false;
-		StartCoroutine(MoveCharacterLocally());
+		_my_photon_view.RPC("StartMovementLocally", PhotonTargets.OthersBuffered);
 		
+	}
+	
+	[RPC]
+	private void StartMovementLocally(){
+	
+		StartCoroutine(MoveCharacterLocally());
 	}
 	
 	//This is called locally in the machine based off the 
@@ -66,28 +72,30 @@ public class UnitNetworking : MonoBehaviour
 		
 		bool movementValid = false;
 		
-		Transform myTransform = this.gameObject.transform;
+		print (movementList.Count);
 		
 		for(int i = 1; i < movementList.Count - 1 ; ++i){
 			
 			movementValid = movementList[i-1].isInOtherPlayerFOV || movementList[i].isInOtherPlayerFOV;
 			
-			myTransform.position = movementList[i-1].currentPosition;
-			myTransform.rotation = movementList[i-1].currentRotation;
+			transform.position = movementList[i-1].currentPosition;
+			transform.rotation = movementList[i-1].currentRotation;
 			Vector3 nextPosition = movementList[i].currentPosition;
 			Vector3 nextEuler = movementList[i].currentRotation.eulerAngles;
-			while(movementValid && !GM.WithinEpsilon(myTransform.position, nextPosition, 0.001f) 
-			      &&  !GM.WithinEpsilon(myTransform.eulerAngles, nextEuler, 0.001f )){
+			while(movementValid && !GM.WithinEpsilon(transform.position, nextPosition, 0.01f) 
+			      &&  !GM.WithinEpsilon(transform.eulerAngles, nextEuler, 0.01f )){
 				
 				unitAnim.MoveAnimation(1.0f);
-				myTransform.position = Vector3.Lerp(myTransform.position, nextPosition, Time.deltaTime);
-				myTransform.eulerAngles = Vector3.Lerp(myTransform.eulerAngles, nextEuler, Time.deltaTime);
+				transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime);
+				transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, nextEuler, Time.deltaTime);
 				
 				yield return null;				
 			}
+			unitAnim.MoveAnimation(1.0f);
+			transform.position = nextPosition	;
+			transform.eulerAngles = nextEuler ;
 			
-			myTransform.position = nextPosition	;
-			myTransform.eulerAngles = nextEuler ;
+			yield return null;
 		}
 		//End of for loop stop movement animation
 		unitAnim.MoveAnimation(0.0f);
