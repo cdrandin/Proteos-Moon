@@ -23,6 +23,7 @@ public class UnitNetworking : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		movementList = new List<MovementInfo>();
 		_my_photon_view = this.gameObject.GetPhotonView();
 		unitAnim = this.gameObject.GetComponentInChildren<AnimationTriggers>();
 	}
@@ -63,7 +64,6 @@ public class UnitNetworking : MonoBehaviour
 	private IEnumerator MoveCharacterLocally(){
 		
 		bool movementValid = false;
-		
 		
 		Transform myTransform = this.gameObject.transform;
 		
@@ -181,6 +181,7 @@ public class UnitNetworking : MonoBehaviour
 		
 		if (movementList != null)
 			movementList.Clear();
+
 	}
 	
 	
@@ -210,7 +211,9 @@ public class UnitNetworking : MonoBehaviour
 	
 	private IEnumerator SmoothRotation(Quaternion rotation){
 		
-		PhotonNetwork.isMessageQueueRunning = false;
+		
+		if(this.gameObject.GetComponent<FOWRenderers>().isVisible){
+			PhotonNetwork.isMessageQueueRunning = false;	
 		
 		Transform myTransform = this.gameObject.transform;
 		Vector3 finalEuler = rotation.eulerAngles;
@@ -222,6 +225,10 @@ public class UnitNetworking : MonoBehaviour
 		myTransform.rotation = rotation;
 		
 		PhotonNetwork.isMessageQueueRunning = true;
+		
+		}else
+			
+			this.gameObject.transform.rotation = rotation;
 	}
 	
 	// Put unit in its correct player container

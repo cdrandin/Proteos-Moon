@@ -19,22 +19,20 @@ public class UnitGUI : MonoBehaviour {
 	private delegate void GUIMethod();
 	private GameObject [] procite_locations;
 	private GUIMethod gui_method;
-	private GameObject focusTemp, focusObject;
+	private GameObject focusObject;
 	private bool _isInitialize, nearProcite, isAction,isRecruiting;
-
-	private Quaternion currentRotation;
 	private float shift;
-	private Transform from;
 	public GUISkin mySkin;
 	private Rect informationBox, UnitInfoLocation;
-	Quaternion newRotation; 
 	public int toolbarInt = -1;
 	
 	private Vector3 current_procite_pos;
 	public Quaternion look;
 	
-	//GameObject unit_character_controller;
-	
+	//This will cache all of the unit that is currently being focus
+	private BaseClass focusUnitBaseClass;
+	private AnimationTriggers focusUnitAnim;
+	private UnitNetworking focusUnitNetworking;
 	
 	public GameObject Portraits, Bars, Icons;
 	
@@ -89,7 +87,6 @@ public class UnitGUI : MonoBehaviour {
 		//set objects to null
 		isRecruiting = false;
 		focusObject = null;
-		focusTemp = null;
 		nearProcite = false;
 		//isAttacking = false;
 		isAction = false;
@@ -133,8 +130,12 @@ public class UnitGUI : MonoBehaviour {
 		instance = this;
 		procite_locations = null;
 		_rs = null;
+		
 		StartCoroutine("InitializeProcite");
+		
 		StartCoroutine("InitalizeRecruitSystem");
+		
+		StartCoroutine("CheckForFocusObject");
 		
 		float pheight = (5*Screen.height/ 24);
 		UnitInfoLocation = new Rect( Screen.width - (5* pheight / 2) , 0 , 5* pheight / 2 , pheight );
@@ -172,39 +173,39 @@ public class UnitGUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(GM.instance.IsOn)
+
+		if(GM.instance.IsItMyTurn())
 		{
-			if(GM.instance.IsItMyTurn())
+			if(!_reset_once)
 			{
-				if(!_reset_once)
-				{
-					ResetFlags();
-					RemoveGUI();
-					_reset_once = true;
-					focusObject = null;
-				}
+				ResetFlags();
+				RemoveGUI();
+				_reset_once = true;
+				focusObject = null;
 			}
+		}
+		
+		//Conditions to print the GUI		
+		if( (!_isInitialize && focusObject != null ) ){
 			
-			focusTemp = GM.instance.CurrentFocus;
+
+			GM.instance.SetFocusController(false);		
+			this.gui_method += UnitInformationBox;
 			
-			//Conditions to print the GUI		
-			if( (!_isInitialize && focusTemp != null ) ){
+			if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine &&  !focusUnitBaseClass.unit_status.status.Rest){
 				
 				CombatSystem.instance.UpdateWithinRangeDelegate();
-				focusObject = focusTemp;
+				StopCoroutine("CheckForFocusObject");
 				StartCoroutine(NearbyCheck());
-				GM.instance.SetFocusController(false);		
-				this.gui_method += UnitInformationBox;
 				
-				if (GM.instance.IsItMyTurn() && focusObject.GetPhotonView().isMine &&  !(focusTemp.GetComponent<BaseClass>().unit_status.status.Rest) ){
-					
-					focusObject.GetComponent<UnitNetworking>().UnitIsReady();
-					this.gui_method += BaseSelectionButtons;
-				}
+				focusUnitNetworking.UnitIsReady();
+				
+				this.gui_method += BaseSelectionButtons;
 			}
-			
-			CheckButtonsPressedToRemoveGUI();
 		}
+		
+		CheckButtonsPressedToRemoveGUI();
+
 		
 	}
 	
@@ -227,6 +228,7 @@ public class UnitGUI : MonoBehaviour {
 		this.gui_method -= ActionSelectionButtons;
 		this.gui_method -= MovementEndButton;
 		GM.instance.SetUnitControllerActiveOff();
+		StartCoroutine("CheckForFocusObject");
 	}
 	
 	void OnGUI(){
@@ -248,8 +250,7 @@ public class UnitGUI : MonoBehaviour {
 		_isInitialize = true;
 		GUI.Box( informationBox, "");
 		CharacterPortrait(informationBox, focusObject, GM.instance.CurrentPlayer);
-		HealthExhaustBars(informationBox, focusObject);
-		
+		HealthExhaustBars(informationBox, focusUnitBaseClass);
 		
 		GUI.EndGroup();
 		
@@ -257,15 +258,15 @@ public class UnitGUI : MonoBehaviour {
 	
 	//This is the method that will create new the health bar and the exhaust bar
 	//info_box is the GUI box location
-	public static void HealthExhaustBars(Rect info_box, GameObject char_stats){
+	public static void HealthExhaustBars(Rect info_box, BaseClass char_stats){
 		
-		float currentHealth = char_stats.GetComponent<BaseClass>().vital.HP.current;
-		float maxHealth = char_stats.GetComponent<BaseClass>().vital.HP.max;
+		float currentHealth = char_stats.vital.HP.current;
+		float maxHealth = char_stats.vital.HP.max;
 		
 		string healthLabel = "HP";// + currentHealth.ToString() + " / " + maxHealth.ToString() ;
 		
-		float currentExhaust = char_stats.GetComponent<BaseClass>().vital.Exhaust.current;
-		float maxExhaust = char_stats.GetComponent<BaseClass>().vital.Exhaust.max;
+		float currentExhaust = char_stats.vital.Exhaust.current;
+		float maxExhaust = char_stats.vital.Exhaust.max;
 		
 		string exhaustLabel = "Exhaust";// + currentExhaust.ToString() + " / " + maxExhaust.ToString();
 		
@@ -416,13 +417,12 @@ public class UnitGUI : MonoBehaviour {
 		
 		GUI.depth = 1;
 		mySkin.box.fontSize = mySkin.box.fontSize = Screen.height / 32;
-		//GUI.enabled = !isAction && (GetCurrentFocusStatus() == ((Status.Clean | Status.Move) | GetCurrentFocusStatus()));// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
 		
 		
 		//GUI.enabled is how you make the button inactive to click on
 		//This will check to see if there is not in the action window
 		//or if the user has moved the unit or not
-		GUI.enabled = !isAction && !GetCurrentFocusStatus().Move;// &&  (focusObject.GetComponent<BaseClass>().unit_status.status == Status.Gather) ;
+		GUI.enabled = !isAction && !focusUnitBaseClass.unit_status.status.Move;
 		if(MakeButton(0,0,"Move", Style.move)){
 			
 			StartCoroutine("CharacterMovement");
@@ -432,26 +432,27 @@ public class UnitGUI : MonoBehaviour {
 		
 		//This will check to see if there is not in the action window
 		//or if the user has used an action or not
-		GUI.enabled = !isAction && !GetCurrentFocusStatus().Action;
+		GUI.enabled = !isAction && !focusUnitBaseClass.unit_status.status.Action;
 		if(MakeButton(0, Screen.height/ 16, "Action", Style.action)){
 			isAction = true;
 			gui_method += ActionSelectionButtons;
 			
 		}
 		
-		GUI.enabled =  nearProcite && !isAction && !GetCurrentFocusStatus().Gather;	
+		GUI.enabled =  nearProcite && !isAction && !focusUnitBaseClass.unit_status.status.Gather;	
 		if(MakeButton(0, Screen.height/ 8, "Gather", Style.gather)){
 
-			focusObject.GetComponent<UnitNetworking>().UnitIsGathering(current_procite_pos);
+			focusUnitNetworking.UnitIsGathering(current_procite_pos);
 		}
 		
 		GUI.enabled = !isAction;
 		if(MakeButton(0, (3 * Screen.height)/ 16, "Rest", Style.rest)){
-			focusObject.GetComponent<BaseClass>().unit_status.Rest();
+			focusUnitBaseClass.unit_status.Rest();
 			
-			focusObject.GetComponent<UnitNetworking>().UnitIsIdle();
+			focusUnitNetworking.UnitIsIdle();
 			focusObject.GetComponent<UnitHighlight>().RestingUnitGrayOut();
 			GM.instance.SetUnitControllerActiveOff();
+			StartCoroutine("CheckForFocusObject");
 			this.gui_method -= UnitInformationBox;
 			this.gui_method -= BaseSelectionButtons;
 			this.gui_method -= ActionSelectionButtons;
@@ -498,13 +499,14 @@ public class UnitGUI : MonoBehaviour {
 		if( MakeButton(0,0, "End Movement", Style.move_cancel) ){
 			
 			StopCoroutine("CharacterMovement");
+			focusUnitAnim.MoveAnimation(0.0f);
+			focusUnitNetworking.StopStoringMovements((int)GM.instance.WhichPlayerAmI);
 			
 			if(GM.instance.CurrentFocus != null){
 				
 				GM.instance.SetFocusController(false);
 				
 			}
-			focus_object.GetComponentInChildren<AnimationTriggers>().MoveAnimation(0.0f);
 			
 			
 			WorldCamera.instance.StopCharacterFollow();
@@ -524,14 +526,13 @@ public class UnitGUI : MonoBehaviour {
 		GUI.BeginGroup(new Rect( (25 * Screen.width)/ 32  ,  ((29 * Screen.height)/ 40) - shift , (3 * Screen.width)/8, ((3*Screen.height) / 10)+ shift ) );
 		
 		GUI.depth = 2;
-		GUI.enabled = !CombatSystem.instance.CurrentlyInCombat() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && !(GetCurrentFocusStatus().Action) && !isRecruiting;
+		GUI.enabled = !CombatSystem.instance.CurrentlyInCombat() && CombatSystem.instance.AnyNearbyUnitsToAttack(focusObject)  && !focusUnitBaseClass.unit_status.status.Action && !isRecruiting;
 		GUI.depth = 2;
 		if(MakeButton(0,0, "Attack", Style.attack)){
-			//Expend units action
-			//				CombatSystem.instance.GetNearbyAttackableUnits(focusObject);
+
 			if(GM.instance.CurrentFocus != null)
 				GM.instance.SetFocusController(false);
-			focusObject.GetComponent<BaseClass>().unit_status.Action();	
+			focusUnitBaseClass.unit_status.Action();	
 			WorldCamera.instance.TurnCameraControlsOff();	
 			CombatSystem.instance.AttackButtonClicked();
 			CombatSystem.instance.StartCombat(focusObject);
@@ -541,13 +542,13 @@ public class UnitGUI : MonoBehaviour {
 		}
 		if(MakeButton(0, Screen.height/ 15 , "Use", Style.item)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			gui_method -= ActionSelectionButtons;
 			isAction = false;
 		}
 		if(MakeButton(0, (2 * Screen.height)/ 15, "Special", Style.special)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			gui_method -= ActionSelectionButtons;
 			isAction  =false;
 		}
@@ -602,7 +603,7 @@ public class UnitGUI : MonoBehaviour {
 		//			GUI.enabled = 
 		GUI.enabled =  (GM.instance.GetResourceFrom(GM.instance.CurrentPlayer) > _rs.unit_cost.scout );
 		if (MakeButton((1 * Screen.width)/64, (95*Screen.height)/1024 ,string.Format("Scout  {0}", _rs.unit_cost.scout), Style.scout)){
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Scout);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -612,7 +613,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		if (MakeButton((1 * Screen.width)/64, (2*95*Screen.height) /1024,string.Format("Braver  {0}", _rs.unit_cost.braver), Style.braver)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Braver);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -623,7 +624,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		if (MakeButton((1 * Screen.width)/64, (3*95*Screen.height) /1024, string.Format("Arcane  {0}", _rs.unit_cost.arcane), Style.arcane)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Arcane);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -634,7 +635,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		if (MakeButton((1 * Screen.width)/64, (4*95*Screen.height) /1024,string.Format("Sniper  {0}", _rs.unit_cost.sniper), Style.sniper)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Sniper);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -645,7 +646,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		if (MakeButton((1 * Screen.width)/64, (5*95*Screen.height) /1024,string.Format("Gigan  {0}", _rs.unit_cost.titan), Style.gigan)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Titan);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -656,7 +657,7 @@ public class UnitGUI : MonoBehaviour {
 		
 		if (MakeButton((1 * Screen.width)/64, (6*95*Screen.height) /1024,string.Format("Vangaurd  {0}", _rs.unit_cost.vangaurd), Style.vanguard)){
 			
-			focusObject.GetComponent<BaseClass>().unit_status.Action();
+			focusUnitBaseClass.unit_status.Action();
 			GM.instance.RecruitUnitOnCurrentPlayer(UnitType.Vangaurd);
 			gui_method -= RecruitMenuButtons;
 			gui_method += BaseSelectionButtons;
@@ -685,7 +686,7 @@ public class UnitGUI : MonoBehaviour {
 	
 	//Call this coroutine to start the character movement and any checks required while moving
 	public IEnumerator CharacterMovement(){
-		focusObject.GetComponent<BaseClass>().unit_status.Move();
+		focusUnitBaseClass.unit_status.Move();
 
 		//this will turn on the update that will allow update calls 
 		//on used while the character is moving
@@ -695,20 +696,18 @@ public class UnitGUI : MonoBehaviour {
 		
 		GM.instance.SetUnitControllerActiveOn(ref focusObject);	
 		GM.instance.SetFocusController(true);
+		focusUnitNetworking.StartStoringMovements((int)GM.instance.WhichPlayerAmI);
 		WorldCamera.instance.StartCharacterFollow(focusObject);
-		
-		AnimationTriggers currentFocusAnimationTriggers =  focusObject.GetComponentInChildren<AnimationTriggers>();
 		
 		while(true){
 			
-			currentFocusAnimationTriggers.MoveAnimation( Input.GetAxis("Vertical") );
+			focusUnitAnim.MoveAnimation( Input.GetAxis("Vertical") );
 			
 			StartCoroutine(NearbyCheck());		
 			
 			yield return null;
 		}
 		
-		yield return null;
 	}
 	
 	//This check will do checks to see if there are any units that are nearby or procite
@@ -732,9 +731,24 @@ public class UnitGUI : MonoBehaviour {
 	
 	}
 	
-	private Status GetCurrentFocusStatus(){
+	
+	private void CharacterFocusComponentsUpdate(){
+		focusUnitBaseClass = focusObject.GetComponent<BaseClass>();
+		focusUnitNetworking = focusObject.GetComponent<UnitNetworking>();
+		focusUnitAnim = focus_object.GetComponentInChildren<AnimationTriggers>();
+			
+	}
+	
+	
+	//This enumerator is called whenever the GUI is not initalized
+	public IEnumerator CheckForFocusObject(){
+	
+		while (true){
 		
-		return focusObject.GetComponent<BaseClass>().unit_status.status;
+			focusObject = GM.instance.CurrentFocus;
+			yield return null;
+		}
+	
 	}
 	
 	public bool NearProcite(){
@@ -743,7 +757,7 @@ public class UnitGUI : MonoBehaviour {
 			Vector3 offset;
 			for(int i = 0; i < procite_locations.Length; ++i){
 				offset = procite_locations[i].gameObject.transform.position - focusObject.transform.position;
-				float range = focusObject.GetComponent<BaseClass>().gather_range;
+				float range = focusUnitBaseClass.gather_range;
 				range = range * range;
 				if( offset.sqrMagnitude < range) {
 					current_procite_pos = procite_locations[i].gameObject.transform.position;

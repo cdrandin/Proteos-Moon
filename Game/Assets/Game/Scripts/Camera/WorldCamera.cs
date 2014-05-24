@@ -297,7 +297,7 @@ public class WorldCamera : MonoBehaviour {
 		
 		return WorldCamera.AreCameraKeyboardButtonsPressed();
 	}
-
+	
 	//Works out the cameras desired location depending on the players input
 	public Vector3 GetDesiredTranslation()
 	{
@@ -371,11 +371,12 @@ public class WorldCamera : MonoBehaviour {
 
 
 	public void WorldCamLookAt(GameObject focus){
-	
+
 		var newRot = Quaternion.FromToRotation( this.transform.forward, focus.transform.position - this.transform.position );
 		
-		this.transform.localEulerAngles = new Vector3 (0.0f , newRot.eulerAngles.y, 0.0f);
 		MainCamera.transform.localEulerAngles = new Vector3 (newRot.eulerAngles.x , 0.0f, 0.0f);
+		this.transform.localEulerAngles = new Vector3 (0.0f , newRot.eulerAngles.y, 0.0f);
+		
 	}
 
 	public void ResetCamera(){

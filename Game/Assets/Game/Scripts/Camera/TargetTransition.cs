@@ -19,20 +19,18 @@ public class TargetTransition : MonoBehaviour {
 
 	private Vector3 newPosition;
 
-	private Quaternion newRot;
-
 	public float smooth = 5.0f, rotation_smooth = 5.0f;
 
 	private int unitIndex = 0;
-	private bool interpolate = false;
 
+	private GameObject[] CurrentUnitList;
 
 	#endregion
 
 	// Use this for initialization
 
 	void Start () {
-		
+		CurrentUnitList =  GM.instance.GetUnitsFromPlayer(GM.instance.WhichPlayerAmI);
 	}
 
 	void Awake (){
@@ -48,11 +46,12 @@ public class TargetTransition : MonoBehaviour {
 			
 			int previousUnitIndex = unitIndex;
 			bool dirty = HandleUnitSwitching();
-			ClampIndexValue();
+
 
 			//Input keys were called
 			if (dirty) {
-				
+				UpdateCurrentList();
+				ClampIndexValue();
 				//These conditions choose which model to put the camera focus on
 				distanceToUnit = GetVectorDistanceFromUnit(previousUnitIndex);
 
@@ -60,50 +59,29 @@ public class TargetTransition : MonoBehaviour {
 				//GM.instance.controll
 				//UnitGUI.instance.UpdateUnitInformation();
 				GM.instance.SetUnitControllerActiveOff();
-				GM.instance.SetUnitControllerActiveOn ( ref GetCurrentList() [unitIndex] );
-				newPosition = GetCurrentList() [unitIndex].transform.position + distanceToUnit;
-				interpolate = true;
+				GM.instance.SetUnitControllerActiveOn ( ref CurrentUnitList [unitIndex] );
+				newPosition = CurrentUnitList [unitIndex].transform.position + distanceToUnit;
+				
+				StopCoroutine("InterpolateToNewPosition");
+				StartCoroutine("InterpolateToNewPosition");
 			}
 
-			float buffer = 0.5f;
-
-			if(interpolate){
-				InterpolateToNewPosition();
-
-				if( IsWithinBuffer(buffer) || AreCameraMovementPressed() ){
-					interpolate = false;
-				}
-			}
 		}
 
 	}
+	
+	
 
-	public GameObject[] GetCurrentList(){
-		return GM.instance.GetUnitsFromPlayer(GM.instance.WhichPlayerAmI);
+	public void UpdateCurrentList(){
+		CurrentUnitList =  GM.instance.GetUnitsFromPlayer(GM.instance.WhichPlayerAmI);
 	}
 	
 	#region Helper Functions
 	public GameObject GetFocusedTarget(){
 	
 		
-		return GetCurrentList()[unitIndex];
+		return CurrentUnitList[unitIndex];
 	
-	}
-
-	public static bool AreCameraMovementPressed(){
-		if ( Input.GetKey (KeyCode.W) || Input.GetKey (KeyCode.S) || Input.GetKey (KeyCode.A) || 
-		     Input.GetKey (KeyCode.D) || (Input.GetAxis("Mouse ScrollWheel") != 0 ) || Input.GetMouseButtonDown (1))
-			return true;
-		else
-			return false;
-
-		}
-
-	public bool IsWithinBuffer(float buffer){
-
-		return (WorldCamera.instance.transform.position.x < newPosition.x + buffer && WorldCamera.instance.transform.position.x > newPosition.x - buffer) &&
-			(WorldCamera.instance.transform.position.y < newPosition.y + buffer && WorldCamera.instance.transform.position.y > newPosition.y - buffer) &&
-				(WorldCamera.instance.transform.position.z < newPosition.z + buffer && WorldCamera.instance.transform.position.z > newPosition.z - buffer);
 	}
 				
 	// Changing unitIndex to scroll through units
@@ -125,9 +103,9 @@ public class TargetTransition : MonoBehaviour {
 
 		if (unitIndex <= -1) {
 			
-			unitIndex = GetCurrentList().Length - 1;
+			unitIndex = CurrentUnitList.Length - 1;
 			
-		} else if (unitIndex >= GetCurrentList().Length) {
+		} else if (unitIndex >= CurrentUnitList.Length) {
 			
 			unitIndex = 0;
 		}
@@ -140,28 +118,42 @@ public class TargetTransition : MonoBehaviour {
 
 		//If the user changes the distance of the camera, but stays focus on the unit
 		//keep the same vector distance.
-		if (GetCurrentList() [previousUnitIndex].transform.position == WorldCamera.instance.MainCamera.transform.position) {
-			return WorldCamera.instance.transform.position - GetCurrentList() [previousUnitIndex].transform.position;
+		
+		Quaternion newRot =  Quaternion.FromToRotation( WorldCamera.instance.MainCamera.transform.forward , CurrentUnitList [unitIndex].transform.position - newPosition );
+
+		
+		if ( Mathf.Abs( WorldCamera.instance.MainCamera.transform.eulerAngles.x - newRot.eulerAngles.x   ) < 1.0f 
+		    &&  Mathf.Abs( WorldCamera.instance.transform.eulerAngles.y - newRot.eulerAngles.y   ) < 1.0f ){
+		    
+			return WorldCamera.instance.transform.position - CurrentUnitList [previousUnitIndex].transform.position;
 		}
 		//If not then use the default vector distance
 		else {
-			float temp = WorldCamera.instance.minDistanceToObject + GetCurrentList() [ unitIndex ].GetComponent<CapsuleCollider>().height ;
+			float temp = WorldCamera.instance.minDistanceToObject + CurrentUnitList [ unitIndex ].GetComponent<CapsuleCollider>().height ;
 			return new Vector3(temp, 
 							   temp , 
 			                   -(temp ) );
 		}
 	}
 
-	//This is the location to interpolation to.
-	void InterpolateToNewPosition(){
-
-		WorldCamera.instance.transform.position = Vector3.Lerp (WorldCamera.instance.transform.position, newPosition, Time.deltaTime * smooth);
-
-		newRot =  Quaternion.FromToRotation( WorldCamera.instance.MainCamera.transform.forward , GetCurrentList() [unitIndex].transform.position - newPosition );
+	//This is the location to interpolate to.
+	
+	private IEnumerator InterpolateToNewPosition(){
+	
+		Quaternion newRot =  Quaternion.FromToRotation( WorldCamera.instance.MainCamera.transform.forward , CurrentUnitList [unitIndex].transform.position - newPosition );
 		WorldCamera.instance.MainCamera.transform.Rotate(new Vector3(newRot.eulerAngles.x , 0 , 0));
 		WorldCamera.instance.transform.Rotate(new Vector3(0, newRot.eulerAngles.y, 0));
-
+	
+		while( !GM.WithinEpsilon(WorldCamera.instance.transform.position, newPosition, 0.001f) && !WorldCamera.AreCameraKeyboardButtonsPressed() ){
+		
+			WorldCamera.instance.transform.position = Vector3.Lerp (WorldCamera.instance.transform.position, newPosition, Time.deltaTime * smooth);	
+			yield return null;
+		}
+		
+		WorldCamera.instance.transform.position = newPosition;
+		
 	}
+	
 
 	#endregion
 }

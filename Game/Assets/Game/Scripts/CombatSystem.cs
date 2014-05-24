@@ -21,7 +21,9 @@ public class CombatSystem : MonoBehaviour{
 	private Rect EnemyUnitBoxLoc, EnemyUnitBox;
 	private int index = 0, previousIndex;
 	private List<GameObject> enemyList;
-	
+
+	private BaseClass enemyBaseClass;
+			
 	private bool attacking = false, inCombat = false;
 	
 	
@@ -52,8 +54,8 @@ public class CombatSystem : MonoBehaviour{
 		
 		inCombat = true;
 		WorldCamera.instance.MainCamera.transform.localEulerAngles = Vector3.zero;
-		StartCoroutine(FadeInOut());
-		StartCoroutine(CombatLookAt(focus));
+		StartCoroutine("FadeInOut");
+		StartCoroutine("CombatLookAt", focus);
 		while(attacking){
 		
 			CheckIfButtonsPress(focus);			
@@ -76,6 +78,8 @@ public class CombatSystem : MonoBehaviour{
 				index = 0;
 			else if ( index + 1 < enemyList.Count)
 				++index;
+				
+			enemyBaseClass = enemyList[index].GetComponent<BaseClass>();	
 			gui_method -= UnitEnemyBox;
 			gui_method += UnitEnemyBox;
 			
@@ -90,6 +94,8 @@ public class CombatSystem : MonoBehaviour{
 				index =  enemyList.Count - 1;
 			else if (index - 1 >= 0)
 				--index;
+			
+			enemyBaseClass = enemyList[index].GetComponent<BaseClass>();
 			gui_method -= UnitEnemyBox;
 			gui_method += UnitEnemyBox;
 			
@@ -98,8 +104,7 @@ public class CombatSystem : MonoBehaviour{
 				StartCoroutine("CombatLookAt" , focus);
 			}
 		}
-		
-		if(Input.GetKeyDown(KeyCode.Space) ) {
+		else if(Input.GetKeyDown(KeyCode.Space) ) {
 			StartCoroutine("Attack", focus);
 		}
 	}
@@ -116,8 +121,8 @@ public class CombatSystem : MonoBehaviour{
 	public void FlashLabel(){
 	
 		GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b,  alpha);
-		GUI.skin.label.fontSize = Screen.height / 14;
-		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 14), "Press Space to Attack");
+		GUI.skin.label.fontSize = Screen.height / 30;
+		GUI.Label( new Rect( Screen.width / 2 , Screen.height / 2 , Screen.width/3, Screen.height / 32), "Press Space to Attack");
 	}
 	
 	public IEnumerator FadeInOut(){
@@ -172,11 +177,6 @@ public class CombatSystem : MonoBehaviour{
 		WorldCamera.instance.TurnCameraControlsOn();
 	}
 	
-	public void StopCoroutineProcess(){
-	
-		StopCoroutine("Attack");
-	}
-	
 	public void UnitEnemyBox(){
 	
 	
@@ -192,14 +192,15 @@ public class CombatSystem : MonoBehaviour{
 			GUI.Box( EnemyUnitBox, "");
 			GUI.contentColor = new Color( GUI.color.r, GUI.color.g, GUI.color.b, 1.0f  );
 			UnitGUI.CharacterPortrait(EnemyUnitBox, enemyList[index], GM.instance.GetPlayer( (((int)GM.instance.CurrentPlayer) + 1) % 2 ));
-			UnitGUI.HealthExhaustBars(EnemyUnitBox, enemyList[index]);
+			UnitGUI.HealthExhaustBars(EnemyUnitBox, enemyBaseClass);
 			
 			
 			GUI.EndGroup();
 		}
 	}
 	
-	public void AttackButtonClicked(){;
+	public void AttackButtonClicked(){
+		enemyBaseClass = enemyList[index].GetComponent<BaseClass>();
 		gui_method += FlashLabel;
 		gui_method += UnitEnemyBox;
 		attacking = true;
@@ -240,7 +241,9 @@ public class CombatSystem : MonoBehaviour{
 	}
 	
 	public IEnumerator CombatLookAt(GameObject focus){
-	
+		
+		
+		
 		Vector3 attacker = focus.transform.position;
 		Vector3 enemyPostion = enemyList[index].transform.position;
 		Vector3 cameraLookAt = enemyList[index].transform.position;
