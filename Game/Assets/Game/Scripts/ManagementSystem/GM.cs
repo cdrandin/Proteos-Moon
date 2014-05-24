@@ -318,7 +318,7 @@ public class GM : Photon.MonoBehaviour
 			
 			//PhotonNetwork.room.SetCustomProperties(reuse_hash);
 			
-			this.photonView.RPC("SendTurnOrder", PhotonTargets.All, _player_turn_order);
+			this.photonView.RPC("SendTurnOrder", PhotonTargets.AllBuffered, _player_turn_order);
 		}
 				
 		//__leader.GetPhotonView().owner.customProperties.Add("current_player_turn", _current_player_turn);
@@ -370,7 +370,7 @@ public class GM : Photon.MonoBehaviour
 
 		while(i<_total_players) 
 		{
-			int t = Random.Range(0, _total_players);
+			int t = Mathf.RoundToInt(Random.value);
 			if(!tmp.Contains(t)) 
 			{
 				tmp.Add(t);

@@ -32,11 +32,6 @@ public class Game : Photon.MonoBehaviour
 
 
 	private GameObject __focus_object;
-
-
-	void Awake() 
-	{
-	}
 	
 	// Use this for initialization
 	void Start () 
@@ -87,12 +82,6 @@ public class Game : Photon.MonoBehaviour
 		}
 		if(GM.instance.IsOn)
 		{
-			if(Input.GetKeyDown(KeyCode.R))
-			{
-				GM.instance.AddResourcesToCurrentPlayer(1000);
-				Debug.Log(string.Format("{0} has {1} resources", GM.instance.CurrentPlayer, GM.instance.GetResourceFrom(GM.instance.CurrentPlayer)));
-			}
-
 			if(GM.instance.IsNextPlayersTurn())
 			{
 				GM.instance.NextPlayersTurn();
