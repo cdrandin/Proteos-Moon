@@ -98,7 +98,7 @@ public class UnitNetworking : MonoBehaviour
 		}
 		//End of for loop stop movement animation
 		unitAnim.MoveAnimation(0.0f);
-		//PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.isMessageQueueRunning = true;
 		
 	}
 	
