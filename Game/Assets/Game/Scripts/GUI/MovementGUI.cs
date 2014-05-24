@@ -7,7 +7,7 @@ public class MovementGUI : MonoBehaviour
 	private Rect rect;
 	private float base_width;
 	private UnitController _uc;
-
+	private Texture movement_bar;
 	void Awake()
 	{
 		_uc = GameObject.FindObjectOfType<UnitController>().GetComponent<UnitController>();
@@ -20,6 +20,7 @@ public class MovementGUI : MonoBehaviour
 		offset = 33.0f; // tested value
 		rect = new Rect(0 , 0, 100, 16); // tested value
 		base_width = rect.width;
+		movement_bar = UnitGUI.instance.Bars.transform.Find("Movement").guiTexture.texture;
 	}
 
 	void OnGUI()
@@ -41,7 +42,7 @@ public class MovementGUI : MonoBehaviour
 					rect.y = pos.y;
 					rect.width = _uc.MovementLeft() * base_width;
 
-					GUI.DrawTexture( rect, UnitGUI.instance.Bars.transform.Find("Movement").guiTexture.texture );
+					GUI.DrawTexture( rect, movement_bar );
 				}
 			}
 		}
