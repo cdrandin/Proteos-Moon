@@ -127,19 +127,6 @@ public class BaseClass : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// Modify the movement. This is by a scalar. Amount will be clamped (0 - 2) inclusive.
-	/// This scales the movement stat's speed, but never overwrites it. This does in fact change the
-	///    unit controller's speed.
-	/// </summary>
-	/// <param name="stat">Stat.</param>
-	/// <param name="amount">Amount.</param>
-	public void ModMovement(float amount)
-	{
-		UnitController unit_cc = GameObject.FindGameObjectWithTag("UnitController").GetComponent<UnitController>();
-		unit_cc.mod_speed = _movement.speed * amount;
-	}
-
 	void FixedUpdate()
 	{
 		/*

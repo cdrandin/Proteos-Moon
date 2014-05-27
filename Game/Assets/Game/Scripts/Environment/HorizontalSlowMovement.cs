@@ -4,9 +4,6 @@ using System.Collections;
 [RequireComponent (typeof(BoxCollider))]
 public class HorizontalSlowMovement : MonoBehaviour 
 {
-	[Range(0.1f,0.999f)]
-	public float slow_amount;
-
 	void Start()
 	{
 		GetComponent<BoxCollider>().isTrigger = true;
@@ -18,7 +15,7 @@ public class HorizontalSlowMovement : MonoBehaviour
 		BaseClass unit = other.gameObject.GetComponent<BaseClass>();
 		if(unit != null)
 		{
-			unit.ModMovement(slow_amount);
+			unit.GetComponent<UnitController>().mod_movement(MOVEMENT_AFFECT.SLOWED);
 		}
 	}
 
@@ -28,7 +25,7 @@ public class HorizontalSlowMovement : MonoBehaviour
 		BaseClass unit = other.gameObject.GetComponent<BaseClass>();
 		if(unit != null)
 		{
-			unit.ModMovement(1.0f);
+			unit.GetComponent<UnitController>().mod_movement(MOVEMENT_AFFECT.NORMAL);
 		}
 	}
 }

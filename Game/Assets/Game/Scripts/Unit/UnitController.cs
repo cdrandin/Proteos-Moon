@@ -8,6 +8,13 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum MOVEMENT_AFFECT
+{
+	NORMAL,
+	SLOWED,
+	HASTED
+}
+
 public class UnitController : Photon.MonoBehaviour
 {
 	/*
@@ -15,7 +22,7 @@ public class UnitController : Photon.MonoBehaviour
 	 */
 	// How fast unit can move
 	[SerializeField]
-	private float speed;
+	private float _speed;
 
 	[SerializeField]
 	private float rotation_speed;
@@ -84,6 +91,8 @@ public class UnitController : Photon.MonoBehaviour
 	[Range(0.1f, 1.0f)]
 	public float sample_rate;
 
+	private float _movement_mod;
+
 	void Awake()
 	{	
 		_distance_proj = GameObject.FindObjectOfType<DistanceProjection>();
@@ -97,6 +106,7 @@ public class UnitController : Photon.MonoBehaviour
 		ShutDown();
 		ClearFocusUnit();
 		_steps = 0.0f;
+		mod_movement(MOVEMENT_AFFECT.NORMAL);
 		_path  = new List<Vector3>();
 	}
 
@@ -137,7 +147,7 @@ public class UnitController : Photon.MonoBehaviour
 			prev = _path[i];
 		}
 
-		return distance/speed;
+		return distance/_speed;
 	}
 
 	/// <summary>
@@ -181,17 +191,12 @@ public class UnitController : Photon.MonoBehaviour
 			Jump();
 
 			// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
-			Vector3 movement = _move_direction * speed + new Vector3(0, _vertical_speed, 0);
+			Vector3 movement = _move_direction * _speed * _movement_mod + new Vector3(0, _vertical_speed, 0);
 			movement *= Time.deltaTime;
 
 			_unit_focus_cc.Move(movement);
 
-			_steps += _unit_focus_cc.velocity.magnitude/speed;
-		}
-
-		if(Input.GetKeyDown(KeyCode.G))
-		{
-			Debug.Log(string.Format("SqrMagnitude: Collective Distance  {0}", DistanceTraveledAlongPath()));
+			_steps += _unit_focus_cc.velocity.magnitude/_speed;
 		}
 
 		if(GM.instance.IsNextPlayersTurn())
@@ -205,13 +210,12 @@ public class UnitController : Photon.MonoBehaviour
 			return;
 		}
 
-		float v = Input.GetAxisRaw("Unit_Vertical");
+		float v    = Input.GetAxisRaw("Unit_Vertical");
 		float turn = Input.GetAxisRaw("Unit_Horizontal");
 
 		if(v < 0.0)
 			v = 0.0f;
 
-		//Vector3 target_direction = h * _unit_focus_cc.transform.right + v * _unit_focus_cc.transform.forward;
 		Vector3 target_direction = v * _unit_focus_cc.transform.forward;
 		if(_unit_focus_cc.GetComponent<BaseClass>().unit_status.status.Move)
 			_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.deltaTime, 0);
@@ -383,7 +387,7 @@ public class UnitController : Photon.MonoBehaviour
 	void Setup()
 	{		
 		max_travel_distance = _unit_focus_movement.max_distance;
-		speed               = _unit_focus_movement.speed;
+		_speed              = _unit_focus_movement.speed;
 		can_jump            = _unit_focus_movement.can_jump;
 		jump_height         = _unit_focus_movement.jump_height;
 		rotation_speed      = _unit_focus_movement.rotation_speed;
@@ -401,13 +405,29 @@ public class UnitController : Photon.MonoBehaviour
 		air_jumps 			= _unit_focus_movement.air_jumps;
 	}
 
+	public void mod_movement(MOVEMENT_AFFECT affect)
+	{
+		switch(affect)
+		{
+		case MOVEMENT_AFFECT.NORMAL:
+			_movement_mod = 1.0f;
+			break;
+		case MOVEMENT_AFFECT.HASTED:
+			_movement_mod = 1.5f;
+			break;
+		case MOVEMENT_AFFECT.SLOWED:
+			_movement_mod = 0.5f;
+			break;
+		}
+	}
+
 	/// <summary>
 	/// Sets the speed for both the unit controller and movementstat's speed
 	/// </summary>
-	/// <value>The mod_speed.</value>
-	public float mod_speed
+	/// <value>The speed.</value>
+	public float speed
 	{
-		set	{ speed = value; }
+		set	{ _speed = value; }
 	}
 
 	void ShutDown()
@@ -415,7 +435,7 @@ public class UnitController : Photon.MonoBehaviour
 		_unit_focus_movement = null;
 
 		max_travel_distance = 0;
-		speed               = 0;
+		_speed              = 0;
 		can_jump            = false; 
 		jump_height         = 0;
 		fall_speed          = 0;
