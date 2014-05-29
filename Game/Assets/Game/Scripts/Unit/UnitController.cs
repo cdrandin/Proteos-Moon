@@ -192,7 +192,7 @@ public class UnitController : Photon.MonoBehaviour
 
 			// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
 			Vector3 movement = _move_direction * _speed * _movement_mod + new Vector3(0, _vertical_speed, 0);
-			movement *= Time.deltaTime;
+			movement *= Time.fixedDeltaTime;
 
 			_unit_focus_cc.Move(movement);
 
@@ -218,7 +218,7 @@ public class UnitController : Photon.MonoBehaviour
 
 		Vector3 target_direction = v * _unit_focus_cc.transform.forward;
 		if(_unit_focus_cc.GetComponent<BaseClass>().unit_status.status.Move)
-			_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.deltaTime, 0);
+			_unit_focus_cc.transform.Rotate(0, turn * rotation_speed * Time.fixedDeltaTime, 0);
 
 		if(IsGrounded())
 		{
@@ -230,12 +230,10 @@ public class UnitController : Photon.MonoBehaviour
 
 	void ApplyGravity()
 	{
-		//_vertical_speed -= fall_speed * Time.deltaTime;
-		//*
 		if (IsGrounded())
 			_vertical_speed = 0.0f;
 		else
-			_vertical_speed -= fall_speed * Time.deltaTime;
+			_vertical_speed -= fall_speed * Time.fixedDeltaTime;
 		//	*/
 	}
 
