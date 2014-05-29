@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 1b4d67d084f3ba543b6f6902547302c1
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - gather_gui: {fileID: 2800000, guid: c2c4695ab299f9d4d8a869ea062b842f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
