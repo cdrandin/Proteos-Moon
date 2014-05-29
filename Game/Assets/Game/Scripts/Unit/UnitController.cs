@@ -191,7 +191,8 @@ public class UnitController : Photon.MonoBehaviour
 			Jump();
 
 			// Add up all vectors to result in the actions that took place, moving, gravity(i.e. falling), jumping
-			Vector3 movement = _move_direction * _speed * _movement_mod + new Vector3(0, _vertical_speed, 0);
+			Vector3 movement = _move_direction * _speed * _movement_mod;
+			movement.y += _vertical_speed;
 			movement *= Time.fixedDeltaTime;
 
 			_unit_focus_cc.Move(movement);
