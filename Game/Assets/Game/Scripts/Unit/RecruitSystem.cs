@@ -205,7 +205,7 @@ public class RecruitSystem : MonoBehaviour
 			// Spawn behind leader
 			//GameObject obj = PoolingSystem.instance.PS_Instantiate(unit, leader.position + summoning_radius *(-1 * leader.forward), leader.rotation);
 			GameObject obj = PhotonNetwork.Instantiate(unit.name, leader.position, leader.rotation, 0) as GameObject;
-			Debug.Log(string.Format("Creating unit: {0} for {1}", obj.name, GM.instance.photonView.owner));
+			Debug.Log(string.Format("Creating unit: {0} for {1}", obj.name, GM.instance.CurrentPlayer));
 
 			_summoned = true;
 			_obj_to_summon = obj;

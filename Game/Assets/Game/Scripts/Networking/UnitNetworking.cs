@@ -23,15 +23,35 @@ public class UnitNetworking : MonoBehaviour
 	
 	public float deltaMovement;
 	public float duration;
+
+	// Used for scout
+	private GameObject scout;
+	private GameObject wolf;
+
 	// Use this for initialization
 	void Start ()
 	{
+		if(!GM.instance.IsOn)
+			return;
+
+		scout = null;
+		wolf = null;
+
 		duration = 5.0f;
 		deltaMovement = 1.0f / duration;
 		
 		movementList = new List<MovementInfo>();
 		_my_photon_view = this.gameObject.GetPhotonView();
 		unitAnim = this.gameObject.GetComponentInChildren<AnimationTriggers>();
+
+		_my_photon_view.RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation);	
+		UnitType unit_type = this.gameObject.GetComponent<BaseClass>().unit_status.unit_type;
+		switch(unit_type)
+		{
+		case UnitType.Scout:
+			_my_photon_view.RPC("ScoutTransformed", PhotonTargets.OthersBuffered);
+			break;
+		}
 	}
 
 	public void UpdateUnitPosition()
@@ -44,7 +64,6 @@ public class UnitNetworking : MonoBehaviour
 		}
 	}
 
-	
 	//Call this when you are starting to move your character
 	public void StartStoringMovements(int whichPlayerAmI)
 	{
@@ -222,7 +241,46 @@ public class UnitNetworking : MonoBehaviour
 		StartCoroutine(SmoothRotation(rotation));
 
 	}
-	
+
+	[RPC]
+	void ScoutTransformed()
+	{
+		// Get reference to the wolf for that unit
+		if(wolf == null || scout == null)
+		{
+			foreach(Transform child in this.transform)
+			{
+				if(child.tag == "Scout_Wolf")
+				{
+					wolf = child.gameObject;
+				}
+				else
+				{
+					scout = child.gameObject;
+				}
+			}
+		}
+
+		// Now determine if we need to show it or not
+		bool transformed = !this._my_photon_view.isMine;
+
+		// Which transformation do we show?
+		// Show wolf
+		if(transformed)
+		{
+			wolf.SetActive(true);
+			scout.SetActive(false);
+			Debug.Log("WOLF");
+		}
+		// Show scout
+		else
+		{
+			wolf.SetActive(false);
+			scout.SetActive(true);
+			Debug.Log("SCOUT");
+		}
+	}
+
 	private IEnumerator SmoothRotation(Quaternion rotation){
 		
 		
