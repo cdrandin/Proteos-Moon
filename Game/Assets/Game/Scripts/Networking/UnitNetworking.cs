@@ -9,12 +9,11 @@ using System.Collections.Generic;
 
 public class UnitNetworking : MonoBehaviour
 {
-	private struct MovementInfo{
-	
+	private struct MovementInfo
+	{
 		public Quaternion currentRotation;
 		public Vector3 currentPosition;
 		public bool isInOtherPlayerFOV;
-	
 	}
 	
 	private List<MovementInfo> movementList;
@@ -30,9 +29,16 @@ public class UnitNetworking : MonoBehaviour
 	private GameObject _scout;
 	private GameObject _wolf;
 
+	private FloatingCombatText _combat_text;
+
 	public PhotonView my_photon_view
 	{
 		get { return _my_photon_view; }
+	}
+
+	void Awake()
+	{
+		_combat_text = GameObject.FindGameObjectWithTag("CombatText").GetComponent<FloatingCombatText>();
 	}
 
 	// Use this for initialization
@@ -331,11 +337,26 @@ public class UnitNetworking : MonoBehaviour
 	/// <param name="victim_id">Victim_id.</param>
 	/// <param name="inc_damage">Inc_damage.</param>
 	[RPC]
-	public void DealDamage(float inc_damage)
+	public void DealDamage(float inc_damage, PhotonMessageInfo mi)
 	{
 		BaseClass unit = this.gameObject.GetComponent<BaseClass>();
 		unit.DealDamage(inc_damage);
 		print ("increment damage " + inc_damage);
+
+		// Adjust position for text
+		Vector3 pos = this.gameObject.transform.position;
+		pos.y += 3.0f;
+		_combat_text.transform.position = pos;
+
+		// print out appropriate damage text w/ color
+		if(mi.photonView.isMine)
+		{
+			_combat_text.show_text(inc_damage, Color.red);
+		}
+		else
+		{
+			_combat_text.show_text(inc_damage, Color.yellow);
+		}
 	}
 	
 	[RPC]

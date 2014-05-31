@@ -23,7 +23,7 @@ public class CombatSystem : MonoBehaviour{
 	private List<GameObject> enemyList;
 
 	private BaseClass enemyBaseClass;
-			
+
 	private bool attacking = false, inCombat = false;
 	
 	
@@ -37,7 +37,7 @@ public class CombatSystem : MonoBehaviour{
 	public bool CheckIfAttacking(){
 		return attacking;
 	}
-	
+
 	public void Start () {
 		alpha = 1.0f;
 		instance = this;

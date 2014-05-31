@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MinimapGUI : MonoBehaviour {
+public class MinimapGUI : MonoBehaviour 
+{
 
 	public Texture navigation_icon;
 	private Camera _minimap_camera;
@@ -15,10 +16,5 @@ public class MinimapGUI : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-	}
-
-	void OnGUI()
-	{
-
 	}
 }
