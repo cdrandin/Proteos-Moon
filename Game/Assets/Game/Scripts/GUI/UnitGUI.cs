@@ -44,7 +44,8 @@ public class UnitGUI : MonoBehaviour {
 	
 	private RecruitSystem _rs;
 	private bool _reset_once;
-	
+	private GatherGUI _gather_gui;
+
 	private enum Style
 	{
 		
@@ -152,7 +153,8 @@ public class UnitGUI : MonoBehaviour {
 		_uc = GameObject.FindObjectOfType<UnitController>().GetComponent<UnitController>();
 		if(_uc == null)
 			Debug.LogError("Missing UnitController component");
-		
+
+		_gather_gui = GameObject.FindGameObjectWithTag("GameController").GetComponent<GatherGUI>();
 	}
 	
 	private IEnumerator InitializeProcite(){
@@ -730,7 +732,7 @@ public class UnitGUI : MonoBehaviour {
 		if (nearProcite != NearProcite()){
 			nearProcite = !nearProcite;
 		}
-		
+		_gather_gui.gui_on = nearProcite;
 		yield return null;
 		
 	}
