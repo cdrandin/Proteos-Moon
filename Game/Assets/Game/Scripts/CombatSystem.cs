@@ -204,6 +204,13 @@ public class CombatSystem : MonoBehaviour{
 		gui_method += FlashLabel;
 		gui_method += UnitEnemyBox;
 		attacking = true;
+
+		UnitNetworking unit_net = GM.instance.CurrentFocus.GetComponent<UnitNetworking>();
+		if(unit_net.unit_type == UnitType.Scout)
+		{
+			unit_net.my_photon_view.RPC("ScoutTransform", PhotonTargets.OthersBuffered, 0);
+			Debug.Log("GET OUT OF WOLF FORM");
+		}
 	}
 	
 	public bool AnyNearbyUnitsToAttack(GameObject focusUnit){

@@ -272,15 +272,12 @@ public class GM : Photon.MonoBehaviour
 	IEnumerator SetupPlayerContainer()
 	{
 		while(_total_players != Get_Leaders.Length && !isOtherPlayerOn){
-			Debug.Log ("Photon PlayerList Length: " + Get_Leaders.Length);
-			Debug.Log ("Our Game PlayerList Length: " + _total_players);
 			this.photonView.RPC("OtherPlayerIsOn", PhotonTargets.OthersBuffered);
 			yield return new WaitForSeconds(0.25f);
 		}
 	
 		foreach(GameObject leader in Get_Leaders)
 		{
-			Debug.Log(string.Format("Leader {0} is owned by {1}", leader.name, leader.GetPhotonView().owner.name));
 			leader.transform.parent = _player_container[leader.GetPhotonView().owner.ID-1].transform;
 			
 			UpdateFogOfWarComponents(leader);
@@ -295,8 +292,6 @@ public class GM : Photon.MonoBehaviour
 		{
 			Debug.LogError(string.Format("Missing parent object for {0}. Parent object should be tagged \"Player#\"", __leader.name));
 		}
-
-		Debug.Log(string.Format("{0} owns this room: {1}", (Player)PhotonNetwork.masterClient.ID-1, PhotonNetwork.room.name.ToString()));
 
 		//Generate Turn Sequence
 		//If you are the host send the turn order to the other player
@@ -659,7 +654,7 @@ public class GM : Photon.MonoBehaviour
 	/// <returns>The current focus.</returns>
 	public GameObject CurrentFocus
 	{
-		get { return _unit_controller.UnitControllerFocus; }
+		get { return(_unit_controller != null)? _unit_controller.UnitControllerFocus: null; }
 	}
 
 	/// <summary>

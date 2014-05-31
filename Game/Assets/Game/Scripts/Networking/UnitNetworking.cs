@@ -24,34 +24,42 @@ public class UnitNetworking : MonoBehaviour
 	public float deltaMovement;
 	public float duration;
 
+	private UnitType _unit_type;
+
 	// Used for scout
-	private GameObject scout;
-	private GameObject wolf;
+	private GameObject _scout;
+	private GameObject _wolf;
+
+	public PhotonView my_photon_view
+	{
+		get { return _my_photon_view; }
+	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		if(!GM.instance.IsOn)
-			return;
+		_scout          = null;
+		_wolf           = null;
 
-		scout = null;
-		wolf = null;
-
-		duration = 5.0f;
-		deltaMovement = 1.0f / duration;
+		duration        = 5.0f;
+		deltaMovement   = 1.0f / duration;
 		
-		movementList = new List<MovementInfo>();
+		movementList    = new List<MovementInfo>();
 		_my_photon_view = this.gameObject.GetPhotonView();
-		unitAnim = this.gameObject.GetComponentInChildren<AnimationTriggers>();
+		unitAnim        = this.gameObject.GetComponentInChildren<AnimationTriggers>();
+		_unit_type       = this.gameObject.GetComponent<BaseClass>().unit_status.unit_type;
 
 		_my_photon_view.RPC("UpdateUnitTransformation", PhotonTargets.OthersBuffered, this.gameObject.transform.position, this.gameObject.transform.rotation);	
-		UnitType unit_type = this.gameObject.GetComponent<BaseClass>().unit_status.unit_type;
-		switch(unit_type)
+		
+		if(unit_type == UnitType.Scout)
 		{
-		case UnitType.Scout:
-			_my_photon_view.RPC("ScoutTransformed", PhotonTargets.OthersBuffered);
-			break;
+			_my_photon_view.RPC("ScoutTransform", PhotonTargets.OthersBuffered, 1);
 		}
+	}
+
+	public UnitType unit_type
+	{
+		get { return _unit_type; }
 	}
 
 	public void UpdateUnitPosition()
@@ -242,42 +250,38 @@ public class UnitNetworking : MonoBehaviour
 
 	}
 
+	// Transform scout into a wolf.
 	[RPC]
-	void ScoutTransformed()
+	void ScoutTransform(int boolean)
 	{
 		// Get reference to the wolf for that unit
-		if(wolf == null || scout == null)
+		if(_wolf == null || _scout == null)
 		{
 			foreach(Transform child in this.transform)
 			{
 				if(child.tag == "Scout_Wolf")
 				{
-					wolf = child.gameObject;
+					_wolf = child.gameObject;
 				}
 				else
 				{
-					scout = child.gameObject;
+					_scout = child.gameObject;
 				}
 			}
 		}
 
-		// Now determine if we need to show it or not
-		bool transformed = !this._my_photon_view.isMine;
-
 		// Which transformation do we show?
 		// Show wolf
-		if(transformed)
+		if(boolean == 1 && !this.gameObject.GetPhotonView().isMine)
 		{
-			wolf.SetActive(true);
-			scout.SetActive(false);
-			Debug.Log("WOLF");
+			_wolf.SetActive(true);
+			_scout.SetActive(false);
 		}
 		// Show scout
 		else
 		{
-			wolf.SetActive(false);
-			scout.SetActive(true);
-			Debug.Log("SCOUT");
+			_wolf.SetActive(false);
+			_scout.SetActive(true);
 		}
 	}
 

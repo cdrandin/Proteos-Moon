@@ -141,7 +141,7 @@ public class Game : Photon.MonoBehaviour
 		
 		if(GM.instance.IsOn)
 		{
-			if(MakeButton(half, 150, "Next player's turn"))
+			if(MakeButton(half, 150, "End turn"))
 			{
 				GM.instance.NextPlayersTurn();
 			}
