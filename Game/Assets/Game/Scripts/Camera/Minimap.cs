@@ -6,9 +6,11 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof(MinimapGUI))]
 public class Minimap: MonoBehaviour 
 {
 	// The target we are following
+	public bool allow_rotation;
 	private GameObject target;
 	private float y_axis;
 
@@ -32,6 +34,9 @@ public class Minimap: MonoBehaviour
 		// Set the position of the camera on the x-z plane to:
 		transform.position = new Vector3(target.transform.position.x, y_axis, target.transform.position.z);
 
-		transform.rotation = Quaternion.Euler(transform.eulerAngles.x, target.transform.eulerAngles.y, transform.eulerAngles.z);
+		if(allow_rotation)
+		{
+			transform.rotation = Quaternion.Euler(transform.eulerAngles.x, target.transform.eulerAngles.y, transform.eulerAngles.z);
+		}
 	}
 }
