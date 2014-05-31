@@ -209,7 +209,6 @@ public class CombatSystem : MonoBehaviour{
 		if(unit_net.unit_type == UnitType.Scout)
 		{
 			unit_net.my_photon_view.RPC("ScoutTransform", PhotonTargets.OthersBuffered, 0);
-			Debug.Log("GET OUT OF WOLF FORM");
 		}
 	}
 	
@@ -317,7 +316,13 @@ public class CombatSystem : MonoBehaviour{
 			
 			focusUnit.GetComponentInChildren<AnimationTriggers>().AttackAnimation();
 			
-			
+			// Break wolf form for scout
+			UnitNetworking unit_net = enemyList[index].GetComponent<UnitNetworking>();
+			if(unit_net.unit_type == UnitType.Scout)
+			{
+				unit_net.my_photon_view.RPC("ScoutTransform", PhotonTargets.OthersBuffered, 0);
+			}
+
 			enemyList[index].GetComponent<PhotonView>().RPC("DamageAnimation", PhotonTargets.AllBuffered, damage);
 			
 			yield return new WaitForSeconds ( 1.0f );
